@@ -8,6 +8,10 @@ description: Getting started with the zMenu API
 
 zMenu provides a comprehensive API for developers to integrate with and extend the plugin's functionality. This guide will help you get started with the zMenu API.
 
+## Javadoc
+
+The complete API documentation is available at: [https://repo.groupez.dev/javadoc/releases/fr/maxlego08/menu/zmenu-api/1.1.0.6](https://repo.groupez.dev/javadoc/releases/fr/maxlego08/menu/zmenu-api/1.1.0.6)
+
 ## Maven Repository
 
 Add the GroupeZ repository to your `pom.xml`:

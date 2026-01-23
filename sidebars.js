@@ -71,6 +71,8 @@ const sidebars = {
         'development/api-introduction',
         'development/api-inventory',
         'development/api-buttons',
+        'development/api-paginate-button',
+        'development/api-menu-item-stack',
         'development/api-actions',
         'development/api-player-data',
         'development/api-events',

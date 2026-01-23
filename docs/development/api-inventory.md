@@ -152,11 +152,138 @@ boolean hasMenuOpen = manager.hasPlayerInventory(player);
 
 ## Working with Plugin-Specific Inventories
 
-If you're working with inventories from different plugins:
+When multiple plugins register inventories with the same name, you need to specify which plugin's inventory you want to access.
+
+### Get Inventory by Name and Plugin Instance
 
 ```java
-// Get inventory from specific plugin
+// Get inventory using your plugin instance
+Optional<Inventory> inventory = manager.getInventory(myPlugin, "shop");
+
+inventory.ifPresent(inv -> {
+    manager.openInventory(player, inv);
+});
+```
+
+### Get Inventory by Name and Plugin Name
+
+```java
+// Get inventory from a specific plugin by name
 Optional<Inventory> inventory = manager.getInventory("shop", "MyPlugin");
+
+// Example: Get inventory from zAuctionHouse plugin
+Optional<Inventory> auctionInventory = manager.getInventory("auction", "zAuctionHouse");
+
+auctionInventory.ifPresent(inv -> {
+    manager.openInventory(player, inv);
+});
+```
+
+### Complete Example: Plugin Integration
+
+```java
+public class InventoryService {
+
+    private final Plugin plugin;
+    private final InventoryManager inventoryManager;
+
+    public InventoryService(Plugin plugin, MenuPlugin menuPlugin) {
+        this.plugin = plugin;
+        this.inventoryManager = menuPlugin.getInventoryManager();
+    }
+
+    /**
+     * Opens an inventory registered by this plugin
+     */
+    public void openOwnInventory(Player player, String inventoryName) {
+        inventoryManager.getInventory(plugin, inventoryName).ifPresent(inv -> {
+            inventoryManager.openInventory(player, inv);
+        });
+    }
+
+    /**
+     * Opens an inventory registered by another plugin
+     */
+    public void openExternalInventory(Player player, String pluginName, String inventoryName) {
+        inventoryManager.getInventory(inventoryName, pluginName).ifPresent(inv -> {
+            inventoryManager.openInventory(player, inv);
+        });
+    }
+
+    /**
+     * Opens an inventory with pagination support
+     */
+    public void openInventoryAtPage(Player player, String inventoryName, int page) {
+        inventoryManager.getInventory(plugin, inventoryName).ifPresent(inv -> {
+            inventoryManager.openInventory(player, inv, page);
+        });
+    }
+
+    /**
+     * Opens an inventory preserving the navigation history
+     * Allows players to go back to previous inventories
+     */
+    public void openWithHistory(Player player, String inventoryName, int page) {
+        inventoryManager.getInventory(plugin, inventoryName).ifPresent(inv -> {
+            inventoryManager.openInventoryWithOldInventories(player, inv, page);
+        });
+    }
+}
+```
+
+### Using Enums for Inventory Names
+
+A common pattern is to define your inventory names in an enum:
+
+```java
+public enum Inventories {
+
+    MAIN_MENU("main-menu"),
+    SHOP("shop"),
+    SETTINGS("settings"),
+    CONFIRM("confirm");
+
+    private final String fileName;
+
+    Inventories(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+}
+```
+
+Then use it in your loader:
+
+```java
+public class MyInventoryLoader {
+
+    private final Plugin plugin;
+    private final InventoryManager inventoryManager;
+
+    public MyInventoryLoader(Plugin plugin, InventoryManager inventoryManager) {
+        this.plugin = plugin;
+        this.inventoryManager = inventoryManager;
+    }
+
+    public void openInventory(Player player, Inventories inventory) {
+        openInventory(player, inventory, 1);
+    }
+
+    public void openInventory(Player player, Inventories inventory, int page) {
+        var optional = inventoryManager.getInventory(plugin, inventory.getFileName());
+
+        if (optional.isEmpty()) {
+            plugin.getLogger().warning("Inventory not found: " + inventory.getFileName());
+            player.sendMessage("§cInventory not found!");
+            return;
+        }
+
+        inventoryManager.openInventoryWithOldInventories(player, optional.get(), page);
+    }
+}
 ```
 
 ## Refreshing Inventories
