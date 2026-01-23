@@ -111,43 +111,59 @@
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
   "homepage.tagline": {
-    "message": "Le plugin d'inventaire le plus puissant pour Minecraft",
+    "message": "Documentation des plugins Minecraft GroupeZ",
     "description": "The tagline displayed on the homepage"
   },
-  "homepage.getStarted": {
-    "message": "Commencer",
-    "description": "The Get Started button on the homepage"
-  },
   "homepage.title": {
-    "message": "Documentation",
+    "message": "Accueil",
     "description": "The homepage title"
   },
   "homepage.description": {
-    "message": "zMenu - Le plugin d'inventaire le plus puissant pour les serveurs Minecraft",
+    "message": "GroupeZ Wiki - Documentation pour les plugins Minecraft",
     "description": "The homepage meta description"
   },
-  "features.customizable.title": {
-    "message": "Hautement personnalisable",
-    "description": "Title for the customizable feature"
+  "homepage.selectPlugin": {
+    "message": "Sélectionnez un Plugin",
+    "description": "Section title for plugin selection"
   },
-  "features.customizable.description": {
-    "message": "Créez de superbes inventaires avec 9 types de boutons intégrés, plus de 28 types d'actions et un contrôle total sur chaque aspect de vos menus.",
-    "description": "Description for the customizable feature"
+  "homepage.viewDocs": {
+    "message": "Voir la Documentation",
+    "description": "Button text to view documentation"
   },
-  "features.configuration.title": {
-    "message": "Configuration facile",
-    "description": "Title for the configuration feature"
+  "plugin.zmenu.description": {
+    "message": "Le plugin d'inventaire le plus puissant pour Minecraft. Créez des GUIs personnalisés avec une configuration YAML.",
+    "description": "zMenu plugin description"
   },
-  "features.configuration.description": {
-    "message": "Configuration YAML simple avec support des patterns, des placeholders et du rechargement à chaud. Aucun code requis pour la plupart des cas d'utilisation.",
-    "description": "Description for the configuration feature"
+  "plugin.zauctionhouse.description": {
+    "message": "Un système d'hôtel des ventes complet avec catégories, enchères et intégration zMenu.",
+    "description": "zAuctionHouse plugin description"
   },
-  "features.integration.title": {
-    "message": "Intégration étendue",
-    "description": "Title for the integration feature"
+  "plugin.ztransaction.description": {
+    "message": "Suivez et gérez les transactions des joueurs avec un historique détaillé et des statistiques.",
+    "description": "zTransaction plugin description"
   },
-  "features.integration.description": {
-    "message": "Support complet de PlaceholderAPI, ItemsAdder, Oraxen, HeadDatabase, LuckPerms et bien d'autres plugins populaires.",
-    "description": "Description for the integration feature"
+  "homepage.feature1.title": {
+    "message": "Haute Performance",
+    "description": "Feature 1 title"
+  },
+  "homepage.feature1.description": {
+    "message": "Tous les plugins sont optimisés pour la performance, même sur les gros serveurs.",
+    "description": "Feature 1 description"
+  },
+  "homepage.feature2.title": {
+    "message": "Configuration Facile",
+    "description": "Feature 2 title"
+  },
+  "homepage.feature2.description": {
+    "message": "Configuration YAML simple avec une documentation complète.",
+    "description": "Feature 2 description"
+  },
+  "homepage.feature3.title": {
+    "message": "API Développeur",
+    "description": "Feature 3 title"
+  },
+  "homepage.feature3.description": {
+    "message": "APIs complètes pour étendre les fonctionnalités avec vos propres plugins.",
+    "description": "Feature 3 description"
   }
 }

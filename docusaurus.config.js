@@ -3,19 +3,19 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'zMenu',
-  tagline: 'The most powerful inventory plugin for Minecraft',
+  title: 'GroupeZ Wiki',
+  tagline: 'Documentation for GroupeZ Minecraft plugins',
   favicon: 'img/favicon.ico',
 
   future: {
     v4: true,
   },
 
-  url: 'https://zmenu.groupez.dev',
+  url: 'https://wiki.groupez.dev',
   baseUrl: '/',
 
-  organizationName: 'Maxlego08',
-  projectName: 'zMenu',
+  organizationName: 'GroupeZ-dev',
+  projectName: 'groupez-wiki',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -35,15 +35,48 @@ const config = {
     },
   },
 
+  plugins: [
+    // zMenu Documentation
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'zmenu',
+        path: 'plugins/zmenu/docs',
+        routeBasePath: 'zmenu',
+        sidebarPath: './sidebars/zmenu.js',
+        editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
+      },
+    ],
+    // zAuctionHouse Documentation
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'zauctionhouse',
+        path: 'plugins/zauctionhouse/docs',
+        routeBasePath: 'zauctionhouse',
+        sidebarPath: './sidebars/zauctionhouse.js',
+        editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
+      },
+    ],
+    // zTransaction Documentation
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'ztransaction',
+        path: 'plugins/ztransaction/docs',
+        routeBasePath: 'ztransaction',
+        sidebarPath: './sidebars/ztransaction.js',
+        editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/Maxlego08/zMenu/tree/master/docs/',
-        },
+        docs: false, // Disabled - using multi-instance plugins instead
         blog: false,
         theme: {
           customCss: './src/css/custom.css',
@@ -55,28 +88,42 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/zmenu-social-card.jpg',
+      image: 'img/groupez-social-card.jpg',
       colorMode: {
         defaultMode: 'dark',
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'zMenu',
+        title: 'GroupeZ Wiki',
         logo: {
-          alt: 'zMenu Logo',
+          alt: 'GroupeZ Logo',
           src: 'img/logo.svg',
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'docsSidebar',
+            type: 'dropdown',
+            label: 'Plugins',
             position: 'left',
-            label: 'Documentation',
-          },
-          {
-            href: 'https://www.spigotmc.org/resources/zmenu.110402/',
-            label: 'SpigotMC',
-            position: 'right',
+            items: [
+              {
+                type: 'docSidebar',
+                sidebarId: 'zmenuSidebar',
+                docsPluginId: 'zmenu',
+                label: 'zMenu',
+              },
+              {
+                type: 'docSidebar',
+                sidebarId: 'zauctionhouseSidebar',
+                docsPluginId: 'zauctionhouse',
+                label: 'zAuctionHouse',
+              },
+              {
+                type: 'docSidebar',
+                sidebarId: 'ztransactionSidebar',
+                docsPluginId: 'ztransaction',
+                label: 'zTransaction',
+              },
+            ],
           },
           {
             href: 'https://discord.groupez.dev',
@@ -84,7 +131,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/Maxlego08/zMenu',
+            href: 'https://github.com/GroupeZ-dev',
             label: 'GitHub',
             position: 'right',
           },
@@ -98,19 +145,19 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Documentation',
+            title: 'Plugins',
             items: [
               {
-                label: 'Getting Started',
-                to: '/docs/getting-started',
+                label: 'zMenu',
+                to: '/zmenu/getting-started',
               },
               {
-                label: 'Installation',
-                to: '/docs/installation',
+                label: 'zAuctionHouse',
+                to: '/zauctionhouse/introduction',
               },
               {
-                label: 'Configuration',
-                to: '/docs/configurations/informations',
+                label: 'zTransaction',
+                to: '/ztransaction/introduction',
               },
             ],
           },
@@ -123,7 +170,7 @@ const config = {
               },
               {
                 label: 'SpigotMC',
-                href: 'https://www.spigotmc.org/resources/zmenu.110402/',
+                href: 'https://www.spigotmc.org/members/maxlego08.45892/',
               },
             ],
           },
@@ -132,11 +179,11 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/Maxlego08/zMenu',
+                href: 'https://github.com/GroupeZ-dev',
               },
               {
-                label: 'zMenu+',
-                href: 'https://minecraft-inventory-builder.com/resources/zmenu-addon',
+                label: 'Minecraft Inventory Builder',
+                href: 'https://minecraft-inventory-builder.com',
               },
             ],
           },

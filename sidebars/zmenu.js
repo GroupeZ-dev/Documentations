@@ -1,6 +1,6 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
-  docsSidebar: [
+  zmenuSidebar: [
     'getting-started',
     'installation',
     'supported-plugins',
