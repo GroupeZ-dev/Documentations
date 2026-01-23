@@ -22,7 +22,17 @@ const config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'fr'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        htmlLang: 'en-US',
+      },
+      fr: {
+        label: 'Français',
+        htmlLang: 'fr-FR',
+      },
+    },
   },
 
   presets: [
@@ -76,6 +86,10 @@ const config = {
           {
             href: 'https://github.com/Maxlego08/zMenu',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'localeDropdown',
             position: 'right',
           },
         ],

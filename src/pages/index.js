@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
+import Translate, {translate} from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
@@ -15,12 +16,18 @@ function HomepageHeader() {
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
         </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <p className="hero__subtitle">
+          <Translate id="homepage.tagline" description="The tagline displayed on the homepage">
+            The most powerful inventory plugin for Minecraft
+          </Translate>
+        </p>
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
             to="/docs/getting-started">
-            Get Started
+            <Translate id="homepage.getStarted" description="The Get Started button on the homepage">
+              Get Started
+            </Translate>
           </Link>
         </div>
       </div>
@@ -32,8 +39,8 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="Documentation"
-      description="zMenu - The most powerful inventory plugin for Minecraft servers">
+      title={translate({id: 'homepage.title', message: 'Documentation'})}
+      description={translate({id: 'homepage.description', message: 'zMenu - The most powerful inventory plugin for Minecraft servers'})}>
       <HomepageHeader />
       <main>
         <HomepageFeatures />
