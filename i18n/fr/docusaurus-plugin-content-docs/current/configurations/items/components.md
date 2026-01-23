@@ -27,7 +27,7 @@ item:
 
 ---
 
-## attack-range
+## attack-range <span class="badge badge--danger">1.21.11+</span>
 
 Definit la portee d'attaque d'un item en blocs.
 
@@ -194,7 +194,7 @@ components:
 
 ---
 
-## break-sound <span class="badge badge--danger">1.21.2+</span>
+## break-sound <span class="badge badge--danger">1.21.5+</span>
 
 Definit le son joue lorsque l'item se casse.
 
@@ -412,7 +412,7 @@ components:
 
 ---
 
-## damage-resistant <span class="badge badge--danger">1.21.2+</span>
+## damage-resistant
 
 Rend l'item resistant a des types de degats specifiques.
 
@@ -432,7 +432,7 @@ components:
 
 ---
 
-## damage-type <span class="badge badge--danger">1.21.2+</span>
+## damage-type <span class="badge badge--danger">1.21.11+</span>
 
 Definit le type de degats infliges par l'item lorsqu'il est utilise comme arme.
 
@@ -678,7 +678,7 @@ components:
 
 ---
 
-## item-model <span class="badge badge--danger">1.21.4+</span>
+## item-model <span class="badge badge--danger">1.21.2+</span>
 
 Definit directement le modele de l'item.
 
@@ -717,7 +717,7 @@ components:
 
 ---
 
-## kinetic-weapon <span class="badge badge--danger">1.21.5+</span>
+## kinetic-weapon <span class="badge badge--danger">1.21.11+</span>
 
 Configure le comportement d'arme de type lance pour le combat monte.
 
@@ -860,7 +860,7 @@ components:
 
 ---
 
-## minimum-attack-charge <span class="badge badge--danger">1.21.2+</span>
+## minimum-attack-charge <span class="badge badge--danger">1.21.11+</span>
 
 Definit la charge d'attaque minimale requise pour infliger des degats.
 
@@ -873,7 +873,7 @@ components:
 
 ---
 
-## ominous-bottle-amplifier <span class="badge badge--danger">1.21+</span>
+## ominous-bottle-amplifier
 
 Definit l'amplificateur de Mauvais Presage pour les bouteilles inquietantes.
 
@@ -886,7 +886,7 @@ components:
 
 ---
 
-## piercing-weapon <span class="badge badge--danger">1.21.5+</span>
+## piercing-weapon <span class="badge badge--danger">1.21.11+</span>
 
 Configure le comportement d'arme de type trident.
 
@@ -953,7 +953,7 @@ components:
 
 ---
 
-## potion-duration-scale <span class="badge badge--danger">1.21.2+</span>
+## potion-duration-scale <span class="badge badge--danger">1.21.5+</span>
 
 Multiplie la duree des effets de potion.
 
@@ -966,7 +966,7 @@ components:
 
 ---
 
-## profile
+## profile <span class="badge badge--danger">1.21.9+</span>
 
 Configure l'apparence des tetes de joueur.
 
@@ -1084,7 +1084,7 @@ components:
 
 ---
 
-## swing-animation <span class="badge badge--danger">1.21.5+</span>
+## swing-animation <span class="badge badge--danger">1.21.11+</span>
 
 Configure l'animation de balancement lors de l'utilisation de l'item.
 
@@ -1146,7 +1146,7 @@ components:
 
 ---
 
-## tooltip-display <span class="badge badge--danger">1.21.2+</span>
+## tooltip-display <span class="badge badge--danger">1.21.5+</span>
 
 Controle la visibilite de l'infobulle.
 
@@ -1234,7 +1234,7 @@ components:
 
 ---
 
-## use-effects <span class="badge badge--danger">1.21.2+</span>
+## use-effects <span class="badge badge--danger">1.21.11+</span>
 
 Configure les effets lors de l'utilisation de l'item (comme la longue-vue).
 
@@ -1271,7 +1271,7 @@ components:
 
 ---
 
-## weapon <span class="badge badge--danger">1.21.2+</span>
+## weapon <span class="badge badge--danger">1.21.5+</span>
 
 Configure les proprietes de degats de l'arme.
 
@@ -1388,15 +1388,12 @@ item:
 | Composant | Version minimale |
 |-----------|------------------|
 | La plupart des composants | 1.20.5 |
-| `food`, `tool`, `container-loot`, `custom-data` | 1.20.5 |
-| `jukebox-playable`, `ominous-bottle-amplifier` | 1.21 |
-| `consumable`, `weapon`, `enchantable` | 1.21.2 |
-| `glider`, `use-cooldown`, `use-remainder`, `use-effects` | 1.21.2 |
-| `equippable`, `break-sound`, `damage-resistant`, `damage-type` | 1.21.2 |
-| `minimum-attack-charge`, `potion-duration-scale` | 1.21.2 |
-| `tooltip-display`, `tooltip-style` | 1.21.2 |
-| `item-model` | 1.21.4 |
-| `blocks-attacks`, `kinetic-weapon`, `piercing-weapon`, `swing-animation` | 1.21.5 |
+| `food`, `tool`, `container-loot`, `custom-data`, `damage-resistant`, `ominous-bottle-amplifier` | 1.20.5 |
+| `jukebox-playable` | 1.21 |
+| `consumable`, `enchantable`, `equippable`, `glider`, `item-model`, `tooltip-style`, `use-cooldown`, `use-remainder` | 1.21.2 |
+| `blocks-attacks`, `break-sound`, `potion-duration-scale`, `tooltip-display`, `weapon` | 1.21.5 |
+| `profile` | 1.21.9 |
+| `attack-range`, `damage-type`, `kinetic-weapon`, `minimum-attack-charge`, `piercing-weapon`, `swing-animation`, `use-effects` | 1.21.11 |
 
 ## Prochaines etapes
 
