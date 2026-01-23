@@ -25,6 +25,20 @@ This creates the `/shop` command that opens the `shop_menu` inventory.
 
 ## Configuration Options
 
+### Summary Table
+
+| Key | Type | Required | Description |
+|-----|------|----------|-------------|
+| `command` | String | Yes | Main command players will type |
+| `inventory` | String | Yes | Name of the inventory to open |
+| `permission` | String | No | Permission required to use the command |
+| `deny-message` | String | No | Message shown when user lacks permission |
+| `aliases` | List | No | Alternative command names |
+| `arguments` | List | No | Command arguments with validation |
+| `actions` | List | No | Actions executed when command runs |
+
+---
+
 ### command
 
 **Required.** The command players will type.
@@ -37,10 +51,13 @@ command: /shop
 
 ### inventory
 
-**Required.** The inventory to open when the command is used.
+**Required.** The inventory to open when the command is used. You can optionally prefix with the plugin name.
 
 ```yaml
 inventory: "shop"  # Opens inventories/shop.yml
+
+# Or with plugin prefix
+inventory: "MyPlugin:shop"  # Opens shop inventory from MyPlugin
 ```
 
 ---
@@ -51,6 +68,16 @@ Optional permission required to use the command.
 
 ```yaml
 permission: "myserver.shop"
+```
+
+---
+
+### deny-message
+
+Custom message displayed when a player doesn't have the required permission.
+
+```yaml
+deny-message: "&cYou don't have access to the shop!"
 ```
 
 ---
@@ -87,16 +114,58 @@ actions:
 
 ### arguments
 
-Define command arguments.
+Define command arguments with validation and auto-completion.
 
 ```yaml
 arguments:
   - name: "category"
-    required: false
+    isRequired: false
     auto-completion:
       - "weapons"
       - "armor"
       - "tools"
+```
+
+#### Argument Options
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `name` | String | **Required.** Identifier for the argument |
+| `type` | String | Validator type for the argument (see below) |
+| `isRequired` | Boolean | Whether the argument must be provided (default: `false`) |
+| `performMainAction` | Boolean | Whether to execute main command actions when this argument is used (default: `true`) |
+| `auto-completion` | List | Suggested values for tab-completion |
+| `actions` | List | Actions to execute specific to this argument |
+
+#### Argument Type Validators
+
+| Type | Description |
+|------|-------------|
+| `online-player` | Validates that the argument is an online player name |
+| `player` | Validates that the argument is a player (online or offline) |
+| `integer` | Validates that the argument is a whole number |
+| `double` | Validates that the argument is a decimal number |
+| `boolean` | Validates that the argument is true/false |
+| `material` | Validates that the argument is a valid Minecraft material |
+| `world` | Validates that the argument is a valid world name |
+| `entity-type` | Validates that the argument is a valid entity type |
+| `location` | Validates that the argument is a valid location |
+
+#### Argument Example with Type Validation
+
+```yaml
+arguments:
+  - name: "player"
+    type: online-player
+    isRequired: true
+    auto-completion: "@players"
+  - name: "amount"
+    type: integer
+    isRequired: false
+    auto-completion:
+      - "1"
+      - "10"
+      - "64"
 ```
 
 ## Examples
@@ -109,6 +178,7 @@ commands:
     command: /shop
     inventory: shop
     permission: "server.shop"
+    deny-message: "&cYou need to be a member to access the shop!"
     aliases:
       - store
       - market
@@ -122,6 +192,7 @@ commands:
     command: /warps
     inventory: warps_menu
     permission: "server.warps"
+    deny-message: "&cYou don't have permission to use warps!"
     aliases:
       - warp
       - teleport
@@ -221,7 +292,8 @@ commands:
     permission: "server.admin"
     arguments:
       - name: "player"
-        required: true
+        type: online-player
+        isRequired: true
         auto-completion: "@players"  # Auto-complete with online players
 ```
 
@@ -234,14 +306,66 @@ commands:
     inventory: category_menu
     arguments:
       - name: "type"
-        required: true
+        isRequired: true
         auto-completion:
           - "weapons"
           - "armor"
           - "tools"
           - "food"
       - name: "page"
-        required: false
+        type: integer
+        isRequired: false
+        auto-completion:
+          - "1"
+          - "2"
+          - "3"
+```
+
+### Arguments with performMainAction
+
+Use `performMainAction: false` to create commands that process arguments without opening the main inventory.
+
+```yaml
+commands:
+  pay:
+    command: /pay
+    inventory: payment_confirm
+    arguments:
+      - name: "player"
+        type: online-player
+        isRequired: true
+        auto-completion: "@players"
+      - name: "amount"
+        type: integer
+        isRequired: true
+        performMainAction: true  # Opens inventory after validation
+        actions:
+          - type: message
+            messages:
+              - "&aPreparing payment of %args_1% to %args_0%..."
+```
+
+### Arguments with Specific Actions
+
+Each argument can have its own actions that execute when that argument is provided.
+
+```yaml
+commands:
+  teleport:
+    command: /tp
+    permission: "server.teleport"
+    arguments:
+      - name: "player"
+        type: online-player
+        isRequired: true
+        performMainAction: false  # Don't open inventory
+        actions:
+          - type: console_command
+            commands:
+              - "tp %player% %args_0%"
+          - type: message
+            messages:
+              - "&aTeleported to %args_0%!"
 ```
 
 ## Conflicting Commands
