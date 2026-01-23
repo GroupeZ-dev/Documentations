@@ -3,25 +3,17 @@ const sidebars = {
   zauctionhouseSidebar: [
     'introduction',
     'installation',
+    'commands-permissions',
     {
       type: 'category',
       label: 'Configuration',
       collapsed: false,
       items: [
         'configuration/config',
+        'configuration/economies',
         'configuration/categories',
-        'configuration/inventories',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Features',
-      collapsed: false,
-      items: [
-        'features/selling',
-        'features/buying',
-        'features/bidding',
-        'features/expired-items',
+        'configuration/buttons',
+        'configuration/placeholders',
       ],
     },
     {
@@ -30,7 +22,7 @@ const sidebars = {
       collapsed: true,
       items: [
         'development/api',
-        'development/events',
+        'development/custom-economy',
       ],
     },
   ],
