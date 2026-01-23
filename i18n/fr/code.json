@@ -110,8 +110,12 @@
     "message": "Dernière mise à jour{atDate}{byUser}",
     "description": "The sentence used to display when a page has been last updated, and by who"
   },
+  "homepage.badge": {
+    "message": "Plugins Minecraft Open Source",
+    "description": "Badge text in hero section"
+  },
   "homepage.tagline": {
-    "message": "Documentation des plugins Minecraft GroupeZ",
+    "message": "Créez des expériences Minecraft puissantes avec notre suite de plugins premium. Des inventaires personnalisés aux systèmes d'enchères complets.",
     "description": "The tagline displayed on the homepage"
   },
   "homepage.title": {
@@ -122,13 +126,57 @@
     "message": "GroupeZ Wiki - Documentation pour les plugins Minecraft",
     "description": "The homepage meta description"
   },
+  "homepage.getStarted": {
+    "message": "Commencer",
+    "description": "Get started button text"
+  },
+  "homepage.joinDiscord": {
+    "message": "Rejoindre Discord",
+    "description": "Join Discord button text"
+  },
+  "homepage.pluginsLabel": {
+    "message": "Nos Plugins",
+    "description": "Label for plugins section"
+  },
   "homepage.selectPlugin": {
-    "message": "Sélectionnez un Plugin",
+    "message": "Choisissez Votre Plugin",
     "description": "Section title for plugin selection"
+  },
+  "homepage.pluginsSubtitle": {
+    "message": "Chaque plugin est conçu pour fonctionner parfaitement ensemble ou séparément",
+    "description": "Subtitle for plugins section"
   },
   "homepage.viewDocs": {
     "message": "Voir la Documentation",
     "description": "Button text to view documentation"
+  },
+  "homepage.whyLabel": {
+    "message": "Pourquoi GroupeZ ?",
+    "description": "Label for features section"
+  },
+  "homepage.featuresTitle": {
+    "message": "Conçus pour la Performance",
+    "description": "Features section title"
+  },
+  "homepage.featuresSubtitle": {
+    "message": "Nos plugins sont utilisés par des milliers de serveurs Minecraft dans le monde",
+    "description": "Features section subtitle"
+  },
+  "homepage.ctaTitle": {
+    "message": "Prêt à Commencer ?",
+    "description": "CTA section title"
+  },
+  "homepage.ctaDescription": {
+    "message": "Rejoignez notre communauté Discord pour du support, des mises à jour et pour échanger avec d'autres propriétaires de serveurs.",
+    "description": "CTA section description"
+  },
+  "homepage.readDocs": {
+    "message": "Lire la Documentation",
+    "description": "Read docs button text"
+  },
+  "homepage.getSupport": {
+    "message": "Obtenir du Support",
+    "description": "Get support button text"
   },
   "plugin.zmenu.description": {
     "message": "Le plugin d'inventaire le plus puissant pour Minecraft. Créez des GUIs personnalisés avec une configuration YAML.",
@@ -165,5 +213,13 @@
   "homepage.feature3.description": {
     "message": "APIs complètes pour étendre les fonctionnalités avec vos propres plugins.",
     "description": "Feature 3 description"
+  },
+  "homepage.feature4.title": {
+    "message": "Communauté Active",
+    "description": "Feature 4 title"
+  },
+  "homepage.feature4.description": {
+    "message": "Rejoignez des milliers de propriétaires de serveurs sur Discord pour du support et des idées.",
+    "description": "Feature 4 description"
   }
 }
