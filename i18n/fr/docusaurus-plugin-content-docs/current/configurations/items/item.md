@@ -396,6 +396,26 @@ item:
 
 ---
 
+## Components (1.20.5+)
+
+A partir de Minecraft 1.20.5, les items utilisent un nouveau systeme de composants. zMenu fournit un support complet pour plus de 40 types de composants incluant food, tools, weapons, attributes, et plus encore.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  components:
+    custom-name: "&6&lEpee Legendaire"
+    rarity: EPIC
+    enchantments:
+      - enchantment: sharpness
+        level: 5
+    fire-resistant: true
+```
+
+Pour la reference complete des composants, consultez la page dediee [Components](./components).
+
+---
+
 ## Exemples complets
 
 ### Item simple

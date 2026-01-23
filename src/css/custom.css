@@ -28,3 +28,49 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Version badges for components documentation */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 0.25rem;
+  margin-left: 0.5rem;
+}
+
+.badge--danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.badge--warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.badge--success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.badge--info {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.badge--primary {
+  background-color: var(--ifm-color-primary);
+  color: #fff;
+}
+
+/* Ensure badges in headings don't affect line height */
+h3 .badge {
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}

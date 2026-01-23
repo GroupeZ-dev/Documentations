@@ -28,6 +28,7 @@ const sidebars = {
           collapsed: true,
           items: [
             'configurations/items/item',
+            'configurations/items/components',
           ],
         },
         {

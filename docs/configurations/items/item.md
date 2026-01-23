@@ -396,6 +396,26 @@ item:
 
 ---
 
+## Components (1.20.5+)
+
+Starting from Minecraft 1.20.5, items use a new component system. zMenu provides full support for over 40+ component types including food, tools, weapons, attributes, and more.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  components:
+    custom-name: "&6&lLegendary Sword"
+    rarity: EPIC
+    enchantments:
+      - enchantment: sharpness
+        level: 5
+    fire-resistant: true
+```
+
+For the complete components reference, see the dedicated [Components](./components) page.
+
+---
+
 ## Complete Examples
 
 ### Simple Item
