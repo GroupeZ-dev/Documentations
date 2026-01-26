@@ -100,7 +100,7 @@ This creates a simple 27-slot inventory with a diamond in the center that sends 
 
 ## Supported Minecraft Versions
 
-zMenu supports Minecraft versions **1.8 to 1.21.x** and works with:
+zMenu supports Minecraft versions **1.19 to 1.21+** and works with:
 - Spigot
 - Paper (recommended)
 - Purpur
@@ -119,5 +119,6 @@ Ready to get started? Follow these steps:
 ## Getting Help
 
 - **Discord**: Join our [Discord server](https://discord.groupez.dev) for support
-- **SpigotMC**: Visit the [SpigotMC resource page](https://www.spigotmc.org/resources/zmenu.110402/)
+- **Modrinth**: Download from [Modrinth](https://modrinth.com/plugin/zmenu)
 - **GitHub**: Report issues on [GitHub](https://github.com/Maxlego08/zMenu)
+- **Dev Builds**: Get development versions in the `#builds` channel on Discord

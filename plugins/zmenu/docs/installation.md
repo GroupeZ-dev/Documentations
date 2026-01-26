@@ -12,23 +12,26 @@ This guide will walk you through the process of installing zMenu on your Minecra
 
 Before installing zMenu, make sure your server meets the following requirements:
 
-| Requirement | Minimum Version |
-|-------------|-----------------|
-| Minecraft | 1.8.x or higher |
-| Java | Java 8+ (Java 21 recommended) |
+| Requirement | Version |
+|-------------|---------|
+| Minecraft | 1.19 to 1.21+ |
+| Java | **Java 21** (required) |
 | Server Software | Spigot, Paper, Purpur, Pufferfish, or Folia |
 
 :::tip Recommended Setup
-For the best experience, we recommend using **Paper** or **Purpur** with **Java 21**. This enables MiniMessage formatting support and provides better performance.
+For the best experience, we recommend using **Paper** or **Purpur**. This enables MiniMessage formatting support and provides better performance.
 :::
 
 ## Download
 
 You can download zMenu from the following sources:
 
-- **SpigotMC** (Primary): [https://www.spigotmc.org/resources/zmenu.110402/](https://www.spigotmc.org/resources/zmenu.110402/)
-- **GitHub Releases**: [https://github.com/Maxlego08/zMenu/releases](https://github.com/Maxlego08/zMenu/releases)
-- **Modrinth**: [https://modrinth.com/plugin/zmenu](https://modrinth.com/plugin/zmenu)
+- **Modrinth** (Primary): [https://modrinth.com/plugin/zmenu](https://modrinth.com/plugin/zmenu)
+- **SpigotMC**: [https://www.spigotmc.org/resources/zmenu.110402/](https://www.spigotmc.org/resources/zmenu.110402/)
+
+:::info Development Builds
+Get the latest development versions in the `#builds` channel on [Discord](https://discord.groupez.dev).
+:::
 
 ## Installation Steps
 

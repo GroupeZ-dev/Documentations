@@ -124,6 +124,17 @@ const config = {
         editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
       },
     ],
+    // zItems Documentation
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'zitems',
+        path: 'plugins/zitems/docs',
+        routeBasePath: 'zitems',
+        sidebarPath: './sidebars/zitems.js',
+        editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
+      },
+    ],
     // zItemStacker Documentation
     [
       '@docusaurus/plugin-content-docs',
@@ -132,6 +143,17 @@ const config = {
         path: 'plugins/zitemstacker/docs',
         routeBasePath: 'zitemstacker',
         sidebarPath: './sidebars/zitemstacker.js',
+        editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
+      },
+    ],
+    // zJobs Documentation
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'zjobs',
+        path: 'plugins/zjobs/docs',
+        routeBasePath: 'zjobs',
+        sidebarPath: './sidebars/zjobs.js',
         editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
       },
     ],
@@ -220,6 +242,17 @@ const config = {
         path: 'plugins/superiorskyblock-zmenu/docs',
         routeBasePath: 'superiorskyblock-zmenu',
         sidebarPath: './sidebars/superiorskyblock-zmenu.js',
+        editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
+      },
+    ],
+    // CurrenciesAPI Documentation
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'currenciesapi',
+        path: 'plugins/currenciesapi/docs',
+        routeBasePath: 'currenciesapi',
+        sidebarPath: './sidebars/currenciesapi.js',
         editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
       },
     ],
@@ -336,9 +369,21 @@ const config = {
               },
               {
                 type: 'docSidebar',
+                sidebarId: 'zitemsSidebar',
+                docsPluginId: 'zitems',
+                label: 'zItems',
+              },
+              {
+                type: 'docSidebar',
                 sidebarId: 'zitemstackerSidebar',
                 docsPluginId: 'zitemstacker',
                 label: 'zItemStacker',
+              },
+              {
+                type: 'docSidebar',
+                sidebarId: 'zjobsSidebar',
+                docsPluginId: 'zjobs',
+                label: 'zJobs',
               },
               {
                 type: 'docSidebar',
@@ -400,6 +445,12 @@ const config = {
                 sidebarId: 'superiorskyblockZmenuSidebar',
                 docsPluginId: 'superiorskyblock-zmenu',
                 label: 'SuperiorSkyBlock-zMenu',
+              },
+              {
+                type: 'docSidebar',
+                sidebarId: 'currenciesapiSidebar',
+                docsPluginId: 'currenciesapi',
+                label: 'CurrenciesAPI',
               },
               {
                 type: 'docSidebar',

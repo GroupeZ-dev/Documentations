@@ -55,7 +55,6 @@ name: "&6&lMy Server Menu"
 - Supports color codes (`&6`, `&#FF5500`)
 - Supports MiniMessage (if enabled)
 - Supports placeholders (`%player%`, `%page%`)
-- Maximum 32 characters (Minecraft limitation)
 
 **Pagination placeholders:**
 ```yaml
@@ -95,26 +94,26 @@ This is useful for temporarily disabling an inventory without deleting the file.
 
 ---
 
-### updateInterval
+### update-interval
 
-Automatically refresh the inventory at a regular interval (in ticks).
+Automatically refresh the inventory at a regular interval (in milliseconds).
 
 ```yaml
-update-interval: 20  # Refresh every second (20 ticks)
+update-interval: 1000  # Refresh every second (1000ms)
 ```
 
 :::info
-20 ticks = 1 second. Use this for inventories with dynamic placeholders that need frequent updates.
+1000ms = 1 second. Use this for inventories with dynamic placeholders that need frequent updates.
 :::
 
 ---
 
-### clearInventory
+### clear-inventory
 
 Clear the player's inventory while the menu is open and restore it when closed.
 
 ```yaml
-clearInventory: true
+clear-inventory: true
 ```
 
 **Use cases:**
@@ -123,12 +122,12 @@ clearInventory: true
 
 ---
 
-### fillItem
+### fill-item
 
 Define an item to fill all empty slots.
 
 ```yaml
-fillItem:
+fill-item:
   material: BLACK_STAINED_GLASS_PANE
   name: "&8"
 ```
@@ -237,12 +236,12 @@ open-requirement:
 
 ---
 
-### openWithItem
+### open-with-item
 
 Define an item that opens this inventory when held and clicked.
 
 ```yaml
-openWithItem:
+open-with-item:
   item:
     material: COMPASS
     name: "&6&lMenu"
@@ -272,12 +271,12 @@ Give players the item with:
 
 ---
 
-### openActions
+### open-actions
 
 Actions to execute when the inventory opens.
 
 ```yaml
-openActions:
+open-actions:
   - type: sound
     sound: ENTITY_EXPERIENCE_ORB_PICKUP
   - type: message
@@ -287,12 +286,12 @@ openActions:
 
 ---
 
-### closeActions
+### close-actions
 
 Actions to execute when the inventory closes.
 
 ```yaml
-closeActions:
+close-actions:
   - type: message
     messages:
       - "&7Thanks for visiting!"
@@ -325,9 +324,9 @@ items:
 name: "&6&lServer Menu &7(&f%page%&7/&f%maxPage%&7)"
 size: 54
 enable: true
-update-interval: 40
+update-interval: 2000  # 2 seconds
 
-fillItem:
+fill-item:
   material: GRAY_STAINED_GLASS_PANE
   name: "&8"
 
@@ -343,12 +342,12 @@ view-requirement:
           messages:
             - "&cYou don't have permission to use this menu!"
 
-openActions:
+open-actions:
   - type: sound
     sound: BLOCK_CHEST_OPEN
     pitch: 1.2
 
-closeActions:
+close-actions:
   - type: sound
     sound: BLOCK_CHEST_CLOSE
 

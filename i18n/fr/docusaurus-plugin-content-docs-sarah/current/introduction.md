@@ -2,6 +2,9 @@
 
 Sarah est une puissante bibliothèque Java conçue pour simplifier la gestion des bases de données avec une API intuitive et élégante. Que vous développiez un plugin Minecraft ou toute autre application Java, Sarah fournit une abstraction propre du SQL brut tout en conservant un contrôle total sur vos opérations de base de données.
 
+- **GitHub** : [https://github.com/GroupeZ-dev/Sarah](https://github.com/GroupeZ-dev/Sarah)
+- **Dépôt Maven** : [https://repo.groupez.dev/#/releases/fr/maxlego08/sarah/sarah](https://repo.groupez.dev/#/releases/fr/maxlego08/sarah/sarah)
+
 ## Qu'est-ce que Sarah ?
 
 Sarah est une bibliothèque de gestion de base de données qui fournit :

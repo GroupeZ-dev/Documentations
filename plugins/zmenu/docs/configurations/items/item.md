@@ -23,28 +23,56 @@ item:
 
 ### material
 
-The Minecraft material type for the item.
+The material type for the item. zMenu supports vanilla Minecraft materials and many custom item plugins.
 
 ```yaml
 item:
   material: DIAMOND_SWORD
 ```
 
-**Vanilla Materials:**
-Use any Minecraft material name: `DIAMOND`, `STONE`, `PLAYER_HEAD`, etc.
+#### Material Loaders
 
-**Custom Item Plugins:**
+zMenu supports many material sources through its loader system:
 
-| Plugin | Format | Example |
-|--------|--------|---------|
-| ItemsAdder | `ITEMSADDER:namespace:id` | `ITEMSADDER:my_items:ruby` |
-| Oraxen | `ORAXEN:id` | `ORAXEN:emerald_sword` |
-| HeadDatabase | `HEAD_DATABASE:id` | `HEAD_DATABASE:12345` |
-| Slimefun | `SLIMEFUN:id` | `SLIMEFUN:ELECTRIC_MOTOR` |
-| MythicMobs | `MYTHICMOBS:id` | `MYTHICMOBS:SkeletonSword` |
-| ExecutableItems | `EXECUTABLE_ITEM:id` | `EXECUTABLE_ITEM:magic_wand` |
-| BreweryX | `BREWERYX:recipe` | `BREWERYX:beer` |
-| zHead | `ZHEAD:category:name` | `ZHEAD:animals:cat` |
+| Plugin | Syntax | Price | Link                                                   |
+|--------|--------|-------|--------------------------------------------------------|
+| **Bukkit** | `STONE`, `DIAMOND_SWORD` | Built-in | Vanilla Minecraft                                      |
+| **PlaceholderAPI** | `%your_placeholder_material%` | Free | [SpigotMC](https://www.spigotmc.org/resources/6245/)   |
+| **Armor (slot)** | `armor:HEAD`, `armor:CHEST`, `armor:LEGS`, `armor:FEET` | Built-in | Player's equipped armor                                |
+| **zHead** | `zhd:<id>` | Free | [Polymart](https://polymart.org/resource/2070)         |
+| **MagicCosmetics** | `magic_cosmetics:HAT`, `magic_cosmetics:BAG`, etc. | Paid | [Polymart](https://polymart.org/product/6981/magic-cosmetics-gui-non-animated)                                           |
+| **HMCCosmetics** | `hmc_cosmetics:<type>`, `hmc_cosmetics:<type>-<player>` | Paid | [SpigotMC](https://www.spigotmc.org/resources/100107/) |
+| **zItems** | `zitems:<id>` | Paid | [SpigotMC](https://www.spigotmc.org/resources/118638/) |
+| **HeadDatabase** | `hdb:<id>` | Paid | [SpigotMC](https://www.spigotmc.org/resources/14280/)  |
+| **Oraxen** | `oraxen:<item name>` | Paid | [SpigotMC](https://www.spigotmc.org/resources/72448/)  |
+| **ItemsAdder** | `itemsadder:<item name>` | Paid | [SpigotMC](https://www.spigotmc.org/resources/73355/)  |
+| **SlimeFun** | `slimefun:<item name>` | Free | [GitHub](https://github.com/Slimefun/Slimefun4)        |
+| **Nova** | `nova:<item/block name>` | Free | [GitHub](https://github.com/xenondevs/Nova)            |
+| **Base64** | `base64:<item in base64>` | Built-in | Import items as base64 string                          |
+| **PlayerHead** | `playerHead:<player name>`, `playerHead:%player%` | Built-in | Display a player's head                                |
+| **CraftEngine** | `craftengine:<item id>` | Free | [Modrinth](https://modrinth.com/plugin/craftengine)    |
+| **ExecutableItems** | `ei:<item id>` | Paid | [SpigotMC](https://www.spigotmc.org/resources/83070/)  |
+| **ExecutableBlocks** | `eb:<block id>` | Paid | [SpigotMC](https://www.spigotmc.org/resources/94696/)  |
+| **Nexo** | `nexo:<item id>` | Paid | [MCModels](https://mcmodels.net/products/13172/nexo)   |
+
+**Examples:**
+
+```yaml
+# Vanilla material
+material: DIAMOND_SWORD
+
+# Player head
+material: "playerHead:%player%"
+
+# Custom head from zHead
+material: "zhd:123"
+
+# ItemsAdder custom item
+material: "itemsadder:my_namespace:ruby_gem"
+
+# Oraxen custom item
+material: "oraxen:amethyst_sword"
+```
 
 ---
 
@@ -62,6 +90,33 @@ item:
 - Supports color codes (`&6`, `&#FF5500`)
 - Supports MiniMessage (if enabled)
 - Supports placeholders (`%player%`)
+
+---
+
+### translated-name
+
+Use Minecraft's built-in translation system for item names.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  translated-name: "item.minecraft.diamond_sword"
+```
+
+This displays the item name in the player's client language.
+
+---
+
+### center-name
+
+Center the item name in the tooltip.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lRare Item"
+  center-name: true
+```
 
 ---
 
@@ -83,6 +138,56 @@ item:
 ```
 
 Each list item is a new line. Empty strings (`""`) create blank lines.
+
+---
+
+### lore-type
+
+Define how the lore should be processed.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  lore:
+    - "&7A powerful weapon"
+  lore-type: LEGACY  # or MINIMESSAGE, NONE
+```
+
+**Available Types:**
+
+| Type | Description |
+|------|-------------|
+| `LEGACY` | Use legacy color codes (`&6`, `&l`) |
+| `MINIMESSAGE` | Use MiniMessage format |
+| `NONE` | No color processing |
+
+---
+
+### translated-lore
+
+Use Minecraft's built-in translation system for lore lines.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  translated-lore:
+    - "item.minecraft.diamond_sword.desc"
+```
+
+---
+
+### center-lore
+
+Center all lore lines in the tooltip.
+
+```yaml
+item:
+  material: DIAMOND
+  lore:
+    - "&7A rare gem"
+    - "&7Worth a fortune"
+  center-lore: true
+```
 
 ---
 
@@ -118,17 +223,51 @@ item:
 
 ---
 
-### customModelData
+### model-id
 
 Set custom model data for resource pack integration.
 
 ```yaml
 item:
   material: DIAMOND
-  customModelData: 12345
+  model-id: 12345
 ```
 
 This allows resource packs to display custom models for items.
+
+---
+
+### item-model <span class="badge badge--danger">1.21+</span>
+
+Set the item model using a namespaced key (Minecraft 1.21+).
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  item-model: "minecraft:custom/my_sword"
+```
+
+Or with a custom namespace:
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  item-model: "mypack:weapons/legendary_blade"
+```
+
+---
+
+### equipped-model <span class="badge badge--danger">1.21+</span>
+
+Set the model displayed when the item is equipped (Minecraft 1.21+).
+
+```yaml
+item:
+  material: DIAMOND_CHESTPLATE
+  equipped-model: "minecraft:custom/my_armor"
+```
+
+This is used for armor and equipment that changes appearance when worn.
 
 ---
 
@@ -145,14 +284,13 @@ item:
 
 ---
 
-### playerHead
+### player-head
 
-Display a player's head. Only works with `material: PLAYER_HEAD`.
+Display a player's head. The material is automatically set to `PLAYER_HEAD`.
 
 ```yaml
 item:
-  material: PLAYER_HEAD
-  playerHead: "%player%"  # Current player's head
+  player-head: "%player%"  # Current player's head
   name: "&a%player%'s Head"
 ```
 
@@ -160,9 +298,12 @@ You can also use a specific player name:
 
 ```yaml
 item:
-  material: PLAYER_HEAD
-  playerHead: "Notch"
+  player-head: "Notch"
 ```
+
+:::tip
+You don't need to specify `material: PLAYER_HEAD` when using `player-head`. The plugin handles this automatically.
+:::
 
 ---
 
@@ -235,168 +376,7 @@ item:
 
 ---
 
-### unbreakable
-
-Make the item unbreakable.
-
-```yaml
-item:
-  material: DIAMOND_PICKAXE
-  unbreakable: true
-  flags:
-    - HIDE_UNBREAKABLE
-```
-
----
-
-### attributes
-
-Add attribute modifiers to the item.
-
-```yaml
-item:
-  material: DIAMOND_SWORD
-  attributes:
-    - slot: HAND
-      type: ATTACK_DAMAGE
-      operation: ADD_NUMBER
-      value: 10
-    - slot: HAND
-      type: ATTACK_SPEED
-      operation: ADD_NUMBER
-      value: -2.4
-```
-
-**Attribute Types:**
-- `ATTACK_DAMAGE` - Attack damage bonus
-- `ATTACK_SPEED` - Attack speed modifier
-- `MAX_HEALTH` - Maximum health
-- `MOVEMENT_SPEED` - Movement speed
-- `ARMOR` - Armor points
-- `ARMOR_TOUGHNESS` - Armor toughness
-- `KNOCKBACK_RESISTANCE` - Knockback resistance
-- `LUCK` - Luck modifier
-
-**Operations:**
-- `ADD_NUMBER` - Add flat value
-- `ADD_SCALAR` - Add percentage
-- `MULTIPLY_SCALAR_1` - Multiply by (1 + value)
-
-**Slots:**
-- `HAND` - Main hand
-- `OFF_HAND` - Off hand
-- `HEAD`, `CHEST`, `LEGS`, `FEET` - Armor slots
-
----
-
-### potion
-
-Configure potion items.
-
-```yaml
-item:
-  material: POTION
-  potion:
-    type: SPEED
-    duration: 600    # In ticks (600 = 30 seconds)
-    amplifier: 1     # Level 2 (0 = level 1)
-    extended: false
-    upgraded: false
-```
-
-For splash or lingering potions:
-
-```yaml
-item:
-  material: SPLASH_POTION
-  potion:
-    type: HEALING
-    amplifier: 1
-```
-
----
-
-### banner
-
-Configure banner patterns.
-
-```yaml
-item:
-  material: WHITE_BANNER
-  banner:
-    base_color: WHITE
-    patterns:
-      - type: STRIPE_BOTTOM
-        color: RED
-      - type: STRIPE_TOP
-        color: BLUE
-      - type: CROSS
-        color: BLACK
-```
-
-**Pattern Types:**
-`STRIPE_BOTTOM`, `STRIPE_TOP`, `STRIPE_LEFT`, `STRIPE_RIGHT`, `STRIPE_CENTER`, `STRIPE_MIDDLE`, `STRIPE_DOWNRIGHT`, `STRIPE_DOWNLEFT`, `CROSS`, `STRAIGHT_CROSS`, `DIAGONAL_LEFT`, `DIAGONAL_RIGHT`, `DIAGONAL_LEFT_MIRROR`, `DIAGONAL_RIGHT_MIRROR`, `CIRCLE_MIDDLE`, `RHOMBUS_MIDDLE`, `HALF_VERTICAL`, `HALF_HORIZONTAL`, `TRIANGLE_BOTTOM`, `TRIANGLE_TOP`, `TRIANGLES_BOTTOM`, `TRIANGLES_TOP`, `BORDER`, `CURLY_BORDER`, `GRADIENT`, `GRADIENT_UP`, `BRICKS`, `GLOBE`, `CREEPER`, `SKULL`, `FLOWER`, `MOJANG`, `PIGLIN`
-
----
-
-### firework
-
-Configure firework rockets.
-
-```yaml
-item:
-  material: FIREWORK_ROCKET
-  firework:
-    power: 2
-    effects:
-      - type: BALL_LARGE
-        colors:
-          - RED
-          - ORANGE
-        fade_colors:
-          - YELLOW
-        trail: true
-        flicker: true
-```
-
-**Firework Types:**
-`BALL`, `BALL_LARGE`, `BURST`, `CREEPER`, `STAR`
-
----
-
-### leather-color
-
-Color leather armor.
-
-```yaml
-item:
-  material: LEATHER_CHESTPLATE
-  leather-color: "#FF5555"  # Red color
-```
-
-Or use RGB values:
-
-```yaml
-item:
-  material: LEATHER_BOOTS
-  leather-color: "255,85,85"
-```
-
----
-
-### modelId
-
-Alternative to customModelData (same functionality).
-
-```yaml
-item:
-  material: PAPER
-  modelId: 1001
-```
-
----
-
-## Components (1.20.5+)
+## Components <span class="badge badge--danger">1.20.5+</span>
 
 Starting from Minecraft 1.20.5, items use a new component system. zMenu provides full support for over 40+ component types including food, tools, weapons, attributes, and more.
 
@@ -432,7 +412,17 @@ item:
 
 ```yaml
 item:
-  material: PLAYER_HEAD
+  player-head: "%player%"
+  name: "&6&lPlayer Profile"
+  lore:
+    - "&7Click to view!"
+  glow: true
+```
+
+Or with a custom texture URL:
+
+```yaml
+item:
   url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA..."
   name: "&6&lTreasure Chest"
   lore:
@@ -468,8 +458,7 @@ item:
 
 ```yaml
 item:
-  material: PLAYER_HEAD
-  playerHead: "%player%"
+  player-head: "%player%"
   name: "&6&l%player%'s Profile"
   lore:
     - "&8&m─────────────────"
@@ -484,21 +473,6 @@ item:
     - "&8&m─────────────────"
 ```
 
-### Potion Item
-
-```yaml
-item:
-  material: SPLASH_POTION
-  name: "&d&lHealing Potion"
-  lore:
-    - "&7Instantly heals 4 hearts"
-  potion:
-    type: INSTANT_HEAL
-    amplifier: 1
-  flags:
-    - HIDE_POTION_EFFECTS
-```
-
 ### Custom Model Item
 
 ```yaml
@@ -507,7 +481,7 @@ item:
   name: "&e&lMagic Wand"
   lore:
     - "&7Cast powerful spells!"
-  customModelData: 10001
+  model-id: 10001
   glow: true
 ```
 

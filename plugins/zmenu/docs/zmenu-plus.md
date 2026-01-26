@@ -12,6 +12,10 @@ description: The premium addon for zMenu with advanced features
 
 zMenu+ extends the capabilities of the free zMenu plugin with additional features designed for server owners who want even more control and functionality in their menus.
 
+:::tip Support Free Development
+By purchasing zMenu+, you help keep zMenu **free for everyone**. Your support enables continued development and improvements to the free version that thousands of servers rely on.
+:::
+
 ## Features
 
 zMenu+ includes exclusive features that are not available in the free version:
@@ -32,7 +36,8 @@ Get access to new features before they're released in the free version.
 
 You can purchase zMenu+ from:
 
-**Minecraft Inventory Builder**: [https://minecraft-inventory-builder.com/resources/zmenu-addon](https://minecraft-inventory-builder.com/resources/zmenu-addon)
+- **Minecraft Inventory Builder**: [https://minecraft-inventory-builder.com/resources/zmenu-addon](https://minecraft-inventory-builder.com/resources/zmenu-addon)
+- **SpigotMC**: [https://www.spigotmc.org/resources/zmenu-premium-zmenu-addon.115533/](https://www.spigotmc.org/resources/zmenu-premium-zmenu-addon.115533/)
 
 ## Installation
 

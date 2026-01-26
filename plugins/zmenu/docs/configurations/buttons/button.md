@@ -35,15 +35,7 @@ items:
     slot: 13
 ```
 
-**Slot Layout (54-slot inventory):**
-```
-Row 1:  0  1  2  3  4  5  6  7  8
-Row 2:  9 10 11 12 13 14 15 16 17
-Row 3: 18 19 20 21 22 23 24 25 26
-Row 4: 27 28 29 30 31 32 33 34 35
-Row 5: 36 37 38 39 40 41 42 43 44
-Row 6: 45 46 47 48 49 50 51 52 53
-```
+<img src="/img/slots.png" alt="Description" className="centered-image" />
 
 ---
 
@@ -101,6 +93,9 @@ items:
 | `JUMP` | Jumps to a specific page |
 | `MAIN_MENU` | Opens the main menu |
 | `SWITCH` | Displays different items based on conditions |
+| `PAGINATION` | Display paginated content (zMenu+ only) |
+| `DYNAMIC_PAGINATION` | Dynamic pagination with variable content (zMenu+ only) |
+| `INPUT` | Input button for player input (zMenu+ only) |
 
 See [Button Types](./types/none) for detailed documentation on each type.
 
@@ -235,6 +230,55 @@ items:
 
 ---
 
+### update
+
+Enable automatic updates for this button (refreshes placeholders and dynamic content).
+
+```yaml
+items:
+  dynamic-info:
+    slot: 0
+    update: true
+    item:
+      material: PAPER
+      name: "&e&lBalance: &a$%vault_eco_balance%"
+```
+
+---
+
+### update-master-button
+
+Update the master button when this button is updated. Useful for SWITCH buttons.
+
+```yaml
+items:
+  child-button:
+    slot: 0
+    update-master-button: true
+    item:
+      material: DIAMOND
+```
+
+---
+
+### use-cache
+
+Enable caching for this button to improve performance.
+
+```yaml
+items:
+  cached-button:
+    slot: 0
+    use-cache: true
+    item:
+      material: DIAMOND
+      name: "&bCached Item"
+```
+
+When enabled, the button's item will be cached and reused instead of being rebuilt each time.
+
+---
+
 ### is-permanent
 
 Display this button on all pages of a paginated inventory.
@@ -305,6 +349,14 @@ items:
 
 ### open-link
 
+:::warning Deprecated
+This configuration is deprecated. Use MiniMessage format to open links instead:
+```yaml
+item:
+  name: "<click:open_url:'https://discord.gg/myserver'>&9&lClick to join Discord</click>"
+```
+:::
+
 Open a URL or prompt the player to join a Discord server.
 
 ```yaml
@@ -322,6 +374,189 @@ items:
 
 ---
 
+### permission
+
+Require a permission to see the button. If the player doesn't have the permission, the button will be hidden.
+
+```yaml
+items:
+  admin-button:
+    slot: 0
+    permission: "server.admin"
+    item:
+      material: COMMAND_BLOCK
+      name: "&c&lAdmin Panel"
+```
+
+You can also use a list of permissions (all required):
+
+```yaml
+items:
+  special-button:
+    slot: 0
+    permission:
+      - "server.vip"
+      - "server.premium"
+    item:
+      material: DIAMOND_BLOCK
+      name: "&b&lVIP Premium"
+```
+
+---
+
+### or-permission
+
+Require at least one of the listed permissions to see the button.
+
+```yaml
+items:
+  staff-button:
+    slot: 0
+    or-permission:
+      - "server.admin"
+      - "server.moderator"
+      - "server.helper"
+    item:
+      material: BOOK
+      name: "&6&lStaff Menu"
+```
+
+---
+
+### placeholder
+
+Check a placeholder value to determine if the button should be displayed.
+
+```yaml
+items:
+  level-button:
+    slot: 0
+    placeholder: "%player_level%"
+    action: ">="
+    value: "10"
+    item:
+      material: EXPERIENCE_BOTTLE
+      name: "&a&lLevel 10+ Reward"
+```
+
+**Available Actions:**
+
+| Action | Description |
+|--------|-------------|
+| `==` | Equals |
+| `!=` | Not equals |
+| `>=` | Greater than or equals |
+| `>` | Greater than |
+| `<=` | Less than or equals |
+| `<` | Less than |
+| `equals_string` | String equals |
+| `equalsIgnoreCase` | String equals (ignore case) |
+
+---
+
+### commands
+
+:::tip Recommendation
+It is recommended to use [Actions](./actions) instead of `commands` for more flexibility and features.
+:::
+
+Execute commands as the player when the button is clicked.
+
+```yaml
+items:
+  warp-button:
+    slot: 0
+    commands:
+      - "warp spawn"
+      - "say I teleported!"
+    item:
+      material: ENDER_PEARL
+      name: "&a&lTeleport to Spawn"
+```
+
+You can also specify commands for specific click types:
+
+```yaml
+items:
+  multi-command:
+    slot: 0
+    left-commands:
+      - "warp spawn"
+    right-commands:
+      - "warp hub"
+    item:
+      material: COMPASS
+```
+
+---
+
+### console-commands
+
+:::tip Recommendation
+It is recommended to use [Actions](./actions) with `type: console-command` instead for more flexibility.
+:::
+
+Execute commands as the console when the button is clicked.
+
+```yaml
+items:
+  reward-button:
+    slot: 0
+    console-commands:
+      - "give %player% diamond 64"
+      - "eco give %player% 1000"
+    item:
+      material: CHEST
+      name: "&6&lClaim Reward"
+```
+
+You can also use permission-based console commands:
+
+```yaml
+items:
+  vip-reward:
+    slot: 0
+    console-permission: "server.vip"
+    console-permission-commands:
+      - "give %player% diamond_block 16"
+    item:
+      material: DIAMOND_BLOCK
+      name: "&b&lVIP Reward"
+```
+
+---
+
+### error-item
+
+:::warning zMenu+ Required
+This feature requires [zMenu+](../../zmenu-plus) to work.
+:::
+
+Display an alternative item when an error occurs (e.g., requirements not met).
+
+```yaml
+items:
+  purchase-button:
+    slot: 0
+    click-requirement:
+      requirements:
+        - type: placeholder
+          value: "%vault_eco_balance%"
+          compare: ">="
+          number: 1000
+    item:
+      material: DIAMOND
+      name: "&b&lPurchase - $1000"
+    error-item:
+      material: BARRIER
+      name: "&c&lInsufficient Funds"
+      lore:
+        - "&7You need $1000"
+        - "&7Your balance: &c$%vault_eco_balance%"
+```
+
+---
+
 ### player-head
 
 Display the current player's head.
@@ -335,6 +570,31 @@ items:
       material: PLAYER_HEAD
       name: "&a&l%player%"
 ```
+
+---
+
+### player-inventory
+
+Place the item in the player's inventory instead of displaying it in the menu.
+
+:::warning zMenu+ Required
+This feature requires [zMenu+](../../zmenu-plus) to work.
+:::
+
+```yaml
+items:
+  reward-item:
+    slot: 0
+    player-inventory: true
+    item:
+      material: DIAMOND_SWORD
+      name: "&6&lReward Sword"
+      enchantments:
+        - type: SHARPNESS
+          level: 5
+```
+
+When `player-inventory` is `true`, the item will be placed directly in the player's inventory at the corresponding slot instead of being displayed in the GUI.
 
 ---
 
