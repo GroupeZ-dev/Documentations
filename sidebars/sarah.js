@@ -2,6 +2,25 @@
 const sidebars = {
   sarahSidebar: [
     'introduction',
+    'installation',
+    {
+      type: 'category',
+      label: 'Getting Started',
+      collapsed: false,
+      items: [
+        'connections',
+        'migrations',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Usage',
+      collapsed: false,
+      items: [
+        'queries',
+        'schema-builder',
+      ],
+    },
   ],
 };
 

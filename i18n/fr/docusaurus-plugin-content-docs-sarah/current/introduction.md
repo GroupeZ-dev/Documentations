@@ -1,20 +1,20 @@
 # Introduction
 
-Sarah is a powerful Java library designed to simplify database management with an intuitive and elegant API. Whether you're building a Minecraft plugin or any Java application, Sarah provides a clean abstraction over raw SQL while maintaining full control over your database operations.
+Sarah est une puissante bibliothèque Java conçue pour simplifier la gestion des bases de données avec une API intuitive et élégante. Que vous développiez un plugin Minecraft ou toute autre application Java, Sarah fournit une abstraction propre du SQL brut tout en conservant un contrôle total sur vos opérations de base de données.
 
-## What is Sarah?
+## Qu'est-ce que Sarah ?
 
-Sarah is a database management library that provides:
+Sarah est une bibliothèque de gestion de base de données qui fournit :
 
-- **Simple Database Connections** - Support for MySQL, MariaDB, and SQLite with minimal configuration
-- **Migration System** - Automatic schema versioning and migration tracking
-- **Query Builder** - Fluent API for building type-safe SQL queries
-- **Object Mapping** - Automatic mapping between database rows and Java objects (DTOs)
-- **Connection Pooling** - Built-in HikariCP support for optimal performance
+- **Connexions Simples** - Support pour MySQL, MariaDB et SQLite avec une configuration minimale
+- **Système de Migrations** - Versioning automatique du schéma et suivi des migrations
+- **Constructeur de Requêtes** - API fluide pour construire des requêtes SQL typées
+- **Mapping d'Objets** - Mapping automatique entre les lignes de la base de données et les objets Java (DTOs)
+- **Pool de Connexions** - Support HikariCP intégré pour des performances optimales
 
-## Why Use Sarah?
+## Pourquoi Utiliser Sarah ?
 
-### Before Sarah (Raw JDBC)
+### Avant Sarah (JDBC Brut)
 
 ```java
 try (Connection conn = dataSource.getConnection();
@@ -32,7 +32,7 @@ try (Connection conn = dataSource.getConnection();
 }
 ```
 
-### With Sarah
+### Avec Sarah
 
 ```java
 requestHelper.upsert("users", schema -> {
@@ -42,21 +42,21 @@ requestHelper.upsert("users", schema -> {
 });
 ```
 
-## Key Features
+## Fonctionnalités Clés
 
-### Multi-Database Support
+### Support Multi-Base de Données
 
-Sarah supports the most popular database systems:
+Sarah supporte les systèmes de base de données les plus populaires :
 
-| Database | Class | Use Case |
-|----------|-------|----------|
-| MySQL | `MySqlConnection` | Production servers |
-| MariaDB | `MariaDbConnection` | Production servers |
-| SQLite | `SqliteConnection` | Development, small projects |
+| Base de Données | Classe | Cas d'Usage |
+|-----------------|--------|-------------|
+| MySQL | `MySqlConnection` | Serveurs de production |
+| MariaDB | `MariaDbConnection` | Serveurs de production |
+| SQLite | `SqliteConnection` | Développement, petits projets |
 
-### Migration System
+### Système de Migrations
 
-Keep your database schema versioned and organized:
+Gardez votre schéma de base de données versionné et organisé :
 
 ```java
 public class CreateUsersTable extends Migration {
@@ -72,31 +72,31 @@ public class CreateUsersTable extends Migration {
 }
 ```
 
-### Fluent Query Builder
+### Constructeur de Requêtes Fluide
 
-Write readable and maintainable database queries:
+Écrivez des requêtes de base de données lisibles et maintenables :
 
 ```java
-// Select with conditions
+// Sélection avec conditions
 List<User> users = requestHelper.select("users", User.class, table -> {
     table.where("play_time", ">", 1000);
     table.orderByDesc("play_time");
 });
 
-// Insert with automatic mapping
+// Insertion avec mapping automatique
 requestHelper.insert("users", User.class, newUser);
 
-// Delete with conditions
+// Suppression avec conditions
 requestHelper.delete("users", table -> {
     table.where("uuid", playerUuid);
 });
 ```
 
-## Quick Start
+## Démarrage Rapide
 
-### 1. Add Dependency
+### 1. Ajouter la Dépendance
 
-**Gradle:**
+**Gradle :**
 ```groovy
 repositories {
     maven { url 'https://repo.groupez.dev/releases' }
@@ -107,7 +107,7 @@ dependencies {
 }
 ```
 
-**Maven:**
+**Maven :**
 ```xml
 <repository>
     <id>groupez</id>
@@ -121,7 +121,7 @@ dependencies {
 </dependency>
 ```
 
-### 2. Create a Connection
+### 2. Créer une Connexion
 
 ```java
 // MySQL
@@ -130,31 +130,31 @@ DatabaseConfiguration config = DatabaseConfiguration.create(
 );
 DatabaseConnection connection = new MySqlConnection(config);
 
-// Or SQLite
+// Ou SQLite
 DatabaseConnection connection = new SqliteConnection(
     DatabaseConfiguration.sqlite(true),
     myPluginFolder
 );
 ```
 
-### 3. Start Using Sarah
+### 3. Commencer à Utiliser Sarah
 
 ```java
 RequestHelper helper = new RequestHelper(connection, logger);
 
-// Insert data
+// Insérer des données
 helper.insert("players", schema -> {
     schema.uuid("uuid", playerUuid);
     schema.string("name", playerName);
 });
 
-// Query data
+// Requêter des données
 List<PlayerDTO> players = helper.selectAll("players", PlayerDTO.class);
 ```
 
-## Next Steps
+## Prochaines Étapes
 
-- [Installation](installation) - Detailed setup instructions
-- [Database Connections](connections) - Configure your database
-- [Migrations](migrations) - Manage your schema
-- [Queries](queries) - Learn the query builder
+- [Installation](installation) - Instructions de configuration détaillées
+- [Connexions aux Bases de Données](connections) - Configurer votre base de données
+- [Migrations](migrations) - Gérer votre schéma
+- [Requêtes](queries) - Apprendre le constructeur de requêtes
