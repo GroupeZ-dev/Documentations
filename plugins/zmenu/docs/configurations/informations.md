@@ -101,8 +101,6 @@ Using the `&` symbol:
 
 ### Hex Colors
 
-Using hex color codes (1.16+):
-
 ```yaml
 name: "&#FF5555This is red &#55FF55and this is green"
 ```

@@ -59,7 +59,7 @@ name: "&6&lMy Server Menu"
 
 **Pagination placeholders:**
 ```yaml
-name: "&6Shop &7(Page %page%/%maxPage%)"
+name: "&6Shop &7(Page %page%/%max-page%)"
 ```
 
 ---
@@ -100,7 +100,7 @@ This is useful for temporarily disabling an inventory without deleting the file.
 Automatically refresh the inventory at a regular interval (in ticks).
 
 ```yaml
-updateInterval: 20  # Refresh every second (20 ticks)
+update-interval: 20  # Refresh every second (20 ticks)
 ```
 
 :::info
@@ -325,7 +325,7 @@ items:
 name: "&6&lServer Menu &7(&f%page%&7/&f%maxPage%&7)"
 size: 54
 enable: true
-updateInterval: 40
+update-interval: 40
 
 fillItem:
   material: GRAY_STAINED_GLASS_PANE

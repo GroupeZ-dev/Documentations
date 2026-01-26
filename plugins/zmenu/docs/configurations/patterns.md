@@ -117,7 +117,7 @@ items:
     is-permanent: true
     item:
       material: PAPER
-      name: "&e&lPage %page%/%maxPage%"
+      name: "&e&lPage %page%/%max-page%"
 
   nav-next:
     type: NEXT

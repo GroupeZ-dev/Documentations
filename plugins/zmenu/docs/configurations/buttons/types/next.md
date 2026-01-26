@@ -100,7 +100,7 @@ items:
     is-permanent: true
     item:
       material: PAPER
-      name: "&e&lPage %page%/%maxPage%"
+      name: "&e&lPage %page%/%max-page%"
       lore:
         - "&7Navigate through pages"
 
@@ -140,7 +140,7 @@ items:
 ## Complete Paginated Inventory Example
 
 ```yaml
-name: "&6&lShop &8(&7Page %page%/%maxPage%&8)"
+name: "&6&lShop &8(&7Page %page%/%max-page%&8)"
 size: 54
 enable: true
 
@@ -199,7 +199,7 @@ items:
     is-permanent: true
     item:
       material: BOOK
-      name: "&e&lPage %page%/%maxPage%"
+      name: "&e&lPage %page%/%max-page%"
 
   close:
     slot: 50

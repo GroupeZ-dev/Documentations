@@ -59,7 +59,7 @@ name: "&6&lMon Menu Serveur"
 
 **Placeholders de pagination :**
 ```yaml
-name: "&6Boutique &7(Page %page%/%maxPage%)"
+name: "&6Boutique &7(Page %page%/%max-page%)"
 ```
 
 ---
@@ -100,7 +100,7 @@ C'est utile pour desactiver temporairement un inventaire sans supprimer le fichi
 Rafraichir automatiquement l'inventaire a intervalle regulier (en ticks).
 
 ```yaml
-updateInterval: 20  # Rafraichir chaque seconde (20 ticks)
+update-interval: 20  # Rafraichir chaque seconde (20 ticks)
 ```
 
 :::info
@@ -325,7 +325,7 @@ items:
 name: "&6&lMenu Serveur &7(&f%page%&7/&f%maxPage%&7)"
 size: 54
 enable: true
-updateInterval: 40
+update-interval: 40
 
 fillItem:
   material: GRAY_STAINED_GLASS_PANE

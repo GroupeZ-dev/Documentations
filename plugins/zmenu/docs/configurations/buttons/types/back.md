@@ -186,7 +186,7 @@ items:
     slot: 49
     item:
       material: BOOK
-      name: "&e&lPage %page%/%maxPage%"
+      name: "&e&lPage %page%/%max-page%"
 
   home:
     type: HOME
