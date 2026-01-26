@@ -58,17 +58,6 @@ const config = {
         editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
       },
     ],
-    // zTransaction Documentation
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'ztransaction',
-        path: 'plugins/ztransaction/docs',
-        routeBasePath: 'ztransaction',
-        sidebarPath: './sidebars/ztransaction.js',
-        editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
-      },
-    ],
   ],
 
   presets: [
@@ -117,12 +106,6 @@ const config = {
                 docsPluginId: 'zauctionhouse',
                 label: 'zAuctionHouse',
               },
-              {
-                type: 'docSidebar',
-                sidebarId: 'ztransactionSidebar',
-                docsPluginId: 'ztransaction',
-                label: 'zTransaction',
-              },
             ],
           },
           {
@@ -154,10 +137,6 @@ const config = {
               {
                 label: 'zAuctionHouse',
                 to: '/zauctionhouse/introduction',
-              },
-              {
-                label: 'zTransaction',
-                to: '/ztransaction/introduction',
               },
             ],
           },
