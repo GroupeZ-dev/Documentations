@@ -102,7 +102,7 @@ const config = {
         items: [
           {
             type: 'dropdown',
-            label: 'Plugins',
+            label: 'Projets',
             position: 'left',
             items: [
               {
