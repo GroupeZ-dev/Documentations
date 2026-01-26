@@ -1,0 +1,26 @@
+{
+  "title": {
+    "message": "zMenu",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Logo zMenu",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Documentation": {
+    "message": "Documentation",
+    "description": "Navbar item with label Documentation"
+  },
+  "item.label.SpigotMC": {
+    "message": "SpigotMC",
+    "description": "Navbar item with label SpigotMC"
+  },
+  "item.label.Discord": {
+    "message": "Discord",
+    "description": "Navbar item with label Discord"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}

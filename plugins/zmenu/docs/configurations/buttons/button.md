@@ -1,0 +1,816 @@
+---
+sidebar_position: 1
+title: Button Configuration
+description: Complete reference for button configuration in zMenu
+---
+
+# Button Configuration
+
+Buttons are the interactive elements in your inventories. This page documents all available button configuration options.
+
+## Basic Structure
+
+```yaml
+items:
+  my-button:
+    slot: 0
+    item:
+      material: DIAMOND
+      name: "&bMy Button"
+    actions:
+      - type: message
+        messages:
+          - "&aYou clicked the button!"
+```
+
+## Configuration Options
+
+### slot
+
+The position of the button in the inventory. Slots are numbered from 0.
+
+```yaml
+items:
+  button:
+    slot: 13
+```
+
+<img src="/img/slots.png" alt="Description" className="centered-image" />
+
+---
+
+### slots
+
+Use multiple slots for the same button.
+
+```yaml
+items:
+  border:
+    slots:
+      - 0
+      - 1
+      - 2
+      - 8
+    item:
+      material: BLACK_STAINED_GLASS_PANE
+```
+
+**Range Syntax:**
+```yaml
+items:
+  row:
+    slots:
+      - 0-8      # Slots 0 through 8
+      - 45-53    # Slots 45 through 53
+```
+
+---
+
+### type
+
+The button type determines special behavior. Default is `NONE`.
+
+```yaml
+items:
+  back:
+    slot: 45
+    type: BACK
+    item:
+      material: ARROW
+      name: "&c&lBack"
+```
+
+**Available Types:**
+
+| Type | Description |
+|------|-------------|
+| `NONE` | Default button with no special behavior |
+| `INVENTORY` | Opens another inventory |
+| `BACK` | Returns to the previous inventory |
+| `HOME` | Returns to the first inventory in history |
+| `NEXT` | Goes to the next page |
+| `PREVIOUS` | Goes to the previous page |
+| `JUMP` | Jumps to a specific page |
+| `MAIN_MENU` | Opens the main menu |
+| `SWITCH` | Displays different items based on conditions |
+| `PAGINATION` | Display paginated content (zMenu+ only) |
+| `DYNAMIC_PAGINATION` | Dynamic pagination with variable content (zMenu+ only) |
+| `INPUT` | Input button for player input (zMenu+ only) |
+
+See [Button Types](./types/none) for detailed documentation on each type.
+
+---
+
+### item
+
+The visual appearance of the button. See [Item Configuration](../items/item) for all options.
+
+```yaml
+items:
+  button:
+    slot: 0
+    item:
+      material: DIAMOND
+      name: "&b&lDiamond"
+      lore:
+        - "&7A shiny diamond"
+```
+
+---
+
+### actions
+
+Actions executed when the button is clicked.
+
+```yaml
+items:
+  button:
+    slot: 0
+    item:
+      material: EMERALD
+    actions:
+      - type: message
+        messages:
+          - "&aYou clicked!"
+      - type: sound
+        sound: UI_BUTTON_CLICK
+```
+
+See [Actions](./actions) for all available action types.
+
+---
+
+### sound
+
+Play a sound when the button is clicked (shorthand).
+
+```yaml
+items:
+  button:
+    slot: 0
+    sound: UI_BUTTON_CLICK
+    item:
+      material: DIAMOND
+```
+
+For more control, use the sound action instead:
+
+```yaml
+actions:
+  - type: sound
+    sound: UI_BUTTON_CLICK
+    pitch: 1.5
+    volume: 0.5
+```
+
+---
+
+### messages
+
+Send messages when clicked (shorthand).
+
+```yaml
+items:
+  button:
+    slot: 0
+    messages:
+      - "&aHello!"
+      - "&7Welcome to the server."
+    item:
+      material: BOOK
+```
+
+---
+
+### close-inventory
+
+Close the inventory when the button is clicked.
+
+```yaml
+items:
+  close:
+    slot: 49
+    close-inventory: true
+    item:
+      material: BARRIER
+      name: "&c&lClose"
+```
+
+---
+
+### refresh-on-click
+
+Refresh the entire inventory after clicking.
+
+```yaml
+items:
+  refresh:
+    slot: 0
+    refresh-on-click: true
+    item:
+      material: COMPASS
+      name: "&e&lRefresh"
+```
+
+---
+
+### update-on-click
+
+Update only this button after clicking.
+
+```yaml
+items:
+  toggle:
+    slot: 0
+    update-on-click: true
+    item:
+      material: LEVER
+      name: "&e&lToggle"
+```
+
+---
+
+### update
+
+Enable automatic updates for this button (refreshes placeholders and dynamic content).
+
+```yaml
+items:
+  dynamic-info:
+    slot: 0
+    update: true
+    item:
+      material: PAPER
+      name: "&e&lBalance: &a$%vault_eco_balance%"
+```
+
+---
+
+### update-master-button
+
+Update the master button when this button is updated. Useful for SWITCH buttons.
+
+```yaml
+items:
+  child-button:
+    slot: 0
+    update-master-button: true
+    item:
+      material: DIAMOND
+```
+
+---
+
+### use-cache
+
+Enable caching for this button to improve performance.
+
+```yaml
+items:
+  cached-button:
+    slot: 0
+    use-cache: true
+    item:
+      material: DIAMOND
+      name: "&bCached Item"
+```
+
+When enabled, the button's item will be cached and reused instead of being rebuilt each time.
+
+---
+
+### is-permanent
+
+Display this button on all pages of a paginated inventory.
+
+```yaml
+items:
+  navigation:
+    slot: 49
+    is-permanent: true
+    item:
+      material: ARROW
+      name: "&7Navigation"
+```
+
+---
+
+### page
+
+Display button only on a specific page.
+
+```yaml
+items:
+  page1-only:
+    slot: 0
+    page: 1
+    item:
+      material: DIAMOND
+      name: "&bPage 1 Item"
+```
+
+**Range format:**
+```yaml
+items:
+  pages-1-to-3:
+    slot: 0
+    page: 1-3
+    item:
+      material: EMERALD
+      name: "&aPages 1-3"
+```
+
+---
+
+### else
+
+Define an alternative button when a view requirement isn't met.
+
+```yaml
+items:
+  vip-button:
+    slot: 0
+    view-requirement:
+      requirements:
+        - type: permission
+          permission: "vip.access"
+    item:
+      material: DIAMOND_BLOCK
+      name: "&b&lVIP Content"
+    else:
+      item:
+        material: COAL_BLOCK
+        name: "&7&lLocked"
+        lore:
+          - "&cRequires VIP rank"
+```
+
+---
+
+### open-link
+
+:::warning Deprecated
+This configuration is deprecated. Use MiniMessage format to open links instead:
+```yaml
+item:
+  name: "<click:open_url:'https://discord.gg/myserver'>&9&lClick to join Discord</click>"
+```
+:::
+
+Open a URL or prompt the player to join a Discord server.
+
+```yaml
+items:
+  discord:
+    slot: 0
+    open-link: "https://discord.gg/myserver"
+    item:
+      material: PLAYER_HEAD
+      url: "discord_head_texture"
+      name: "&9&lDiscord"
+      lore:
+        - "&7Click to join our Discord!"
+```
+
+---
+
+### permission
+
+Require a permission to see the button. If the player doesn't have the permission, the button will be hidden.
+
+```yaml
+items:
+  admin-button:
+    slot: 0
+    permission: "server.admin"
+    item:
+      material: COMMAND_BLOCK
+      name: "&c&lAdmin Panel"
+```
+
+You can also use a list of permissions (all required):
+
+```yaml
+items:
+  special-button:
+    slot: 0
+    permission:
+      - "server.vip"
+      - "server.premium"
+    item:
+      material: DIAMOND_BLOCK
+      name: "&b&lVIP Premium"
+```
+
+---
+
+### or-permission
+
+Require at least one of the listed permissions to see the button.
+
+```yaml
+items:
+  staff-button:
+    slot: 0
+    or-permission:
+      - "server.admin"
+      - "server.moderator"
+      - "server.helper"
+    item:
+      material: BOOK
+      name: "&6&lStaff Menu"
+```
+
+---
+
+### placeholder
+
+Check a placeholder value to determine if the button should be displayed.
+
+```yaml
+items:
+  level-button:
+    slot: 0
+    placeholder: "%player_level%"
+    action: ">="
+    value: "10"
+    item:
+      material: EXPERIENCE_BOTTLE
+      name: "&a&lLevel 10+ Reward"
+```
+
+**Available Actions:**
+
+| Action | Description |
+|--------|-------------|
+| `==` | Equals |
+| `!=` | Not equals |
+| `>=` | Greater than or equals |
+| `>` | Greater than |
+| `<=` | Less than or equals |
+| `<` | Less than |
+| `equals_string` | String equals |
+| `equalsIgnoreCase` | String equals (ignore case) |
+
+---
+
+### commands
+
+:::tip Recommendation
+It is recommended to use [Actions](./actions) instead of `commands` for more flexibility and features.
+:::
+
+Execute commands as the player when the button is clicked.
+
+```yaml
+items:
+  warp-button:
+    slot: 0
+    commands:
+      - "warp spawn"
+      - "say I teleported!"
+    item:
+      material: ENDER_PEARL
+      name: "&a&lTeleport to Spawn"
+```
+
+You can also specify commands for specific click types:
+
+```yaml
+items:
+  multi-command:
+    slot: 0
+    left-commands:
+      - "warp spawn"
+    right-commands:
+      - "warp hub"
+    item:
+      material: COMPASS
+```
+
+---
+
+### console-commands
+
+:::tip Recommendation
+It is recommended to use [Actions](./actions) with `type: console-command` instead for more flexibility.
+:::
+
+Execute commands as the console when the button is clicked.
+
+```yaml
+items:
+  reward-button:
+    slot: 0
+    console-commands:
+      - "give %player% diamond 64"
+      - "eco give %player% 1000"
+    item:
+      material: CHEST
+      name: "&6&lClaim Reward"
+```
+
+You can also use permission-based console commands:
+
+```yaml
+items:
+  vip-reward:
+    slot: 0
+    console-permission: "server.vip"
+    console-permission-commands:
+      - "give %player% diamond_block 16"
+    item:
+      material: DIAMOND_BLOCK
+      name: "&b&lVIP Reward"
+```
+
+---
+
+### error-item
+
+:::warning zMenu+ Required
+This feature requires [zMenu+](../../zmenu-plus) to work.
+:::
+
+Display an alternative item when an error occurs (e.g., requirements not met).
+
+```yaml
+items:
+  purchase-button:
+    slot: 0
+    click-requirement:
+      requirements:
+        - type: placeholder
+          value: "%vault_eco_balance%"
+          compare: ">="
+          number: 1000
+    item:
+      material: DIAMOND
+      name: "&b&lPurchase - $1000"
+    error-item:
+      material: BARRIER
+      name: "&c&lInsufficient Funds"
+      lore:
+        - "&7You need $1000"
+        - "&7Your balance: &c$%vault_eco_balance%"
+```
+
+---
+
+### player-head
+
+Display the current player's head.
+
+```yaml
+items:
+  profile:
+    slot: 0
+    player-head: "%player%"
+    item:
+      material: PLAYER_HEAD
+      name: "&a&l%player%"
+```
+
+---
+
+### player-inventory
+
+Place the item in the player's inventory instead of displaying it in the menu.
+
+:::warning zMenu+ Required
+This feature requires [zMenu+](../../zmenu-plus) to work.
+:::
+
+```yaml
+items:
+  reward-item:
+    slot: 0
+    player-inventory: true
+    item:
+      material: DIAMOND_SWORD
+      name: "&6&lReward Sword"
+      enchantments:
+        - type: SHARPNESS
+          level: 5
+```
+
+When `player-inventory` is `true`, the item will be placed directly in the player's inventory at the corresponding slot instead of being displayed in the GUI.
+
+---
+
+## Requirements
+
+### view-requirement
+
+Control whether the button is visible.
+
+```yaml
+items:
+  vip-only:
+    slot: 0
+    view-requirement:
+      requirements:
+        - type: permission
+          permission: "server.vip"
+    item:
+      material: DIAMOND
+      name: "&b&lVIP Item"
+```
+
+If requirements aren't met, the button won't be displayed.
+
+---
+
+### click-requirement
+
+Control whether the button can be clicked. The button is still visible, but clicking may be denied.
+
+```yaml
+items:
+  purchase:
+    slot: 0
+    click-requirement:
+      requirements:
+        - type: placeholder
+          value: "%vault_eco_balance%"
+          compare: ">="
+          number: 100
+          deny:
+            - type: message
+              messages:
+                - "&cYou need $100 to purchase this!"
+            - type: sound
+              sound: ENTITY_VILLAGER_NO
+      success:
+        - type: message
+          messages:
+            - "&aPurchase successful!"
+        - type: console-command
+          commands:
+            - "eco take %player% 100"
+    item:
+      material: GOLD_INGOT
+      name: "&e&lPurchase - $100"
+```
+
+### Requirement Types
+
+| Type | Description |
+|------|-------------|
+| `permission` | Check if player has a permission |
+| `placeholder` | Compare a placeholder value |
+| `currency` | Check player's balance |
+| `item` | Check if player has items |
+| `job` | Check Jobs Reborn level |
+| `luckperm` | Check LuckPerms group |
+| `regex` | Match text against a pattern |
+| `player-name` | Check player's name |
+
+**Permission Requirement:**
+```yaml
+requirements:
+  - type: permission
+    permission: "server.admin"
+```
+
+**Placeholder Requirement:**
+```yaml
+requirements:
+  - type: placeholder
+    value: "%player_level%"
+    compare: ">="
+    number: 10
+```
+
+**Comparison operators:** `==`, `!=`, `>=`, `>`, `<=`, `<`, `equals_string`, `equalsIgnoreCase`
+
+**Currency Requirement:**
+```yaml
+requirements:
+  - type: currency
+    amount: 1000
+```
+
+**Item Requirement:**
+```yaml
+requirements:
+  - type: item
+    item:
+      material: DIAMOND
+      amount: 5
+```
+
+---
+
+## Click Types
+
+You can specify different actions for different click types:
+
+```yaml
+items:
+  multi-click:
+    slot: 0
+    item:
+      material: CHEST
+      name: "&e&lMulti-Action Button"
+      lore:
+        - "&7Left-click: Open shop"
+        - "&7Right-click: View balance"
+        - "&7Shift-click: Help"
+    clicks:
+      LEFT:
+        actions:
+          - type: inventory
+            inventory: "shop"
+      RIGHT:
+        actions:
+          - type: message
+            messages:
+              - "&7Your balance: &a$%vault_eco_balance%"
+      SHIFT_LEFT:
+        actions:
+          - type: message
+            messages:
+              - "&eThis is a multi-action button!"
+```
+
+**Available Click Types:**
+- `LEFT` - Left click
+- `RIGHT` - Right click
+- `SHIFT_LEFT` - Shift + left click
+- `SHIFT_RIGHT` - Shift + right click
+- `MIDDLE` - Middle click (scroll wheel)
+- `DROP` - Press Q to drop
+- `CONTROL_DROP` - Ctrl + Q
+
+---
+
+## Complete Example
+
+```yaml
+items:
+  shop-item:
+    slot: 13
+    type: NONE
+
+    item:
+      material: DIAMOND_SWORD
+      name: "&6&lDiamond Sword"
+      lore:
+        - "&8&m─────────────────"
+        - ""
+        - "&7A powerful sword!"
+        - ""
+        - "&7Price: &a$500"
+        - "&7Your balance: &e$%vault_eco_balance%"
+        - ""
+        - "&8&m─────────────────"
+        - ""
+        - "&e▸ Click to purchase"
+      enchantments:
+        - type: SHARPNESS
+          level: 5
+      flags:
+        - HIDE_ENCHANTS
+      glow: true
+
+    click-requirement:
+      requirements:
+        - type: placeholder
+          value: "%vault_eco_balance%"
+          compare: ">="
+          number: 500
+          deny:
+            - type: message
+              messages:
+                - "&cYou need $500 to buy this!"
+            - type: sound
+              sound: ENTITY_VILLAGER_NO
+      success:
+        - type: console-command
+          commands:
+            - "eco take %player% 500"
+            - "give %player% diamond_sword{Enchantments:[{id:sharpness,lvl:5}]} 1"
+        - type: message
+          messages:
+            - "&aPurchase successful!"
+            - "&7You bought a &6Diamond Sword&7!"
+        - type: sound
+          sound: ENTITY_PLAYER_LEVELUP
+        - type: close
+```
+
+## Best Practices
+
+1. **Use meaningful button names** for easier maintenance
+2. **Group related buttons** using descriptive naming conventions
+3. **Provide feedback** with sounds and messages
+4. **Use requirements** to control access appropriately
+5. **Use `else`** to show locked/unavailable states
+6. **Add lore hints** to explain what buttons do
+
+## Next Steps
+
+- Learn about each [Button Type](./types/none)
+- Explore all available [Actions](./actions)
+- Create [Patterns](../patterns) for reusable buttons
