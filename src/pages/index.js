@@ -6,47 +6,6 @@ import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
-const PluginList = [
-  {
-    title: 'zMenu',
-    description: (
-      <Translate id="plugin.zmenu.description">
-        The most powerful inventory plugin for Minecraft. Create custom GUIs with YAML configuration.
-      </Translate>
-    ),
-    link: '/zmenu/getting-started',
-    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
-        <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
-        <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
-        <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
-      </svg>
-    ),
-    stats: '50K+',
-    statsLabel: 'Downloads',
-  },
-  {
-    title: 'zAuctionHouse',
-    description: (
-      <Translate id="plugin.zauctionhouse.description">
-        A complete auction house system with categories, bidding, and seamless zMenu integration.
-      </Translate>
-    ),
-    link: '/zauctionhouse/introduction',
-    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M9 22V12H15V22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    stats: '10K+',
-    statsLabel: 'Servers',
-  },
-];
-
 const FeatureList = [
   {
     icon: (
@@ -92,41 +51,14 @@ const FeatureList = [
   },
 ];
 
-function PluginCard({title, description, link, gradient, icon, stats, statsLabel}) {
-  return (
-    <div className={styles.pluginCol}>
-      <Link to={link} className={styles.pluginCardLink}>
-        <div className={styles.pluginCard}>
-          <div className={styles.pluginCardGlow} style={{background: gradient}} />
-          <div className={styles.pluginIconWrapper} style={{background: gradient}}>
-            <div className={styles.pluginIcon}>{icon}</div>
-          </div>
-          <Heading as="h3" className={styles.pluginTitle}>{title}</Heading>
-          <p className={styles.pluginDescription}>{description}</p>
-          <div className={styles.pluginStats}>
-            <span className={styles.pluginStatsValue}>{stats}</span>
-            <span className={styles.pluginStatsLabel}>{statsLabel}</span>
-          </div>
-          <span className={styles.pluginButton}>
-            <Translate id="homepage.viewDocs">View Documentation</Translate>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </span>
-        </div>
-      </Link>
-    </div>
-  );
-}
-
 function FeatureCard({icon, title, description}) {
   return (
-    <div className={styles.featureCard}>
-      <div className={styles.featureIconWrapper}>
+    <div className={styles['feature-card']}>
+      <div className={styles['feature-icon-wrapper']}>
         {icon}
       </div>
-      <Heading as="h3" className={styles.featureTitle}>{title}</Heading>
-      <p className={styles.featureDescription}>{description}</p>
+      <Heading as="h3" className={styles['feature-title']}>{title}</Heading>
+      <p className={styles['feature-description']}>{description}</p>
     </div>
   );
 }
@@ -134,32 +66,32 @@ function FeatureCard({icon, title, description}) {
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={styles.heroBanner}>
-      <div className={styles.heroBackground}>
-        <div className={styles.heroGradient} />
-        <div className={styles.heroPattern} />
+    <header className={styles['hero-banner']}>
+      <div className={styles['hero-background']}>
+        <div className={styles['hero-gradient']} />
+        <div className={styles['hero-pattern']} />
       </div>
-      <div className={clsx('container', styles.heroContent)}>
-        <div className={styles.heroBadge}>
-          <span className={styles.heroBadgeDot} />
+      <div className={clsx('container', styles['hero-content'])}>
+        <div className={styles['hero-badge']}>
+          <span className={styles['hero-badge-dot']} />
           <Translate id="homepage.badge">Open Source Minecraft Plugins</Translate>
         </div>
-        <Heading as="h1" className={styles.heroTitle}>
+        <Heading as="h1" className={styles['hero-title']}>
           {siteConfig.title}
         </Heading>
-        <p className={styles.heroSubtitle}>
+        <p className={styles['hero-subtitle']}>
           <Translate id="homepage.tagline">
             Build powerful Minecraft experiences with our suite of premium plugins. From custom inventories to complete auction systems.
           </Translate>
         </p>
-        <div className={styles.heroButtons}>
-          <Link to="/zmenu/getting-started" className={styles.heroPrimaryButton}>
+        <div className={styles['hero-buttons']}>
+          <Link to="/zmenu/getting-started" className={styles['hero-primary-button']}>
             <Translate id="homepage.getStarted">Get Started</Translate>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </Link>
-          <Link to="https://discord.groupez.dev" className={styles.heroSecondaryButton}>
+          <Link to="https://discord.groupez.dev" className={styles['hero-secondary-button']}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
             </svg>
@@ -171,26 +103,26 @@ function HomepageHeader() {
   );
 }
 
-function PluginSection() {
+function FeaturesSection() {
   return (
-    <section className={styles.plugins}>
+    <section className={styles.features}>
       <div className="container">
-        <div className={styles.sectionHeader}>
-          <span className={styles.sectionLabel}>
-            <Translate id="homepage.pluginsLabel">Our Plugins</Translate>
+        <div className={styles['section-header']}>
+          <span className={styles['section-label']}>
+            <Translate id="homepage.whyLabel">Why GroupeZ?</Translate>
           </span>
-          <Heading as="h2" className={styles.sectionTitle}>
-            <Translate id="homepage.selectPlugin">Choose Your Plugin</Translate>
+          <Heading as="h2" className={styles['section-title']}>
+            <Translate id="homepage.featuresTitle">Built for Performance</Translate>
           </Heading>
-          <p className={styles.sectionSubtitle}>
-            <Translate id="homepage.pluginsSubtitle">
-              Each plugin is designed to work seamlessly together or standalone
+          <p className={styles['section-subtitle']}>
+            <Translate id="homepage.featuresSubtitle">
+              Our plugins are trusted by thousands of Minecraft servers worldwide
             </Translate>
           </p>
         </div>
-        <div className={styles.pluginGrid}>
-          {PluginList.map((props, idx) => (
-            <PluginCard key={idx} {...props} />
+        <div className={styles['feature-grid']}>
+          {FeatureList.map((props, idx) => (
+            <FeatureCard key={idx} {...props} />
           ))}
         </div>
       </div>
@@ -198,27 +130,41 @@ function PluginSection() {
   );
 }
 
-function FeaturesSection() {
+function SponsorSection() {
   return (
-    <section className={styles.features}>
+    <section className={styles.sponsor}>
       <div className="container">
-        <div className={styles.sectionHeader}>
-          <span className={styles.sectionLabel}>
-            <Translate id="homepage.whyLabel">Why GroupeZ?</Translate>
-          </span>
-          <Heading as="h2" className={styles.sectionTitle}>
-            <Translate id="homepage.featuresTitle">Built for Performance</Translate>
-          </Heading>
-          <p className={styles.sectionSubtitle}>
-            <Translate id="homepage.featuresSubtitle">
-              Our plugins are trusted by thousands of Minecraft servers worldwide
-            </Translate>
-          </p>
-        </div>
-        <div className={styles.featureGrid}>
-          {FeatureList.map((props, idx) => (
-            <FeatureCard key={idx} {...props} />
-          ))}
+        <div className={styles['sponsor-card']}>
+          <div className={styles['sponsor-content']}>
+            <div className={styles['sponsor-logo']}>
+              <img src="/img/minestrator.svg" alt="Minestrator" />
+            </div>
+            <div className={styles['sponsor-text']}>
+              <span className={styles['sponsor-badge']}>
+                <Translate id="homepage.sponsor.badge">Partner</Translate>
+              </span>
+              <Heading as="h3" className={styles['sponsor-title']}>
+                MineStrator
+              </Heading>
+              <p className={styles['sponsor-description']}>
+                <Translate id="homepage.sponsor.description">
+                  Since 2017, MineStrator has established itself as the leading game server host in France. Combining performance, reliability, and simplicity, they offer premium service designed for Minecraft enthusiasts. Join the community today and enjoy an optimal gaming experience!
+                </Translate>
+              </p>
+              <div className={styles['sponsor-promo']}>
+                <span className={styles['sponsor-promo-code']}>GROUPEZ</span>
+                <span className={styles['sponsor-promo-text']}>
+                  <Translate id="homepage.sponsor.discount">10% off your purchase</Translate>
+                </span>
+              </div>
+              <Link to="https://minestrator.com/a/GROUPEZ" className={styles['sponsor-button']}>
+                <Translate id="homepage.sponsor.cta">Discover MineStrator</Translate>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -229,20 +175,20 @@ function CTASection() {
   return (
     <section className={styles.cta}>
       <div className="container">
-        <div className={styles.ctaContent}>
-          <Heading as="h2" className={styles.ctaTitle}>
+        <div className={styles['cta-content']}>
+          <Heading as="h2" className={styles['cta-title']}>
             <Translate id="homepage.ctaTitle">Ready to Get Started?</Translate>
           </Heading>
-          <p className={styles.ctaDescription}>
+          <p className={styles['cta-description']}>
             <Translate id="homepage.ctaDescription">
               Join our Discord community for support, updates, and to connect with other server owners.
             </Translate>
           </p>
-          <div className={styles.ctaButtons}>
-            <Link to="/zmenu/getting-started" className={styles.ctaPrimaryButton}>
+          <div className={styles['cta-buttons']}>
+            <Link to="/zmenu/getting-started" className={styles['cta-primary-button']}>
               <Translate id="homepage.readDocs">Read the Docs</Translate>
             </Link>
-            <Link to="https://discord.groupez.dev" className={styles.ctaSecondaryButton}>
+            <Link to="https://discord.groupez.dev" className={styles['cta-secondary-button']}>
               <Translate id="homepage.getSupport">Get Support</Translate>
             </Link>
           </div>
@@ -259,8 +205,8 @@ export default function Home() {
       description={translate({id: 'homepage.description', message: 'GroupeZ Wiki - Documentation for Minecraft plugins'})}>
       <HomepageHeader />
       <main>
-        <PluginSection />
         <FeaturesSection />
+        <SponsorSection />
         <CTASection />
       </main>
     </Layout>
