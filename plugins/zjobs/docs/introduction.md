@@ -60,8 +60,8 @@ zJobs integrates with other plugins:
 
 | Plugin | Integration |
 |--------|-------------|
-| [zMenu](../zmenu/introduction) | Job GUI menus |
-| [zItems](../zitems/introduction) | Job Money/XP Boost runes |
+| [zMenu](/zmenu/getting-started) | Job GUI menus |
+| [zItems](/zitems/introduction) | Job Money/XP Boost runes |
 | [Vault](https://www.spigotmc.org/resources/vault.34315/) | Economy support |
 | [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) | Placeholders |
 
