@@ -3,7 +3,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'GroupeZ Wiki',
+  title: 'GroupeZ Docs',
   tagline: 'Documentation for GroupeZ Minecraft plugins',
   favicon: 'img/favicon.ico',
 
@@ -11,7 +11,7 @@ const config = {
     v4: true,
   },
 
-  url: 'https://wiki.groupez.dev',
+  url: 'https://docs.groupez.dev',
   baseUrl: '/',
 
   organizationName: 'GroupeZ-dev',
@@ -492,19 +492,6 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Plugins',
-            items: [
-              {
-                label: 'zMenu',
-                to: '/zmenu/getting-started',
-              },
-              {
-                label: 'zAuctionHouse',
-                to: '/zauctionhouse/introduction',
-              },
-            ],
-          },
-          {
             title: 'Community',
             items: [
               {
@@ -512,8 +499,33 @@ const config = {
                 href: 'https://discord.groupez.dev',
               },
               {
+                label: 'GitHub',
+                href: 'https://github.com/GroupeZ-dev',
+              },
+              {
                 label: 'SpigotMC',
-                href: 'https://www.spigotmc.org/members/maxlego08.45892/',
+                href: 'https://www.spigotmc.org/resources/authors/maxlego08.45892/',
+              },
+              {
+                label: 'Modrinth',
+                href: 'https://modrinth.com/organization/groupez',
+              },
+              {
+                label: 'BuiltByBit',
+                href: 'https://builtbybit.com/creators/maxlego08.85132/',
+              },
+            ],
+          },
+          {
+            title: 'Partners',
+            items: [
+              {
+                label: 'Minestrator',
+                href: 'https://minestrator.com/a/GROUPEZ',
+              },
+              {
+                label: 'serveur-minecraft-vote.fr',
+                href: 'https://serveur-minecraft-vote.fr/',
               },
             ],
           },
@@ -521,17 +533,13 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/GroupeZ-dev',
-              },
-              {
                 label: 'Minecraft Inventory Builder',
                 href: 'https://minecraft-inventory-builder.com',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Maxlego08 - GroupeZ. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} GroupeZ. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
