@@ -3,7 +3,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'GroupeZ Wiki',
+  title: 'GroupeZ Docs',
   tagline: 'Documentation for GroupeZ Minecraft plugins',
   favicon: 'img/favicon.ico',
 
@@ -11,7 +11,7 @@ const config = {
     v4: true,
   },
 
-  url: 'https://wiki.groupez.dev',
+  url: 'https://docs.groupez.dev',
   baseUrl: '/',
 
   organizationName: 'GroupeZ-dev',
@@ -487,51 +487,6 @@ const config = {
             position: 'right',
           },
         ],
-      },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Plugins',
-            items: [
-              {
-                label: 'zMenu',
-                to: '/zmenu/getting-started',
-              },
-              {
-                label: 'zAuctionHouse',
-                to: '/zauctionhouse/introduction',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Discord',
-                href: 'https://discord.groupez.dev',
-              },
-              {
-                label: 'SpigotMC',
-                href: 'https://www.spigotmc.org/members/maxlego08.45892/',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'GitHub',
-                href: 'https://github.com/GroupeZ-dev',
-              },
-              {
-                label: 'Minecraft Inventory Builder',
-                href: 'https://minecraft-inventory-builder.com',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} Maxlego08 - GroupeZ. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
