@@ -1,0 +1,41 @@
+.buildInfo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--ifm-footer-color);
+  opacity: 0.7;
+  margin-top: 1rem;
+}
+
+.buildDot {
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.buildLink {
+  color: var(--ifm-footer-link-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.buildLink:hover {
+  color: var(--ifm-footer-link-hover-color);
+  text-decoration: underline;
+}
+
+.separator {
+  opacity: 0.5;
+}

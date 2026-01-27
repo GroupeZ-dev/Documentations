@@ -488,59 +488,6 @@ const config = {
           },
         ],
       },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Discord',
-                href: 'https://discord.groupez.dev',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/GroupeZ-dev',
-              },
-              {
-                label: 'SpigotMC',
-                href: 'https://www.spigotmc.org/resources/authors/maxlego08.45892/',
-              },
-              {
-                label: 'Modrinth',
-                href: 'https://modrinth.com/organization/groupez',
-              },
-              {
-                label: 'BuiltByBit',
-                href: 'https://builtbybit.com/creators/maxlego08.85132/',
-              },
-            ],
-          },
-          {
-            title: 'Partners',
-            items: [
-              {
-                label: 'Minestrator',
-                href: 'https://minestrator.com/a/GROUPEZ',
-              },
-              {
-                label: 'serveur-minecraft-vote.fr',
-                href: 'https://serveur-minecraft-vote.fr/',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Minecraft Inventory Builder',
-                href: 'https://minecraft-inventory-builder.com',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} GroupeZ. Built with Docusaurus.`,
-      },
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,

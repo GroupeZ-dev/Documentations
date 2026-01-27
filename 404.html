@@ -124,6 +124,49 @@
             color: #a78bfa;
         }
 
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #52525b;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer a {
+            color: #71717a;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #a78bfa;
+        }
+
+        .build-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .build-dot {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         @media (max-width: 768px) {
             .error-code {
                 font-size: 5rem;
@@ -194,5 +237,51 @@
             <a href="https://github.com/GroupeZ-dev" class="link">GitHub</a>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="build-info">
+            <span id="copyright">Copyright © <script>document.write(new Date().getFullYear())</script> <a href="https://groupez.dev" target="_blank" rel="noopener">GroupeZ</a></span>
+            <span>|</span>
+            <span class="build-dot"></span>
+            <span>Build <a href="#" id="build-link" target="_blank" rel="noopener"><span id="build-sha">loading...</span></a></span>
+            <span>|</span>
+            <span id="build-date">-</span>
+        </div>
+    </footer>
+
+    <script>
+        (async function() {
+            const REPO_OWNER = 'GroupeZ-dev';
+            const REPO_NAME = 'documentations';
+            const BRANCH = 'master';
+
+            try {
+                const commitResponse = await fetch(
+                    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits?sha=${BRANCH}&per_page=1`
+                );
+
+                if (commitResponse.ok) {
+                    const commits = await commitResponse.json();
+
+                    if (commits.length > 0) {
+                        const latestCommit = commits[0];
+                        const shortSha = latestCommit.sha.substring(0, 7);
+                        const commitDate = new Date(latestCommit.commit.author.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        });
+
+                        document.getElementById('build-sha').textContent = shortSha;
+                        document.getElementById('build-link').href = latestCommit.html_url;
+                        document.getElementById('build-date').textContent = commitDate;
+                    }
+                }
+            } catch (error) {
+                document.getElementById('build-sha').textContent = 'unknown';
+                document.getElementById('build-date').textContent = '-';
+            }
+        })();
+    </script>
 </body>
 </html>
