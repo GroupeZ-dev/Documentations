@@ -65,7 +65,7 @@ name: "&6Shop &7(Page %page%/%max-page%)"
 
 ### size
 
-The number of slots in the inventory. Must be a multiple of 9.
+The number of slots in the inventory. Must be a multiple of 9 (for CHEST type).
 
 | Size | Rows | Description |
 |------|------|-------------|
@@ -78,6 +78,58 @@ The number of slots in the inventory. Must be a multiple of 9.
 
 ```yaml
 size: 54
+```
+
+---
+
+### type
+
+The inventory type. Defines the visual layout of the inventory.
+
+```yaml
+type: CHEST
+```
+
+**Available types:**
+
+| Type | Size | Description |
+|------|------|-------------|
+| `CHEST` | 9-54 | Standard chest inventory (default) |
+| `DISPENSER` | 9 | 3x3 dispenser layout |
+| `DROPPER` | 9 | 3x3 dropper layout |
+| `FURNACE` | 3 | Furnace layout |
+| `WORKBENCH` | 10 | Crafting table layout |
+| `ENCHANTING` | 2 | Enchanting table layout |
+| `BREWING` | 5 | Brewing stand layout |
+| `ANVIL` | 3 | Anvil layout |
+| `BEACON` | 1 | Beacon layout |
+| `HOPPER` | 5 | Hopper layout (5 slots) |
+| `SHULKER_BOX` | 27 | Shulker box layout |
+| `BARREL` | 27 | Barrel layout |
+| `BLAST_FURNACE` | 3 | Blast furnace layout |
+| `LECTERN` | 1 | Lectern layout |
+| `SMOKER` | 3 | Smoker layout |
+| `LOOM` | 4 | Loom layout |
+| `CARTOGRAPHY` | 3 | Cartography table layout |
+| `GRINDSTONE` | 3 | Grindstone layout |
+| `STONECUTTER` | 2 | Stonecutter layout |
+| `SMITHING` | 4 | Smithing table layout |
+
+:::info
+When using a type other than `CHEST`, the `size` option is ignored as each type has a fixed size.
+:::
+
+**Example with hopper:**
+```yaml
+name: "&8Quick Select"
+type: HOPPER
+
+items:
+  option1:
+    slot: 0
+    item:
+      material: DIAMOND
+      name: "&bOption 1"
 ```
 
 ---
@@ -108,6 +160,76 @@ update-interval: 1000  # Refresh every second (1000ms)
 
 ---
 
+### title-animation
+
+Animate the inventory title with multiple frames. This creates a dynamic title that cycles through different text values.
+
+:::warning Requirements
+This feature **requires** [PacketEvents](https://github.com/retrooper/packetevents) to be installed on your server. Without PacketEvents, title animations will not work.
+:::
+
+```yaml
+title-animation:
+  titles:
+    - "&bWelcome to &aMenu!"
+    - "&eEnjoy &four &9Features!"
+    - "&cRotating &6Animated &2Title!"
+  cycles: 5
+  initial-delay: 1
+  interval: 2
+  time-unit: SECONDS
+  show-items-after-animation: true
+  item-update-interval: 1
+```
+
+**Configuration options:**
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `titles` | List | - | List of title frames to cycle through |
+| `cycles` | Integer | -1 | Number of animation cycles (-1 for infinite) |
+| `initial-delay` | Integer | 0 | Delay before animation starts |
+| `interval` | Integer | 1 | Time between each frame |
+| `time-unit` | String | SECONDS | Time unit for delays (SECONDS, MILLISECONDS, TICKS) |
+| `show-items-after-animation` | Boolean | true | Show items after animation completes |
+| `item-update-interval` | Integer | 1 | How often to update items during animation |
+
+**Time units:**
+- `NANOSECONDS`
+- `MICROSECONDS`
+- `MILLISECONDS`
+- `SECONDS`
+- `MINUTES`
+- `HOURS`
+- `DAYS`
+
+**Complete example:**
+```yaml
+name: "&6Loading..."
+size: 27
+
+title-animation:
+  titles:
+    - "&6&l⏳ Loading."
+    - "&6&l⏳ Loading.."
+    - "&6&l⏳ Loading..."
+    - "&a&l✓ Welcome!"
+  cycles: 1
+  initial-delay: 0
+  interval: 500
+  time-unit: MILLISECONDS
+  show-items-after-animation: true
+
+items:
+  content:
+    slot: 13
+    item:
+      material: NETHER_STAR
+      name: "&eMenu Content"
+```
+
+---
+
 ### clear-inventory
 
 Clear the player's inventory while the menu is open and restore it when closed.
@@ -119,6 +241,72 @@ clear-inventory: true
 **Use cases:**
 - Custom texture packs that overlay the entire screen
 - Preventing item interaction while in menu
+
+---
+
+### cancel-item-pickup
+
+Prevent players from picking up items while the inventory is open.
+
+```yaml
+cancel-item-pickup: true
+```
+
+**Use cases:**
+- Preventing accidental item pickup during menu interaction
+- Clean GUI experience without interference
+
+---
+
+### target-player-name-placeholder
+
+Define a custom placeholder for the target player's name. Useful when opening inventories for other players.
+
+```yaml
+target-player-name-placeholder: "%target%"
+```
+
+**Default:** `%player_name%`
+
+**Example usage:**
+```yaml
+name: "&6Profile of %target%"
+target-player-name-placeholder: "%target%"
+
+items:
+  info:
+    slot: 13
+    item:
+      material: PLAYER_HEAD
+      name: "&e%target%"
+      lore:
+        - "&7Viewing player profile"
+```
+
+---
+
+### action-patterns
+
+Apply action patterns to all buttons in this inventory. Action patterns are reusable sets of actions defined in the `plugins/zMenu/action_patterns/` folder.
+
+```yaml
+action-patterns:
+  - "default-actions"
+  - "click-sound"
+```
+
+**Action pattern file example** (`plugins/zMenu/action_patterns/default-actions.yml`):
+```yaml
+name: default-actions
+actions:
+  - type: sound
+    sound: ENTITY_VILLAGER_YES
+deny-actions:
+  - type: sound
+    sound: ENTITY_VILLAGER_NO
+```
+
+When applied, all buttons in the inventory will inherit these actions. Button-specific actions are executed after pattern actions.
 
 ---
 

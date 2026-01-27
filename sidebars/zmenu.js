@@ -62,6 +62,7 @@ const sidebars = {
         'configurations/global-placeholders',
         'configurations/patterns',
         'configurations/player-data',
+        'configurations/dialogues',
         'configurations/custom-commands',
         'configurations/config-yml',
       ],
