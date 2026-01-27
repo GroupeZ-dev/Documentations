@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | GroupeZ Docs</title>
+    <meta name="description" content="The page you're looking for doesn't exist.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e4e4e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 600px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .error-code::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .error-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #f4f4f5;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 1.1rem;
+            color: #a1a1aa;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .illustration {
+            margin: 2rem 0;
+        }
+
+        .illustration svg {
+            width: 200px;
+            height: 200px;
+            opacity: 0.8;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-home svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .link {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .link:hover {
+            color: #a78bfa;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #52525b;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer a {
+            color: #71717a;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #a78bfa;
+        }
+
+        .build-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .build-dot {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .error-title {
+                font-size: 1.25rem;
+            }
+
+            .error-message {
+                font-size: 1rem;
+            }
+
+            .illustration svg {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-code">404</div>
+
+        <div class="illustration">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+                <!-- Floating blocks representing lost data -->
+                <rect x="20" y="80" width="40" height="40" rx="8" fill="url(#grad1)" opacity="0.6">
+                    <animate attributeName="y" values="80;70;80" dur="3s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="80" y="60" width="50" height="50" rx="10" fill="url(#grad1)" opacity="0.8">
+                    <animate attributeName="y" values="60;50;60" dur="2.5s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="140" y="90" width="35" height="35" rx="6" fill="url(#grad1)" opacity="0.5">
+                    <animate attributeName="y" values="90;80;90" dur="3.5s" repeatCount="indefinite"/>
+                </rect>
+
+                <!-- Question mark -->
+                <text x="100" y="130" font-family="Inter, sans-serif" font-size="60" font-weight="700" fill="url(#grad1)" text-anchor="middle">?</text>
+
+                <!-- Ground line -->
+                <line x1="30" y1="170" x2="170" y2="170" stroke="#667eea" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#667eea"/>
+                        <stop offset="100%" style="stop-color:#764ba2"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-message">
+            Oops! The page you're looking for seems to have wandered off into the void.
+            It might have been moved, deleted, or never existed in the first place.
+        </p>
+
+        <a href="https://docs.groupez.dev" class="btn-home">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Back to Documentation
+        </a>
+
+        <div class="links">
+            <a href="https://discord.groupez.dev" class="link">Discord Support</a>
+            <a href="https://github.com/GroupeZ-dev" class="link">GitHub</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="build-info">
+            <span id="copyright">Copyright © <script>document.write(new Date().getFullYear())</script> <a href="https://groupez.dev" target="_blank" rel="noopener">GroupeZ</a></span>
+            <span>|</span>
+            <span class="build-dot"></span>
+            <span>Build <a href="#" id="build-link" target="_blank" rel="noopener"><span id="build-sha">loading...</span></a></span>
+            <span>|</span>
+            <span id="build-date">-</span>
+        </div>
+    </footer>
+
+    <script>
+        (async function() {
+            const REPO_OWNER = 'GroupeZ-dev';
+            const REPO_NAME = 'documentations';
+            const BRANCH = 'main';
+
+            try {
+                const commitResponse = await fetch(
+                    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/commits?sha=${BRANCH}&per_page=1`
+                );
+
+                if (commitResponse.ok) {
+                    const commits = await commitResponse.json();
+
+                    if (commits.length > 0) {
+                        const latestCommit = commits[0];
+                        const shortSha = latestCommit.sha.substring(0, 7);
+                        const commitDate = new Date(latestCommit.commit.author.date).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        });
+
+                        document.getElementById('build-sha').textContent = shortSha;
+                        document.getElementById('build-link').href = latestCommit.html_url;
+                        document.getElementById('build-date').textContent = commitDate;
+                    }
+                }
+            } catch (error) {
+                document.getElementById('build-sha').textContent = 'unknown';
+                document.getElementById('build-date').textContent = '-';
+            }
+        })();
+    </script>
+</body>
+</html>

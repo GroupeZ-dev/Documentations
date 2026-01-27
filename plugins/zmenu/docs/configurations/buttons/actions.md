@@ -371,12 +371,42 @@ Open a written book for the player.
 
 ### dialog
 
-Open a dialog (Paper 1.20.5+ with PacketEvents).
+Open a dialog popup. Dialogs provide a modern UI experience with forms, confirmations, and interactive buttons.
+
+:::warning Requirements
+Dialogs require **Paper 1.21.4+** and [PacketEvents](https://github.com/retrooper/packetevents) installed on your server.
+:::
 
 ```yaml
 - type: dialog
   dialog: "confirmation"
 ```
+
+**With arguments:**
+```yaml
+- type: dialog
+  dialog: "purchase-confirm"
+  arguments:
+    - "diamond_sword"
+    - "500"
+```
+
+**From external plugin:**
+```yaml
+- type: dialog
+  dialog: "custom-dialog"
+  plugin: "MyPlugin"
+```
+
+**Options:**
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `dialog` | String | Name of the dialog file (without .yml) |
+| `plugin` | String | Plugin name if using external dialog |
+| `arguments` | List | Arguments to pass to the dialog |
+
+See [Dialogues](../dialogues) for complete dialog configuration documentation.
 
 ## Discord Actions
 
