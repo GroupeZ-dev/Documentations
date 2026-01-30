@@ -72,6 +72,41 @@ lore:
   - "&7Kills: &c%zmenu_player_value_kills%"
 ```
 
+### Command Argument Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%zmenu_argument_<key>%` | Get command argument value |
+
+This placeholder retrieves arguments passed through custom commands configured in zMenu.
+
+**Example:**
+
+Command configuration:
+```yaml
+# In commands/commands.yml
+commands:
+  punish:
+    command: punish
+    arguments:
+      - player
+    inventory: example_punish
+```
+
+Using the argument in your inventory:
+```yaml
+items:
+  player-info:
+    item:
+      material: PLAYER_HEAD
+      playerHead: "%zmenu_argument_player%"
+      name: "&cPunish %zmenu_argument_player%"
+      lore:
+        - "&7Click to punish this player"
+```
+
+When a player runs `/punish Notch`, the placeholder `%zmenu_argument_player%` will return `Notch`.
+
 ### Global Placeholder Placeholders
 
 | Placeholder | Description |
@@ -257,6 +292,7 @@ If placeholders aren't working:
 | Page | `%maxPage%` | Max page |
 | Math | `%zmenu_math_<expr>%` | Calculate expression |
 | Data | `%zmenu_player_value_<key>%` | Player data |
+| Argument | `%zmenu_argument_<key>%` | Command argument |
 | Global | `%zmenu_global_placeholders_<key>%` | Global value |
 | Time | `%zmenu_time_unix_timestamp%` | Unix time |
 | Stats | `%zmenu_statistic_hours_played%` | Hours played |
