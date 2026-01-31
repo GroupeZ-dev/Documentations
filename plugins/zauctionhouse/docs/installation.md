@@ -1,103 +1,178 @@
 ---
 sidebar_position: 2
 title: Installation
-description: How to install zAuctionHouse on your server
+description: How to install and configure zAuctionHouse on your Minecraft server
 ---
 
 # Installation
 
+This guide covers the installation and initial configuration of zAuctionHouse.
+
 ## Requirements
 
-Before installing zAuctionHouse, make sure you have:
+Before installing, ensure your server meets these requirements:
 
-- Java 17 or higher
-- Minecraft server 1.20.5+ (or 1.13+ for legacy support)
-- [zMenu](https://www.spigotmc.org/resources/zmenu.110402/) plugin installed
-- Vault plugin (optional, for economy support)
+| Requirement | Version |
+|-------------|---------|
+| Java | 21 or higher |
+| Minecraft | 1.20.5 or higher |
+| zMenu | Latest version |
+| PlaceholderAPI | Optional |
+| Vault | Optional |
 
 ## Installation Steps
 
-1. Download zAuctionHouse from [SpigotMC](https://www.spigotmc.org/resources/zauctionhouse.97544/)
-2. Download and install [zMenu](https://www.spigotmc.org/resources/zmenu.110402/)
-3. Place both JAR files in your server's `plugins` folder
-4. Restart your server
-5. Configure the plugin in `plugins/zAuctionHouseV3/`
+### 1. Download the Plugin
 
-## First Start
+Download zAuctionHouse from one of these sources:
+- [Modrinth](https://modrinth.com/plugin/zauctionhouse)
+- [SpigotMC](https://www.spigotmc.org/resources/zauctionhouse.00000/)
+- Discord `#builds` channel for development versions
 
-On first start, zAuctionHouse will create:
-- `config.yml` - Main configuration
-- `economies.yml` - Economy configurations
-- `categories.yml` - Item categories
-- `messages/` - Message files
-- `inventories/` - zMenu inventory configurations
+### 2. Install Dependencies
 
-## Configuration Files
+Ensure [zMenu](https://modrinth.com/plugin/zmenu) is installed on your server. zAuctionHouse requires zMenu for its inventory interfaces.
 
-```
-plugins/zAuctionHouseV3/
-├── config.yml
-├── economies.yml
-├── categories.yml
-├── messages/
-│   └── en.yml
-└── inventories/
-    ├── auction.yml
-    ├── buyConfirm.yml
-    ├── removeConfirm.yml
-    └── ...
-```
+Optional dependencies:
+- **PlaceholderAPI** - For placeholder support in items and messages
+- **Vault** - For economy integration with Vault-compatible plugins
 
-## Verification
+### 3. Install the Plugin
 
-To verify the installation, run:
-```
-/ah
-```
+1. Stop your server
+2. Place `zAuctionHouse.jar` in your `plugins/` folder
+3. Start your server
+4. The plugin will generate default configuration files
 
-This should open the auction house interface.
+### 4. Verify Installation
 
-## Converting from Other Plugins
+Run `/ah` to open the auction house interface. If everything is working, you should see the main auction interface.
 
-zAuctionHouse supports conversion from:
-- zAuctionHouseV2
-- CrazyAuction
-- AuctionHouseDB
-- AuctionHouseRetro
-- PlayerAuctions
+## File Structure
 
-Use the command:
-```
-/ah convert <plugin>
-```
-
-### Converting from zAuctionHouseV2
-
-1. Place the `items.json` file in `plugins/zAuctionHouseV3/convert/`
-2. Run `/ah convert zauctionhousev2`
-
-### Upgrading to Minecraft 1.21
-
-If upgrading from Minecraft 1.20.4 or earlier:
+After first startup, zAuctionHouse creates the following structure:
 
 ```
-/ah convert items_base64_to_minecraft_1_21
+plugins/zAuctionHouse/
+├── config.yml              # Main configuration
+├── messages.yml            # All plugin messages
+├── categories.yml          # Category definitions
+├── economies/
+│   └── vault.yml           # Economy configurations
+├── inventories/
+│   ├── auction.yml         # Main auction interface
+│   ├── categories.yml      # Category selection
+│   ├── confirm_buy.yml     # Purchase confirmation
+│   ├── confirm_remove.yml  # Remove confirmation
+│   ├── expired.yml         # Expired items
+│   ├── player.yml          # Player's listings
+│   ├── purchased.yml       # Purchased items
+│   └── sell.yml            # Sell interface
+├── rules/
+│   ├── blacklist.yml       # Blacklisted items
+│   └── whitelist.yml       # Whitelisted items
+└── storage.db              # SQLite database (if using SQLite)
 ```
 
-:::danger Important
-You **must** run this conversion command when upgrading to 1.21, or all items will be lost!
-:::
+## Database Configuration
 
-This command:
-- Works with JSON or MySQL storage only
-- Automatically enables `enableNewBase64ItemStackMethod` in config.yml
-- Redis users must first convert to MySQL
+zAuctionHouse supports multiple storage options.
 
-## zMenu Configuration
+### SQLite (Default)
 
-To convert old zMenu configurations:
-```
-/ah convert zmenu
+SQLite is the default storage method and requires no additional configuration:
+
+```yaml
+storage:
+  type: SQLITE
 ```
 
-For Minecraft 1.13+, use files from the `1.13+` folder when restoring backups.
+The database file is stored at `plugins/zAuctionHouse/storage.db`.
+
+### MySQL / MariaDB
+
+For multi-server setups or better performance with large datasets:
+
+```yaml
+storage:
+  type: MYSQL
+  host: localhost
+  port: 3306
+  database: zauctionhouse
+  user: root
+  password: your_password
+  # Enable SSL for secure connections
+  useSSL: false
+```
+
+### Connection Pool Settings
+
+For high-traffic servers, you can configure the connection pool:
+
+```yaml
+storage:
+  pool:
+    maximum-pool-size: 10
+    minimum-idle: 5
+    connection-timeout: 30000
+    idle-timeout: 600000
+    max-lifetime: 1800000
+```
+
+## Multi-Server Setup
+
+To synchronize auctions across multiple servers:
+
+1. Use MySQL/MariaDB as your storage type
+2. Configure the same database credentials on all servers
+3. Enable real-time synchronization:
+
+```yaml
+multi-server:
+  enabled: true
+  # Sync interval in seconds (0 for real-time)
+  sync-interval: 0
+```
+
+## First Configuration
+
+After installation, you may want to configure:
+
+1. **Economy** - Set up your preferred economy in `economies/vault.yml`
+2. **Categories** - Define item categories in `categories.yml`
+3. **Limits** - Configure item limits per player in `config.yml`
+4. **Expiration** - Set default expiration times
+
+See the [Configuration](./configuration/config) section for detailed options.
+
+## Troubleshooting
+
+### Plugin doesn't start
+
+- Check that Java 21+ is installed: `java -version`
+- Verify zMenu is installed and working
+- Check the console for error messages
+
+### Economy not working
+
+- Ensure Vault is installed
+- Verify an economy plugin (EssentialsX, CMI, etc.) is installed
+- Check that Vault can detect your economy: `/vault-info`
+
+### Database connection failed
+
+- Verify database credentials are correct
+- Ensure the MySQL server is running and accessible
+- Check firewall settings if using a remote database
+
+### Interfaces not appearing
+
+- Verify zMenu is installed and working
+- Check that inventory files exist in `inventories/`
+- Look for errors in the console when opening menus
+
+## Next Steps
+
+- [Configure commands and permissions](./commands-permissions)
+- [Set up categories](./configuration/categories)
+- [Customize the interface](./configuration/inventories)
