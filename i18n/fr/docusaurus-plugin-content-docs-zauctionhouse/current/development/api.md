@@ -1,29 +1,29 @@
 ---
 sidebar_position: 1
-title: API Introduction
-description: Getting started with zAuctionHouse Developer API
+title: Introduction à l'API
+description: Démarrer avec l'API Développeur de zAuctionHouse
 ---
 
-# Developer API
+# API Développeur
 
-zAuctionHouse provides a comprehensive API for developers to integrate with the auction system.
+zAuctionHouse fournit une API complète pour les développeurs souhaitant s'intégrer au système d'enchères.
 
 ## Architecture
 
-zAuctionHouse is built with a modular architecture:
+zAuctionHouse est construit avec une architecture modulaire :
 
 ```
 zAuctionHouse/
-├── API         # Interfaces and abstract classes
-├── Core        # Implementation
-└── Hooks       # Third-party integrations
+├── API         # Interfaces et classes abstraites
+├── Core        # Implémentation
+└── Hooks       # Intégrations tierces
 ```
 
-This separation allows you to depend only on the API module, keeping your plugin lightweight.
+Cette séparation vous permet de dépendre uniquement du module API, gardant votre plugin léger.
 
-## Maven Setup
+## Configuration Maven
 
-Add the JitPack repository:
+Ajoutez le repository JitPack :
 
 ```xml
 <repositories>
@@ -34,7 +34,7 @@ Add the JitPack repository:
 </repositories>
 ```
 
-Add the dependency:
+Ajoutez la dépendance :
 
 ```xml
 <dependencies>
@@ -47,9 +47,9 @@ Add the dependency:
 </dependencies>
 ```
 
-## Gradle Setup
+## Configuration Gradle
 
-Add the JitPack repository:
+Ajoutez le repository JitPack :
 
 ```groovy
 repositories {
@@ -57,7 +57,7 @@ repositories {
 }
 ```
 
-Add the dependency:
+Ajoutez la dépendance :
 
 ```groovy
 dependencies {
@@ -65,9 +65,9 @@ dependencies {
 }
 ```
 
-## Getting the API
+## Obtenir l'API
 
-Access the API via Bukkit's service manager:
+Accédez à l'API via le gestionnaire de services Bukkit :
 
 ```java
 import fr.maxlego08.zauctionhouse.api.AuctionPlugin;
@@ -82,18 +82,18 @@ public class MyPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Get the zAuctionHouse API
+        // Obtenir l'API zAuctionHouse
         RegisteredServiceProvider<AuctionPlugin> provider =
             Bukkit.getServicesManager().getRegistration(AuctionPlugin.class);
 
         if (provider == null) {
-            getLogger().severe("zAuctionHouse not found!");
+            getLogger().severe("zAuctionHouse non trouvé !");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
         this.auctionPlugin = provider.getProvider();
-        getLogger().info("Successfully hooked into zAuctionHouse!");
+        getLogger().info("Connecté avec succès à zAuctionHouse !");
     }
 
     public AuctionPlugin getAuctionPlugin() {
@@ -102,80 +102,80 @@ public class MyPlugin extends JavaPlugin {
 }
 ```
 
-## Main Interfaces
+## Interfaces Principales
 
 ### AuctionPlugin
 
-The main entry point to the API:
+Le point d'entrée principal de l'API :
 
 ```java
 public interface AuctionPlugin {
 
-    // Get the auction manager
+    // Obtenir le gestionnaire d'enchères
     AuctionManager getAuctionManager();
 
-    // Get the economy manager
+    // Obtenir le gestionnaire d'économie
     EconomyManager getEconomyManager();
 
-    // Get the category manager
+    // Obtenir le gestionnaire de catégories
     CategoryManager getCategoryManager();
 
-    // Get the configuration manager
+    // Obtenir le gestionnaire de configuration
     ConfigurationManager getConfigurationManager();
 
-    // Get sell service
+    // Obtenir le service de vente
     AuctionSellService getSellService();
 
-    // Get purchase service
+    // Obtenir le service d'achat
     AuctionPurchaseService getPurchaseService();
 
-    // Get remove service
+    // Obtenir le service de suppression
     AuctionRemoveService getRemoveService();
 
-    // Get expire service
+    // Obtenir le service d'expiration
     AuctionExpireService getExpireService();
 }
 ```
 
 ### AuctionManager
 
-Core auction operations:
+Opérations principales des enchères :
 
 ```java
 public interface AuctionManager {
 
-    // Get all listed items
+    // Obtenir tous les objets en vente
     List<AuctionItem> getListedItems();
 
-    // Get items by player
+    // Obtenir les objets par joueur
     List<AuctionItem> getListedItems(UUID playerUuid);
 
-    // Get items by category
+    // Obtenir les objets par catégorie
     List<AuctionItem> getListedItems(Category category);
 
-    // Get expired items for a player
+    // Obtenir les objets expirés d'un joueur
     List<AuctionItem> getExpiredItems(UUID playerUuid);
 
-    // Get purchased items to claim
+    // Obtenir les objets achetés à récupérer
     List<AuctionItem> getPurchasedItems(UUID playerUuid);
 
-    // Get item by ID
+    // Obtenir un objet par ID
     Optional<AuctionItem> getItem(UUID itemId);
 
-    // Search items
+    // Rechercher des objets
     List<AuctionItem> search(String query);
 
-    // Get player's listing count
+    // Obtenir le nombre d'objets en vente d'un joueur
     int getListingCount(UUID playerUuid);
 
-    // Get player's listing limit
+    // Obtenir la limite de mise en vente d'un joueur
     int getListingLimit(Player player);
 }
 ```
 
-## Quick Examples
+## Exemples Rapides
 
-### List All Items
+### Lister Tous les Objets
 
 ```java
 AuctionManager manager = auctionPlugin.getAuctionManager();
@@ -183,7 +183,7 @@ List<AuctionItem> items = manager.getListedItems();
 
 for (AuctionItem item : items) {
     getLogger().info(String.format(
-        "Item: %s, Price: %d, Seller: %s",
+        "Objet: %s, Prix: %d, Vendeur: %s",
         item.getItemStack().getType(),
         item.getPrice(),
         item.getSellerName()
@@ -191,7 +191,7 @@ for (AuctionItem item : items) {
 }
 ```
 
-### Get Player Statistics
+### Obtenir les Statistiques d'un Joueur
 
 ```java
 UUID playerUuid = player.getUniqueId();
@@ -202,63 +202,63 @@ int expired = manager.getExpiredItems(playerUuid).size();
 int toClaim = manager.getPurchasedItems(playerUuid).size();
 
 player.sendMessage(String.format(
-    "Listed: %d, Expired: %d, To Claim: %d",
+    "En vente: %d, Expirés: %d, À récupérer: %d",
     listed, expired, toClaim
 ));
 ```
 
-### Sell an Item Programmatically
+### Vendre un Objet par Programmation
 
 ```java
 AuctionSellService sellService = auctionPlugin.getSellService();
 EconomyManager economyManager = auctionPlugin.getEconomyManager();
 
-// Get the Vault economy
+// Obtenir l'économie Vault
 AuctionEconomy economy = economyManager.getEconomy("vault")
-    .orElseThrow(() -> new IllegalStateException("Vault not found"));
+    .orElseThrow(() -> new IllegalStateException("Vault non trouvé"));
 
-// Sell the item in player's hand
+// Vendre l'objet dans la main du joueur
 ItemStack itemStack = player.getInventory().getItemInMainHand();
 long price = 1000;
 
 sellService.sell(player, itemStack, price, economy)
     .thenAccept(result -> {
         if (result.isSuccess()) {
-            player.sendMessage("Item listed successfully!");
+            player.sendMessage("Objet mis en vente avec succès !");
         } else {
-            player.sendMessage("Failed: " + result.getMessage());
+            player.sendMessage("Échec : " + result.getMessage());
         }
     });
 ```
 
-## Asynchronous Operations
+## Opérations Asynchrones
 
-All API operations that interact with the database return `CompletableFuture`:
+Toutes les opérations API qui interagissent avec la base de données retournent des `CompletableFuture` :
 
 ```java
-// Async operation example
+// Exemple d'opération asynchrone
 auctionPlugin.getSellService()
     .sell(player, item, price, economy)
     .thenAccept(result -> {
-        // Handle result on main thread if needed
+        // Gérer le résultat sur le thread principal si nécessaire
         Bukkit.getScheduler().runTask(plugin, () -> {
             player.sendMessage(result.getMessage());
         });
     })
     .exceptionally(throwable -> {
-        getLogger().severe("Error selling item: " + throwable.getMessage());
+        getLogger().severe("Erreur lors de la vente : " + throwable.getMessage());
         return null;
     });
 ```
 
 ## JavaDoc
 
-Full API documentation is available at:
+La documentation complète de l'API est disponible sur :
 [javadocs.groupez.dev/zauctionhouse](https://javadocs.groupez.dev/zauctionhouse)
 
-## Next Steps
+## Prochaines Étapes
 
-- [Services](./services) - Learn about the service-based architecture
-- [Events](./events) - Listen to auction events
-- [Items](./items) - Work with Item and AuctionItem interfaces
-- [Custom Economy](./custom-economy) - Create custom economy implementations
+- [Services](./services) - Découvrir l'architecture basée sur les services
+- [Événements](./events) - Écouter les événements d'enchères
+- [Objets](./items) - Travailler avec les interfaces Item et AuctionItem
+- [Économie Personnalisée](./custom-economy) - Créer des implémentations d'économie personnalisées

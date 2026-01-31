@@ -1,84 +1,84 @@
 ---
 sidebar_position: 5
-title: Custom Economy
-description: Create custom economy implementations for zAuctionHouse
+title: Économie Personnalisée
+description: Créer des implémentations d'économie personnalisées pour zAuctionHouse
 ---
 
-# Custom Economy
+# Économie Personnalisée
 
-zAuctionHouse supports custom economy implementations. This allows you to integrate any currency system with the auction house.
+zAuctionHouse supporte les implémentations d'économie personnalisées. Cela vous permet d'intégrer n'importe quel système de monnaie avec l'hôtel des ventes.
 
-## AuctionEconomy Interface
+## Interface AuctionEconomy
 
-To create a custom economy, implement the `AuctionEconomy` interface:
+Pour créer une économie personnalisée, implémentez l'interface `AuctionEconomy` :
 
 ```java
 public interface AuctionEconomy {
 
     /**
-     * Get the unique name of this economy.
-     * Used in configuration and storage.
+     * Obtenir le nom unique de cette économie.
+     * Utilisé dans la configuration et le stockage.
      */
     String getName();
 
     /**
-     * Get the display name (can include colors).
+     * Obtenir le nom d'affichage (peut inclure des couleurs).
      */
     String getDisplayName();
 
     /**
-     * Check if a player has enough currency.
+     * Vérifier si un joueur a assez de monnaie.
      *
-     * @param player The player
-     * @param amount The required amount
-     * @return true if the player has enough
+     * @param player Le joueur
+     * @param amount Le montant requis
+     * @return true si le joueur a assez
      */
     boolean has(OfflinePlayer player, long amount);
 
     /**
-     * Withdraw currency from a player.
+     * Retirer de la monnaie à un joueur.
      *
-     * @param player The player
-     * @param amount The amount to withdraw
-     * @return true if successful
+     * @param player Le joueur
+     * @param amount Le montant à retirer
+     * @return true si succès
      */
     boolean withdraw(OfflinePlayer player, long amount);
 
     /**
-     * Deposit currency to a player.
+     * Déposer de la monnaie à un joueur.
      *
-     * @param player The player
-     * @param amount The amount to deposit
-     * @return true if successful
+     * @param player Le joueur
+     * @param amount Le montant à déposer
+     * @return true si succès
      */
     boolean deposit(OfflinePlayer player, long amount);
 
     /**
-     * Get the player's current balance.
+     * Obtenir le solde actuel du joueur.
      *
-     * @param player The player
-     * @return The balance
+     * @param player Le joueur
+     * @return Le solde
      */
     long getBalance(OfflinePlayer player);
 
     /**
-     * Format an amount for display.
+     * Formater un montant pour l'affichage.
      *
-     * @param amount The amount
-     * @return Formatted string (e.g., "$1,000" or "100 Tokens")
+     * @param amount Le montant
+     * @return Chaîne formatée (ex: "1 000$" ou "100 Tokens")
      */
     String format(long amount);
 
     /**
-     * Get the icon for this economy (optional).
-     * Used in inventory displays.
+     * Obtenir l'icône pour cette économie (optionnel).
+     * Utilisé dans les affichages d'inventaire.
      */
     default ItemStack getIcon() {
         return new ItemStack(Material.GOLD_INGOT);
     }
 
     /**
-     * Check if this economy is enabled.
+     * Vérifier si cette économie est activée.
      */
     default boolean isEnabled() {
         return true;
@@ -86,9 +86,9 @@ public interface AuctionEconomy {
 }
 ```
 
-## Example: Token Economy
+## Exemple : Économie de Tokens
 
-Here's a complete example of a custom token economy:
+Voici un exemple complet d'économie de tokens personnalisée :
 
 ```java
 import fr.maxlego08.zauctionhouse.api.economy.AuctionEconomy;
@@ -153,20 +153,20 @@ public class TokenEconomy implements AuctionEconomy {
     @Override
     public ItemStack getIcon() {
         ItemStack icon = new ItemStack(Material.EMERALD);
-        // Customize icon if needed
+        // Personnaliser l'icône si nécessaire
         return icon;
     }
 
-    // Custom method to set balance (for admin commands, etc.)
+    // Méthode personnalisée pour définir le solde (pour commandes admin, etc.)
     public void setBalance(OfflinePlayer player, long amount) {
         balances.put(player.getUniqueId(), amount);
     }
 }
 ```
 
-## Registering Your Economy
+## Enregistrer Votre Économie
 
-Register your economy with the `EconomyManager`:
+Enregistrez votre économie avec l'`EconomyManager` :
 
 ```java
 import fr.maxlego08.zauctionhouse.api.AuctionPlugin;
@@ -181,28 +181,28 @@ public class MyPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Wait for zAuctionHouse to be ready
+        // Attendre que zAuctionHouse soit prêt
         Bukkit.getScheduler().runTaskLater(this, this::registerEconomy, 1L);
     }
 
     private void registerEconomy() {
-        // Get zAuctionHouse API
+        // Obtenir l'API zAuctionHouse
         RegisteredServiceProvider<AuctionPlugin> provider =
             Bukkit.getServicesManager().getRegistration(AuctionPlugin.class);
 
         if (provider == null) {
-            getLogger().warning("zAuctionHouse not found!");
+            getLogger().warning("zAuctionHouse non trouvé !");
             return;
         }
 
         AuctionPlugin auctionPlugin = provider.getProvider();
         EconomyManager economyManager = auctionPlugin.getEconomyManager();
 
-        // Create and register economy
+        // Créer et enregistrer l'économie
         this.tokenEconomy = new TokenEconomy();
         economyManager.registerEconomy(tokenEconomy);
 
-        getLogger().info("Token economy registered with zAuctionHouse!");
+        getLogger().info("Économie Token enregistrée avec zAuctionHouse !");
     }
 
     public TokenEconomy getTokenEconomy() {
@@ -211,9 +211,9 @@ public class MyPlugin extends JavaPlugin {
 }
 ```
 
-## Example: Item-Based Economy
+## Exemple : Économie Basée sur les Objets
 
-A more complex example using a specific item as currency:
+Un exemple plus complexe utilisant un objet spécifique comme monnaie :
 
 ```java
 public class DiamondShardEconomy implements AuctionEconomy {
@@ -221,12 +221,12 @@ public class DiamondShardEconomy implements AuctionEconomy {
     private final ItemStack currencyItem;
 
     public DiamondShardEconomy() {
-        // Define the currency item
+        // Définir l'objet de monnaie
         this.currencyItem = new ItemStack(Material.PRISMARINE_SHARD);
         ItemMeta meta = currencyItem.getItemMeta();
-        meta.setDisplayName("§bDiamond Shard");
-        meta.setLore(Arrays.asList("§7A precious currency", "§7used in the auction house"));
-        meta.setCustomModelData(1001); // Optional custom model
+        meta.setDisplayName("§bÉclat de Diamant");
+        meta.setLore(Arrays.asList("§7Une monnaie précieuse", "§7utilisée dans l'hôtel des ventes"));
+        meta.setCustomModelData(1001); // Custom model optionnel
         currencyItem.setItemMeta(meta);
     }
 
@@ -237,7 +237,7 @@ public class DiamondShardEconomy implements AuctionEconomy {
 
     @Override
     public String getDisplayName() {
-        return "§bDiamond Shards";
+        return "§bÉclats de Diamant";
     }
 
     @Override
@@ -268,7 +268,7 @@ public class DiamondShardEconomy implements AuctionEconomy {
 
         HashMap<Integer, ItemStack> leftover = online.getInventory().addItem(toGive);
 
-        // Drop leftover items at player's feet
+        // Déposer les objets restants aux pieds du joueur
         for (ItemStack item : leftover.values()) {
             online.getWorld().dropItemNaturally(online.getLocation(), item);
         }
@@ -284,7 +284,7 @@ public class DiamondShardEconomy implements AuctionEconomy {
 
     @Override
     public String format(long amount) {
-        return amount + " Diamond Shard" + (amount != 1 ? "s" : "");
+        return amount + " Éclat" + (amount != 1 ? "s" : "") + " de Diamant";
     }
 
     @Override
@@ -329,13 +329,13 @@ public class DiamondShardEconomy implements AuctionEconomy {
         ItemMeta meta = item.getItemMeta();
         ItemMeta expected = currencyItem.getItemMeta();
 
-        // Check custom model data
+        // Vérifier le custom model data
         if (expected.hasCustomModelData()) {
             if (!meta.hasCustomModelData()) return false;
             if (meta.getCustomModelData() != expected.getCustomModelData()) return false;
         }
 
-        // Check display name
+        // Vérifier le nom d'affichage
         if (expected.hasDisplayName()) {
             if (!meta.hasDisplayName()) return false;
             if (!meta.getDisplayName().equals(expected.getDisplayName())) return false;
@@ -346,9 +346,9 @@ public class DiamondShardEconomy implements AuctionEconomy {
 }
 ```
 
-## Configuration File
+## Fichier de Configuration
 
-Create a configuration file for your economy in `economies/`:
+Créez un fichier de configuration pour votre économie dans `economies/` :
 
 ```yaml
 # economies/tokens.yml
@@ -359,7 +359,7 @@ icon:
   material: EMERALD
   name: "&bTokens"
   lore:
-    - "&7Custom token currency"
+    - "&7Monnaie de tokens personnalisée"
 
 price:
   min: 1
@@ -372,13 +372,13 @@ auto-claim:
   enabled: true
 ```
 
-## Best Practices
+## Bonnes Pratiques
 
-1. **Thread Safety**: Ensure your economy implementation is thread-safe if using async operations.
+1. **Thread Safety** : Assurez-vous que votre implémentation est thread-safe si vous utilisez des opérations asynchrones.
 
-2. **Offline Support**: Consider what happens when a player is offline. For item-based economies, you may need to store pending deposits.
+2. **Support Hors Ligne** : Considérez ce qui se passe quand un joueur est hors ligne. Pour les économies basées sur les objets, vous devrez peut-être stocker les dépôts en attente.
 
-3. **Logging**: Log transactions for debugging:
+3. **Journalisation** : Journalisez les transactions pour le débogage :
 
 ```java
 @Override
@@ -386,7 +386,7 @@ public boolean withdraw(OfflinePlayer player, long amount) {
     boolean success = doWithdraw(player, amount);
     if (success) {
         plugin.getLogger().info(String.format(
-            "Withdrew %d %s from %s",
+            "Retiré %d %s de %s",
             amount, getName(), player.getName()
         ));
     }
@@ -394,56 +394,56 @@ public boolean withdraw(OfflinePlayer player, long amount) {
 }
 ```
 
-4. **Validation**: Validate amounts before processing:
+4. **Validation** : Validez les montants avant le traitement :
 
 ```java
 @Override
 public boolean withdraw(OfflinePlayer player, long amount) {
     if (amount <= 0) {
-        throw new IllegalArgumentException("Amount must be positive");
+        throw new IllegalArgumentException("Le montant doit être positif");
     }
     // ...
 }
 ```
 
-5. **Error Handling**: Handle edge cases gracefully:
+5. **Gestion des Erreurs** : Gérez les cas limites gracieusement :
 
 ```java
 @Override
 public boolean deposit(OfflinePlayer player, long amount) {
     try {
-        // Deposit logic
+        // Logique de dépôt
         return true;
     } catch (Exception e) {
-        plugin.getLogger().severe("Failed to deposit: " + e.getMessage());
+        plugin.getLogger().severe("Échec du dépôt : " + e.getMessage());
         return false;
     }
 }
 ```
 
-## Testing Your Economy
+## Tester Votre Économie
 
-Test your economy thoroughly:
+Testez votre économie minutieusement :
 
 ```java
-// Unit test example
+// Exemple de test unitaire
 @Test
 public void testWithdrawDeposit() {
     TokenEconomy economy = new TokenEconomy();
     OfflinePlayer player = mockPlayer();
 
-    // Initial balance
+    // Solde initial
     assertEquals(0, economy.getBalance(player));
 
-    // Deposit
+    // Dépôt
     assertTrue(economy.deposit(player, 1000));
     assertEquals(1000, economy.getBalance(player));
 
-    // Withdraw
+    // Retrait
     assertTrue(economy.withdraw(player, 500));
     assertEquals(500, economy.getBalance(player));
 
-    // Insufficient funds
+    // Fonds insuffisants
     assertFalse(economy.withdraw(player, 1000));
     assertEquals(500, economy.getBalance(player));
 }

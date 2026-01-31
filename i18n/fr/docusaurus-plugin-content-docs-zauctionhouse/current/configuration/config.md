@@ -1,23 +1,23 @@
 ---
 sidebar_position: 1
-title: Main Configuration
-description: Main configuration options for zAuctionHouse
+title: Configuration Principale
+description: Options de configuration principales pour zAuctionHouse
 ---
 
-# Main Configuration
+# Configuration Principale
 
-The main configuration file `config.yml` controls the core behavior of zAuctionHouse.
+Le fichier de configuration principal `config.yml` contrôle le comportement central de zAuctionHouse.
 
-## Storage Configuration
+## Configuration du Stockage
 
-Configure how auction data is stored:
+Configurez comment les données d'enchères sont stockées :
 
 ```yaml
 storage:
-  # Storage type: SQLITE, MYSQL, MARIADB
+  # Type de stockage : SQLITE, MYSQL, MARIADB
   type: SQLITE
 
-  # MySQL/MariaDB settings (ignored for SQLite)
+  # Paramètres MySQL/MariaDB (ignorés pour SQLite)
   host: localhost
   port: 3306
   database: zauctionhouse
@@ -25,7 +25,7 @@ storage:
   password: password
   useSSL: false
 
-  # Connection pool settings
+  # Paramètres du pool de connexions
   pool:
     maximum-pool-size: 10
     minimum-idle: 5
@@ -34,91 +34,91 @@ storage:
     max-lifetime: 1800000
 ```
 
-## Multi-Server Configuration
+## Configuration Multi-Serveur
 
-Enable auction synchronization across multiple servers:
+Activez la synchronisation des enchères sur plusieurs serveurs :
 
 ```yaml
 multi-server:
-  # Enable multi-server synchronization
+  # Activer la synchronisation multi-serveur
   enabled: false
 
-  # Sync interval in seconds (0 for real-time via database triggers)
+  # Intervalle de synchronisation en secondes (0 pour temps réel via triggers de base de données)
   sync-interval: 5
 
-  # Server identifier (unique per server)
+  # Identifiant du serveur (unique par serveur)
   server-id: server-1
 ```
 
-## Number Formatting
+## Formatage des Nombres
 
-Configure how numbers are displayed:
+Configurez l'affichage des nombres :
 
 ```yaml
 formatting:
-  # Enable compact number format (1K, 1M, 1B)
+  # Activer le format de nombres compact (1K, 1M, 1B)
   compact-numbers: true
 
-  # Decimal places for compact numbers
+  # Décimales pour les nombres compacts
   compact-decimals: 1
 
-  # Suffixes for compact numbers
+  # Suffixes pour les nombres compacts
   suffixes:
     thousand: "K"
     million: "M"
     billion: "B"
     trillion: "T"
 
-  # Number of decimal places for prices
+  # Nombre de décimales pour les prix
   price-decimals: 2
 
-  # Thousand separator
+  # Séparateur de milliers
   thousand-separator: ","
 
-  # Decimal separator
+  # Séparateur décimal
   decimal-separator: "."
 ```
 
-Example output with these settings:
-- `1500` displays as `1.5K`
-- `2500000` displays as `2.5M`
-- `1234.56` displays as `1,234.56`
+Exemple de rendu avec ces paramètres :
+- `1500` s'affiche comme `1.5K`
+- `2500000` s'affiche comme `2.5M`
+- `1234.56` s'affiche comme `1,234.56`
 
-## Expiration Settings
+## Paramètres d'Expiration
 
-Configure item expiration behavior:
+Configurez le comportement d'expiration des objets :
 
 ```yaml
 expiration:
-  # Default expiration time for listed items
+  # Durée d'expiration par défaut pour les objets en vente
   default: 7d
 
-  # Time format: s (seconds), m (minutes), h (hours), d (days)
+  # Format de temps : s (secondes), m (minutes), h (heures), d (jours)
 
-  # Maximum expiration time allowed
+  # Durée d'expiration maximale autorisée
   maximum: 30d
 
-  # Check expired items interval (in minutes)
+  # Intervalle de vérification des objets expirés (en minutes)
   check-interval: 5
 
-  # Delete expired items after this time (0 to keep forever)
+  # Supprimer les objets expirés après ce délai (0 pour garder indéfiniment)
   delete-after: 30d
 
-  # Notify players about expiring items
+  # Notifier les joueurs des objets qui vont expirer
   notify-before-expiration: true
   notify-time: 1h
 ```
 
-## Item Limits
+## Limites d'Objets
 
-Configure listing limits per player:
+Configurez les limites de mise en vente par joueur :
 
 ```yaml
 limits:
-  # Default limit for players without specific permissions
+  # Limite par défaut pour les joueurs sans permissions spécifiques
   default: 10
 
-  # Permission-based limits (highest takes priority)
+  # Limites basées sur les permissions (la plus élevée a priorité)
   permissions:
     - permission: zauctionhouse.limit.5
       limit: 5
@@ -131,28 +131,28 @@ limits:
     - permission: zauctionhouse.limit.100
       limit: 100
     - permission: zauctionhouse.limit.unlimited
-      limit: -1  # -1 for unlimited
+      limit: -1  # -1 pour illimité
 ```
 
-## Cooldowns
+## Temps de Recharge
 
-Configure cooldowns for various actions:
+Configurez les temps de recharge pour diverses actions :
 
 ```yaml
 cooldowns:
-  # Cooldown between listing items (in seconds)
+  # Temps de recharge entre les mises en vente (en secondes)
   sell: 5
 
-  # Cooldown between purchases (in seconds)
+  # Temps de recharge entre les achats (en secondes)
   purchase: 3
 
-  # Cooldown for using the search feature (in seconds)
+  # Temps de recharge pour la recherche (en secondes)
   search: 2
 ```
 
-## Banned Worlds
+## Mondes Interdits
 
-Prevent auction house usage in specific worlds:
+Empêchez l'utilisation de l'hôtel des ventes dans certains mondes :
 
 ```yaml
 banned-worlds:
@@ -161,56 +161,56 @@ banned-worlds:
   - creative
 ```
 
-## Sorting Options
+## Options de Tri
 
-Configure default sorting and available sort options:
+Configurez le tri par défaut et les options disponibles :
 
 ```yaml
 sorting:
-  # Default sort method
+  # Méthode de tri par défaut
   default: NEWEST
 
-  # Available sort methods
+  # Méthodes de tri disponibles
   # NEWEST, OLDEST, PRICE_LOW, PRICE_HIGH, NAME_AZ, NAME_ZA
 
-  # Remember player's sort preference
+  # Mémoriser la préférence de tri du joueur
   remember-preference: true
 ```
 
-## Anti-Exploit Settings
+## Paramètres Anti-Exploit
 
-Protection against exploits and duplication:
+Protection contre les exploits et la duplication :
 
 ```yaml
 protection:
-  # Prevent selling items with specific NBT tags
+  # Empêcher la vente d'objets avec certains tags NBT
   block-creative-items: true
 
-  # Maximum stack size to sell (0 for no limit)
+  # Taille de stack maximale à vendre (0 pour pas de limite)
   max-stack-size: 64
 
-  # Minimum time between identical item listings (seconds)
+  # Temps minimum entre les mises en vente identiques (secondes)
   duplicate-listing-cooldown: 10
 
-  # Check TPS before allowing actions
+  # Vérifier les TPS avant d'autoriser les actions
   tps-protection:
     enabled: true
     minimum-tps: 15.0
 ```
 
-## Logging
+## Journalisation
 
-Configure action logging:
+Configurez la journalisation des actions :
 
 ```yaml
 logging:
-  # Log to file
+  # Journaliser dans un fichier
   file-logging: true
 
-  # Log file location
+  # Emplacement du fichier de log
   log-file: logs/auction.log
 
-  # Actions to log
+  # Actions à journaliser
   log-actions:
     - SELL
     - PURCHASE
@@ -221,17 +221,17 @@ logging:
 
 ## Notifications
 
-Configure player notifications:
+Configurez les notifications aux joueurs :
 
 ```yaml
 notifications:
-  # Notify seller when item is purchased
+  # Notifier le vendeur quand un objet est acheté
   notify-seller-on-sale: true
 
-  # Notify player when item expires
+  # Notifier le joueur quand un objet expire
   notify-on-expiration: true
 
-  # Sound effects
+  # Effets sonores
   sounds:
     enabled: true
     on-sale: ENTITY_PLAYER_LEVELUP
@@ -239,9 +239,9 @@ notifications:
     on-expiration: BLOCK_NOTE_BLOCK_BASS
 ```
 
-## Full Example
+## Exemple Complet
 
-Here's a complete `config.yml` example:
+Voici un exemple complet de `config.yml` :
 
 ```yaml
 storage:

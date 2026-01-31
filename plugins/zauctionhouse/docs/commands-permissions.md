@@ -1,147 +1,204 @@
 ---
 sidebar_position: 3
 title: Commands & Permissions
-description: All zAuctionHouse commands and permissions
+description: Complete list of commands and permissions for zAuctionHouse
 ---
 
 # Commands & Permissions
 
-## Main Commands
+This page lists all commands and permissions available in zAuctionHouse.
 
-| Command | Permission | Description |
-|---------|------------|-------------|
-| `/ah` | `zauctionhouse.use` | Open the auction house |
-| `/zauction` | `zauctionhouse.use` | Alias for `/ah` |
-| `/hdv` | `zauctionhouse.use` | Alias for `/ah` |
+## Commands
 
-## Selling Commands
+### Player Commands
 
-| Command | Permission | Description |
-|---------|------------|-------------|
-| `/ah sell <price> [amount]` | `zauctionhouse.sell` | List an item for sale |
-| `/ah sellinventory <price>` | `zauctionhouse.sell.inventory` | Sell entire inventory |
-| `/ah sell-confirmation-toggle` | `zauctionhouse.sell.confirmation.toggle` | Toggle sell confirmation |
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/ah` | Open the auction house | `zauctionhouse.use` |
+| `/ah sell <price>` | Sell the item in your hand | `zauctionhouse.sell` |
+| `/ah sell <price> <amount>` | Sell a specific amount | `zauctionhouse.sell` |
+| `/ah selling` | View your listed items | `zauctionhouse.selling` |
+| `/ah expired` | View your expired items | `zauctionhouse.expired` |
+| `/ah purchased` | View items you've bought | `zauctionhouse.purchased` |
+| `/ah search <query>` | Search for items | `zauctionhouse.search` |
+| `/ah category <name>` | Open a specific category | `zauctionhouse.category` |
 
-### Selling with Different Economies
+### Admin Commands
 
-You can specify the economy by adding the format after the price:
-```
-/ah sell <price><format> [amount]
-```
-
-Example: `/ah sell 10l` sells an item for 10 levels (if `l` is the level economy format).
-
-## Navigation Commands
-
-| Command | Permission | Description |
-|---------|------------|-------------|
-| `/ah expire` | - | View expired items |
-| `/ah buying` | - | View purchased items |
-| `/ah categories` | - | Browse item categories |
-| `/ah items` | - | Manage your active listings |
-
-## Utility Commands
-
-| Command | Permission | Description |
-|---------|------------|-------------|
-| `/ah search <string>` | `zauctionhouse.search` | Search for items |
-| `/ah claim` | `zauctionhouse.claim` | Collect pending money |
-| `/ah history [page] [type]` | `zauctionhouse.history` | View transaction history |
-| `/ah transaction <player>` | `zauctionhouse.transaction` | View player's transaction history |
-
-## Admin Commands
-
-| Command | Permission | Description |
-|---------|------------|-------------|
-| `/ah reload` | `zauctionhouse.reload` | Reload configuration files |
-| `/ah config` | `zauctionhouse.config` | In-game configuration |
-| `/ah version` | (config.yml setting) | Display plugin version |
-| `/ah blacklist` | `zauctionhouse.blacklist` | View blacklisted players |
-| `/ah purge <days>` | `zauctionhouse.purge` | Remove old transactions |
-| `/ah giveeconomyitem <economy>` | `zauctionhouse.give.economy.item` | Get economy item |
-
-## Conversion Commands
-
-| Command | Description |
-|---------|-------------|
-| `/ah convert zauctionhousev2` | Convert from v2 |
-| `/ah convert crazyauction` | Convert from CrazyAuction |
-| `/ah convert zmenu` | Convert zMenu configurations |
-| `/ah convert items_base64_to_minecraft_1_21` | Convert items for 1.21 |
-
----
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/ah admin reload` | Reload all configurations | `zauctionhouse.admin.reload` |
+| `/ah admin clear` | Clear all auction items | `zauctionhouse.admin.clear` |
+| `/ah admin remove <player>` | Remove all items from a player | `zauctionhouse.admin.remove` |
+| `/ah admin expire <player>` | Expire all items from a player | `zauctionhouse.admin.expire` |
+| `/ah admin stats` | View auction statistics | `zauctionhouse.admin.stats` |
+| `/ah admin database` | View database information | `zauctionhouse.admin.database` |
 
 ## Permissions
 
 ### Basic Permissions
 
-| Permission | Description |
-|------------|-------------|
-| `zauctionhouse.use` | Access the auction house |
-| `zauctionhouse.sell` | List items for sale |
-| `zauctionhouse.sell.inventory` | Sell entire inventory |
-| `zauctionhouse.search` | Use the search feature |
-| `zauctionhouse.claim` | Claim pending money |
-| `zauctionhouse.history` | View transaction history |
-
-### Item Limit Permissions
-
-Control how many items a player can list:
-
-| Permission | Limit |
-|------------|-------|
-| `zauctionhouse.max.5` | 5 items |
-| `zauctionhouse.max.10` | 10 items |
-| `zauctionhouse.max.15` | 15 items |
-| `zauctionhouse.max.<number>` | Custom limit |
-
-### Expiration Time Permissions
-
-Control how long items stay listed:
-
-| Permission | Duration |
-|------------|----------|
-| `zauctionhouse.expiration.vip` | 3600 seconds (1 hour) |
-| `zauctionhouse.expiration.elite` | 7200 seconds (2 hours) |
-| `zauctionhouse.expiration.legend` | 259200 seconds (3 days) |
-
-Configure custom durations in `config.yml`.
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `zauctionhouse.use` | Access the auction house | true |
+| `zauctionhouse.sell` | Sell items | true |
+| `zauctionhouse.selling` | View your listed items | true |
+| `zauctionhouse.expired` | View your expired items | true |
+| `zauctionhouse.purchased` | View purchased items | true |
+| `zauctionhouse.search` | Search for items | true |
+| `zauctionhouse.category` | Use categories | true |
 
 ### Admin Permissions
 
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `zauctionhouse.admin` | Access all admin commands | op |
+| `zauctionhouse.admin.reload` | Reload configurations | op |
+| `zauctionhouse.admin.clear` | Clear all items | op |
+| `zauctionhouse.admin.remove` | Remove player items | op |
+| `zauctionhouse.admin.expire` | Expire player items | op |
+| `zauctionhouse.admin.stats` | View statistics | op |
+| `zauctionhouse.admin.database` | View database info | op |
+| `zauctionhouse.admin.bypass` | Bypass all restrictions | op |
+
+### Item Limit Permissions
+
+Control how many items a player can list simultaneously:
+
+| Permission | Limit |
+|------------|-------|
+| `zauctionhouse.limit.5` | 5 items |
+| `zauctionhouse.limit.10` | 10 items |
+| `zauctionhouse.limit.25` | 25 items |
+| `zauctionhouse.limit.50` | 50 items |
+| `zauctionhouse.limit.100` | 100 items |
+| `zauctionhouse.limit.unlimited` | No limit |
+
+The plugin uses the highest limit permission the player has. Configure default limits in `config.yml`:
+
+```yaml
+limits:
+  default: 10
+  # Permission-based limits
+  permissions:
+    - permission: zauctionhouse.limit.5
+      limit: 5
+    - permission: zauctionhouse.limit.10
+      limit: 10
+    - permission: zauctionhouse.limit.25
+      limit: 25
+    - permission: zauctionhouse.limit.50
+      limit: 50
+    - permission: zauctionhouse.limit.100
+      limit: 100
+    - permission: zauctionhouse.limit.unlimited
+      limit: -1
+```
+
+### Expiration Time Permissions
+
+Control custom expiration times for listed items:
+
+| Permission | Duration |
+|------------|----------|
+| `zauctionhouse.expire.1h` | 1 hour |
+| `zauctionhouse.expire.6h` | 6 hours |
+| `zauctionhouse.expire.12h` | 12 hours |
+| `zauctionhouse.expire.1d` | 1 day |
+| `zauctionhouse.expire.3d` | 3 days |
+| `zauctionhouse.expire.7d` | 7 days |
+| `zauctionhouse.expire.14d` | 14 days |
+| `zauctionhouse.expire.30d` | 30 days |
+
+Configure in `config.yml`:
+
+```yaml
+expiration:
+  default: 7d
+  # Permission-based expiration times
+  permissions:
+    - permission: zauctionhouse.expire.1h
+      duration: 1h
+    - permission: zauctionhouse.expire.6h
+      duration: 6h
+    - permission: zauctionhouse.expire.12h
+      duration: 12h
+    - permission: zauctionhouse.expire.1d
+      duration: 1d
+    - permission: zauctionhouse.expire.3d
+      duration: 3d
+    - permission: zauctionhouse.expire.7d
+      duration: 7d
+    - permission: zauctionhouse.expire.14d
+      duration: 14d
+    - permission: zauctionhouse.expire.30d
+      duration: 30d
+```
+
+### Bypass Permissions
+
 | Permission | Description |
 |------------|-------------|
-| `zauctionhouse.reload` | Reload configurations |
-| `zauctionhouse.config` | Access in-game config |
-| `zauctionhouse.admin.remove` | Remove any listing |
-| `zauctionhouse.admin.bypass.cooldown` | Bypass cooldowns |
-| `zauctionhouse.transaction` | View other players' history |
-| `zauctionhouse.blacklist` | Manage blacklist |
-| `zauctionhouse.purge` | Purge old data |
+| `zauctionhouse.bypass.limit` | Bypass item listing limits |
+| `zauctionhouse.bypass.cooldown` | Bypass sell cooldowns |
+| `zauctionhouse.bypass.price` | Bypass min/max price restrictions |
+| `zauctionhouse.bypass.blacklist` | Bypass item blacklist |
+| `zauctionhouse.bypass.tax` | Bypass taxes |
+| `zauctionhouse.bypass.world` | Bypass world restrictions |
 
-### Tax Bypass
+### Economy Permissions
+
+If using multiple economies, control access:
 
 | Permission | Description |
 |------------|-------------|
-| `zauctionhouse.bypass.tax` | Exempt from sales tax |
+| `zauctionhouse.economy.vault` | Use Vault economy |
+| `zauctionhouse.economy.playerpoints` | Use PlayerPoints |
+| `zauctionhouse.economy.experience` | Use experience |
+| `zauctionhouse.economy.levels` | Use levels |
+| `zauctionhouse.economy.<name>` | Use custom economy |
 
----
+## Command Aliases
 
-## Examples
+You can configure command aliases in `config.yml`:
 
-### Basic Setup with LuckPerms
+```yaml
+commands:
+  main:
+    name: ah
+    aliases:
+      - auctionhouse
+      - auction
+      - hdv
+```
 
-```bash
-# Allow all players to use the auction house
-/lp group default permission set zauctionhouse.use true
-/lp group default permission set zauctionhouse.sell true
-/lp group default permission set zauctionhouse.max.5 true
+## Permission Examples
 
-# VIP perks
-/lp group vip permission set zauctionhouse.max.15 true
-/lp group vip permission set zauctionhouse.expiration.vip true
+### LuckPerms
 
-# Admin permissions
-/lp group admin permission set zauctionhouse.admin.remove true
-/lp group admin permission set zauctionhouse.reload true
+Give a VIP group 50 item slots and 14-day expiration:
+
+```
+/lp group vip permission set zauctionhouse.limit.50 true
+/lp group vip permission set zauctionhouse.expire.14d true
+```
+
+### PermissionsEx
+
+```yaml
+groups:
+  vip:
+    permissions:
+      - zauctionhouse.limit.50
+      - zauctionhouse.expire.14d
+```
+
+### GroupManager
+
+```yaml
+groups:
+  vip:
+    permissions:
+      - zauctionhouse.limit.50
+      - zauctionhouse.expire.14d
 ```

@@ -1,32 +1,32 @@
 ---
 sidebar_position: 4
-title: Categories
-description: Configure item categories in zAuctionHouse
+title: Catégories
+description: Configurer les catégories d'objets dans zAuctionHouse
 ---
 
-# Categories Configuration
+# Configuration des Catégories
 
-Categories organize items in the auction house, making it easier for players to find what they're looking for. Configure them in `categories.yml`.
+Les catégories organisent les objets dans l'hôtel des ventes, facilitant la recherche pour les joueurs. Configurez-les dans `categories.yml`.
 
-## Basic Category Structure
+## Structure de Base d'une Catégorie
 
 ```yaml
 categories:
   weapons:
-    # Display name
-    name: "&cWeapons"
+    # Nom d'affichage
+    name: "&cArmes"
 
-    # Icon in category menu
+    # Icône dans le menu des catégories
     icon:
       material: DIAMOND_SWORD
-      name: "&cWeapons"
+      name: "&cArmes"
       lore:
-        - "&7Swords, bows, and more"
+        - "&7Épées, arcs et plus"
 
-    # Slot in category menu (0-53)
+    # Emplacement dans le menu des catégories (0-53)
     slot: 10
 
-    # Rules to match items (AND logic - all must match)
+    # Règles pour correspondre aux objets (logique ET - toutes doivent correspondre)
     rules:
       - type: material
         values:
@@ -37,11 +37,11 @@ categories:
           - CROSSBOW
 ```
 
-## Rule Types
+## Types de Règles
 
-### Material Rule
+### Règle par Matériau
 
-Match items by material type:
+Correspondre aux objets par type de matériau :
 
 ```yaml
 rules:
@@ -52,76 +52,76 @@ rules:
       - DIAMOND_PICKAXE
 ```
 
-You can use wildcards:
+Vous pouvez utiliser des caractères génériques :
 
 ```yaml
 rules:
   - type: material
     values:
-      - "*_SWORD"      # All swords
-      - "*_AXE"        # All axes
-      - "DIAMOND_*"    # All diamond items
+      - "*_SWORD"      # Toutes les épées
+      - "*_AXE"        # Toutes les haches
+      - "DIAMOND_*"    # Tous les objets en diamant
 ```
 
-### Name Rule
+### Règle par Nom
 
-Match items by display name:
+Correspondre aux objets par nom d'affichage :
 
 ```yaml
 rules:
   - type: name
-    # Match mode: CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, REGEX
+    # Mode de correspondance : CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, REGEX
     mode: CONTAINS
-    value: "Legendary"
-    # Case sensitive matching
+    value: "Légendaire"
+    # Correspondance sensible à la casse
     case-sensitive: false
 ```
 
-Examples:
+Exemples :
 
 ```yaml
-# Match items with "Epic" in the name
+# Correspondre aux objets avec "Épique" dans le nom
 - type: name
   mode: CONTAINS
-  value: "Epic"
+  value: "Épique"
 
-# Match items starting with "[Mythic]"
+# Correspondre aux objets commençant par "[Mythique]"
 - type: name
   mode: STARTS_WITH
-  value: "[Mythic]"
+  value: "[Mythique]"
 
-# Match using regex (items with Roman numerals)
+# Correspondre avec regex (objets avec chiffres romains)
 - type: name
   mode: REGEX
   value: ".*[IVX]+$"
 ```
 
-### Lore Rule
+### Règle par Lore
 
-Match items by lore content:
+Correspondre aux objets par contenu du lore :
 
 ```yaml
 rules:
   - type: lore
     mode: CONTAINS
-    value: "Soulbound"
-    # Check specific line (optional, -1 for any line)
+    value: "Lié à l'âme"
+    # Vérifier une ligne spécifique (optionnel, -1 pour n'importe quelle ligne)
     line: -1
 ```
 
-### NBT Tag Rule
+### Règle par Tag NBT
 
-Match items by NBT tags (useful for custom items):
+Correspondre aux objets par tags NBT (utile pour les objets personnalisés) :
 
 ```yaml
 rules:
   - type: tag
-    # NBT path
+    # Chemin NBT
     path: "CustomItem.type"
     value: "weapon"
 ```
 
-For checking if a tag exists:
+Pour vérifier si un tag existe :
 
 ```yaml
 rules:
@@ -130,63 +130,63 @@ rules:
     exists: true
 ```
 
-### Custom Model Data Rule
+### Règle par Custom Model Data
 
-Match items by custom model data:
+Correspondre aux objets par custom model data :
 
 ```yaml
 rules:
   - type: model-data
-    # Exact value
+    # Valeur exacte
     value: 1001
 
-# Or range
+# Ou plage
 - type: model-data
   min: 1000
   max: 1999
 ```
 
-### Enchantment Rule
+### Règle par Enchantement
 
-Match items by enchantments:
+Correspondre aux objets par enchantements :
 
 ```yaml
 rules:
   - type: enchantment
-    # Enchantment name
+    # Nom de l'enchantement
     enchantment: SHARPNESS
-    # Minimum level (optional)
+    # Niveau minimum (optionnel)
     min-level: 1
 ```
 
-## Rule Logic
+## Logique des Règles
 
-### AND Logic (Default)
+### Logique ET (Par Défaut)
 
-All rules must match for the item to be in the category:
+Toutes les règles doivent correspondre pour que l'objet soit dans la catégorie :
 
 ```yaml
 categories:
   legendary-weapons:
-    name: "&6Legendary Weapons"
-    # Item must be a sword AND have "Legendary" in name
+    name: "&6Armes Légendaires"
+    # L'objet doit être une épée ET avoir "Légendaire" dans le nom
     rules:
       - type: material
         values:
           - "*_SWORD"
       - type: name
         mode: CONTAINS
-        value: "Legendary"
+        value: "Légendaire"
 ```
 
-### OR Logic
+### Logique OU
 
-Use `any-of` for OR logic - item matches if any rule matches:
+Utilisez `any-of` pour la logique OU - l'objet correspond si une règle correspond :
 
 ```yaml
 categories:
   weapons:
-    name: "&cWeapons"
+    name: "&cArmes"
     any-of:
       - type: material
         values:
@@ -197,15 +197,15 @@ categories:
           - CROSSBOW
 ```
 
-### Combined Logic
+### Logique Combinée
 
-Mix AND and OR:
+Mélangez ET et OU :
 
 ```yaml
 categories:
   epic-gear:
-    name: "&5Epic Gear"
-    # Must match the material rule AND at least one in any-of
+    name: "&5Équipement Épique"
+    # Doit correspondre à la règle de matériau ET au moins une dans any-of
     rules:
       - type: material
         values:
@@ -215,28 +215,28 @@ categories:
     any-of:
       - type: name
         mode: CONTAINS
-        value: "Epic"
+        value: "Épique"
       - type: lore
         mode: CONTAINS
-        value: "Rare Item"
+        value: "Objet Rare"
 ```
 
-## Complete Categories Example
+## Exemple Complet de Catégories
 
 ```yaml
-# Default category for unmatched items
+# Catégorie par défaut pour les objets non correspondants
 default-category: misc
 
 categories:
   weapons:
-    name: "&cWeapons"
+    name: "&cArmes"
     icon:
       material: DIAMOND_SWORD
-      name: "&cWeapons"
+      name: "&cArmes"
       lore:
-        - "&7Swords, axes, bows, and more"
+        - "&7Épées, haches, arcs et plus"
         - ""
-        - "&eClick to browse!"
+        - "&eCliquez pour parcourir !"
     slot: 10
     rules:
       - type: material
@@ -248,12 +248,12 @@ categories:
           - TRIDENT
 
   armor:
-    name: "&9Armor"
+    name: "&9Armure"
     icon:
       material: DIAMOND_CHESTPLATE
-      name: "&9Armor"
+      name: "&9Armure"
       lore:
-        - "&7Helmets, chestplates, and more"
+        - "&7Casques, plastrons et plus"
     slot: 11
     rules:
       - type: material
@@ -266,12 +266,12 @@ categories:
           - ELYTRA
 
   tools:
-    name: "&6Tools"
+    name: "&6Outils"
     icon:
       material: DIAMOND_PICKAXE
-      name: "&6Tools"
+      name: "&6Outils"
       lore:
-        - "&7Pickaxes, shovels, and more"
+        - "&7Pioches, pelles et plus"
     slot: 12
     rules:
       - type: material
@@ -289,7 +289,7 @@ categories:
       material: POTION
       name: "&dPotions"
       lore:
-        - "&7Potions and brewing materials"
+        - "&7Potions et matériaux d'alchimie"
     slot: 13
     rules:
       - type: material
@@ -300,12 +300,12 @@ categories:
           - TIPPED_ARROW
 
   enchanted:
-    name: "&bEnchanted Items"
+    name: "&bObjets Enchantés"
     icon:
       material: ENCHANTED_BOOK
-      name: "&bEnchanted Items"
+      name: "&bObjets Enchantés"
       lore:
-        - "&7All enchanted items"
+        - "&7Tous les objets enchantés"
     slot: 14
     rules:
       - type: tag
@@ -313,12 +313,12 @@ categories:
         exists: true
 
   blocks:
-    name: "&aBlocks"
+    name: "&aBlocs"
     icon:
       material: GRASS_BLOCK
-      name: "&aBlocks"
+      name: "&aBlocs"
       lore:
-        - "&7Building blocks"
+        - "&7Blocs de construction"
     slot: 15
     rules:
       - type: material
@@ -332,12 +332,12 @@ categories:
           - "*_FENCE"
 
   food:
-    name: "&6Food"
+    name: "&6Nourriture"
     icon:
       material: GOLDEN_APPLE
-      name: "&6Food"
+      name: "&6Nourriture"
       lore:
-        - "&7Food and consumables"
+        - "&7Nourriture et consommables"
     slot: 16
     rules:
       - type: material
@@ -354,35 +354,35 @@ categories:
           - CAKE
 
   misc:
-    name: "&7Miscellaneous"
+    name: "&7Divers"
     icon:
       material: CHEST
-      name: "&7Miscellaneous"
+      name: "&7Divers"
       lore:
-        - "&7Everything else"
+        - "&7Tout le reste"
     slot: 19
-    # No rules - catches everything not in other categories
+    # Pas de règles - attrape tout ce qui n'est pas dans d'autres catégories
 ```
 
-## Category Priority
+## Priorité des Catégories
 
-When an item matches multiple categories, it goes to the first matching category. Order your categories from most specific to least specific:
+Quand un objet correspond à plusieurs catégories, il va dans la première catégorie correspondante. Ordonnez vos catégories de la plus spécifique à la moins spécifique :
 
 ```yaml
 categories:
-  # Specific category first
+  # Catégorie spécifique en premier
   legendary-weapons:
-    name: "&6Legendary Weapons"
+    name: "&6Armes Légendaires"
     rules:
       - type: material
         values: ["*_SWORD"]
       - type: name
         mode: CONTAINS
-        value: "Legendary"
+        value: "Légendaire"
 
-  # General category after
+  # Catégorie générale après
   weapons:
-    name: "&cWeapons"
+    name: "&cArmes"
     rules:
       - type: material
         values: ["*_SWORD"]

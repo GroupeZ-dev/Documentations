@@ -1,64 +1,106 @@
 ---
 sidebar_position: 1
 title: Introduction
-description: Introduction to zAuctionHouse - A complete auction house plugin for Minecraft
+description: Introduction to zAuctionHouse - The next generation auction house plugin for Minecraft
 ---
 
 # zAuctionHouse
 
 Welcome to the zAuctionHouse documentation!
 
-zAuctionHouse is a powerful and highly customizable auction house plugin for Minecraft servers. It integrates seamlessly with zMenu for fully customizable inventory interfaces.
+zAuctionHouse is the complete rewrite of zAuctionHouse, featuring a modern architecture, improved performance, and an extensive API for developers. It integrates seamlessly with zMenu for fully customizable inventory interfaces.
 
-## Features
+## What's New in V4?
 
-- **Multiple Economies** - Support for Vault, PlayerPoints, Experience, Levels, Items, and many more
-- **Categories** - Organize items into customizable categories
-- **Search System** - Advanced search and filtering capabilities
-- **Bidding System** - Optional auction bidding functionality
-- **Statistics** - Track sales, purchases, and player activity (addon)
-- **zMenu Integration** - Fully customizable interfaces using zMenu
-- **Anti-Lag System** - Built-in protection against high ping and low TPS
-- **Anti-Dupe** - Protection against item duplication
-- **Tax System** - Configurable taxes on sales or purchases
-- **Multi-Database** - SQLite, MySQL, Redis, or JSON storage
+zAuctionHouse has been rebuilt from the ground up with:
 
-## Why zMenu?
+- **New Architecture** - Modular design with separate API, Core, and Hooks modules
+- **Service-Based System** - Dedicated services for selling, purchasing, and item management
+- **CompletableFuture API** - Fully asynchronous operations for better performance
+- **Enhanced Event System** - Pre and Post events for complete control over auction operations
+- **Improved Item Management** - Better abstraction with Item and AuctionItem interfaces
 
-zAuctionHouse uses the zMenu API, giving you access to all zMenu features:
-- 9+ button types
-- 28+ action types
-- Pattern support
-- PlaceholderAPI integration
-- And much more
+## Key Features
 
-Existing DeluxeMenu configurations work automatically with zMenu - simply transfer your configuration files to the `inventories` folder.
+### Multiple Economies
+Support for various economy systems:
+- Vault (any Vault-compatible economy)
+- PlayerPoints
+- Experience / Levels
+- Custom item currencies
+- Create your own economy implementation
 
-:::warning
-Disabling zMenu is not recommended as you will lose access to many features and customization options.
-:::
+### Flexible Category System
+- Define categories with powerful rule system
+- Material, name, lore, NBT tags, and model data rules
+- Combine rules with AND/OR logic
+- Blacklist and whitelist support
+
+### Advanced Item Management
+- List items for sale with customizable expiration times
+- Auto-claim system for purchased items
+- Price reduction over time
+- Tax system on sales or purchases
+
+### Full Customization
+- All interfaces customizable via zMenu
+- Custom messages for every action
+- Number formatting (K, M, B suffixes)
+- Multi-language support
+
+### Multi-Server Support
+- Synchronize auctions across multiple servers
+- MySQL/MariaDB database support
+- Real-time updates between servers
+
+### Developer API
+- Clean, documented API
+- Service-based architecture
+- Event system with pre/post hooks
+- Custom economy implementation support
+
+## Comparison with V3
+
+| Feature | V3 | V4 |
+|---------|----|----|
+| Architecture | Monolithic | Modular (API/Core/Hooks) |
+| Async Operations | Partial | Full CompletableFuture |
+| Event System | Basic | Pre/Post Events |
+| Services | Integrated | Dedicated Services |
+| Item Abstraction | Basic | Item/AuctionItem Interfaces |
+| Code Quality | Good | Completely Refactored |
 
 ## Requirements
 
-- Java 17+
-- Minecraft 1.20.5+ (1.13+ for older versions)
-- [zMenu](https://www.spigotmc.org/resources/zmenu.110402/) plugin
-- Vault (optional, for economy integration)
+- **Java 21+**
+- **Minecraft 1.20.5+**
+- **[zMenu](https://modrinth.com/plugin/zmenu)** - Required for inventory interfaces
+- **PlaceholderAPI** - Optional, for placeholder support
+- **Vault** - Optional, for economy integration
+
+## Supported Platforms
+
+zAuctionHouse works with:
+- Spigot
+- Paper (recommended)
+- Purpur
+- Pufferfish
+- Folia
 
 ## Quick Links
 
-- [Installation](./installation)
+- [Installation Guide](./installation)
 - [Commands & Permissions](./commands-permissions)
 - [Configuration](./configuration/config)
 - [API Documentation](./development/api)
 
 ## Support
 
-Need help? Join our [Discord server](https://discord.groupez.dev) for support.
+Need help? Here are your options:
+- **Discord**: Join our [Discord server](https://discord.groupez.dev) for support
+- **GitHub**: Report issues on [GitHub](https://github.com/Maxlego08/zAuctionHouse)
 
-## Premium Configurations
+## Download
 
-Looking for pre-made configurations? Check out these official setups:
-- [Mc-Complex Configuration](https://builtbybit.com/resources/zauctionhouse-mc-complex-auctionhouse.41745/)
-- [DonutSmp Configuration](https://builtbybit.com/resources/zauctionhouse-donutsmp-auctionhouse.41404/)
-- [Hypixel Configuration](https://builtbybit.com/resources/zauctionhouse-hypixel-auctionhouse.41378/)
+- **Modrinth**: [modrinth.com/plugin/zauctionhouse](https://modrinth.com/plugin/zauctionhouse)
+- **SpigotMC**: [spigotmc.org/resources/zauctionhouse](https://www.spigotmc.org/resources/zauctionhouse.00000/)
