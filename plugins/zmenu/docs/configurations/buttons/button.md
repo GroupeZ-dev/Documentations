@@ -655,16 +655,21 @@ items:
 
 ### Requirement Types
 
+For a complete guide on all requirement types, configuration options, and advanced features like `and`/`or` logic, see the dedicated [Requirements](../requirements) page.
+
 | Type | Description |
 |------|-------------|
 | `permission` | Check if player has a permission |
 | `placeholder` | Compare a placeholder value |
-| `currency` | Check player's balance |
+| `money` | Check player's balance |
 | `item` | Check if player has items |
 | `job` | Check Jobs Reborn level |
 | `luckperm` | Check LuckPerms group |
 | `regex` | Match text against a pattern |
 | `player-name` | Check player's name |
+| `cuboid` | Check if player is in a zone |
+| `and` | All sub-requirements must pass (zMenu+) |
+| `or` | Minimum sub-requirements must pass (zMenu+) |
 
 **Permission Requirement:**
 ```yaml
@@ -684,10 +689,10 @@ requirements:
 
 **Comparison operators:** `==`, `!=`, `>=`, `>`, `<=`, `<`, `equals_string`, `equalsIgnoreCase`
 
-**Currency Requirement:**
+**Money Requirement:**
 ```yaml
 requirements:
-  - type: currency
+  - type: money
     amount: 1000
 ```
 
