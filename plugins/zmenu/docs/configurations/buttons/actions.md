@@ -206,6 +206,66 @@ Force the player to send a chat message.
     - "Hello everyone!"
 ```
 
+---
+
+### random-player-command
+
+:::info zMenu+
+This action requires [zMenu+](https://minecraft-music-inventory.com/resources/zmenu.music.331).
+:::
+
+Execute a random selection of commands as the player from a list. The commands are selected **without replacement** (no duplicates in a single execution).
+
+```yaml
+- type: random_player_command
+  commands:
+    - "say I got option 1!"
+    - "say I got option 2!"
+    - "say I got option 3!"
+    - "say I got option 4!"
+  amount: 1               # Number of commands to randomly execute (default: 1)
+  command-in-chat: false   # Optional: execute via chat instead of dispatch (default: false)
+```
+
+**Options:**
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `commands` | List | Required | List of commands to randomly select from |
+| `amount` | Integer | `1` | Number of random commands to execute |
+| `command-in-chat` | Boolean | `false` | If `true`, sends via `player.chat()`; if `false`, dispatches as command |
+
+**Aliases:** `random_player_command`, `random_player_commands`, `random-player-command`, `random-player-commands`
+
+---
+
+### random-console-command
+
+:::info zMenu+
+This action requires [zMenu+](https://minecraft-music-inventory.com/resources/zmenu.music.331).
+:::
+
+Execute a random selection of console commands from a list. The commands are selected **without replacement** (no duplicates in a single execution). Supports the `%player%` placeholder.
+
+```yaml
+- type: random_console_command
+  commands:
+    - "give %player% diamond 1"
+    - "give %player% emerald 1"
+    - "give %player% gold_ingot 1"
+    - "give %player% iron_ingot 1"
+  amount: 2    # Execute 2 random commands from the list
+```
+
+**Options:**
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `commands` | List | Required | List of console commands to randomly select from |
+| `amount` | Integer | `1` | Number of random commands to execute |
+
+**Aliases:** `random_console_command`, `random_console_commands`, `random-console-command`, `random-console-commands`, `random-command`, `random-commands`
+
 ## Inventory Actions
 
 ### inventory
@@ -615,6 +675,8 @@ click-requirement:
 | `sound` | Play sound |
 | `player-command` | Run command as player |
 | `console-command` | Run command as console |
+| `random-player-command` | Run random command(s) as player (zMenu+) |
+| `random-console-command` | Run random console command(s) (zMenu+) |
 | `inventory` | Open inventory |
 | `close` | Close inventory |
 | `back` | Go back |

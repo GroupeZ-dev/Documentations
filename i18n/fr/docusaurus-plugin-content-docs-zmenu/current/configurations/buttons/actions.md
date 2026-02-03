@@ -206,6 +206,66 @@ Forcer le joueur a envoyer un message dans le chat.
     - "Bonjour tout le monde !"
 ```
 
+---
+
+### random-player-command
+
+:::info zMenu+
+Cette action necessite [zMenu+](https://minecraft-music-inventory.com/resources/zmenu.music.331).
+:::
+
+Executer une selection aleatoire de commandes en tant que joueur a partir d'une liste. Les commandes sont selectionnees **sans remise** (pas de doublons dans une seule execution).
+
+```yaml
+- type: random_player_command
+  commands:
+    - "say J'ai eu l'option 1 !"
+    - "say J'ai eu l'option 2 !"
+    - "say J'ai eu l'option 3 !"
+    - "say J'ai eu l'option 4 !"
+  amount: 1               # Nombre de commandes a executer aleatoirement (defaut : 1)
+  command-in-chat: false   # Optionnel : executer via le chat au lieu d'un dispatch (defaut : false)
+```
+
+**Options :**
+
+| Option | Type | Defaut | Description |
+|--------|------|--------|-------------|
+| `commands` | Liste | Requis | Liste des commandes parmi lesquelles choisir aleatoirement |
+| `amount` | Entier | `1` | Nombre de commandes aleatoires a executer |
+| `command-in-chat` | Booleen | `false` | Si `true`, envoie via `player.chat()` ; si `false`, dispatch en tant que commande |
+
+**Alias :** `random_player_command`, `random_player_commands`, `random-player-command`, `random-player-commands`
+
+---
+
+### random-console-command
+
+:::info zMenu+
+Cette action necessite [zMenu+](https://minecraft-music-inventory.com/resources/zmenu.music.331).
+:::
+
+Executer une selection aleatoire de commandes console a partir d'une liste. Les commandes sont selectionnees **sans remise** (pas de doublons dans une seule execution). Supporte le placeholder `%player%`.
+
+```yaml
+- type: random_console_command
+  commands:
+    - "give %player% diamond 1"
+    - "give %player% emerald 1"
+    - "give %player% gold_ingot 1"
+    - "give %player% iron_ingot 1"
+  amount: 2    # Executer 2 commandes aleatoires de la liste
+```
+
+**Options :**
+
+| Option | Type | Defaut | Description |
+|--------|------|--------|-------------|
+| `commands` | Liste | Requis | Liste des commandes console parmi lesquelles choisir aleatoirement |
+| `amount` | Entier | `1` | Nombre de commandes aleatoires a executer |
+
+**Alias :** `random_console_command`, `random_console_commands`, `random-console-command`, `random-console-commands`, `random-command`, `random-commands`
+
 ## Actions d'inventaire
 
 ### inventory
@@ -585,6 +645,8 @@ click-requirement:
 | `sound` | Jouer un son |
 | `player-command` | Executer une commande en tant que joueur |
 | `console-command` | Executer une commande en tant que console |
+| `random-player-command` | Executer des commandes aleatoires en tant que joueur (zMenu+) |
+| `random-console-command` | Executer des commandes console aleatoires (zMenu+) |
 | `inventory` | Ouvrir un inventaire |
 | `close` | Fermer l'inventaire |
 | `back` | Revenir en arriere |
