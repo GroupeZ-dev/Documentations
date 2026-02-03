@@ -395,16 +395,21 @@ items:
 
 ### Types d'exigences
 
+Pour un guide complet sur tous les types d'exigences, les options de configuration et les fonctionnalites avancees comme la logique `and`/`or`, consultez la page dediee [Exigences](../requirements).
+
 | Type | Description |
 |------|-------------|
 | `permission` | Verifier si le joueur a une permission |
 | `placeholder` | Comparer une valeur de placeholder |
-| `currency` | Verifier le solde du joueur |
+| `money` | Verifier le solde du joueur |
 | `item` | Verifier si le joueur a des items |
 | `job` | Verifier le niveau Jobs Reborn |
 | `luckperm` | Verifier le groupe LuckPerms |
 | `regex` | Faire correspondre du texte a un pattern |
 | `player-name` | Verifier le nom du joueur |
+| `cuboid` | Verifier si le joueur est dans une zone |
+| `and` | Toutes les sous-exigences doivent passer (zMenu+) |
+| `or` | Un minimum de sous-exigences doit passer (zMenu+) |
 
 **Exigence de permission :**
 ```yaml
@@ -424,10 +429,10 @@ requirements:
 
 **Operateurs de comparaison :** `==`, `!=`, `>=`, `>`, `<=`, `<`, `equals_string`, `equalsIgnoreCase`
 
-**Exigence de monnaie :**
+**Exigence d'argent :**
 ```yaml
 requirements:
-  - type: currency
+  - type: money
     amount: 1000
 ```
 

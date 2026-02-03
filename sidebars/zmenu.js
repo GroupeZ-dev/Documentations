@@ -59,6 +59,7 @@ const sidebars = {
             'configurations/buttons/actions',
           ],
         },
+        'configurations/requirements',
         'configurations/global-placeholders',
         'configurations/patterns',
         'configurations/player-data',
