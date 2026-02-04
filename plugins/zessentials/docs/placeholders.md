@@ -6,7 +6,7 @@ description: Complete list of PlaceholderAPI placeholders for zEssentials
 
 # Placeholders
 
-zEssentials provides **76+ placeholders** through [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/). All placeholders use the prefix `%zessentials_` and can be used anywhere PlaceholderAPI is supported, including scoreboards, holograms, chat formatting, tab lists, and more.
+zEssentials provides **150+ placeholders** through [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/). All placeholders use the prefix `%zessentials_` and can be used anywhere PlaceholderAPI is supported, including scoreboards, holograms, chat formatting, tab lists, and more.
 
 ## Requirements
 
@@ -37,6 +37,30 @@ General information about the player.
 | `%zessentials_user_block_y%` | Block-level Y coordinate of the player | Integer |
 | `%zessentials_user_block_z%` | Block-level Z coordinate of the player | Integer |
 | `%zessentials_user_biome%` | The biome the player is currently standing in | String |
+
+---
+
+## User Status
+
+Additional status and detail placeholders for zEssentials users. Replace `{index}` with the home index (1-based).
+
+| Placeholder | Description | Return Type |
+|-------------|-------------|-------------|
+| `%zessentials_user_is_vanished%` | Returns true if the player is vanished | Boolean |
+| `%zessentials_user_is_frozen%` | Returns true if the player is frozen | Boolean |
+| `%zessentials_user_is_ban%` | Returns true if the player is banned | Boolean |
+| `%zessentials_user_ban_reason%` | Returns the ban reason | String |
+| `%zessentials_user_ban_duration%` | Returns the remaining ban duration in seconds | Integer |
+| `%zessentials_user_ban_duration_formatted%` | Returns the remaining ban duration formatted | String |
+| `%zessentials_user_mute_reason%` | Returns the mute reason | String |
+| `%zessentials_user_fly_formatted%` | Returns the remaining fly time formatted | String |
+| `%zessentials_user_afk_duration%` | Returns the AFK duration in seconds | Integer |
+| `%zessentials_user_afk_duration_formatted%` | Returns the AFK duration formatted | String |
+| `%zessentials_user_home_list%` | Returns a comma-separated list of home names | String |
+| `%zessentials_user_home_{index}%` | Returns the home name by index (1-based) | String |
+| `%zessentials_user_home_{index}_{w/x/y/z}%` | Returns the home location info by index | String |
+| `%zessentials_user_vote_offline%` | Returns the number of offline votes | Integer |
+| `%zessentials_user_pm_recipient%` | Returns the name of the last private message recipient | String |
 
 ---
 
@@ -272,6 +296,66 @@ Requires the WorldEdit module to be enabled.
 
 ---
 
+## Player
+
+Bukkit player information placeholders.
+
+| Placeholder | Description | Return Type |
+|-------------|-------------|-------------|
+| `%zessentials_player_health%` | Returns the player's current health | Decimal |
+| `%zessentials_player_max_health%` | Returns the player's max health | Decimal |
+| `%zessentials_player_health_rounded%` | Returns the player's health rounded to nearest integer | Integer |
+| `%zessentials_player_absorption%` | Returns the player's absorption hearts | Decimal |
+| `%zessentials_player_food_level%` | Returns the player's food level | Integer |
+| `%zessentials_player_saturation%` | Returns the player's saturation level | Decimal |
+| `%zessentials_player_exhaustion%` | Returns the player's exhaustion level | Decimal |
+| `%zessentials_player_level%` | Returns the player's experience level | Integer |
+| `%zessentials_player_exp%` | Returns the player's experience progress (0.0 to 1.0) | Decimal |
+| `%zessentials_player_exp_percentage%` | Returns the player's experience progress as percentage | Decimal |
+| `%zessentials_player_total_exp%` | Returns the player's total experience points | Integer |
+| `%zessentials_player_exp_to_level%` | Returns the experience required for the next level | Integer |
+| `%zessentials_player_displayname%` | Returns the player's display name | String |
+| `%zessentials_player_uuid%` | Returns the player's UUID | String |
+| `%zessentials_player_locale%` | Returns the player's client locale | String |
+| `%zessentials_player_client_brand%` | Returns the player's client brand name | String |
+| `%zessentials_player_gamemode%` | Returns the player's game mode | String |
+| `%zessentials_player_is_flying%` | Returns true if the player is currently flying | Boolean |
+| `%zessentials_player_allow_flight%` | Returns true if the player is allowed to fly | Boolean |
+| `%zessentials_player_is_sneaking%` | Returns true if the player is sneaking | Boolean |
+| `%zessentials_player_is_sprinting%` | Returns true if the player is sprinting | Boolean |
+| `%zessentials_player_is_sleeping%` | Returns true if the player is sleeping | Boolean |
+| `%zessentials_player_is_op%` | Returns true if the player is operator | Boolean |
+| `%zessentials_player_is_dead%` | Returns true if the player is dead | Boolean |
+| `%zessentials_player_is_swimming%` | Returns true if the player is in water | Boolean |
+| `%zessentials_player_is_blocking%` | Returns true if the player is blocking with a shield | Boolean |
+| `%zessentials_player_is_gliding%` | Returns true if the player is gliding with elytra | Boolean |
+| `%zessentials_player_ping%` | Returns the player's ping in milliseconds | Integer |
+| `%zessentials_player_colored_ping%` | Returns the player's ping with color based on quality | String |
+| `%zessentials_player_fly_speed%` | Returns the player's fly speed | Decimal |
+| `%zessentials_player_walk_speed%` | Returns the player's walk speed | Decimal |
+| `%zessentials_player_remaining_air%` | Returns the player's remaining air in ticks | Integer |
+| `%zessentials_player_max_air%` | Returns the player's maximum air in ticks | Integer |
+| `%zessentials_player_compass%` | Returns the player's compass direction (N, NE, E, SE, S, SW, W, NW) | String |
+| `%zessentials_player_yaw%` | Returns the player's yaw rotation | Decimal |
+| `%zessentials_player_pitch%` | Returns the player's pitch rotation | Decimal |
+| `%zessentials_player_first_played%` | Returns the date when the player first joined | String |
+| `%zessentials_player_last_played%` | Returns the date when the player last joined | String |
+| `%zessentials_player_ticks_lived%` | Returns the number of ticks the player has lived | Integer |
+| `%zessentials_player_empty_slots%` | Returns the number of empty inventory slots | Integer |
+| `%zessentials_player_item_in_hand%` | Returns the material type of the item in main hand | String |
+| `%zessentials_player_item_in_offhand%` | Returns the material type of the item in off hand | String |
+| `%zessentials_player_world_time%` | Returns the time of the player's world in ticks | Integer |
+| `%zessentials_player_world_time_12%` | Returns the world time in 12-hour format | String |
+| `%zessentials_player_world_time_24%` | Returns the world time in 24-hour format | String |
+| `%zessentials_player_world_weather%` | Returns the weather of the player's world | String |
+| `%zessentials_player_has_bed%` | Returns true if the player has a respawn location set | Boolean |
+| `%zessentials_player_bed_world%` | Returns the world name of the player's respawn location | String |
+| `%zessentials_player_bed_x%` | Returns the X coordinate of the player's respawn location | Integer |
+| `%zessentials_player_bed_y%` | Returns the Y coordinate of the player's respawn location | Integer |
+| `%zessentials_player_bed_z%` | Returns the Z coordinate of the player's respawn location | Integer |
+
+---
+
 ## Server
 
 General server-related placeholders.
@@ -287,6 +371,21 @@ General server-related placeholders.
 | `%zessentials_custom_formatted_number_{number}_{format}%` | A number formatted with the specified pattern | String |
 | `%zessentials_server_uptime_in_second%` | Server uptime in seconds | Integer |
 | `%zessentials_server_uptime%` | Server uptime in a human-readable format | String |
+| `%zessentials_server_online%` | Number of online players | Integer |
+| `%zessentials_server_max_players%` | Maximum number of players | Integer |
+| `%zessentials_server_safe_online%` | Number of non-vanished online players | Integer |
+| `%zessentials_server_unique_joins%` | Total number of unique players who have joined | Integer |
+| `%zessentials_server_tps%` | Server TPS (1 minute average) | Decimal |
+| `%zessentials_server_tps_5%` | Server TPS (5 minute average) | Decimal |
+| `%zessentials_server_tps_15%` | Server TPS (15 minute average) | Decimal |
+| `%zessentials_server_tps_colored%` | Server TPS with color indicator | String |
+| `%zessentials_server_free_memory%` | Free memory in MB | Integer |
+| `%zessentials_server_max_memory%` | Max memory in MB | Integer |
+| `%zessentials_server_used_memory%` | Used memory in MB | Integer |
+| `%zessentials_server_total_memory%` | Total allocated memory in MB | Integer |
+| `%zessentials_server_world_players_{world}%` | Number of players in a specific world | Integer |
+| `%zessentials_server_world_time_{world}%` | Time of a specific world in ticks | Integer |
+| `%zessentials_server_world_weather_{world}%` | Weather of a specific world | String |
 
 **Example:** `%zessentials_random_number_1_100%` returns a random number between 1 and 100.
 
