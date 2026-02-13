@@ -440,14 +440,15 @@ Sets the damage type dealt by the item when used as a weapon.
 
 ```yaml
 components:
-  damage-type: "minecraft:player_attack"
+  damage-type: 
+    types: "minecraft:player_attack"
 ```
 
 **Common Damage Types:** `player_attack`, `mob_attack`, `arrow`, `fireball`, `magic`, `wither`, `dragon_breath`, `freeze`, `sonic_boom`
 
 ---
 
-## dye-color
+## dyed-color
 
 Sets the dye color for leather armor and other dyeable items.
 
@@ -455,7 +456,7 @@ Sets the dye color for leather armor and other dyeable items.
 
 ```yaml
 components:
-  dye-color: "#FF5555"
+  dyed-color: "#FF5555"
 ```
 
 ---
@@ -468,7 +469,8 @@ Sets the enchantability value for the item.
 
 ```yaml
 components:
-  enchantable: 15
+  enchantable: 
+    value: 15
 ```
 
 ---
@@ -493,7 +495,7 @@ components:
 
 ## enchantments
 
-Adds enchantments to the item.
+Adds enchantments to the item. Supports custom enchantments if they were registered inside the registry.
 
 **Minecraft Wiki:** [enchantments](https://minecraft.wiki/w/Data_component_format#enchantments)
 
