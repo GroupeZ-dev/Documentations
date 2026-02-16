@@ -533,19 +533,40 @@ Modify player data values.
 
 ## Economy Actions
 
-### currency-deposit
+### deposit
 
 Add money to player's balance.
 
-```yaml
-- type: currency-deposit
-  amount: 100
-  reason: "Reward"    # Optional
-```
+<Tabs>
+    <TabItem value="deposit" label="deposit">
+
+        ```yaml
+        - type: withdraw
+          currency: "vault"  # Optional: specify currency plugin
+          #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
+          amount: 50
+          reason: "Purchase"  # Optional
+        ```
+
+    </TabItem>
+    <TabItem value="money add" label="money add (Alias)">
+
+        ```yaml
+        - type: "money add"
+          currency: "vault"  # Optional: specify currency plugin
+          #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
+          amount: 50
+          reason: "Purchase"  # Optional
+        ```
+
+    </TabItem>
+</Tabs>
+
+[See the full list of supported currencies here.](../../../currenciesapi/currencies)
 
 ---
 
-### currency-withdraw
+### withdraw
 
 Remove money from player's balance.
 
@@ -555,6 +576,32 @@ Remove money from player's balance.
   reason: "Purchase"  # Optional
 ```
 
+<Tabs>
+    <TabItem value="withdraw" label="withdraw">
+
+        ```yaml
+        - type: withdraw
+          currency: "vault"  # Optional: specify currency plugin
+          #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
+          amount: 50
+          reason: "Purchase"  # Optional
+        ```
+
+    </TabItem>
+    <TabItem value="money remove" label="money remove (Alias)">
+
+        ```yaml
+        - type: "money remove"
+          currency: "vault"  # Optional: specify currency plugin
+          #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
+          amount: 50
+          reason: "Purchase"  # Optional
+        ```
+
+    </TabItem>
+</Tabs>
+
+[See the full list of supported currencies here.](../../../currenciesapi/currencies)
 ## Book Action
 
 ### book
@@ -565,16 +612,14 @@ Open a written book for the player.
 - type: book
   author: "Server"
   title: "&6Welcome Book"
-  pages:
-    - |
-      &6Welcome!
-
-      &7This is page 1
-      of our welcome book.
-    - |
-      &6Page 2
-
-      &7More content here.
+  lines:
+    1:
+      - "&6Welcome!"
+      - "&7This is page 1"
+      - "of our welcome book."
+    2:
+      - "&6Page 2"
+      - "&7More content here."
 ```
 
 ## Dialog Action
@@ -584,7 +629,7 @@ Open a written book for the player.
 Open a dialog popup. Dialogs provide a modern UI experience with forms, confirmations, and interactive buttons.
 
 :::warning Requirements
-Dialogs require **Paper 1.21.4+** and [PacketEvents](https://github.com/retrooper/packetevents) installed on your server.
+Dialogs require **Paper 1.21.7+** installed on your server.
 :::
 
 ```yaml
@@ -624,28 +669,90 @@ See [Dialogues](../dialogues) for complete dialog configuration documentation.
 
 Send a message to a Discord webhook.
 
-```yaml
-- type: discord
-  webhook: "https://discord.com/api/webhooks/..."
-  content: "%player% made a purchase!"
-  username: "Shop Bot"          # Optional
-  avatar_url: "https://..."     # Optional
-```
+<Tabs>
+    <TabItem value="discord" label="discord">
+
+        ```yaml
+        - type: discord
+          webhook: "https://discord.com/api/webhooks/..."
+          content: "%player% made a purchase!"
+          username: "Shop Bot"          # Optional
+          avatar_url: "https://..."     # Optional
+          embeds:
+            - title: "New Purchase"
+              description: "%player% bought an item"
+              color: "#00FF00"
+              url: "https://example.com/purchase"
+              footer:
+              text: "Powered by zMenu"
+              icon-url: "https://example.com/icon.png"
+              thumbnail:
+              url: "https://example.com/thumbnail.png"
+              image:
+              url: "https://example.com/image.png"
+              author:
+              name: "zMenu Bot"
+              url: "https://example.com/bot"
+              icon-url: "https://example.com/bot-icon.png"
+              fields:
+              - name: "Item"
+                value: "Diamond Sword"
+                inline: true
+              - name: "Price"
+                value: "$500"
+                inline: true
+        ```
+
+    </TabItem>
+    <TabItem value="send discord" label="send discord (Alias)">
+
+        ```yaml
+        - type: "send discord"
+          webhook: "https://discord.com/api/webhooks/..."
+          content: "%player% made a purchase!"
+          username: "Shop Bot"          # Optional
+          avatar_url: "https://..."     # Optional
+        ```
+
+        Available aliases: `discord`, `send-discord`, `discord webhook`, `discordwebhook`.
+
+    </TabItem>
+</Tabs>
 
 ---
 
-### discord-component
+### discord_component
 
 Send a Discord message with buttons/components.
 
-```yaml
-- type: discord-component
-  webhook: "https://discord.com/api/webhooks/..."
-  embeds:
-    - title: "New Purchase"
-      description: "%player% bought an item"
-      color: "#00FF00"
-```
+<Tabs>
+    <TabItem value="discord_component" label="discord_component">
+
+        ```yaml
+        - type: discord_component
+          webhook: "https://discord.com/api/webhooks/..."
+          embeds:
+          - title: "New Purchase"
+          description: "%player% bought an item"
+          color: "#00FF00"
+        ```
+
+    </TabItem>
+    <TabItem value="discord component" label="Discord Component V2 (Aliases)">
+
+        ```yaml
+        - type: "discord component"
+          webhook: "https://discord.com/api/webhooks/..."
+          embeds:
+          - title: "New Purchase"
+          description: "%player% bought an item"
+          color: "#00FF00"
+        ```
+
+        Available aliases: `discord_component`, `discord component`, `discord webhook component`, `discordwebhookcomponent`.
+
+    </TabItem>
+</Tabs>
 
 ## Integration Actions
 
