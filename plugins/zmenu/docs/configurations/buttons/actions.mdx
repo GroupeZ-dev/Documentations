@@ -222,6 +222,34 @@ Execute a command as the player.
   command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
 ```
 
+<Tabs>
+    <TabItem value="player-command" label="player-command">
+
+        ```yaml
+        - type: player-command
+          commands:
+            - "spawn"
+            - "kit starter"
+          command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
+        ```
+
+    </TabItem>
+    <TabItem value="player command" label="player command (Alias)">
+
+        ```yaml
+        - type: "player command"
+          commands:
+            - "spawn"
+            - "kit starter"
+          command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
+        ```
+
+        Available aliases: `player-command`, `player_command`, `player_commands`, `player command`, `player commands`, `player-command` and `player-commands`.
+        Command in chat aliases: `command-in-chat` and `commandInChat`.
+
+    </TabItem>
+</Tabs>
+
 ---
 
 ### player-command-as-op
@@ -234,9 +262,38 @@ Execute a command as the player with OP permissions.
     - "gamemode creative"
 ```
 
+<Tabs>
+    <TabItem value="player-commands-as-op" label="player-commands-as-op">
+
+        ```yaml
+        - type: player-command-as-op
+          commands:
+            - "gamemode creative"
+        ```
+
+    </TabItem>
+    <TabItem value="player command as op" label="player command as op (Alias)">
+
+        ```yaml
+        - type: "player command as op"
+          commands:
+            - "gamemode creative"
+        ```
+
+        Available aliases: `player-command-as-op`, `player-command-as-op`, `player commands as op`, `player command as op`, `player_commands_as_op` and `player_command_as_op`.
+
+    </TabItem>
+</Tabs>
+
 :::warning
 Use with caution! This gives the player temporary OP-level access.
 :::
+
+You need to enable it in the configuration file:
+
+```yaml
+enable-player-commands-as-op-action: true
+```
 
 ---
 
