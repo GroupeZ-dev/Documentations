@@ -122,6 +122,41 @@ Display a title and subtitle.
 
 ---
 
+### change-title
+
+Change the inventory title (requires PacketEvents plugin).
+
+<Tabs>
+    <TabItem value="change-title" label="change-title">
+
+        ```yaml
+        - type: change-title
+          inventory-name: "My New Inventory Title"
+        ```
+
+    </TabItem>
+    <TabItem value="change-title-name" label="change-title-name (Alias)">
+
+        ```yaml
+        - type: change-title-name
+          inventory-name: "My New Inventory Title"
+        ```
+
+    </TabItem>
+</Tabs>
+
+**Options:**
+
+| Option           | Type   | Required | Description                        |
+|------------------|--------|----------|------------------------------------|
+| `inventory-name` | String | Yes      | The new inventory title to display |
+
+**Note:** This action requires the [PacketEvents](https://github.com/retrooper/packetevents) plugin to be installed on your server.
+
+Available aliases: `change-title`, `change-title-name`.
+
+---
+
 ### toast
 
 Display a toast notification (achievement popup).
@@ -760,11 +795,55 @@ Send a Discord message with buttons/components.
 
 Modify LuckPerms permissions/groups.
 
-```yaml
-- type: luckperm-set
-  group: "vip"
-  duration: 2592000  # Seconds (30 days)
-```
+<Tabs>
+    <TabItem value="luckperm-set" label="luckperm-set">
+
+        ```yaml
+        - type: luckperm-set
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+    <TabItem value="permission-set" label="permission-set (Alias)">
+
+        ```yaml
+        - type: permission-set
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+    <TabItem value="permission set" label="permission set (Alias)">
+
+        ```yaml
+        - type: "permission set"
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+    <TabItem value="set permission" label="set permission (Alias)">
+
+        ```yaml
+        - type: "set permission"
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+    <TabItem value="set-permission" label="set-permission (Alias)">
+
+        ```yaml
+        - type: set-permission
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+</Tabs>
+
+Available aliases: `luckperm-set`, `permission-set`, `permission set`, `set permission`, `set-permission`.
 
 ---
 
