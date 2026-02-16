@@ -642,12 +642,6 @@ Add money to player's balance.
 
 Remove money from player's balance.
 
-```yaml
-- type: currency-withdraw
-  amount: 50
-  reason: "Purchase"  # Optional
-```
-
 <Tabs>
     <TabItem value="withdraw" label="withdraw">
 
@@ -1077,8 +1071,8 @@ click-requirement:
 | `teleport` | Teleport player |
 | `connect` | Change server (BungeeCord/Velocity integration) |
 | `data` | Modify player data |
-| `currency-deposit` | Add money |
-| `currency-withdraw` | Remove money |
+| `deposit` | Add money |
+| `withdraw` | Remove money |
 | `broadcast-sound` | Play sound to all players |
 | `message-to` | Send message to specific player |
 | `change-title` | Change the inventory title |
