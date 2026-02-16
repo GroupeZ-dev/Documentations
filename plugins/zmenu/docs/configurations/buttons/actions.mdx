@@ -313,12 +313,12 @@ Execute a command from the console.
 
 ---
 
-### player-chat
+### chat
 
 Force the player to send a chat message.
 
 ```yaml
-- type: player-chat
+- type: chat
   messages:
     - "Hello everyone!"
 ```
@@ -433,9 +433,23 @@ Refresh the current button.
 
 Refresh the entire inventory (redraw all buttons).
 
-```yaml
-- type: refresh-inventory
-```
+<Tabs>
+    <TabItem value="refresh-inventory" label="refresh-inventory">
+
+        ```yaml
+        - type: refresh-inventory
+        ```
+
+    </TabItem>
+    <TabItem value="refresh inventory" label="refresh inventory (Alias)">
+
+        ```yaml
+        - type: "refresh inventory"
+        ```
+
+        Available aliases: `refresh-inventory`, `refresh inventory` and `ri`.
+    </TabItem>
+</Tabs>
 
 ## Player Actions
 
@@ -443,15 +457,34 @@ Refresh the entire inventory (redraw all buttons).
 
 Teleport the player to coordinates.
 
-```yaml
-- type: teleport
-  world: "world"
-  x: 0
-  y: 100
-  z: 0
-  yaw: 0       # Optional
-  pitch: 0     # Optional
-```
+<Tabs>
+    <TabItem value="teleport" label="teleport">
+
+        ```yaml
+        - type: teleport
+          world: "world"
+          x: 0
+          y: 100
+          z: 0
+          yaw: 0       # Optional
+          pitch: 0     # Optional
+        ```
+
+    </TabItem>
+    <TabItem value="tp" label="tp (Alias)">
+
+        ```yaml
+        - type: tp
+          world: "world"
+          x: 0
+          y: 100
+          z: 0
+          yaw: 0       # Optional
+          pitch: 0     # Optional
+        ```
+
+    </TabItem>
+</Tabs>
 
 ---
 
