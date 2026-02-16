@@ -4,6 +4,9 @@ title: Actions
 description: Complete reference for all action types in zMenu
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Actions
 
 Actions are commands executed when a player interacts with a button. zMenu provides 28+ action types for various purposes.
@@ -26,30 +29,30 @@ items:
 
 ## Message Actions
 
-### message
+<Tabs>
+    <TabItem value="message" label="message">
 
-Send a message to the player.
+        ```yaml
+        - type: message
+          messages:
+          - "&aLine 1"
+          - "&bLine 2"
+          minimessage: true  # Optional: Use MiniMessage format default: true
+        ```
 
-```yaml
-- type: message
-  messages:
-    - "&aLine 1"
-    - "&bLine 2"
-  minimessage: true  # Optional: Use MiniMessage format
-```
+    </TabItem>
+    <TabItem value="messages" label="messages (Alias)">
 
----
+        ```yaml
+        - type: messages
+          messages:
+          - "&aMultiple lines"
+          - "&bOf text"
 
-### messages
+        ```
 
-Alias for `message`.
-
-```yaml
-- type: messages
-  messages:
-    - "&aMultiple lines"
-    - "&bOf text"
-```
+    </TabItem>
+</Tabs>
 
 ---
 
@@ -74,6 +77,7 @@ Send a message to all online players.
 - type: broadcast
   messages:
     - "&6[Announcement] &f%player% purchased a special item!"
+  minimessage: true  # Optional: Use MiniMessage format (default: true)
 ```
 
 ---
@@ -82,10 +86,24 @@ Send a message to all online players.
 
 Display an action bar message.
 
-```yaml
-- type: action-bar
-  message: "&aWelcome to the shop!"
-```
+<Tabs>
+    <TabItem value="action" label="action">
+
+        ```yaml
+        - type: action
+          message: "&aWelcome to the shop!"
+        ```
+
+    </TabItem>
+    <TabItem value="action_bar" label="actionbar (Alias)">
+
+        ```yaml
+        - type: action_bar
+          message: "&aWelcome to the shop!"
+        ```
+
+    </TabItem>
+</Tabs>
 
 ---
 
@@ -97,9 +115,9 @@ Display a title and subtitle.
 - type: title
   title: "&6&lWelcome!"
   subtitle: "&7Enjoy your stay"
-  fadeIn: 20      # Ticks
-  stay: 60        # Ticks
-  fadeOut: 20     # Ticks
+  start: 20      # Ticks
+  duration: 60   # Ticks
+  end: 20        # Ticks
 ```
 
 ---
@@ -108,12 +126,28 @@ Display a title and subtitle.
 
 Display a toast notification (achievement popup).
 
-```yaml
-- type: toast
-  icon: DIAMOND
-  message: "&aAchievement Unlocked!"
-  frame: TASK  # TASK, GOAL, or CHALLENGE
-```
+<Tabs>
+    <TabItem value="toast" label="toast">
+
+        ```yaml
+        - type: "toast"
+          icon: DIAMOND
+          message: "&aAchievement Unlocked!"
+          frame: TASK  # TASK, GOAL, or CHALLENGE
+        ```
+
+    </TabItem>
+    <TabItem value="send toast" label="send-toast (Alias)">
+
+        ```yaml
+        - type: "send toast"
+          icon: DIAMOND
+          message: "&aAchievement Unlocked!"
+          frame: TASK  # TASK, GOAL, or CHALLENGE
+        ```
+
+    </TabItem>
+</Tabs>
 
 ## Sound Actions
 
@@ -126,7 +160,7 @@ Play a sound to the player.
   sound: ENTITY_EXPERIENCE_ORB_PICKUP
   pitch: 1.0    # 0.5 to 2.0
   volume: 1.0   # Distance
-  category: MASTER  # Optional sound category
+  sound-category: MASTER  # Optional sound category
 ```
 
 **Common Sounds:**
@@ -139,18 +173,40 @@ Play a sound to the player.
 - `BLOCK_CHEST_OPEN`
 - `BLOCK_CHEST_CLOSE`
 
+:::tip Sound Reference
+View the complete list of available sounds in the [Bukkit Sound JavaDocs](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html).
+:::
+
 ---
 
 ### broadcast-sound
 
 Play a sound to all online players.
 
-```yaml
-- type: broadcast-sound
-  sound: ENTITY_ENDER_DRAGON_DEATH
-  pitch: 1.0
-  volume: 1.0
-```
+<Tabs>
+    <TabItem value="broadcast_sound" label="broadcast_sound">
+
+        ```yaml
+        - type: broadcast-sound
+          sound: ENTITY_ENDER_DRAGON_DEATH
+          pitch: 1.0
+          volume: 1.0
+          sound-category: MASTER # Optional
+        ```
+
+    </TabItem>
+    <TabItem value="broadcast sound" label="broadcast sound">
+
+        ```yaml
+        - type: "broadcast sound"
+          sound: ENTITY_ENDER_DRAGON_DEATH
+          pitch: 1.0
+          volume: 1.0
+          sound-category: MASTER # Optional
+        ```
+
+    </TabItem>
+</Tabs>
 
 ## Command Actions
 
@@ -163,6 +219,7 @@ Execute a command as the player.
   commands:
     - "spawn"
     - "kit starter"
+  command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
 ```
 
 ---
