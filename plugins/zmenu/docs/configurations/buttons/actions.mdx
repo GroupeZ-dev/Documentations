@@ -43,12 +43,11 @@ items:
     </TabItem>
     <TabItem value="messages" label="messages (Alias)">
 
-        ```yaml
+```yaml
         - type: messages
           messages:
           - "&aMultiple lines"
           - "&bOf text"
-
         ```
 
     </TabItem>
@@ -271,8 +270,16 @@ Execute a command as the player.
           command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
         ```
 
-        Available aliases: `player-command`, `player_command`, `player_commands`, `player command`, `player commands`, `player-command` and `player-commands`.
-        Command in chat aliases: `command-in-chat` and `commandInChat`.
+        **Options:**
+
+        | Option            | Type    | Required | Description                                           |
+        |-------------------|---------|----------|-------------------------------------------------------|
+        | `commands`        | List    | Yes      | List of commands to execute                         |
+        | `command-in-chat` | Boolean | No       | Execute via chat instead of dispatch (default: false)|
+
+        **Note:** This action supports multiple aliases for flexibility.
+
+        Available aliases: `player-command`, `player_command`, `player_commands`, `player command`, `player commands`, `player-commands`.
 
     </TabItem>
 </Tabs>
@@ -301,7 +308,15 @@ Execute a command as the player with OP permissions.
             - "gamemode creative"
         ```
 
-        Available aliases: `player-command-as-op`, `player-command-as-op`, `player commands as op`, `player command as op`, `player_commands_as_op` and `player_command_as_op`.
+        **Options:**
+
+        | Option     | Type  | Required | Description                                              |
+        |------------|-------|----------|----------------------------------------------------------|
+        | `commands` | List  | Yes      | Commands to execute as OP                                |
+        
+        **Note:** Remember to enable this action in your configuration.
+
+        Available aliases: `player-command-as-op`, `player commands as op`, `player command as op`, `player_commands_as_op`, and `player_command_as_op`.
 
     </TabItem>
 </Tabs>
@@ -342,6 +357,14 @@ Execute a command from the console.
             - "eco give %player% 1000"
         ```
 
+        **Options:**
+
+        | Option     | Type  | Required | Description                            |
+        |------------|-------|----------|----------------------------------------|
+        | `commands` | List  | Yes      | Commands to execute as the console user|
+
+        **Note:** Supports flexible aliasing for varied command syntax.
+
         Available aliases: `console-command`, `console-commands`, `commands`, `command`, `console command`, `console commands`, `console_commands` and `console_command`.
     </TabItem>
 </Tabs>
@@ -357,6 +380,12 @@ Force the player to send a chat message.
   messages:
     - "Hello everyone!"
 ```
+
+**Options:**
+
+| Option     | Type  | Required | Description                       |
+|------------|-------|----------|-----------------------------------|
+| `messages` | List  | Yes      | The list of messages for the player to send |
 
 ---
 
@@ -481,6 +510,14 @@ Refresh the entire inventory (redraw all buttons).
         ```yaml
         - type: "refresh inventory"
         ```
+
+        **Options:**
+
+        | Option | Type | Required | Description               |
+        |--------|------|----------|---------------------------|
+        | None   | N/A  | N/A      | No additional parameters. |
+
+        **Note:** Used to redraw all inventory buttons.
 
         Available aliases: `refresh-inventory`, `refresh inventory` and `ri`.
     </TabItem>
@@ -749,6 +786,17 @@ Send a message to a Discord webhook.
           avatar_url: "https://..."     # Optional
         ```
 
+        **Options:**
+
+        | Option       | Type    | Required | Description                             |
+        |--------------|---------|----------|-----------------------------------------|
+        | `webhook`    | String  | Yes      | Webhook URL for the Discord server.     |
+        | `content`    | String  | Yes      | Message text or content to send.        |
+        | `username`   | String  | No       | Optional name displayed for the sender. |
+        | `avatar_url` | URL     | No       | Optional avatar for the sender.         |
+
+        **Note:** Supports webhook-based interactions with Discord.
+
         Available aliases: `discord`, `send-discord`, `discord webhook`, `discordwebhook`.
 
     </TabItem>
@@ -843,7 +891,16 @@ Modify LuckPerms permissions/groups.
     </TabItem>
 </Tabs>
 
-Available aliases: `luckperm-set`, `permission-set`, `permission set`, `set permission`, `set-permission`.
+        **Options:**
+
+        | Option     | Type    | Required | Description                       |
+        |------------|---------|----------|-----------------------------------|
+        | `group`    | String  | Yes      | Name of the permission group.     |
+        | `duration` | Integer | No       | Duration in seconds (default: permanent). |
+
+        **Note:** Used to modify LuckPerms permissions or groups for players.
+
+        Available aliases: `luckperm-set`, `permission-set`, `permission set`, `set permission`, `set-permission`.
 
 ---
 
@@ -1016,12 +1073,22 @@ click-requirement:
 | `inventory` | Open inventory |
 | `close` | Close inventory |
 | `back` | Go back |
-| `refresh` | Refresh button |
+| `refresh` | Refresh the current button's appearance |
 | `teleport` | Teleport player |
-| `connect` | Change server |
+| `connect` | Change server (BungeeCord/Velocity integration) |
 | `data` | Modify player data |
 | `currency-deposit` | Add money |
 | `currency-withdraw` | Remove money |
+| `broadcast-sound` | Play sound to all players |
+| `message-to` | Send message to specific player |
+| `change-title` | Change the inventory title |
+| `refresh-inventory` | Refresh entire inventory |
+| `book` | Open a written book |
+| `dialog` | Open dialog popup |
+| `discord` | Send a message to Discord |
+| `discord_component` | Send Discord message with buttons |
+| `luckperm-set` | Modify LuckPerms permissions |
+| `shopkeeper` | Interact with Shopkeepers plugin |
 
 ## Next Steps
 
