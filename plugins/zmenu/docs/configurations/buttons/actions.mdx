@@ -214,14 +214,6 @@ Play a sound to all online players.
 
 Execute a command as the player.
 
-```yaml
-- type: player-command
-  commands:
-    - "spawn"
-    - "kit starter"
-  command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
-```
-
 <Tabs>
     <TabItem value="player-command" label="player-command">
 
@@ -255,12 +247,6 @@ Execute a command as the player.
 ### player-command-as-op
 
 Execute a command as the player with OP permissions.
-
-```yaml
-- type: player-command-as-op
-  commands:
-    - "gamemode creative"
-```
 
 <Tabs>
     <TabItem value="player-commands-as-op" label="player-commands-as-op">
@@ -301,12 +287,29 @@ enable-player-commands-as-op-action: true
 
 Execute a command from the console.
 
-```yaml
-- type: console-command
-  commands:
-    - "give %player% diamond 64"
-    - "eco give %player% 1000"
-```
+<Tabs>
+    <TabItem value="console-command" label="console-command">
+
+        ```yaml
+        - type: console-command
+          commands:
+            - "give %player% diamond 64"
+            - "eco give %player% 1000"
+        ```
+
+    </TabItem>
+    <TabItem value="console command" label="console command (Alias)">
+
+        ```yaml
+        - type: "console command"
+          commands:
+            - "give %player% diamond 64"
+            - "eco give %player% 1000"
+        ```
+
+        Available aliases: `console-command`, `console-commands`, `commands`, `command`, `console command`, `console commands`, `console_commands` and `console_command`.
+    </TabItem>
+</Tabs>
 
 ---
 
