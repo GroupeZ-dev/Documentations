@@ -15,12 +15,12 @@ items:
   toggle:
     type: SWITCH
     slot: 13
-    placeholder: "%zmenu_player_value_notifications%"
-    buttons:
-      "true":
-        item:
-          material: LIME_DYE
-          name: "&a&lNotifications: ON"
+    key: "%zmenu_player_value_notifications%"
+buttons:
+        "true":
+          item:
+            material: LIME_DYE
+            name: "&a&lNotifications: ON"
           lore:
             - "&7Click to disable"
         actions:
@@ -31,6 +31,7 @@ items:
           - type: refresh
 
       "false":
+        slot: 13
         item:
           material: GRAY_DYE
           name: "&7&lNotifications: OFF"
@@ -51,7 +52,7 @@ items:
 **Required.** The placeholder to evaluate for determining which button to display.
 
 ```yaml
-placeholder: "%zmenu_player_value_setting%"
+key: "%zmenu_player_value_setting%"
 ```
 
 ---
@@ -98,7 +99,7 @@ items:
   toggle-pvp:
     type: SWITCH
     slot: 13
-    placeholder: "%zmenu_player_value_pvp_enabled%"
+    key: "%zmenu_player_value_pvp_enabled%"
     buttons:
       "true":
         item:
@@ -122,6 +123,7 @@ items:
           - type: refresh
 
       "false":
+        slot: 13
         item:
           material: SHIELD
           name: "&a&lPvP: DISABLED"
@@ -160,9 +162,10 @@ items:
   difficulty:
     type: SWITCH
     slot: 22
-    placeholder: "%zmenu_player_value_difficulty%"
+    key: "%zmenu_player_value_difficulty%"
     buttons:
       "easy":
+        slot: 13
         item:
           material: LIME_WOOL
           name: "&a&lDifficulty: EASY"
@@ -178,6 +181,7 @@ items:
           - type: refresh
 
       "normal":
+        slot: 13
         item:
           material: YELLOW_WOOL
           name: "&e&lDifficulty: NORMAL"
@@ -193,6 +197,7 @@ items:
           - type: refresh
 
       "hard":
+        slot: 13
         item:
           material: RED_WOOL
           name: "&c&lDifficulty: HARD"
@@ -226,9 +231,10 @@ items:
   rank-display:
     type: SWITCH
     slot: 4
-    placeholder: "%luckperms_primary_group_name%"
+    key: "%luckperms_primary_group_name%"
     buttons:
       "default":
+        slot: 13
         item:
           material: COAL
           name: "&7&lMember"
@@ -236,6 +242,7 @@ items:
             - "&7Your current rank"
 
       "vip":
+        slot: 13
         item:
           material: IRON_INGOT
           name: "&a&lVIP"
@@ -244,6 +251,7 @@ items:
           glow: true
 
       "mvp":
+        slot: 13
         item:
           material: GOLD_INGOT
           name: "&6&lMVP"
@@ -252,6 +260,7 @@ items:
           glow: true
 
       "admin":
+        slot: 13
         item:
           material: DIAMOND
           name: "&b&lAdmin"
@@ -272,9 +281,10 @@ items:
   quest-status:
     type: SWITCH
     slot: 31
-    placeholder: "%zmenu_player_value_quest_stage%"
+    key: "%zmenu_player_value_quest_stage%"
     buttons:
       "0":
+        slot: 13
         item:
           material: PAPER
           name: "&7&lQuest: Not Started"
@@ -293,6 +303,7 @@ items:
           - type: refresh
 
       "1":
+        slot: 13
         item:
           material: WRITABLE_BOOK
           name: "&e&lQuest: In Progress"
@@ -302,6 +313,7 @@ items:
             - "&7Progress: &e1/3"
 
       "2":
+        slot: 13
         item:
           material: WRITABLE_BOOK
           name: "&e&lQuest: In Progress"
@@ -311,6 +323,7 @@ items:
             - "&7Progress: &e2/3"
 
       "3":
+        slot: 13
         item:
           material: ENCHANTED_BOOK
           name: "&a&lQuest: Complete!"
@@ -333,6 +346,7 @@ items:
           - type: refresh
 
       "done":
+        slot: 13
         item:
           material: BOOK
           name: "&8&lQuest: Completed"

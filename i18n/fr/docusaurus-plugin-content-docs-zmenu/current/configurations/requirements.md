@@ -16,17 +16,20 @@ Une exigence verifie une condition (permission, valeur de placeholder, item en i
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: permission
-      permission: "server.vip"
-      deny:
-        - type: message
-          messages:
-            - "&cVous devez etre VIP pour utiliser ceci !"
-  success:
-    - type: message
-      messages:
-        - "&aBienvenue, VIP !"
+  vip-requirement:
+    click:
+      - ALL
+    requirements:
+      - type: permission
+        permission: "server.vip"
+        deny:
+          - type: message
+            messages:
+              - "&cVous devez être VIP pour utiliser ceci !"
+    success:
+      - type: message
+        messages:
+          - "&aBienvenue, VIP !"
 ```
 
 ---
@@ -731,13 +734,20 @@ click-requirement:
         deny:
           - type: message
             messages:
-              - "&cVous avez besoin de 100$ !"
+              - "&cIl vous faut 100$ pour continuer cet achat."
+          - type: sound
+            sound: ENTITY_VILLAGER_NO
     success:
       - type: currency-withdraw
         amount: 100
+      - type: console-command
+        commands:
+          - "give %player% emerald 1"
       - type: message
         messages:
-          - "&aAchete !"
+          - "&aFelicitation ! Vous avez achete une emeraude."
+      - type: sound
+        sound: ENTITY_EXPERIENCE_ORB_PICKUP
 ```
 
 | Cle | Description |
