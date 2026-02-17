@@ -820,33 +820,89 @@ If requirements aren't met, the button won't be displayed.
 
 Control whether the button can be clicked. The button is still visible, but clicking may be denied.
 
-```yaml
-items:
-  purchase:
-    slot: 0
-    click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%vault_eco_balance%"
-          compare: ">="
-          number: 100
-          deny:
-            - type: message
-              messages:
-                - "&cYou need $100 to purchase this!"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: message
-          messages:
-            - "&aPurchase successful!"
-        - type: console-command
-          commands:
-            - "eco take %player% 100"
-    item:
-      material: GOLD_INGOT
-      name: "&e&lPurchase - $100"
-```
+<Tabs>
+    <TabItem value="click-requirement" label="click-requirement">
+        ```yaml
+        # YAML example for click-requirement
+        items:
+          purchase-button:
+            slot: 0
+            click-requirement:
+              requirements:
+                - type: placeholder
+                  value: "%vault_eco_balance%"
+                  compare: ">="
+                  number: 100
+              deny:
+                - type: message
+                  messages:
+                    - "&cYou need $100 to purchase this!"
+                - type: sound
+                  sound: ENTITY_VILLAGER_NO
+              success:
+                - type: message
+                  messages:
+                    - "&aPurchase successful!"
+                - type: console-command
+                  commands:
+                    - "eco take %player% 100"
+        ```
+    </TabItem>
+    <TabItem value="click_requirement" label="click_requirement (Alias)">
+        ```yaml
+        # YAML example for click_requirement
+        items:
+          purchase-button:
+            slot: 0
+            click_requirement:
+              requirements:
+                - type: placeholder
+                  value: "%vault_eco_balance%"
+                  compare: ">="
+                  number: 100
+              deny:
+                - type: message
+                  messages:
+                    - "&cYou need $100 to purchase this!"
+                - type: sound
+                  sound: ENTITY_VILLAGER_NO
+              success:
+                - type: message
+                  messages:
+                    - "&aPurchase successful!"
+                - type: console-command
+                  commands:
+                    - "eco take %player% 100"
+        ```
+    </TabItem>
+    <TabItem value="click-requirements" label="click-requirements (Alias)">
+        ```yaml
+        # YAML example for click-requirements
+        items:
+          purchase-button:
+            slot: 0
+            click-requirements:
+              requirements:
+                - type: placeholder
+                  value: "%vault_eco_balance%"
+                  compare: ">="
+                  number: 100
+              deny:
+                - type: message
+                  messages:
+                    - "&cYou need $100 to purchase this!"
+                - type: sound
+                  sound: ENTITY_VILLAGER_NO
+              success:
+                - type: message
+                  messages:
+                    - "&aPurchase successful!"
+                - type: console-command
+                  commands:
+                    - "eco take %player% 100"
+        ```
+    </TabItem>
+</Tabs>
 
 ### Requirement Types
 
