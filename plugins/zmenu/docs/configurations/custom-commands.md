@@ -27,15 +27,16 @@ This creates the `/shop` command that opens the `shop_menu` inventory.
 
 ### Summary Table
 
-| Key | Type | Required | Description |
-|-----|------|----------|-------------|
-| `command` | String | Yes | Main command players will type |
-| `inventory` | String | Yes | Name of the inventory to open |
-| `permission` | String | No | Permission required to use the command |
-| `deny-message` | String | No | Message shown when user lacks permission |
-| `aliases` | List | No | Alternative command names |
-| `arguments` | List | No | Command arguments with validation |
-| `actions` | List | No | Actions executed when command runs |
+| Key               | Type    | Required | Description                                                               |
+|-------------------|---------|----------|---------------------------------------------------------------------------|
+| `command`         | String  | Yes      | Main command players will type                                            |
+| `inventory`       | String  | Yes      | Name of the inventory to open                                             |
+| `permission`      | String  | No       | Permission required to use the command                                    |
+| `deny-message`    | String  | No       | Message shown when user lacks permission                                  |
+| `aliases`         | List    | No       | Alternative command names                                                 |
+| `arguments`       | List    | No       | Command arguments with validation                                         |
+| `actions`         | List    | No       | Actions executed when command runs                                        |
+| `console-can-use` | Boolean | No       | Defaults to `false`. If `true`, allows the console to execute the command |
 
 ---
 
