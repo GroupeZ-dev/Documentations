@@ -289,6 +289,8 @@ const config = {
         editUrl: 'https://github.com/GroupeZ-dev/groupez-wiki/edit/main/',
       },
     ],
+    // Local Search Plugin
+    require.resolve('docusaurus-lunr-search'),
   ],
 
   presets: [
