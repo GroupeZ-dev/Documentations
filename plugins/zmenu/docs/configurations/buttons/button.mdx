@@ -799,18 +799,36 @@ When `player-inventory` is `true`, the item will be placed directly in the playe
 
 Control whether the button is visible.
 
-```yaml
-items:
-  vip-only:
-    slot: 0
-    view-requirement:
-      requirements:
-        - type: permission
-          permission: "server.vip"
-    item:
-      material: DIAMOND
-      name: "&b&lVIP Item"
-```
+<Tabs>
+    <TabItem value="view-requirement" label="view-requirement">
+        ```yaml
+        items:
+          vip-only:
+            slot: 0
+            view-requirement:
+              requirements:
+                - type: permission
+                  permission: "server.vip"
+            item:
+              material: DIAMOND
+              name: "&b&lVIP Item"
+        ```
+    </TabItem>
+    <TabItem value="view_requirement" label="view_requirement (Alias)">
+        ```yaml
+        items:
+          vip-only:
+            slot: 0
+            view_requirement:
+              requirements:
+                - type: permission
+                  permission: "server.vip"
+            item:
+              material: DIAMOND
+              name: "&b&lVIP Item"
+        ```
+    </TabItem>
+</Tabs>
 
 If requirements aren't met, the button won't be displayed.
 
