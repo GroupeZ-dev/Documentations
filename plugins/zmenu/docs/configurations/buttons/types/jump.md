@@ -15,7 +15,7 @@ items:
   go_to_page_5:
     type: JUMP
     slot: 49
-    page: 5
+    to-page: 5
     item:
       material: PAPER
       name: "&e&lGo to Page 5"
@@ -32,7 +32,7 @@ items:
   jump:
     type: JUMP
     slot: 0
-    page: 3
+    to-page: 3
 ```
 
 ## Examples
@@ -46,7 +46,7 @@ items:
   page_1:
     type: JUMP
     slot: 45
-    page: 1
+    to-page: 1
     item:
       material: PAPER
       amount: 1
@@ -56,7 +56,7 @@ items:
   page_2:
     type: JUMP
     slot: 46
-    page: 2
+    to-page: 2
     item:
       material: PAPER
       amount: 2
@@ -66,7 +66,7 @@ items:
   page_3:
     type: JUMP
     slot: 47
-    page: 3
+    to-page: 3
     item:
       material: PAPER
       amount: 3
@@ -76,7 +76,7 @@ items:
   page_4:
     type: JUMP
     slot: 48
-    page: 4
+    to-page: 4
     item:
       material: PAPER
       amount: 4
@@ -86,7 +86,7 @@ items:
   page_5:
     type: JUMP
     slot: 49
-    page: 5
+    to-page: 5
     item:
       material: PAPER
       amount: 5
@@ -101,7 +101,7 @@ items:
   page_1:
     type: JUMP
     slot: 45
-    page: 1
+    to-page: 1
     view-requirement:
       requirements:
         - type: placeholder
@@ -129,7 +129,7 @@ items:
   weapons:
     type: JUMP
     slot: 0
-    page: 1
+    to-page: 1
     item:
       material: DIAMOND_SWORD
       name: "&b&lWeapons"
@@ -139,7 +139,7 @@ items:
   armor:
     type: JUMP
     slot: 1
-    page: 3
+    to-page: 3
     item:
       material: DIAMOND_CHESTPLATE
       name: "&9&lArmor"
@@ -149,7 +149,7 @@ items:
   tools:
     type: JUMP
     slot: 2
-    page: 5
+    to-page: 5
     item:
       material: DIAMOND_PICKAXE
       name: "&a&lTools"
@@ -159,7 +159,7 @@ items:
   food:
     type: JUMP
     slot: 3
-    page: 7
+    to-page: 7
     item:
       material: GOLDEN_APPLE
       name: "&6&lFood"
@@ -171,10 +171,10 @@ items:
 
 ```yaml
 items:
-  first-page:
+  first-to-page:
     type: JUMP
     slot: 45
-    page: 1
+    to-page: 1
     is-permanent: true
     item:
       material: PLAYER_HEAD
@@ -218,7 +218,7 @@ items:
   page-selector:
     type: JUMP
     slot: 13
-    page: 1
+    to-page: 1
     item:
       material: PAPER
       amount: 1  # Shows "1" in the corner
@@ -234,7 +234,7 @@ items:
   page_3:
     type: JUMP
     slot: 47
-    page: 3
+    to-page: 3
     view-requirement:
       requirements:
         - type: placeholder
