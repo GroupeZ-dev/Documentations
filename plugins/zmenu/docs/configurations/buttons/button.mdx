@@ -4,6 +4,9 @@ title: Button Configuration
 description: Complete reference for button configuration in zMenu
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Button Configuration
 
 Buttons are the interactive elements in your inventories. This page documents all available button configuration options.
@@ -408,18 +411,53 @@ items:
 
 Require at least one of the listed permissions to see the button.
 
-```yaml
-items:
-  staff-button:
-    slot: 0
-    or-permission:
-      - "server.admin"
-      - "server.moderator"
-      - "server.helper"
-    item:
-      material: BOOK
-      name: "&6&lStaff Menu"
-```
+<Tabs>
+    <TabItem value="or-permission" label="or-permission">
+        ```yaml
+        # YAML example for or-permission
+        items:
+          staff-button:
+            slot: 0
+            or-permission:
+              - "server.admin"
+              - "server.moderator"
+              - "server.helper"
+            item:
+              material: BOOK
+              name: "&6&lStaff Menu"
+        ```
+    </TabItem>
+    <TabItem value="orPermissions" label="orPermissions (Aliase)">
+        ```yaml
+        # YAML example for orPermissions
+        items:
+          staff-button:
+            slot: 0
+            orPermissions:
+              - "server.admin"
+              - "server.moderator"
+              - "server.helper"
+            item:
+              material: BOOK
+              name: "&6&lStaff Menu"
+        ```
+    </TabItem>
+    <TabItem value="or-permissions" label="or-permissions (Aliase)">
+        ```yaml
+        # YAML example for or-permissions
+        items:
+          staff-button:
+            slot: 0
+            or-permissions:
+              - "server.admin"
+              - "server.moderator"
+              - "server.helper"
+            item:
+              material: BOOK
+              name: "&6&lStaff Menu"
+        ```
+    </TabItem>
+</Tabs>
 
 ---
 
@@ -427,17 +465,36 @@ items:
 
 Check a placeholder value to determine if the button should be displayed.
 
-```yaml
-items:
-  level-button:
-    slot: 0
-    placeholder: "%player_level%"
-    action: ">="
-    value: "10"
-    item:
-      material: EXPERIENCE_BOTTLE
-      name: "&a&lLevel 10+ Reward"
-```
+<Tabs>
+    <TabItem value="placeholder" label="placeholder">
+        ```yaml
+        # YAML example for placeholder
+        items:
+          level-button:
+            slot: 0
+            placeholder: "%player_level%"
+            action: ">="
+            value: "10"
+            item:
+              material: EXPERIENCE_BOTTLE
+              name: "&a&lLevel 10+ Reward"
+        ```
+    </TabItem>
+    <TabItem value="placeHolder" label="placeHolder (Aliase)">
+        ```yaml
+        # YAML example for placeHolder
+        items:
+          level-button:
+            slot: 0
+            placeHolder: "%player_level%"
+            action: ">="
+            value: "10"
+            item:
+              material: EXPERIENCE_BOTTLE
+              name: "&a&lLevel 10+ Reward"
+        ```
+    </TabItem>
+</Tabs>
 
 **Available Actions:**
 
@@ -462,31 +519,154 @@ It is recommended to use [Actions](./actions) instead of `commands` for more fle
 
 Execute commands as the player when the button is clicked.
 
-```yaml
-items:
-  warp-button:
-    slot: 0
-    commands:
-      - "warp spawn"
-      - "say I teleported!"
-    item:
-      material: ENDER_PEARL
-      name: "&a&lTeleport to Spawn"
-```
+<Tabs>
+    <TabItem value="commands" label="commands">
+        ```yaml
+        # YAML example for commands
+        items:
+          warp-button:
+            slot: 0
+            commands:
+              - "warp spawn"
+              - "say I teleported!"
+            item:
+              material: ENDER_PEARL
+              name: "&a&lTeleport to Spawn"
+        ```
+    </TabItem>
+    <TabItem value="playerCommands" label="playerCommands (Aliase)">
+        ```yaml
+        # YAML example for playerCommands
+        items:
+          warp-button:
+            slot: 0
+            playerCommands:
+              - "warp spawn"
+              - "say I teleported!"
+            item:
+              material: ENDER_PEARL
+              name: "&a&lTeleport to Spawn"
+        ```
+    </TabItem>
+    <TabItem value="player-commands" label="player-commands (Aliase)">
+        ```yaml
+        # YAML example for player-commands
+        items:
+          warp-button:
+            slot: 0
+            player-commands:
+              - "warp spawn"
+              - "say I teleported!"
+            item:
+              material: ENDER_PEARL
+              name: "&a&lTeleport to Spawn"
+        ```
+    </TabItem>
+</Tabs>
 
 You can also specify commands for specific click types:
 
-```yaml
-items:
-  multi-command:
-    slot: 0
-    left-commands:
-      - "warp spawn"
-    right-commands:
-      - "warp hub"
-    item:
-      material: COMPASS
-```
+<Tabs>
+    <TabItem value="rightCommands" label="rightCommands">
+        ```yaml
+        # YAML example for rightCommands
+        items:
+          multi-command:
+            slot: 0
+            rightCommands:
+              - "warp hub"
+            item:
+              material: COMPASS
+        ```
+    </TabItem>
+    <TabItem value="right-commands" label="right-commands (Aliase)">
+        ```yaml
+        # YAML example for right-commands
+        items:
+          multi-command:
+            slot: 0
+            right-commands:
+              - "warp hub"
+            item:
+              material: COMPASS
+        ```
+    </TabItem>
+    <TabItem value="rightPlayerCommands" label="rightPlayerCommands (Aliase)">
+        ```yaml
+        # YAML example for rightPlayerCommands
+        items:
+          multi-command:
+            slot: 0
+            rightPlayerCommands:
+              - "warp hub"
+            item:
+              material: COMPASS
+        ```
+    </TabItem>
+    <TabItem value="right-player-commands" label="right-player-commands (Aliase)">
+        ```yaml
+        # YAML example for right-player-commands
+        items:
+          multi-command:
+            slot: 0
+            right-player-commands:
+              - "warp hub"
+            item:
+              material: COMPASS
+        ```
+    </TabItem>
+</Tabs>
+
+<Tabs>
+    <TabItem value="leftCommands" label="leftCommands">
+        ```yaml
+        # YAML example for leftCommands
+        items:
+          multi-command:
+            slot: 0
+            leftCommands:
+              - "warp spawn"
+            item:
+              material: COMPASS
+        ```
+    </TabItem>
+    <TabItem value="left-commands" label="left-commands (Aliase)">
+        ```yaml
+        # YAML example for left-commands
+        items:
+          multi-command:
+            slot: 0
+            left-commands:
+              - "warp spawn"
+            item:
+              material: COMPASS
+        ```
+    </TabItem>
+    <TabItem value="leftPlayerCommands" label="leftPlayerCommands (Aliase)">
+        ```yaml
+        # YAML example for leftPlayerCommands
+        items:
+          multi-command:
+            slot: 0
+            leftPlayerCommands:
+              - "warp spawn"
+            item:
+              material: COMPASS
+        ```
+    </TabItem>
+    <TabItem value="left-player-commands" label="left-player-commands (Aliase)">
+        ```yaml
+        # YAML example for left-player-commands
+        items:
+          multi-command:
+            slot: 0
+            left-player-commands:
+              - "warp spawn"
+            item:
+              material: COMPASS
+        ```
+    </TabItem>
+</Tabs>
 
 ---
 
@@ -498,17 +678,32 @@ It is recommended to use [Actions](./actions) with `type: console-command` inste
 
 Execute commands as the console when the button is clicked.
 
-```yaml
-items:
-  reward-button:
-    slot: 0
-    console-commands:
-      - "give %player% diamond 64"
-      - "eco give %player% 1000"
-    item:
-      material: CHEST
-      name: "&6&lClaim Reward"
-```
+<Tabs>
+    <TabItem value="consolePermission" label="consolePermission">
+        ```yaml
+        # YAML example for consolePermission
+        items:
+          reward-button:
+            slot: 0
+            consolePermission: "server.console"
+            item:
+              material: CHEST
+              name: "&6&lClaim Reward"
+        ```
+    </TabItem>
+    <TabItem value="console-permission" label="console-permission (Aliase)">
+        ```yaml
+        # YAML example for console-permission
+        items:
+          reward-button:
+            slot: 0
+            console-permission: "server.console"
+            item:
+              material: CHEST
+              name: "&6&lClaim Reward"
+        ```
+    </TabItem>
+</Tabs>
 
 You can also use permission-based console commands:
 
@@ -604,18 +799,36 @@ When `player-inventory` is `true`, the item will be placed directly in the playe
 
 Control whether the button is visible.
 
-```yaml
-items:
-  vip-only:
-    slot: 0
-    view-requirement:
-      requirements:
-        - type: permission
-          permission: "server.vip"
-    item:
-      material: DIAMOND
-      name: "&b&lVIP Item"
-```
+<Tabs>
+    <TabItem value="view-requirement" label="view-requirement">
+        ```yaml
+        items:
+          vip-only:
+            slot: 0
+            view-requirement:
+              requirements:
+                - type: permission
+                  permission: "server.vip"
+            item:
+              material: DIAMOND
+              name: "&b&lVIP Item"
+        ```
+    </TabItem>
+    <TabItem value="view_requirement" label="view_requirement (Alias)">
+        ```yaml
+        items:
+          vip-only:
+            slot: 0
+            view_requirement:
+              requirements:
+                - type: permission
+                  permission: "server.vip"
+            item:
+              material: DIAMOND
+              name: "&b&lVIP Item"
+        ```
+    </TabItem>
+</Tabs>
 
 If requirements aren't met, the button won't be displayed.
 
@@ -625,33 +838,89 @@ If requirements aren't met, the button won't be displayed.
 
 Control whether the button can be clicked. The button is still visible, but clicking may be denied.
 
-```yaml
-items:
-  purchase:
-    slot: 0
-    click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%vault_eco_balance%"
-          compare: ">="
-          number: 100
-          deny:
-            - type: message
-              messages:
-                - "&cYou need $100 to purchase this!"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: message
-          messages:
-            - "&aPurchase successful!"
-        - type: console-command
-          commands:
-            - "eco take %player% 100"
-    item:
-      material: GOLD_INGOT
-      name: "&e&lPurchase - $100"
-```
+<Tabs>
+    <TabItem value="click-requirement" label="click-requirement">
+        ```yaml
+        # YAML example for click-requirement
+        items:
+          purchase-button:
+            slot: 0
+            click-requirement:
+              requirements:
+                - type: placeholder
+                  value: "%vault_eco_balance%"
+                  compare: ">="
+                  number: 100
+              deny:
+                - type: message
+                  messages:
+                    - "&cYou need $100 to purchase this!"
+                - type: sound
+                  sound: ENTITY_VILLAGER_NO
+              success:
+                - type: message
+                  messages:
+                    - "&aPurchase successful!"
+                - type: console-command
+                  commands:
+                    - "eco take %player% 100"
+        ```
+    </TabItem>
+    <TabItem value="click_requirement" label="click_requirement (Alias)">
+        ```yaml
+        # YAML example for click_requirement
+        items:
+          purchase-button:
+            slot: 0
+            click_requirement:
+              requirements:
+                - type: placeholder
+                  value: "%vault_eco_balance%"
+                  compare: ">="
+                  number: 100
+              deny:
+                - type: message
+                  messages:
+                    - "&cYou need $100 to purchase this!"
+                - type: sound
+                  sound: ENTITY_VILLAGER_NO
+              success:
+                - type: message
+                  messages:
+                    - "&aPurchase successful!"
+                - type: console-command
+                  commands:
+                    - "eco take %player% 100"
+        ```
+    </TabItem>
+    <TabItem value="click-requirements" label="click-requirements (Alias)">
+        ```yaml
+        # YAML example for click-requirements
+        items:
+          purchase-button:
+            slot: 0
+            click-requirements:
+              requirements:
+                - type: placeholder
+                  value: "%vault_eco_balance%"
+                  compare: ">="
+                  number: 100
+              deny:
+                - type: message
+                  messages:
+                    - "&cYou need $100 to purchase this!"
+                - type: sound
+                  sound: ENTITY_VILLAGER_NO
+              success:
+                - type: message
+                  messages:
+                    - "&aPurchase successful!"
+                - type: console-command
+                  commands:
+                    - "eco take %player% 100"
+        ```
+    </TabItem>
+</Tabs>
 
 ### Requirement Types
 
@@ -804,6 +1073,20 @@ items:
           sound: ENTITY_PLAYER_LEVELUP
         - type: close
 ```
+
+## stop-on-empty
+
+The `stop-on-empty` flag determines whether default actions are added when no actions are specified for a button.
+
+- **Enabled (`true`)**: Only the actions you define are used. Default actions are not added.
+- **Disabled (`false`)**: Default actions are automatically added if no actions are explicitly defined.
+
+To control this behavior for your buttons:
+- Use `stop-on-empty: true` to load only your own actions.
+- Use `stop-on-empty: false` to ensure default actions are added when no actions are present.
+
+---
+
 
 ## Best Practices
 

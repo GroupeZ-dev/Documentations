@@ -1,0 +1,1091 @@
+---
+sidebar_position: 3
+title: Actions
+description: Complete reference for all action types in zMenu
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Actions
+
+Actions are commands executed when a player interacts with a button. zMenu provides 28+ action types for various purposes.
+
+## Basic Usage
+
+```yaml
+items:
+  my-button:
+    slot: 0
+    item:
+      material: DIAMOND
+    actions:
+      - type: message
+        messages:
+          - "&aHello, %player%!"
+      - type: sound
+        sound: UI_BUTTON_CLICK
+```
+
+## Message Actions
+
+<Tabs>
+    <TabItem value="message" label="message">
+
+        ```yaml
+        - type: message
+          messages:
+          - "&aLine 1"
+          - "&bLine 2"
+          minimessage: true  # Optional: Use MiniMessage format default: true
+        ```
+
+    </TabItem>
+    <TabItem value="messages" label="messages (Alias)">
+
+```yaml
+        - type: messages
+          messages:
+          - "&aMultiple lines"
+          - "&bOf text"
+        ```
+
+    </TabItem>
+</Tabs>
+
+---
+
+### message-to
+
+Send a message to a specific player.
+
+```yaml
+- type: message-to
+  player: "Notch"
+  messages:
+    - "&aHello from %player%!"
+```
+
+---
+
+### broadcast
+
+Send a message to all online players.
+
+```yaml
+- type: broadcast
+  messages:
+    - "&6[Announcement] &f%player% purchased a special item!"
+  minimessage: true  # Optional: Use MiniMessage format (default: true)
+```
+
+---
+
+### action-bar
+
+Display an action bar message.
+
+<Tabs>
+    <TabItem value="action" label="action">
+
+        ```yaml
+        - type: action
+          message: "&aWelcome to the shop!"
+        ```
+
+    </TabItem>
+    <TabItem value="action_bar" label="actionbar (Alias)">
+
+        ```yaml
+        - type: action_bar
+          message: "&aWelcome to the shop!"
+        ```
+
+    </TabItem>
+</Tabs>
+
+---
+
+### title
+
+Display a title and subtitle.
+
+```yaml
+- type: title
+  title: "&6&lWelcome!"
+  subtitle: "&7Enjoy your stay"
+  start: 20      # Ticks
+  duration: 60   # Ticks
+  end: 20        # Ticks
+```
+
+---
+
+### change-title
+
+Change the inventory title (requires PacketEvents plugin).
+
+<Tabs>
+    <TabItem value="change-title" label="change-title">
+
+        ```yaml
+        - type: change-title
+          inventory-name: "My New Inventory Title"
+        ```
+
+    </TabItem>
+    <TabItem value="change-title-name" label="change-title-name (Alias)">
+
+        ```yaml
+        - type: change-title-name
+          inventory-name: "My New Inventory Title"
+        ```
+
+    </TabItem>
+</Tabs>
+
+**Options:**
+
+| Option           | Type   | Required | Description                        |
+|------------------|--------|----------|------------------------------------|
+| `inventory-name` | String | Yes      | The new inventory title to display |
+
+**Note:** This action requires the [PacketEvents](https://github.com/retrooper/packetevents) plugin to be installed on your server.
+
+Available aliases: `change-title`, `change-title-name`.
+
+---
+
+### toast
+
+Display a toast notification (achievement popup).
+
+<Tabs>
+    <TabItem value="toast" label="toast">
+
+        ```yaml
+        - type: "toast"
+          icon: DIAMOND
+          message: "&aAchievement Unlocked!"
+          frame: TASK  # TASK, GOAL, or CHALLENGE
+        ```
+
+    </TabItem>
+    <TabItem value="send toast" label="send-toast (Alias)">
+
+        ```yaml
+        - type: "send toast"
+          icon: DIAMOND
+          message: "&aAchievement Unlocked!"
+          frame: TASK  # TASK, GOAL, or CHALLENGE
+        ```
+
+    </TabItem>
+</Tabs>
+
+## Sound Actions
+
+### sound
+
+Play a sound to the player.
+
+```yaml
+- type: sound
+  sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  pitch: 1.0    # 0.5 to 2.0
+  volume: 1.0   # Distance
+  sound-category: MASTER  # Optional sound category
+```
+
+**Common Sounds:**
+- `UI_BUTTON_CLICK`
+- `ENTITY_EXPERIENCE_ORB_PICKUP`
+- `ENTITY_PLAYER_LEVELUP`
+- `ENTITY_VILLAGER_YES`
+- `ENTITY_VILLAGER_NO`
+- `BLOCK_NOTE_BLOCK_PLING`
+- `BLOCK_CHEST_OPEN`
+- `BLOCK_CHEST_CLOSE`
+
+:::tip Sound Reference
+View the complete list of available sounds in the [Bukkit Sound JavaDocs](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html).
+:::
+
+---
+
+### broadcast-sound
+
+Play a sound to all online players.
+
+<Tabs>
+    <TabItem value="broadcast_sound" label="broadcast_sound">
+
+        ```yaml
+        - type: broadcast-sound
+          sound: ENTITY_ENDER_DRAGON_DEATH
+          pitch: 1.0
+          volume: 1.0
+          sound-category: MASTER # Optional
+        ```
+
+    </TabItem>
+    <TabItem value="broadcast sound" label="broadcast sound">
+
+        ```yaml
+        - type: "broadcast sound"
+          sound: ENTITY_ENDER_DRAGON_DEATH
+          pitch: 1.0
+          volume: 1.0
+          sound-category: MASTER # Optional
+        ```
+
+    </TabItem>
+</Tabs>
+
+## Command Actions
+
+### player-command
+
+Execute a command as the player.
+
+<Tabs>
+    <TabItem value="player-command" label="player-command">
+
+        ```yaml
+        - type: player-command
+          commands:
+            - "spawn"
+            - "kit starter"
+          command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
+        ```
+
+    </TabItem>
+    <TabItem value="player command" label="player command (Alias)">
+
+        ```yaml
+        - type: "player command"
+          commands:
+            - "spawn"
+            - "kit starter"
+          command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
+        ```
+
+        **Options:**
+
+        | Option            | Type    | Required | Description                                           |
+        |-------------------|---------|----------|-------------------------------------------------------|
+        | `commands`        | List    | Yes      | List of commands to execute                         |
+        | `command-in-chat` | Boolean | No       | Execute via chat instead of dispatch (default: false)|
+
+        **Note:** This action supports multiple aliases for flexibility.
+
+        Available aliases: `player-command`, `player_command`, `player_commands`, `player command`, `player commands`, `player-commands`.
+
+    </TabItem>
+</Tabs>
+
+---
+
+### player-command-as-op
+
+Execute a command as the player with OP permissions.
+
+<Tabs>
+    <TabItem value="player-commands-as-op" label="player-commands-as-op">
+
+        ```yaml
+        - type: player-command-as-op
+          commands:
+            - "gamemode creative"
+        ```
+
+    </TabItem>
+    <TabItem value="player command as op" label="player command as op (Alias)">
+
+        ```yaml
+        - type: "player command as op"
+          commands:
+            - "gamemode creative"
+        ```
+
+        **Options:**
+
+        | Option     | Type  | Required | Description                                              |
+        |------------|-------|----------|----------------------------------------------------------|
+        | `commands` | List  | Yes      | Commands to execute as OP                                |
+        
+        **Note:** Remember to enable this action in your configuration.
+
+        Available aliases: `player-command-as-op`, `player commands as op`, `player command as op`, `player_commands_as_op`, and `player_command_as_op`.
+
+    </TabItem>
+</Tabs>
+
+:::warning
+Use with caution! This gives the player temporary OP-level access.
+:::
+
+You need to enable it in the configuration file:
+
+```yaml
+enable-player-commands-as-op-action: true
+```
+
+---
+
+### console-command
+
+Execute a command from the console.
+
+<Tabs>
+    <TabItem value="console-command" label="console-command">
+
+        ```yaml
+        - type: console-command
+          commands:
+            - "give %player% diamond 64"
+            - "eco give %player% 1000"
+        ```
+
+    </TabItem>
+    <TabItem value="console command" label="console command (Alias)">
+
+        ```yaml
+        - type: "console command"
+          commands:
+            - "give %player% diamond 64"
+            - "eco give %player% 1000"
+        ```
+
+        **Options:**
+
+        | Option     | Type  | Required | Description                            |
+        |------------|-------|----------|----------------------------------------|
+        | `commands` | List  | Yes      | Commands to execute as the console user|
+
+        **Note:** Supports flexible aliasing for varied command syntax.
+
+        Available aliases: `console-command`, `console-commands`, `commands`, `command`, `console command`, `console commands`, `console_commands` and `console_command`.
+    </TabItem>
+</Tabs>
+
+---
+
+### chat
+
+Force the player to send a chat message.
+
+```yaml
+- type: chat
+  messages:
+    - "Hello everyone!"
+```
+
+**Options:**
+
+| Option     | Type  | Required | Description                       |
+|------------|-------|----------|-----------------------------------|
+| `messages` | List  | Yes      | The list of messages for the player to send |
+
+---
+
+### random-player-command
+
+:::info zMenu+
+This action requires [zMenu+](https://minecraft-music-inventory.com/resources/zmenu.music.331).
+:::
+
+Execute a random selection of commands as the player from a list. The commands are selected **without replacement** (no duplicates in a single execution).
+
+```yaml
+- type: random_player_command
+  commands:
+    - "say I got option 1!"
+    - "say I got option 2!"
+    - "say I got option 3!"
+    - "say I got option 4!"
+  amount: 1               # Number of commands to randomly execute (default: 1)
+  command-in-chat: false   # Optional: execute via chat instead of dispatch (default: false)
+```
+
+**Options:**
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `commands` | List | Required | List of commands to randomly select from |
+| `amount` | Integer | `1` | Number of random commands to execute |
+| `command-in-chat` | Boolean | `false` | If `true`, sends via `player.chat()`; if `false`, dispatches as command |
+
+**Aliases:** `random_player_command`, `random_player_commands`, `random-player-command`, `random-player-commands`
+
+---
+
+### random-console-command
+
+:::info zMenu+
+This action requires [zMenu+](https://minecraft-music-inventory.com/resources/zmenu.music.331).
+:::
+
+Execute a random selection of console commands from a list. The commands are selected **without replacement** (no duplicates in a single execution). Supports the `%player%` placeholder.
+
+```yaml
+- type: random_console_command
+  commands:
+    - "give %player% diamond 1"
+    - "give %player% emerald 1"
+    - "give %player% gold_ingot 1"
+    - "give %player% iron_ingot 1"
+  amount: 2    # Execute 2 random commands from the list
+```
+
+**Options:**
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `commands` | List | Required | List of console commands to randomly select from |
+| `amount` | Integer | `1` | Number of random commands to execute |
+
+**Aliases:** `random_console_command`, `random_console_commands`, `random-console-command`, `random-console-commands`, `random-command`, `random-commands`
+
+## Inventory Actions
+
+### inventory
+
+Open another inventory.
+
+```yaml
+- type: inventory
+  inventory: "shop"
+  page: 1          # Optional: specific page
+  arguments:       # Optional: pass arguments
+    - "arg1"
+```
+
+---
+
+### close
+
+Close the current inventory.
+
+```yaml
+- type: close
+```
+
+---
+
+### back
+
+Go back to the previous inventory.
+
+```yaml
+- type: back
+```
+
+---
+
+### refresh
+
+Refresh the current button.
+
+```yaml
+- type: refresh
+```
+
+---
+
+### refresh-inventory
+
+Refresh the entire inventory (redraw all buttons).
+
+<Tabs>
+    <TabItem value="refresh-inventory" label="refresh-inventory">
+
+        ```yaml
+        - type: refresh-inventory
+        ```
+
+    </TabItem>
+    <TabItem value="refresh inventory" label="refresh inventory (Alias)">
+
+        ```yaml
+        - type: "refresh inventory"
+        ```
+
+        **Options:**
+
+        | Option | Type | Required | Description               |
+        |--------|------|----------|---------------------------|
+        | None   | N/A  | N/A      | No additional parameters. |
+
+        **Note:** Used to redraw all inventory buttons.
+
+        Available aliases: `refresh-inventory`, `refresh inventory` and `ri`.
+    </TabItem>
+</Tabs>
+
+## Player Actions
+
+### teleport
+
+Teleport the player to coordinates.
+
+<Tabs>
+    <TabItem value="teleport" label="teleport">
+
+        ```yaml
+        - type: teleport
+          world: "world"
+          x: 0
+          y: 100
+          z: 0
+          yaw: 0       # Optional
+          pitch: 0     # Optional
+        ```
+
+    </TabItem>
+    <TabItem value="tp" label="tp (Alias)">
+
+        ```yaml
+        - type: tp
+          world: "world"
+          x: 0
+          y: 100
+          z: 0
+          yaw: 0       # Optional
+          pitch: 0     # Optional
+        ```
+
+    </TabItem>
+</Tabs>
+
+---
+
+### connect
+
+Connect the player to another server (BungeeCord/Velocity).
+
+```yaml
+- type: connect
+  server: "lobby"
+```
+
+## Data Actions
+
+### data
+
+Modify player data values.
+
+```yaml
+- type: data
+  action: SET       # SET, ADD, SUBTRACT, MULTIPLY, DIVIDE, REMOVE
+  key: "coins"
+  value: "100"
+  math: true        # Optional: enable math expressions
+```
+
+**Actions:**
+
+| Action | Description | Example |
+|--------|-------------|---------|
+| `SET` | Set to specific value | `value: "100"` |
+| `ADD` | Add to current value | `value: "50"` |
+| `SUBTRACT` | Subtract from current | `value: "25"` |
+| `MULTIPLY` | Multiply current value | `value: "2"` |
+| `DIVIDE` | Divide current value | `value: "2"` |
+| `REMOVE` | Remove the key entirely | - |
+
+**Math expressions:**
+```yaml
+- type: data
+  action: ADD
+  key: "total"
+  value: "%zmenu_player_value_base%*1.5"
+  math: true
+```
+
+## Economy Actions
+
+### deposit
+
+Add money to player's balance.
+
+<Tabs>
+    <TabItem value="deposit" label="deposit">
+
+        ```yaml
+        - type: withdraw
+          currency: "vault"  # Optional: specify currency plugin
+          #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
+          amount: 50
+          reason: "Purchase"  # Optional
+        ```
+
+    </TabItem>
+    <TabItem value="money add" label="money add (Alias)">
+
+        ```yaml
+        - type: "money add"
+          currency: "vault"  # Optional: specify currency plugin
+          #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
+          amount: 50
+          reason: "Purchase"  # Optional
+        ```
+
+    </TabItem>
+</Tabs>
+
+[See the full list of supported currencies here.](../../../currenciesapi/currencies)
+
+---
+
+### withdraw
+
+Remove money from player's balance.
+
+<Tabs>
+    <TabItem value="withdraw" label="withdraw">
+
+        ```yaml
+        - type: withdraw
+          currency: "vault"  # Optional: specify currency plugin
+          #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
+          amount: 50
+          reason: "Purchase"  # Optional
+        ```
+
+    </TabItem>
+    <TabItem value="money remove" label="money remove (Alias)">
+
+        ```yaml
+        - type: "money remove"
+          currency: "vault"  # Optional: specify currency plugin
+          #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
+          amount: 50
+          reason: "Purchase"  # Optional
+        ```
+
+    </TabItem>
+</Tabs>
+
+[See the full list of supported currencies here.](../../../currenciesapi/currencies)
+## Book Action
+
+### book
+
+Open a written book for the player.
+
+```yaml
+- type: book
+  author: "Server"
+  title: "&6Welcome Book"
+  lines:
+    1:
+      - "&6Welcome!"
+      - "&7This is page 1"
+      - "of our welcome book."
+    2:
+      - "&6Page 2"
+      - "&7More content here."
+```
+
+## Dialog Action
+
+### dialog
+
+Open a dialog popup. Dialogs provide a modern UI experience with forms, confirmations, and interactive buttons.
+
+:::warning Requirements
+Dialogs require **Paper 1.21.7+** installed on your server.
+:::
+
+```yaml
+- type: dialog
+  dialog: "confirmation"
+```
+
+**With arguments:**
+```yaml
+- type: dialog
+  dialog: "purchase-confirm"
+  arguments:
+    - "diamond_sword"
+    - "500"
+```
+
+**From external plugin:**
+```yaml
+- type: dialog
+  dialog: "custom-dialog"
+  plugin: "MyPlugin"
+```
+
+**Options:**
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `dialog` | String | Name of the dialog file (without .yml) |
+| `plugin` | String | Plugin name if using external dialog |
+| `arguments` | List | Arguments to pass to the dialog |
+
+See [Dialogues](../dialogues) for complete dialog configuration documentation.
+
+## Discord Actions
+
+### discord
+
+Send a message to a Discord webhook.
+
+<Tabs>
+    <TabItem value="discord" label="discord">
+
+        ```yaml
+        - type: discord
+          webhook: "https://discord.com/api/webhooks/..."
+          content: "%player% made a purchase!"
+          username: "Shop Bot"          # Optional
+          avatar_url: "https://..."     # Optional
+          embeds:
+            - title: "New Purchase"
+              description: "%player% bought an item"
+              color: "#00FF00"
+              url: "https://example.com/purchase"
+              footer:
+              text: "Powered by zMenu"
+              icon-url: "https://example.com/icon.png"
+              thumbnail:
+              url: "https://example.com/thumbnail.png"
+              image:
+              url: "https://example.com/image.png"
+              author:
+              name: "zMenu Bot"
+              url: "https://example.com/bot"
+              icon-url: "https://example.com/bot-icon.png"
+              fields:
+              - name: "Item"
+                value: "Diamond Sword"
+                inline: true
+              - name: "Price"
+                value: "$500"
+                inline: true
+        ```
+
+    </TabItem>
+    <TabItem value="send discord" label="send discord (Alias)">
+
+        ```yaml
+        - type: "send discord"
+          webhook: "https://discord.com/api/webhooks/..."
+          content: "%player% made a purchase!"
+          username: "Shop Bot"          # Optional
+          avatar_url: "https://..."     # Optional
+        ```
+
+        **Options:**
+
+        | Option       | Type    | Required | Description                             |
+        |--------------|---------|----------|-----------------------------------------|
+        | `webhook`    | String  | Yes      | Webhook URL for the Discord server.     |
+        | `content`    | String  | Yes      | Message text or content to send.        |
+        | `username`   | String  | No       | Optional name displayed for the sender. |
+        | `avatar_url` | URL     | No       | Optional avatar for the sender.         |
+
+        **Note:** Supports webhook-based interactions with Discord.
+
+        Available aliases: `discord`, `send-discord`, `discord webhook`, `discordwebhook`.
+
+    </TabItem>
+</Tabs>
+
+---
+
+### discord_component
+
+Send a Discord message with buttons/components.
+
+<Tabs>
+    <TabItem value="discord_component" label="discord_component">
+
+        ```yaml
+        - type: discord_component
+          webhook: "https://discord.com/api/webhooks/..."
+          embeds:
+          - title: "New Purchase"
+          description: "%player% bought an item"
+          color: "#00FF00"
+        ```
+
+    </TabItem>
+    <TabItem value="discord component" label="Discord Component V2 (Aliases)">
+
+        ```yaml
+        - type: "discord component"
+          webhook: "https://discord.com/api/webhooks/..."
+          embeds:
+          - title: "New Purchase"
+          description: "%player% bought an item"
+          color: "#00FF00"
+        ```
+
+        Available aliases: `discord_component`, `discord component`, `discord webhook component`, `discordwebhookcomponent`.
+
+    </TabItem>
+</Tabs>
+
+## Integration Actions
+
+### luckperm-set
+
+Modify LuckPerms permissions/groups.
+
+<Tabs>
+    <TabItem value="luckperm-set" label="luckperm-set">
+
+        ```yaml
+        - type: luckperm-set
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+    <TabItem value="permission-set" label="permission-set (Alias)">
+
+        ```yaml
+        - type: permission-set
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+    <TabItem value="permission set" label="permission set (Alias)">
+
+        ```yaml
+        - type: "permission set"
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+    <TabItem value="set permission" label="set permission (Alias)">
+
+        ```yaml
+        - type: "set permission"
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+    <TabItem value="set-permission" label="set-permission (Alias)">
+
+        ```yaml
+        - type: set-permission
+          group: "vip"
+          duration: 2592000  # Seconds (30 days)
+        ```
+
+    </TabItem>
+</Tabs>
+
+        **Options:**
+
+        | Option     | Type    | Required | Description                       |
+        |------------|---------|----------|-----------------------------------|
+        | `group`    | String  | Yes      | Name of the permission group.     |
+        | `duration` | Integer | No       | Duration in seconds (default: permanent). |
+
+        **Note:** Used to modify LuckPerms permissions or groups for players.
+
+        Available aliases: `luckperm-set`, `permission-set`, `permission set`, `set permission`, `set-permission`.
+
+---
+
+### shopkeeper
+
+Interact with Shopkeepers plugin.
+
+```yaml
+- type: shopkeeper
+  name: "shop_name"
+```
+
+## Complete Examples
+
+### Purchase with Feedback
+
+```yaml
+items:
+  buy-item:
+    slot: 13
+    item:
+      material: DIAMOND_SWORD
+      name: "&6&lDiamond Sword"
+      lore:
+        - "&7Price: &a$500"
+    click-requirement:
+      requirements:
+        - type: placeholder
+          value: "%vault_eco_balance%"
+          compare: ">="
+          number: 500
+          deny:
+            - type: message
+              messages:
+                - "&cYou need $500!"
+            - type: sound
+              sound: ENTITY_VILLAGER_NO
+      success:
+        - type: currency-withdraw
+          amount: 500
+        - type: console-command
+          commands:
+            - "give %player% diamond_sword 1"
+        - type: message
+          messages:
+            - "&aPurchase successful!"
+        - type: sound
+          sound: ENTITY_PLAYER_LEVELUP
+        - type: close
+```
+
+### Toggle Setting with Data
+
+```yaml
+items:
+  toggle:
+    slot: 22
+    type: SWITCH
+    placeholder: "%zmenu_player_value_setting%"
+    buttons:
+      "on":
+        item:
+          material: LIME_DYE
+          name: "&a&lSetting: ON"
+        actions:
+          - type: data
+            action: SET
+            key: "setting"
+            value: "off"
+          - type: message
+            messages:
+              - "&7Setting turned &cOFF"
+          - type: sound
+            sound: UI_BUTTON_CLICK
+          - type: refresh
+      "off":
+        item:
+          material: GRAY_DYE
+          name: "&7&lSetting: OFF"
+        actions:
+          - type: data
+            action: SET
+            key: "setting"
+            value: "on"
+          - type: message
+            messages:
+              - "&7Setting turned &aON"
+          - type: sound
+            sound: UI_BUTTON_CLICK
+          - type: refresh
+```
+
+### Multi-Action Button
+
+```yaml
+items:
+  reward:
+    slot: 13
+    item:
+      material: CHEST
+      name: "&e&lDaily Reward"
+    actions:
+      - type: console-command
+        commands:
+          - "give %player% diamond 5"
+      - type: currency-deposit
+        amount: 1000
+      - type: data
+        action: SET
+        key: "last_reward"
+        value: "%zmenu_time_unix_timestamp%"
+      - type: title
+        title: "&6&lReward Claimed!"
+        subtitle: "&75 Diamonds + $1000"
+      - type: sound
+        sound: ENTITY_PLAYER_LEVELUP
+      - type: broadcast
+        messages:
+          - "&6%player% &7claimed their daily reward!"
+      - type: close
+```
+
+## Action Order
+
+Actions execute in the order they're listed. If you need to close the inventory after a teleport, put `close` before `teleport`:
+
+```yaml
+actions:
+  - type: close
+  - type: teleport
+    world: "world"
+    x: 0
+    y: 100
+    z: 0
+```
+
+## Using Actions in Requirements
+
+Actions can also be used in `deny` and `success` blocks of requirements:
+
+```yaml
+click-requirement:
+  requirements:
+    - type: permission
+      permission: "server.vip"
+      deny:
+        - type: message
+          messages:
+            - "&cYou need VIP!"
+  success:
+    - type: message
+      messages:
+        - "&aAccess granted!"
+```
+
+## Quick Reference Table
+
+| Action | Description |
+|--------|-------------|
+| `message` | Send message to player |
+| `broadcast` | Send message to all |
+| `action-bar` | Show action bar |
+| `title` | Show title/subtitle |
+| `toast` | Show achievement toast |
+| `sound` | Play sound |
+| `player-command` | Run command as player |
+| `console-command` | Run command as console |
+| `random-player-command` | Run random command(s) as player (zMenu+) |
+| `random-console-command` | Run random console command(s) (zMenu+) |
+| `inventory` | Open inventory |
+| `close` | Close inventory |
+| `back` | Go back |
+| `refresh` | Refresh the current button's appearance |
+| `teleport` | Teleport player |
+| `connect` | Change server (BungeeCord/Velocity integration) |
+| `data` | Modify player data |
+| `deposit` | Add money |
+| `withdraw` | Remove money |
+| `broadcast-sound` | Play sound to all players |
+| `message-to` | Send message to specific player |
+| `change-title` | Change the inventory title |
+| `refresh-inventory` | Refresh entire inventory |
+| `book` | Open a written book |
+| `dialog` | Open dialog popup |
+| `discord` | Send a message to Discord |
+| `discord_component` | Send Discord message with buttons |
+| `luckperm-set` | Modify LuckPerms permissions |
+| `shopkeeper` | Interact with Shopkeepers plugin |
+
+## Next Steps
+
+- Learn about [Player Data](../player-data) for storing values
+- See [Requirements](./button#requirements) for conditional actions
+- Create [Patterns](../patterns) with default actions

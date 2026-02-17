@@ -83,7 +83,7 @@ items:
     type: INVENTORY
     slot: 0
     inventory: "paginated_menu"
-    page: 3
+    to-page: 3
 ```
 
 ## Examples
@@ -103,7 +103,6 @@ items:
         - "&7Buy and sell items"
         - ""
         - "&e▸ Click to open"
-    sound: UI_BUTTON_CLICK
 
   warps:
     type: INVENTORY
@@ -116,7 +115,6 @@ items:
         - "&7Teleport around the world"
         - ""
         - "&e▸ Click to open"
-    sound: UI_BUTTON_CLICK
 
   settings:
     type: INVENTORY
@@ -129,7 +127,6 @@ items:
         - "&7Configure your preferences"
         - ""
         - "&e▸ Click to open"
-    sound: UI_BUTTON_CLICK
 ```
 
 ### Category Selection
@@ -221,7 +218,7 @@ items:
     type: INVENTORY
     slot: 12
     inventory: "items_catalog"
-    page: 3
+    to-page: 3
     item:
       material: PAPER
       name: "&7Page 3"
