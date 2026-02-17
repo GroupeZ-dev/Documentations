@@ -17,7 +17,7 @@ Custom commands are defined in `plugins/zMenu/commands/commands.yml`.
 ```yaml
 commands:
   shop:
-    command: /shop
+    command: shop
     inventory: shop_menu
 ```
 
@@ -45,7 +45,7 @@ This creates the `/shop` command that opens the `shop_menu` inventory.
 **Required.** The command players will type.
 
 ```yaml
-command: /shop
+command: shop
 ```
 
 ---
@@ -176,7 +176,7 @@ arguments:
 ```yaml
 commands:
   shop:
-    command: /shop
+    command: shop
     inventory: shop
     permission: "server.shop"
     deny-message: "&cYou need to be a member to access the shop!"
@@ -190,7 +190,7 @@ commands:
 ```yaml
 commands:
   warps:
-    command: /warps
+    command: warps
     inventory: warps_menu
     permission: "server.warps"
     deny-message: "&cYou don't have permission to use warps!"
@@ -208,7 +208,7 @@ commands:
 ```yaml
 commands:
   adminmenu:
-    command: /adminmenu
+    command: adminmenu
     inventory: admin_panel
     permission: "server.admin.menu"
     aliases:
@@ -221,19 +221,19 @@ commands:
 ```yaml
 commands:
   menu:
-    command: /menu
+    command: menu
     inventory: main_menu
     aliases:
       - gui
       - m
 
   help:
-    command: /help
+    command: help
     inventory: help_menu
     permission: "server.help"
 
   rules:
-    command: /rules
+    command: rules
     inventory: rules_menu
 ```
 
@@ -273,7 +273,7 @@ Each file follows the same format:
 # commands/shop/shop_commands.yml
 commands:
   shop:
-    command: /shop
+    command: shop
     inventory: shop_main
 
   buyweapons:
@@ -413,7 +413,7 @@ After modifying command files:
 commands:
   # Main server menu
   menu:
-    command: /menu
+    command: menu
     inventory: main_menu
     aliases:
       - gui
@@ -424,7 +424,7 @@ commands:
 
   # Shop with permission
   shop:
-    command: /shop
+    command: shop
     inventory: shop_main
     permission: "server.shop"
     aliases:
@@ -442,7 +442,7 @@ commands:
 
   # Warps menu
   warps:
-    command: /warps
+    command: warps
     inventory: warps_menu
     permission: "server.warps"
     aliases:
