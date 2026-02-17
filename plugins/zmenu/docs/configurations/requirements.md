@@ -16,17 +16,20 @@ A requirement checks a condition (permission, placeholder value, item in invento
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: permission
-      permission: "server.vip"
-      deny:
-        - type: message
-          messages:
-            - "&cYou need VIP to use this!"
-  success:
-    - type: message
-      messages:
-        - "&aWelcome, VIP!"
+  vip-requirement:
+    click:
+      - ALL
+    requirements:
+      - type: permission
+        permission: "server.vip"
+        deny:
+          - type: message
+            messages:
+              - "&cYou need VIP to use this!"
+    success:
+      - type: message
+        messages:
+          - "&aWelcome, VIP!"
 ```
 
 ---
@@ -61,23 +64,24 @@ items:
   purchase:
     slot: 0
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%vault_eco_balance%"
-          compare: ">="
-          number: 100
-          deny:
-            - type: message
-              messages:
-                - "&cYou need $100 to purchase this!"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: currency-withdraw
-          amount: 100
-        - type: message
-          messages:
-            - "&aPurchase successful!"
+      <requirement_name>:
+        requirements:
+          - type: placeholder
+            value: "%vault_eco_balance%"
+            compare: ">="
+            number: 100
+            deny:
+              - type: message
+                messages:
+                  - "&cYou need $100 to purchase this!"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
+        success:
+          - type: currency-withdraw
+            amount: 100
+          - type: message
+            messages:
+              - "&aPurchase successful!"
     item:
       material: GOLD_INGOT
       name: "&e&lPurchase - $100"
