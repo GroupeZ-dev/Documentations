@@ -9,7 +9,7 @@ description: Create interactive dialog popups with forms, confirmations, and mul
 Dialogues are interactive popup windows that appear on screen, allowing players to interact with forms, confirmations, and action buttons. They provide a modern UI experience beyond traditional inventory menus.
 
 :::warning Requirements
-Dialogues require **Paper 1.21.4+** and [PacketEvents](https://github.com/retrooper/packetevents) to be installed on your server.
+Dialogues require **Paper 1.21.7+**.
 :::
 
 ## File Location
