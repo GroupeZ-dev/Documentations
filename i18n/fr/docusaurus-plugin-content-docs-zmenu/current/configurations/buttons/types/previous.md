@@ -77,7 +77,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_page%"
-          compare: ">"
+          action: SUPERIOR
           number: 1
     item:
       material: ARROW

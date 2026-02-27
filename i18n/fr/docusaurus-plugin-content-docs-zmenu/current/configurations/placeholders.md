@@ -235,7 +235,7 @@ click-requirement:
   requirements:
     - type: placeholder
       value: "%vault_eco_balance%"
-      compare: ">="
+      action: SUPERIOR_OR_EQUAL
       number: 100
       deny:
         - type: message

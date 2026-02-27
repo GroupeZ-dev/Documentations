@@ -373,7 +373,7 @@ items:
       requirements:
         - type: placeholder
           value: "%vault_eco_balance%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 100
           deny:
             - type: message
@@ -423,7 +423,7 @@ requirements:
 requirements:
   - type: placeholder
     value: "%player_level%"
-    compare: ">="
+    action: SUPERIOR_OR_EQUAL
     number: 10
 ```
 
@@ -523,7 +523,7 @@ items:
       requirements:
         - type: placeholder
           value: "%vault_eco_balance%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 500
           deny:
             - type: message

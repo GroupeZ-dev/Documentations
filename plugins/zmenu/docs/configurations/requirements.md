@@ -68,7 +68,7 @@ items:
         requirements:
           - type: placeholder
             value: "%vault_eco_balance%"
-            compare: ">="
+            action: SUPERIOR_OR_EQUAL
             number: 100
             deny:
               - type: message
@@ -142,14 +142,14 @@ Compares a placeholder value against a target. This is the most versatile requir
 requirements:
   - type: placeholder
     value: "%player_level%"
-    compare: ">="
+    action: SUPERIOR_OR_EQUAL
     number: 10
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
 | `value` | String | The placeholder to evaluate |
-| `compare` | String | The comparison operator |
+| `action` | String | The comparison operator |
 | `number` | Number | The numeric value to compare against |
 
 #### String comparison
@@ -158,44 +158,29 @@ requirements:
 requirements:
   - type: placeholder
     value: "%player_world%"
-    compare: "equals_string"
+    action: EQUALS_STRING
     target: "world_nether"
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
 | `value` | String | The placeholder to evaluate |
-| `compare` | String | The comparison operator |
+| `action` | String | The comparison operator |
 | `target` | String | The string value to compare against |
 
 #### Comparison Operators
 
 | Operator | Description | Example |
 |----------|-------------|---------|
-| `==` | Equal to (numeric) | `compare: "=="` |
-| `!=` | Not equal to (numeric) | `compare: "!="` |
-| `>=` | Greater than or equal | `compare: ">="` |
-| `>` | Greater than | `compare: ">"` |
-| `<=` | Less than or equal | `compare: "<="` |
-| `<` | Less than | `compare: "<"` |
-| `equals_string` | Exact string match | `compare: "equals_string"` |
-| `equalsIgnoreCase` | Case-insensitive string match | `compare: "equalsIgnoreCase"` |
+| `==` | Equal to (numeric) | `action: EQUAL_TO` |
+| `!=` | Not equal to (numeric) | `action: DIFFERENT` |
+| `>=` | Greater than or equal | `action: SUPERIOR_OR_EQUAL` |
+| `>` | Greater than | `action: SUPERIOR` |
+| `<=` | Less than or equal | `action: INFERIOR_OR_EQUAL` |
+| `<` | Less than | `action: INFERIOR` |
+| `equals_string` | Exact string match | `action: EQUALS_STRING` |
+| `equalsIgnoreCase` | Case-insensitive string match | `action: EQUALS_IGNORE_CASE` |
 
-:::info Alternative Syntax
-In patterns, you can also use the `action` key with these values instead of `compare`:
-- `SUPERIOR_OR_EQUAL` (same as `>=`)
-- `SUPERIOR` (same as `>`)
-- `EQUAL_TO` (same as `==`)
-- `LOWER` (same as `<`)
-
-```yaml
-requirements:
-  - type: placeholder
-    placeholder: "%player_level%"
-    value: '10'
-    action: SUPERIOR_OR_EQUAL
-```
-:::
 
 #### Math Expressions
 
@@ -226,11 +211,11 @@ requirements:
     amount: 1000
 ```
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `amount` | Number | The minimum balance required |
-| `currency` | String | The currency name (optional) |
-| `economy` | String | The economy name (only needed for zEssentials, CoinsEngine and EcoBits) |
+| Key        | Type | Description |
+|------------|------|-------------|
+| `amount`   | Number | The minimum balance required |
+| `economy`  | String | The currency name (optional) |
+| `currency` | String | The economy name (only needed for zEssentials, CoinsEngine and EcoBits) |
 
 **Example with specific currency and economy:**
 
@@ -238,8 +223,8 @@ requirements:
 requirements:
   - type: money
     amount: 500
-    currency: "gems"
-    economy: "CoinsEngine"
+    currency: "CoinsEngine"
+    economy: "gems"
 ```
 
 :::warning
@@ -422,7 +407,7 @@ requirements:
         permission: "server.vip"
       - type: placeholder
         value: "%player_level%"
-        compare: ">="
+        action: SUPERIOR_OR_EQUAL
         number: 10
 ```
 
@@ -560,7 +545,7 @@ click-requirement:
   requirements:
     - type: placeholder
       value: "%vault_eco_balance%"
-      compare: ">="
+      action: SUPERIOR_OR_EQUAL
       number: 500
       deny:
         - type: message
@@ -598,7 +583,7 @@ click-requirement:
             - "&cYou need VIP rank!"
     - type: placeholder
       value: "%vault_eco_balance%"
-      compare: ">="
+      action: SUPERIOR_OR_EQUAL
       number: 1000
       deny:
         - type: message
@@ -730,7 +715,7 @@ click-requirement:
     requirements:
       - type: placeholder
         value: "%vault_eco_balance%"
-        compare: ">="
+        action: SUPERIOR_OR_EQUAL
         number: 100
         deny:
           - type: message
@@ -762,7 +747,7 @@ click-requirement:
     requirements:
       - type: placeholder
         value: "%vault_eco_balance%"
-        compare: ">="
+        action: SUPERIOR_OR_EQUAL
         number: 100
         deny:
           - type: message
@@ -780,7 +765,7 @@ click-requirement:
     requirements:
       - type: placeholder
         value: "%vault_eco_balance%"
-        compare: ">="
+        action: SUPERIOR_OR_EQUAL
         number: 6400
         deny:
           - type: message
@@ -824,7 +809,7 @@ items:
       requirements:
         - type: placeholder
           value: "%vault_eco_balance%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 500
           deny:
             - type: message
@@ -863,7 +848,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 86400
           deny:
             - type: message
@@ -979,7 +964,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_value_coins%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 50
           deny:
             - type: message
@@ -1008,7 +993,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_value_initialized%"
-          compare: "!="
+          action: DIFFERENT
           target: "true"
     item:
       material: AIR

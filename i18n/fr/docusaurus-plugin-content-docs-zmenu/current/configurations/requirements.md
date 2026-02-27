@@ -67,7 +67,7 @@ items:
       requirements:
         - type: placeholder
           value: "%vault_eco_balance%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 100
           deny:
             - type: message
@@ -141,14 +141,14 @@ Compare une valeur de placeholder a une cible. C'est le type d'exigence le plus 
 requirements:
   - type: placeholder
     value: "%player_level%"
-    compare: ">="
+    action: SUPERIOR_OR_EQUAL
     number: 10
 ```
 
 | Cle | Type | Description |
 |-----|------|-------------|
 | `value` | String | Le placeholder a evaluer |
-| `compare` | String | L'operateur de comparaison |
+| `action` | String | L'operateur de comparaison |
 | `number` | Number | La valeur numerique a comparer |
 
 #### Comparaison de texte
@@ -157,44 +157,29 @@ requirements:
 requirements:
   - type: placeholder
     value: "%player_world%"
-    compare: "equals_string"
+    action: EQUALS_STRING
     target: "world_nether"
 ```
 
 | Cle | Type | Description |
 |-----|------|-------------|
 | `value` | String | Le placeholder a evaluer |
-| `compare` | String | L'operateur de comparaison |
+| `action` | String | L'operateur de comparaison |
 | `target` | String | La valeur texte a comparer |
 
 #### Operateurs de comparaison
 
 | Operateur | Description | Exemple |
 |-----------|-------------|---------|
-| `==` | Egal a (numerique) | `compare: "=="` |
-| `!=` | Different de (numerique) | `compare: "!="` |
-| `>=` | Superieur ou egal | `compare: ">="` |
-| `>` | Superieur | `compare: ">"` |
-| `<=` | Inferieur ou egal | `compare: "<="` |
-| `<` | Inferieur | `compare: "<"` |
-| `equals_string` | Correspondance exacte de texte | `compare: "equals_string"` |
-| `equalsIgnoreCase` | Correspondance de texte insensible a la casse | `compare: "equalsIgnoreCase"` |
+| `==` | Egal a (numerique) | `action: EQUAL_TO` |
+| `!=` | Different de (numerique) | `action: DIFFERENT` |
+| `>=` | Superieur ou egal | `action: SUPERIOR_OR_EQUAL` |
+| `>` | Superieur | `action: SUPERIOR` |
+| `<=` | Inferieur ou egal | `action: INFERIOR_OR_EQUAL` |
+| `<` | Inferieur | `action: INFERIOR` |
+| `equals_string` | Correspondance exacte de texte | `action: EQUALS_STRING` |
+| `equalsIgnoreCase` | Correspondance de texte insensible a la casse | `action: EQUALS_IGNORE_CASE` |
 
-:::info Syntaxe alternative
-Dans les patterns, vous pouvez aussi utiliser la cle `action` avec ces valeurs au lieu de `compare` :
-- `SUPERIOR_OR_EQUAL` (equivalent a `>=`)
-- `SUPERIOR` (equivalent a `>`)
-- `EQUAL_TO` (equivalent a `==`)
-- `LOWER` (equivalent a `<`)
-
-```yaml
-requirements:
-  - type: placeholder
-    placeholder: "%player_level%"
-    value: '10'
-    action: SUPERIOR_OR_EQUAL
-```
-:::
 
 #### Expressions mathematiques
 
@@ -225,11 +210,11 @@ requirements:
     amount: 1000
 ```
 
-| Cle | Type | Description |
-|-----|------|-------------|
-| `amount` | Number | Le solde minimum requis |
-| `currency` | String | Le nom de la monnaie (optionnel) |
-| `economy` | String | Le nom de l'economie (uniquement necessaire pour zEssentials, CoinsEngine et EcoBits) |
+| Cle        | Type | Description |
+|------------|------|-------------|
+| `amount`   | Number | Le solde minimum requis |
+| `economy`  | String | Le nom de la monnaie (optionnel) |
+| `currency` | String | Le nom de l'economie (uniquement necessaire pour zEssentials, CoinsEngine et EcoBits) |
 
 **Exemple avec monnaie et economie specifiques :**
 
@@ -237,8 +222,8 @@ requirements:
 requirements:
   - type: money
     amount: 500
-    currency: "gems"
-    economy: "CoinsEngine"
+    currency: "CoinsEngine"
+    economy: "gems"
 ```
 
 :::warning
@@ -421,7 +406,7 @@ requirements:
         permission: "server.vip"
       - type: placeholder
         value: "%player_level%"
-        compare: ">="
+        action: SUPERIOR_OR_EQUAL
         number: 10
 ```
 
@@ -559,7 +544,7 @@ click-requirement:
   requirements:
     - type: placeholder
       value: "%vault_eco_balance%"
-      compare: ">="
+      action: SUPERIOR_OR_EQUAL
       number: 500
       deny:
         - type: message
@@ -597,7 +582,7 @@ click-requirement:
             - "&cVous avez besoin du rang VIP !"
     - type: placeholder
       value: "%vault_eco_balance%"
-      compare: ">="
+      action: SUPERIOR_OR_EQUAL
       number: 1000
       deny:
         - type: message
@@ -729,7 +714,7 @@ click-requirement:
     requirements:
       - type: placeholder
         value: "%vault_eco_balance%"
-        compare: ">="
+        action: SUPERIOR_OR_EQUAL
         number: 100
         deny:
           - type: message
@@ -768,7 +753,7 @@ click-requirement:
     requirements:
       - type: placeholder
         value: "%vault_eco_balance%"
-        compare: ">="
+        action: SUPERIOR_OR_EQUAL
         number: 100
         deny:
           - type: message
@@ -786,7 +771,7 @@ click-requirement:
     requirements:
       - type: placeholder
         value: "%vault_eco_balance%"
-        compare: ">="
+        action: SUPERIOR_OR_EQUAL
         number: 6400
         deny:
           - type: message
@@ -830,7 +815,7 @@ items:
       requirements:
         - type: placeholder
           value: "%vault_eco_balance%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 500
           deny:
             - type: message
@@ -869,7 +854,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 86400
           deny:
             - type: message
@@ -985,7 +970,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_value_coins%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 50
           deny:
             - type: message
@@ -1014,7 +999,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_value_initialized%"
-          compare: "!="
+          action: DIFFERENT
           target: "true"
     item:
       material: AIR

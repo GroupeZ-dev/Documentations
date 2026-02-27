@@ -218,7 +218,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_value_%key%_claimed%"
-          compare: "!="
+          action: DIFFERENT
           target: "true"
           deny:
             - type: message

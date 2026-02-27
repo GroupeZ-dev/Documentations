@@ -126,7 +126,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_page%"
-          compare: "<"
+          action: INFERIOR
           number_placeholder: "%zmenu_player_max_page%"
     item:
       material: ARROW

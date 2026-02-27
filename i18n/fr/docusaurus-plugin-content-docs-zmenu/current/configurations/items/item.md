@@ -86,6 +86,56 @@ Chaque element de liste est une nouvelle ligne. Les chaines vides (`""`) creent 
 
 ---
 
+### lore-type
+
+Definit comment le lore doit interagir avec le lore existant de l'item. C'est particulierement utile lors de l'utilisation de material loaders (ItemsAdder, Oraxen, etc.) ou l'item charge possede deja un lore.
+
+```yaml
+item:
+  material: "itemsadder:my_namespace:custom_sword"
+  lore:
+    - "&7Information supplementaire"
+    - "&7Ajoute par zMenu"
+  lore-type: APPEND  # Ajouter apres le lore existant
+```
+
+**Types disponibles :**
+
+| Type | Description |
+|------|-------------|
+| `REPLACE` | Remplacer entierement le lore existant (par defaut) |
+| `APPEND` | Ajouter des lignes apres le lore existant |
+| `PREPEND` | Ajouter des lignes avant le lore existant |
+
+**Exemples :**
+
+```yaml
+# Remplacer le lore existant (comportement par defaut)
+item:
+  material: "oraxen:custom_item"
+  lore:
+    - "&7Ceci remplace tout le lore existant"
+  lore-type: REPLACE
+
+# Ajouter du lore apres l'existant
+item:
+  material: "itemsadder:namespace:item"
+  lore:
+    - ""
+    - "&eCliquez pour utiliser !"
+  lore-type: APPEND
+
+# Ajouter du lore avant l'existant
+item:
+  material: "zitems:legendary_sword"
+  lore:
+    - "&6&lLEGENDAIRE"
+    - ""
+  lore-type: PREPEND
+```
+
+---
+
 ### amount
 
 La taille de la pile de l'item (1-64).

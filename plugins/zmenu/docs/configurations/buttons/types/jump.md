@@ -106,7 +106,7 @@ items:
       requirements:
         - type: placeholder
           value: "%page%"
-          compare: "!="
+          action: DIFFERENT
           number: 1
     item:
       material: PAPER
@@ -239,7 +239,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_max_page%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 3
     item:
       material: PAPER
