@@ -1,15 +1,15 @@
 ---
 sidebar_position: 1
 title: Introduction
-description: Create custom items with powerful abilities for Minecraft 1.21+
+description: Create custom items with powerful effects for Minecraft 1.21+
 ---
 
 # zItems
 
-zItems is a powerful Minecraft plugin that allows you to create custom items with unique abilities, runes, and properties. From enchanted armor to magical tools, zItems gives you complete control over item creation.
+zItems is a powerful Minecraft plugin that allows you to create custom items with unique effects, metadata, and properties. From enchanted armor to magical tools, zItems gives you complete control over item creation.
 
-- **SpigotMC**: [https://www.spigotmc.org/resources/zitems-demo.118638/](https://www.spigotmc.org/resources/zitems-demo.118638/)
-- **GitHub**: [https://github.com/Maxlego08/zItems](https://github.com/Maxlego08/zItems)
+- **SpigotMC**: [https://www.spigotmc.org/resources/zitems.118638/](https://www.spigotmc.org/resources/zitems.118638/)
+- **GitHub**: [https://github.com/Traqueur-dev/zItems](https://github.com/Traqueur-dev/zItems)
 - **Discord**: [https://discord.groupez.dev](https://discord.groupez.dev)
 
 ## Requirements
@@ -20,117 +20,140 @@ zItems is a powerful Minecraft plugin that allows you to create custom items wit
 | Java | Java 21 |
 | Server Software | Paper, Purpur, or Folia |
 
-## Features
+## Key Features
 
 ### Custom Items
 
-Create items with custom properties:
+Create items with extensive customization:
 
-- **Custom Materials** - Use any Minecraft material as base
-- **Custom Names & Lore** - Full color code and MiniMessage support
-- **Custom Model Data** - Resource pack integration
-- **Custom Attributes** - Modify damage, speed, armor, and more
-- **Food Items** - Make any item edible
-- **Tool Properties** - Custom mining speeds and block lists
-- **Container Items** - Items that store other items (like bundles)
+- **Materials & Display**: Use any Minecraft material with custom names, lores, and custom model data
+- **Enchantments**: Add vanilla or custom enchantments with any level
+- **Attributes**: Modify damage, speed, armor, health, and more
+- **Item Flags**: Hide enchantments, attributes, or other item properties
+- **Recipes**: Define crafting recipes (shaped, shapeless, furnace, etc.)
 
-### Runes System
+### Effects System
 
-Add powerful abilities to your items with runes:
+Add powerful abilities to your items:
 
-| Rune | Description |
-|------|-------------|
-| Absorption | Grants absorption hearts |
-| Farming Hoe | Enhanced farming capabilities |
-| Hammer | 3x3 mining pattern |
-| Job Money Boost | Increases money from jobs |
-| Job XP Boost | Increases XP from jobs |
-| Melt Mining | Auto-smelts mined ores |
-| Protection | Enhanced damage protection |
-| Silk Spawner | Allows spawner silk touch |
-| Tree Cutter | Cuts entire trees at once |
-| Unbreakable | Prevents item durability loss |
-| Vein Mining | Mines entire ore veins |
-| XP Boost | Increases XP drops |
+| Effect | Description |
+|--------|-------------|
+| `VEIN_MINING` | Mines entire ore veins at once |
+| `HAMMER` | Mines in a 3x3 (or larger) area |
+| `AUTO_SELL` | Automatically sells mined/killed drops |
+| `SILK_SPAWNER` | Allows picking up spawners with silk touch |
+| `MELT_MINING` | Auto-smelts mined ores (fortune compatible) |
+| `XP_BOOST` | Multiplies XP drops from mining |
+| `FARMING_HOE` | Harvest, till, and plant in area |
+| `SELL_STICK` | Sell container contents by clicking |
+| `INFINITE_BUCKET` | Unlimited water/lava placement |
+| `ABSORPTION` | Items go directly to inventory |
+| `ENCHANTS_APPLICATOR` | Modifies enchantment levels |
+| `ATTRIBUTES_APPLICATOR` | Adds/modifies attributes |
+| `UNBREAKABLE` | Prevents durability loss |
 
-### Pre-built Items
+### Metadata System
 
-zItems comes with several example items:
+Configure special item properties:
 
-- **armor-trim** - Diamond armor with trim and 25% armor boost
-- **custom_seed** - Wheat seed for instant crop maturation
-- **food** - Edible sand block
-- **glass-breaker** - Tool that only breaks glass
-- **loot-chest** - Container with loot contents
-- **multitools** - Tool that breaks all block types
-- **strength-potion** - Potion with multiple effects
-- **hoe** - Enhanced farming tool
+| Metadata | Description |
+|----------|-------------|
+| `food` | Make any item edible with nutrition, saturation, and effects |
+| `potion` | Add potion effects to items |
+| `leather-armor` | Set leather armor color |
+| `trim` | Apply armor trims |
+| `banner` | Add banner patterns |
+| `tool` | Custom mining speeds and rules |
+| `commands` | Execute commands on item interaction |
+
+### Plugin Integrations
+
+| Plugin | Features |
+|--------|----------|
+| Jobs Reborn | Money/XP boost effects for jobs |
+| PlaceholderAPI | Dynamic placeholders in item names/lore |
+| WorldGuard | Region-based effect restrictions |
+| ItemsAdder | Custom block support |
+| Oraxen | Custom block support |
+| Nexo | Custom block support |
+| ShopGUI+ | Auto-sell and sell stick support |
+| EconomyShopGUI | Auto-sell and sell stick support |
+| ZShop | Auto-sell and sell stick support |
 
 ## Quick Start
 
-### Installation
-
-1. Download zItems from SpigotMC or Discord
-2. Place the JAR file in your `plugins/` folder
-3. Restart your server
-4. Configure items in `plugins/zItems/items/`
-
-### Basic Commands
-
-```
-/zitems reload                    - Reload plugin configuration
-/zitems give <item> [player] [amount]  - Give an item to a player
-/zitems applyrune <rune>          - Apply a rune to held item
-```
-
-### Creating Your First Item
-
-Create a file in `plugins/zItems/items/my_sword.yml`:
+### Basic Item
 
 ```yaml
-name: "&6&lLegendary Sword"
-material: DIAMOND_SWORD
-lore:
-  - "&7A powerful weapon"
-  - ""
-  - "&7Damage: &c+15"
-  - ""
-  - "&eRight-click for special ability!"
+# plugins/zItems/items/legendary_sword.yml
+legendary_sword:
+  material: DIAMOND_SWORD
+  display-name: "<gradient:#ff6b6b:#feca57>Legendary Sword</gradient>"
+  lore:
+    - ""
+    - "<gray>A powerful weapon forged</gray>"
+    - "<gray>in the depths of the nether.</gray>"
+    - ""
+    - "<yellow>Damage: <red>+15</red></yellow>"
 
-attributes:
-  - type: generic.attack_damage
-    amount: 15
-    operation: add_value
-    slot: mainhand
+  enchantments:
+    - enchantment: SHARPNESS
+      level: 5
+    - enchantment: FIRE_ASPECT
+      level: 2
 
-enchantments:
-  sharpness: 5
-  unbreaking: 3
-  fire_aspect: 2
+  attributes:
+    - attribute: ATTACK_DAMAGE
+      operation: ADD_NUMBER
+      amount: 15
+      slot: MAINHAND
 
-runes:
-  - vein_mining
+  unbreakable: true
 ```
 
-## Integration with zMenu
-
-zItems integrates seamlessly with zMenu. Use custom items in your menus:
+### Item with Effects
 
 ```yaml
-# In your zMenu inventory file
-items:
-  special-sword:
-    slot: 13
-    item:
-      material: "zitems:legendary_sword"
-    actions:
-      - type: give_item
-        item: "zitems:legendary_sword"
+# plugins/zItems/items/vein_pickaxe.yml
+vein_pickaxe:
+  material: NETHERITE_PICKAXE
+  display-name: "<gold>Vein Miner Pickaxe</gold>"
+  lore:
+    - ""
+    - "<gray>Mines entire ore veins!</gray>"
+    - "<yellow>Max blocks: <white>32</white></yellow>"
+
+  enchantments:
+    - enchantment: EFFICIENCY
+      level: 5
+    - enchantment: FORTUNE
+      level: 3
+
+  effects:
+    - type: VEIN_MINING
+      tags:
+        - MINEABLE_PICKAXE
+      block-limit: 32
+      damage: 1
+
+    - type: MELT_MINING
 ```
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/zitems give <item> [player] [amount]` | Give a custom item |
+| `/zitems giveeffect <effect> [player]` | Give an effect item |
+| `/zitems applyeffect <effect>` | Apply effect to held item |
+| `/zitems vieweffect` | View effects on held item |
+| `/zitems gui` | Open item browser GUI |
+| `/zitems reload` | Reload configuration |
 
 ## Next Steps
 
 - [Installation Guide](installation) - Detailed setup instructions
-- [Item Configuration](items) - Create custom items
-- [Runes System](runes) - Add abilities to items
+- [Item Configuration](configurations/items) - Create custom items
+- [Effects System](effects/overview) - Add powerful abilities
+- [Metadata System](metadata/overview) - Configure special properties
 - [Commands & Permissions](commands-permissions) - Full command reference

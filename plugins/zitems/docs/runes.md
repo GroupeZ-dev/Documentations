@@ -1,256 +1,208 @@
 ---
 sidebar_position: 5
-title: Runes
-description: Add powerful abilities to items with runes
+title: Effects (Runes)
+description: Add powerful abilities to items with effects
 ---
 
-# Runes
+# Effects (Runes)
 
-Runes are special abilities that can be applied to items in zItems. They provide unique effects and mechanics that enhance gameplay.
+:::info Terminology Update
+In the current version of zItems, **"Runes"** are now called **"Effects"**. This documentation uses both terms interchangeably, but the configuration uses `effects`.
+:::
 
-## Available Runes
+Effects are special abilities that can be applied to items in zItems. They provide unique mechanics that enhance gameplay, from mining entire ore veins to auto-selling drops.
 
-### Absorption
+## Quick Reference
 
-Grants absorption hearts when equipped or used.
+| Effect | Description | Event |
+|--------|-------------|-------|
+| `VEIN_MINING` | Mine entire ore veins | Block Break |
+| `HAMMER` | Mine in 3x3 (or larger) area | Block Break |
+| `MELT_MINING` | Auto-smelt mined blocks | Block Break |
+| `XP_BOOST` | Multiply XP drops | Block Break |
+| `SILK_SPAWNER` | Pick up spawners | Block Break |
+| `AUTO_SELL` | Automatically sell drops | Block Break / Kill |
+| `ABSORPTION` | Items go to inventory | Block Break / Kill |
+| `FARMING_HOE` | Area harvest and plant | Block Break / Interact |
+| `SELL_STICK` | Sell container contents | Player Interact |
+| `INFINITE_BUCKET` | Unlimited bucket uses | Bucket Events |
+| `UNBREAKABLE` | Prevent durability loss | Always Active |
+| `ENCHANTS_APPLICATOR` | Modify enchantments | On Application |
+| `ATTRIBUTES_APPLICATOR` | Add/modify attributes | On Application |
 
-```yaml
-runes:
-  - absorption
-```
-
-**Effect:** Provides extra hearts that absorb damage.
-
----
-
-### Farming Hoe
-
-Enhanced farming capabilities for hoes.
-
-```yaml
-runes:
-  - farming_hoe
-```
-
-**Effect:**
-- Tills larger areas
-- Replants crops automatically
-- Harvests mature crops
-
----
-
-### Hammer
-
-3x3 mining pattern for tools.
-
-```yaml
-runes:
-  - hammer
-```
-
-**Effect:** Mines a 3x3 area instead of a single block.
-
----
-
-### Job Money Boost
-
-Increases money earned from jobs (requires zJobs).
-
-```yaml
-runes:
-  - job_money_boost
-```
-
-**Effect:** Multiplies money rewards from job actions.
-
----
-
-### Job XP Boost
-
-Increases XP earned from jobs (requires zJobs).
-
-```yaml
-runes:
-  - job_xp_boost
-```
-
-**Effect:** Multiplies XP rewards from job actions.
-
----
-
-### Melt Mining
-
-Auto-smelts mined ores.
-
-```yaml
-runes:
-  - melt_mining
-```
-
-**Effect:**
-- Iron ore drops iron ingots
-- Gold ore drops gold ingots
-- Sand drops glass
-- And more...
-
----
-
-### Protection
-
-Enhanced damage protection.
-
-```yaml
-runes:
-  - protection
-```
-
-**Effect:** Reduces incoming damage beyond normal armor.
-
----
-
-### Silk Spawner
-
-Allows picking up spawners with silk touch.
-
-```yaml
-runes:
-  - silk_spawner
-```
-
-**Effect:** Spawners can be collected when mined with this item.
-
----
-
-### Tree Cutter
-
-Cuts entire trees at once.
-
-```yaml
-runes:
-  - tree_cutter
-```
-
-**Effect:** Breaking one log breaks the entire tree.
-
----
-
-### Unbreakable
-
-Prevents item durability loss.
-
-```yaml
-runes:
-  - unbreakable
-```
-
-**Effect:** Item never takes durability damage.
-
----
-
-### Vein Mining
-
-Mines entire ore veins.
-
-```yaml
-runes:
-  - vein_mining
-```
-
-**Effect:** Breaking one ore block breaks all connected ore blocks of the same type.
-
----
-
-### XP Boost
-
-Increases XP drops from mining and killing.
-
-```yaml
-runes:
-  - xp_boost
-```
-
-**Effect:** Multiplies experience orb drops.
-
----
-
-## Applying Runes
+## Adding Effects to Items
 
 ### In Item Configuration
 
-Add runes when creating items:
-
 ```yaml
-name: "&6&lMiner's Dream"
-material: DIAMOND_PICKAXE
+my_pickaxe:
+  material: NETHERITE_PICKAXE
+  display-name: "<gold>Super Pickaxe</gold>"
 
-runes:
-  - vein_mining
-  - melt_mining
-  - xp_boost
+  effects:
+    - type: VEIN_MINING
+      tags:
+        - MINEABLE_PICKAXE
+      block-limit: 32
+      damage: 1
+
+    - type: MELT_MINING
+
+    - type: XP_BOOST
+      boost: 2.0
 ```
 
 ### Using Commands
 
-Apply runes to existing items:
+Apply effects to items in-game:
 
+```bash
+/zitems applyeffect vein_mining
+/zitems applyeffect melt_mining
+/zitems applyeffect xp_boost
 ```
-/zitems applyrune vein_mining
+
+## Effect Configuration
+
+Each effect has specific configuration options. Here's the general structure:
+
+```yaml
+effects:
+  - type: EFFECT_TYPE
+    # Effect-specific options here
+
+    # Common options for all effects:
+    applicable-materials:  # Restrict to specific items
+      - DIAMOND_PICKAXE
+      - NETHERITE_PICKAXE
+    applicable-tags:  # Or use material tags
+      - PICKAXES
+    applicability-blacklisted: false  # Invert the filter
 ```
 
-This applies the rune to the item in your main hand.
+## Detailed Effect Documentation
 
-## Rune Stacking
+For complete documentation on each effect:
 
-Multiple runes can be applied to the same item:
+- [Vein Mining](./effects/vein-mining) - Mine entire ore veins
+- [Hammer](./effects/hammer) - 3x3 mining area
+- [Farming Hoe](./effects/farming-hoe) - Area harvest and plant
+- [Auto Sell](./effects/auto-sell) - Automatic drop selling
+- [Melt Mining](./effects/melt-mining) - Auto-smelt drops
+- [Sell Stick](./effects/sell-stick) - Container selling
+- [Silk Spawner](./effects/silk-spawner) - Pick up spawners
+- [XP Boost](./effects/xp-boost) - Multiply XP drops
 
+See [Effects Overview](./effects/overview) for the complete reference.
+
+## Effect Stacking
+
+Multiple effects can be applied to the same item:
+
+```yaml
+effects:
+  - type: VEIN_MINING
+    block-limit: 32
+
+  - type: MELT_MINING
+
+  - type: XP_BOOST
+    boost: 2.0
+
+  - type: AUTO_SELL
+    multiplier: 1.5
+```
+
+:::warning Incompatibilities
+Some effects cannot be combined:
+- `VEIN_MINING` + `HAMMER` - Both modify block breaking
+- `AUTO_SELL` + `ABSORPTION` - Both process drops differently
+:::
+
+## Effect Items (Runes)
+
+Effects can be represented as physical items that players can apply:
+
+```yaml
+vein_mining_effect:
+  material: EMERALD
+  display-name: "<green>Vein Mining Rune</green>"
+
+  effects:
+    - type: VEIN_MINING
+      block-limit: 32
+
+      # Physical representation
+      representation:
+        material: EMERALD
+        display-name: "<green>Vein Mining Rune</green>"
+        lore:
+          - "<gray>Apply at smithing table</gray>"
+
+        applicator-type: SMITHING_TABLE
+        template:
+          item: NETHERITE_UPGRADE_SMITHING_TEMPLATE
+```
+
+Players can then:
+1. Obtain the rune item
+2. Place it in a smithing table with their tool
+3. Apply the effect to their tool
+
+## Controlling Effect Access
+
+### Item-Level Control
+
+```yaml
+my_item:
+  # Allow adding more effects
+  allow-additional-effects: true
+
+  # Disable specific effects
+  disabled-effects:
+    - AUTO_SELL
+    - VEIN_MINING
+
+  # Show effects in lore
+  base-effects-visible: true
+  additional-effects-visible: true
+
+  # Limit displayed effects
+  nb-effects-view: 3
+```
+
+### Permission Control
+
+```bash
+# Allow specific effects
+/lp user Steve permission set zitems.effect.vein_mining true
+
+# Allow all effects
+/lp group vip permission set zitems.effect.* true
+```
+
+## Legacy Migration
+
+If you have old configurations using `runes:`, update them to use `effects:`:
+
+**Old format:**
 ```yaml
 runes:
   - vein_mining
   - melt_mining
-  - hammer
-  - xp_boost
 ```
 
-:::note
-Some runes may not stack or may have limited compatibility. Check individual rune documentation for restrictions.
-:::
-
-## Custom Rune Configuration
-
-Runes can be configured in `plugins/zItems/runes/`:
-
+**New format:**
 ```yaml
-# plugins/zItems/runes/vein_mining.yml
-enabled: true
-max-blocks: 64
-tool-types:
-  - PICKAXE
-block-whitelist:
-  - COAL_ORE
-  - DEEPSLATE_COAL_ORE
-  - IRON_ORE
-  - DEEPSLATE_IRON_ORE
-  - GOLD_ORE
-  - DEEPSLATE_GOLD_ORE
-  - DIAMOND_ORE
-  - DEEPSLATE_DIAMOND_ORE
-  - EMERALD_ORE
-  - DEEPSLATE_EMERALD_ORE
+effects:
+  - type: VEIN_MINING
+    block-limit: 32
+
+  - type: MELT_MINING
 ```
-
-## Permissions
-
-Control who can use runes:
-
-| Permission | Description |
-|------------|-------------|
-| `zitems.rune.*` | Access to all runes |
-| `zitems.rune.vein_mining` | Use vein mining rune |
-| `zitems.rune.hammer` | Use hammer rune |
-| `zitems.rune.tree_cutter` | Use tree cutter rune |
-| etc. | |
 
 ## Next Steps
 
-- [Item Configuration](items)
-- [Commands Reference](commands-permissions)
+- [Effects Overview](./effects/overview) - Complete effect reference
+- [Item Configuration](./configurations/items) - Full item options
+- [Commands Reference](./commands-permissions) - All commands

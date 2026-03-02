@@ -128,7 +128,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_value_coins%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 50
           deny:
             - type: message
@@ -209,7 +209,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          compare: ">="
+          action: SUPERIOR_OR_EQUAL
           number: 86400  # 24 hours in seconds
           deny:
             - type: message
@@ -360,7 +360,7 @@ If a key doesn't exist, the placeholder returns an empty string. Use default val
 # In requirements, check for existence
 - type: placeholder
   value: "%zmenu_player_value_coins%"
-  compare: ">="
+  action: SUPERIOR_OR_EQUAL
   number: 0  # Works even if key doesn't exist
 ```
 
@@ -374,7 +374,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_value_initialized%"
-          compare: "!="
+          action: DIFFERENT
           target: "true"
     item:
       material: AIR

@@ -110,7 +110,7 @@ items:
       requirements:
         - type: placeholder
           value: "%dailyreward_claimed%"
-          compare: "equals_string"
+          action: EQUALS_STRING
           target: "false"
           deny:
             - type: message

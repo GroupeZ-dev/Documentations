@@ -143,23 +143,51 @@ Each list item is a new line. Empty strings (`""`) create blank lines.
 
 ### lore-type
 
-Define how the lore should be processed.
+Define how the lore should interact with existing item lore. This is especially useful when using material loaders (ItemsAdder, Oraxen, etc.) where the loaded item already has lore.
 
 ```yaml
 item:
-  material: DIAMOND_SWORD
+  material: "itemsadder:my_namespace:custom_sword"
   lore:
-    - "&7A powerful weapon"
-  lore-type: LEGACY  # or MINIMESSAGE, NONE
+    - "&7Additional information"
+    - "&7Added by zMenu"
+  lore-type: APPEND  # Add after existing lore
 ```
 
 **Available Types:**
 
 | Type | Description |
 |------|-------------|
-| `LEGACY` | Use legacy color codes (`&6`, `&l`) |
-| `MINIMESSAGE` | Use MiniMessage format |
-| `NONE` | No color processing |
+| `REPLACE` | Replace the existing lore entirely (default) |
+| `APPEND` | Add lines after the existing lore |
+| `PREPEND` | Add lines before the existing lore |
+
+**Examples:**
+
+```yaml
+# Replace existing lore (default behavior)
+item:
+  material: "oraxen:custom_item"
+  lore:
+    - "&7This replaces all existing lore"
+  lore-type: REPLACE
+
+# Add lore after existing
+item:
+  material: "itemsadder:namespace:item"
+  lore:
+    - ""
+    - "&eClick to use!"
+  lore-type: APPEND
+
+# Add lore before existing
+item:
+  material: "zitems:legendary_sword"
+  lore:
+    - "&6&lLEGENDARY"
+    - ""
+  lore-type: PREPEND
+```
 
 ---
 

@@ -132,7 +132,7 @@ items:
       requirements:
         - type: placeholder
           value: "%zmenu_player_previous_inventories%"
-          compare: ">"
+          action: SUPERIOR
           number: 0
     item:
       material: ARROW
