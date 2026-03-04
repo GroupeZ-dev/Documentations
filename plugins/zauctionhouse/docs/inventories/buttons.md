@@ -8,7 +8,7 @@ description: All available button types for zAuctionHouse inventories
 
 This page lists all button types available in zAuctionHouse. Each button type has specific functionality and configuration options.
 
-All inventories in zAuctionHouse are powered by [zMenu](https://docs.groupez.dev/zmenu). For general zMenu button configuration (items, slots, lore, etc.), refer to the [zMenu documentation](https://docs.groupez.dev/zmenu).
+All inventories in zAuctionHouse are powered by [zMenu](https://modrinth.com/plugin/zmenu). For general zMenu button configuration (items, slots, lore, etc.), refer to the [zMenu documentation](https://docs.groupez.dev/zmenu).
 
 ## Item Display Buttons
 

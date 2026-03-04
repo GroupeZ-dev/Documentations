@@ -6,6 +6,7 @@ const sidebars = {
     'why-zmenu',
     'commands-permissions',
     'placeholders',
+    'multi-server',
     {
       type: 'category',
       label: 'Configuration',
