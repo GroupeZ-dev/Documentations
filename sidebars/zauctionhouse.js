@@ -34,8 +34,23 @@ const sidebars = {
         'inventories/history',
         'inventories/purchase-confirm',
         'inventories/remove-confirm',
+        'inventories/purchase-inventory-confirm',
+        'inventories/remove-inventory-confirm',
         'inventories/shulker-content',
         'inventories/patterns',
+        {
+          type: 'category',
+          label: 'Admin',
+          collapsed: true,
+          items: [
+            'inventories/admin/admin-history',
+            'inventories/admin/admin-selling-items',
+            'inventories/admin/admin-expired-items',
+            'inventories/admin/admin-purchased-items',
+            'inventories/admin/admin-logs',
+            'inventories/admin/admin-transactions',
+          ],
+        },
       ],
     },
     {

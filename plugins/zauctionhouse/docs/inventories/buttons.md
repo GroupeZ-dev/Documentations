@@ -902,16 +902,214 @@ next:
 
 ---
 
-## Admin Buttons
+## Bulk Item Buttons
 
 | Type | Description | Used In |
 |------|-------------|---------|
-| `ZAUCTIONHOUSE_ADMIN_HISTORY_MAIN` | Displays target player info | Admin History |
-| `ZAUCTIONHOUSE_ADMIN_HISTORY_EXPIRED` | Opens target's expired items | Admin History |
-| `ZAUCTIONHOUSE_ADMIN_HISTORY_PURCHASED` | Opens target's purchased items | Admin History |
-| `ZAUCTIONHOUSE_ADMIN_HISTORY_SELLING` | Opens target's selling items | Admin History |
-| `ZAUCTIONHOUSE_ADMIN_HISTORY_LOGS` | Opens target's action logs | Admin History |
-| `ZAUCTIONHOUSE_ADMIN_HISTORY_TRANSACTIONS` | Opens target's transactions | Admin History |
+| [`ZAUCTIONHOUSE_ITEM_CONTENT`](#zauctionhouse_item_content) | Displays all items in a bulk sale | [Purchase Inventory Confirm](./purchase-inventory-confirm), [Remove Inventory Confirm](./remove-inventory-confirm) |
+
+---
+
+### ZAUCTIONHOUSE_ITEM_CONTENT
+
+Displays all items in a bulk sale. Used in confirmation inventories for bulk purchases and removals.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slots` | List | Slots for displaying items |
+
+**Example:**
+
+```yaml
+item-content:
+  type: ZAUCTIONHOUSE_ITEM_CONTENT
+  slots:
+    - 9-44
+```
+
+---
+
+## Admin Buttons
+
+### Navigation Buttons
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| [`ZAUCTIONHOUSE_ADMIN_HISTORY_MAIN`](#zauctionhouse_admin_history_main) | Displays target player info | [Admin History](./admin/admin-history) |
+| [`ZAUCTIONHOUSE_ADMIN_HISTORY_EXPIRED`](#zauctionhouse_admin_history_expired) | Opens target's expired items | [Admin History](./admin/admin-history) |
+| [`ZAUCTIONHOUSE_ADMIN_HISTORY_PURCHASED`](#zauctionhouse_admin_history_purchased) | Opens target's purchased items | [Admin History](./admin/admin-history) |
+| [`ZAUCTIONHOUSE_ADMIN_HISTORY_SELLING`](#zauctionhouse_admin_history_selling) | Opens target's selling items | [Admin History](./admin/admin-history) |
+| [`ZAUCTIONHOUSE_ADMIN_HISTORY_LOGS`](#zauctionhouse_admin_history_logs) | Opens target's action logs | [Admin History](./admin/admin-history) |
+| [`ZAUCTIONHOUSE_ADMIN_HISTORY_TRANSACTIONS`](#zauctionhouse_admin_history_transactions) | Opens target's transactions | [Admin History](./admin/admin-history) |
+
+### Item Display Buttons
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| `ZAUCTIONHOUSE_ADMIN_SELLING_ITEMS` | Displays target's selling items | [Admin Selling Items](./admin/admin-selling-items) |
+| `ZAUCTIONHOUSE_ADMIN_EXPIRED_ITEMS` | Displays target's expired items | [Admin Expired Items](./admin/admin-expired-items) |
+| `ZAUCTIONHOUSE_ADMIN_PURCHASED_ITEMS` | Displays target's purchased items | [Admin Purchased Items](./admin/admin-purchased-items) |
+| `ZAUCTIONHOUSE_ADMIN_LOGS` | Displays action logs | [Admin Logs](./admin/admin-logs) |
+| `ZAUCTIONHOUSE_ADMIN_TRANSACTIONS` | Displays transactions | [Admin Transactions](./admin/admin-transactions) |
+
+### Filter Buttons
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| `ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_TYPE` | Filters logs by action type | [Admin Logs](./admin/admin-logs) |
+| `ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_DATE` | Filters logs by date range | [Admin Logs](./admin/admin-logs) |
+| `ZAUCTIONHOUSE_ADMIN_TRANSACTIONS_FILTER_STATUS` | Filters transactions by status | [Admin Transactions](./admin/admin-transactions) |
+| `ZAUCTIONHOUSE_ADMIN_TRANSACTIONS_FILTER_DATE` | Filters transactions by date | [Admin Transactions](./admin/admin-transactions) |
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_HISTORY_MAIN
+
+Displays target player information (player head).
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `item` | Item | Button appearance |
+
+**Example:**
+
+```yaml
+target:
+  type: ZAUCTIONHOUSE_ADMIN_HISTORY_MAIN
+  slot: 13
+  item:
+    player-head: '%target%'
+    name: '#2CCED2<bold>%target%'
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_HISTORY_EXPIRED
+
+Opens the admin expired items inventory for the target player.
+
+**Placeholders:**
+- `%target%` - Target player name
+- `%expired-items%` - Number of expired items
+- `%s%` - Pluralization suffix
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_HISTORY_PURCHASED
+
+Opens the admin purchased items inventory for the target player.
+
+**Placeholders:**
+- `%target%` - Target player name
+- `%purchased-items%` - Number of purchased items
+- `%s%` - Pluralization suffix
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_HISTORY_SELLING
+
+Opens the admin selling items inventory for the target player.
+
+**Placeholders:**
+- `%target%` - Target player name
+- `%selling-items%` - Number of selling items
+- `%s%` - Pluralization suffix
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_HISTORY_LOGS
+
+Opens the admin logs inventory for the target player.
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_HISTORY_TRANSACTIONS
+
+Opens the admin transactions inventory for the target player.
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_TYPE
+
+Cycles through log type filters.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `types` | List | Available log types to filter |
+| `type-names` | Map | Display names for each type |
+| `enable-text` | String | Format for selected type |
+| `disable-text` | String | Format for unselected types |
+| `all-types-name` | String | Display name for "all" option |
+
+**Log Types:**
+- `SALE` - Item was listed for sale
+- `PURCHASE` - Item was purchased
+- `REMOVE_LISTED` - Item removed from active listing
+- `REMOVE_SELLING` - Item retrieved from selling inventory
+- `REMOVE_EXPIRED` - Item retrieved from expired inventory
+- `REMOVE_PURCHASED` - Item retrieved from purchased inventory
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_DATE
+
+Cycles through date range filters.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `filters` | List | Available date filters |
+| `filter-names` | Map | Display names for each filter |
+| `enable-text` | String | Format for selected filter |
+| `disable-text` | String | Format for unselected filters |
+
+**Date Filters:**
+- `ALL` - All time
+- `TODAY` - Today only
+- `THIS_WEEK` - Last 7 days
+- `THIS_MONTH` - Last 30 days
+- `THIS_YEAR` - Last 365 days
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_TRANSACTIONS_FILTER_STATUS
+
+Cycles through transaction status filters.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `statuses` | List | Available statuses |
+| `status-names` | Map | Display names for each status |
+| `enable-text` | String | Format for selected status |
+| `disable-text` | String | Format for unselected statuses |
+| `all-statuses-name` | String | Display name for "all" option |
+
+**Statuses:**
+- `PENDING` - Money not yet claimed
+- `RETRIEVED` - Money has been claimed
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_TRANSACTIONS_FILTER_DATE
+
+Cycles through date range filters for transactions.
+
+**Configuration:**
+
+Same as [`ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_DATE`](#zauctionhouse_admin_logs_filter_date).
 
 ---
 
