@@ -234,9 +234,9 @@ Use placeholders in requirements to create dynamic conditions:
 click-requirement:
   requirements:
     - type: placeholder
-      value: "%vault_eco_balance%"
+      placeholder: "%vault_eco_balance%"
       action: SUPERIOR_OR_EQUAL
-      number: 100
+      value: 100
       deny:
         - type: message
           messages:

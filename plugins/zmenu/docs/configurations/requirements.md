@@ -67,9 +67,9 @@ items:
       <requirement_name>:
         requirements:
           - type: placeholder
-            value: "%vault_eco_balance%"
+            placeholder: "%vault_eco_balance%"
             action: SUPERIOR_OR_EQUAL
-            number: 100
+            value: 100
             deny:
               - type: message
                 messages:
@@ -141,32 +141,26 @@ Compares a placeholder value against a target. This is the most versatile requir
 ```yaml
 requirements:
   - type: placeholder
-    value: "%player_level%"
+    placeholder: "%player_level%"
     action: SUPERIOR_OR_EQUAL
-    number: 10
+    value: 10
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `value` | String | The placeholder to evaluate |
+| `placeholder` | String | The placeholder to evaluate |
 | `action` | String | The comparison operator |
-| `number` | Number | The numeric value to compare against |
+| `value` | Number/String | The value to compare against |
 
 #### String comparison
 
 ```yaml
 requirements:
   - type: placeholder
-    value: "%player_world%"
+    placeholder: "%player_world%"
     action: EQUALS_STRING
-    target: "world_nether"
+    value: "world_nether"
 ```
-
-| Key | Type | Description |
-|-----|------|-------------|
-| `value` | String | The placeholder to evaluate |
-| `action` | String | The comparison operator |
-| `target` | String | The string value to compare against |
 
 #### Comparison Operators
 
@@ -406,9 +400,9 @@ requirements:
       - type: permission
         permission: "server.vip"
       - type: placeholder
-        value: "%player_level%"
+        placeholder: "%player_level%"
         action: SUPERIOR_OR_EQUAL
-        number: 10
+        value: 10
 ```
 
 | Key | Type | Description |
@@ -544,9 +538,9 @@ Actions executed when **all requirements** are met. Defined at the requirement b
 click-requirement:
   requirements:
     - type: placeholder
-      value: "%vault_eco_balance%"
+      placeholder: "%vault_eco_balance%"
       action: SUPERIOR_OR_EQUAL
-      number: 500
+      value: 500
       deny:
         - type: message
           messages:
@@ -582,9 +576,9 @@ click-requirement:
           messages:
             - "&cYou need VIP rank!"
     - type: placeholder
-      value: "%vault_eco_balance%"
+      placeholder: "%vault_eco_balance%"
       action: SUPERIOR_OR_EQUAL
-      number: 1000
+      value: 1000
       deny:
         - type: message
           messages:
@@ -714,9 +708,9 @@ click-requirement:
       - ALL
     requirements:
       - type: placeholder
-        value: "%vault_eco_balance%"
+        placeholder: "%vault_eco_balance%"
         action: SUPERIOR_OR_EQUAL
-        number: 100
+        value: 100
         deny:
           - type: message
             messages:
@@ -746,9 +740,9 @@ click-requirement:
       - LEFT
     requirements:
       - type: placeholder
-        value: "%vault_eco_balance%"
+        placeholder: "%vault_eco_balance%"
         action: SUPERIOR_OR_EQUAL
-        number: 100
+        value: 100
         deny:
           - type: message
             messages:
@@ -764,9 +758,9 @@ click-requirement:
       - RIGHT
     requirements:
       - type: placeholder
-        value: "%vault_eco_balance%"
+        placeholder: "%vault_eco_balance%"
         action: SUPERIOR_OR_EQUAL
-        number: 6400
+        value: 6400
         deny:
           - type: message
             messages:
@@ -808,9 +802,9 @@ items:
     click-requirement:
       requirements:
         - type: placeholder
-          value: "%vault_eco_balance%"
+          placeholder: "%vault_eco_balance%"
           action: SUPERIOR_OR_EQUAL
-          number: 500
+          value: 500
           deny:
             - type: message
               messages:
@@ -847,9 +841,9 @@ items:
     click-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
+          placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
           action: SUPERIOR_OR_EQUAL
-          number: 86400
+          value: 86400
           deny:
             - type: message
               messages:
@@ -963,9 +957,9 @@ items:
     click-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_value_coins%"
+          placeholder: "%zmenu_player_value_coins%"
           action: SUPERIOR_OR_EQUAL
-          number: 50
+          value: 50
           deny:
             - type: message
               messages:
@@ -992,9 +986,9 @@ items:
     view-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_value_initialized%"
+          placeholder: "%zmenu_player_value_initialized%"
           action: DIFFERENT
-          target: "true"
+          value: "true"
     item:
       material: AIR
     actions:

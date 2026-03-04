@@ -125,9 +125,9 @@ items:
     view-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_page%"
+          placeholder: "%zmenu_player_page%"
           action: INFERIOR
-          number_placeholder: "%zmenu_player_max_page%"
+          value: "%zmenu_player_max_page%"
     item:
       material: ARROW
       name: "&a&lNext →"

@@ -105,9 +105,9 @@ items:
     view-requirement:
       requirements:
         - type: placeholder
-          value: "%page%"
+          placeholder: "%page%"
           action: DIFFERENT
-          number: 1
+          value: 1
     item:
       material: PAPER
       amount: 1
@@ -238,9 +238,9 @@ items:
     view-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_max_page%"
+          placeholder: "%zmenu_player_max_page%"
           action: SUPERIOR_OR_EQUAL
-          number: 3
+          value: 3
     item:
       material: PAPER
       amount: 3

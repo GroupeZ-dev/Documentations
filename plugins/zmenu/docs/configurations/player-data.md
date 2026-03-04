@@ -127,9 +127,9 @@ items:
     click-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_value_coins%"
+          placeholder: "%zmenu_player_value_coins%"
           action: SUPERIOR_OR_EQUAL
-          number: 50
+          value: 50
           deny:
             - type: message
               messages:
@@ -208,9 +208,9 @@ items:
     click-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
+          placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
           action: SUPERIOR_OR_EQUAL
-          number: 86400  # 24 hours in seconds
+          value: 86400  # 24 hours in seconds
           deny:
             - type: message
               messages:
@@ -359,9 +359,9 @@ If a key doesn't exist, the placeholder returns an empty string. Use default val
 ```yaml
 # In requirements, check for existence
 - type: placeholder
-  value: "%zmenu_player_value_coins%"
+  placeholder: "%zmenu_player_value_coins%"
   action: SUPERIOR_OR_EQUAL
-  number: 0  # Works even if key doesn't exist
+  value: 0  # Works even if key doesn't exist
 ```
 
 Or set defaults on first access:
@@ -373,9 +373,9 @@ items:
     view-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_value_initialized%"
+          placeholder: "%zmenu_player_value_initialized%"
           action: DIFFERENT
-          target: "true"
+          value: "true"
     item:
       material: AIR
     actions:

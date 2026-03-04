@@ -8,17 +8,31 @@ description: Configure economy systems in zAuctionHouse V4
 
 zAuctionHouse V4 supports multiple economy systems configured in `economies.yml`.
 
+## CurrenciesAPI
+
+zAuctionHouse uses [CurrenciesAPI](https://github.com/GroupeZ-dev/CurrenciesAPI) to handle all economy integrations. This library provides a unified interface for interacting with various economy plugins.
+
 ## Supported Economy Types
 
-| Type | Description |
-|------|-------------|
-| `VAULT` | Standard Vault economy (EssentialsX, CMI, etc.) |
-| `PLAYER_POINTS` | PlayerPoints plugin currency |
-| `COINS_ENGINE` | CoinsEngine plugin currencies |
-| `REDIRECT` | Redirect to another economy by name |
-| `ITEM` | Item-based economy (trade items as currency) |
-| `LEVEL` | Experience levels as currency |
-| `EXPERIENCE` | Experience points as currency |
+| Plugin | Type |
+|--------|------|
+| [Vault](https://www.spigotmc.org/resources/34315/) | `VAULT` |
+| [PlayerPoints](https://www.spigotmc.org/resources/80745/) | `PLAYERPOINTS` |
+| [BeastTokens](https://www.spigotmc.org/resources/13409/) | `BEASTTOKENS` |
+| [ElementalTokens](https://builtbybit.com/resources/16707/) | `ELEMENTALTOKENS` |
+| [ElementalGems](https://builtbybit.com/resources/14920/) | `ELEMENTALGEMS` |
+| [CoinsEngine](https://www.spigotmc.org/resources/84121/) | `COINSENGINE` |
+| [VotingPlugin](https://www.spigotmc.org/resources/15358/) | `VOTINGPLUGIN` |
+| [RedisEconomy](https://www.spigotmc.org/resources/105965/) | `REDISECONOMY` |
+| [RoyaleEconomy](https://polymart.org/product/113/royaleeconomy-1-8-1-21) | `ROYALEECONOMY` |
+| [EcoBits](https://www.spigotmc.org/resources/109967/) | `ECOBITS` |
+| [zEssentials](https://www.spigotmc.org/resources/118014/) | `ZESSENTIALS` |
+| [zMenu](https://www.spigotmc.org/resources/110402/) | `ZMENUITEMS` |
+| Item (Vanilla) | `ITEM` |
+| Level (Vanilla) | `LEVEL` |
+| Experience (Vanilla) | `EXPERIENCE` |
+
+You can also use `REDIRECT` to alias one economy to another.
 
 ## Vault Economy
 
@@ -129,111 +143,6 @@ tax:
               mode: CONTAINS
               values:
                 - "Rare"
-```
-
-## PlayerPoints Economy
-
-```yaml
-  - type: PLAYER_POINTS
-    is-enable: true
-    name: playerpoints
-    display-name: "Points"
-    format: "%price% Points"
-    symbol: "pp"
-    auto-claim: true
-    min-prices:
-      auction: 1
-    max-prices: 10000000
-```
-
-## Experience Economy
-
-Use experience points as currency:
-
-```yaml
-  - type: EXPERIENCE
-    is-enable: true
-    name: experience
-    display-name: "Experience"
-    format: "%price% XP"
-    symbol: "xp"
-    auto-claim: true
-    min-prices:
-      auction: 10
-    max-prices: 100000
-```
-
-## Level Economy
-
-Use player levels as currency:
-
-```yaml
-  - type: LEVEL
-    is-enable: true
-    name: levels
-    display-name: "Levels"
-    format: "%price% Levels"
-    symbol: "lvl"
-    auto-claim: true
-    min-prices:
-      auction: 1
-    max-prices: 1000
-```
-
-## Item-Based Economy
-
-Use specific items as currency:
-
-```yaml
-  - type: ITEM
-    is-enable: true
-    name: diamonds
-    display-name: "Diamonds"
-    format: "%price% Diamonds"
-    symbol: "dia"
-    auto-claim: true
-
-    # Define the currency item
-    currency-item:
-      material: DIAMOND
-      # Optional requirements
-      name: ""
-      lore: []
-      model-data: 0
-
-    min-prices:
-      auction: 1
-    max-prices: 10000
-```
-
-## CoinsEngine Economy
-
-```yaml
-  - type: COINS_ENGINE
-    is-enable: true
-    name: coins
-    display-name: "Coins"
-    format: "%price% Coins"
-    symbol: "c"
-
-    # CoinsEngine currency name
-    currency: "coins"
-
-    auto-claim: true
-    min-prices:
-      auction: 1
-    max-prices: 10000000
-```
-
-## Redirect Economy
-
-Alias one economy to another:
-
-```yaml
-  - type: REDIRECT
-    is-enable: true
-    name: money
-    redirect-to: vault  # Redirects to vault economy
 ```
 
 ## Default Economy
@@ -371,7 +280,7 @@ economies:
           percentage: 50
 
   # Secondary points economy
-  - type: PLAYER_POINTS
+  - type: PLAYERPOINTS
     is-enable: true
     name: points
     display-name: "Points"

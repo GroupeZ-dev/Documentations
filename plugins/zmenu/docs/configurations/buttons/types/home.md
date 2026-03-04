@@ -131,9 +131,9 @@ items:
     view-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_previous_inventories%"
+          placeholder: "%zmenu_player_previous_inventories%"
           action: SUPERIOR
-          number: 0
+          value: 0
     item:
       material: NETHER_STAR
       name: "&e&lHome"

@@ -76,9 +76,9 @@ items:
     view-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_page%"
+          placeholder: "%zmenu_player_page%"
           action: SUPERIOR
-          number: 1
+          value: 1
     item:
       material: ARROW
       name: "&c&l← Previous"
