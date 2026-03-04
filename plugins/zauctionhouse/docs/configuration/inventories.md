@@ -1,7 +1,7 @@
 ---
 sidebar_position: 6
 title: Inventories
-description: Customize auction house interfaces in zAuctionHouse
+description: Customize auction house interfaces in zAuctionHouse V4
 ---
 
 # Inventories Configuration
@@ -10,432 +10,438 @@ All auction house interfaces are customizable using [zMenu](https://docs.groupez
 
 ## Available Inventories
 
+### Main Inventories
+
 | File | Description |
 |------|-------------|
 | `auction.yml` | Main auction house interface |
 | `categories.yml` | Category selection menu |
-| `confirm_buy.yml` | Purchase confirmation dialog |
-| `confirm_remove.yml` | Remove confirmation dialog |
-| `expired.yml` | Player's expired items |
-| `player.yml` | Player's active listings |
-| `purchased.yml` | Items purchased to claim |
-| `sell.yml` | Sell interface |
+| `expired-items.yml` | Player's expired items |
+| `purchased-items.yml` | Items purchased to claim |
+| `selling-items.yml` | Player's active listings |
+| `history.yml` | Sales history |
+| `sell-inventory.yml` | Item selection for selling |
+| `shulker-content.yml` | Bulk sale contents viewer |
 
-## Basic Structure
+### Confirmation Inventories
 
-Each inventory file follows the zMenu structure:
+| File | Description |
+|------|-------------|
+| `confirms/purchase-confirm.yml` | Purchase confirmation |
+| `confirms/purchase-inventory-confirm.yml` | Bulk purchase confirmation |
+| `confirms/remove-confirm.yml` | Remove confirmation |
+| `confirms/remove-inventory-confirm.yml` | Bulk remove confirmation |
 
-```yaml
-# Inventory name (supports placeholders)
-name: "&6Auction House"
+### Admin Inventories
 
-# Inventory size (9, 18, 27, 36, 45, 54)
-size: 54
+| File | Description |
+|------|-------------|
+| `admin/admin-selling-items.yml` | View player's listings |
+| `admin/admin-expired-items.yml` | View player's expired items |
+| `admin/admin-purchased-items.yml` | View player's purchases |
+| `admin/admin-transactions.yml` | View transactions |
+| `admin/admin-history-main.yml` | Admin history overview |
+| `admin/admin-logs.yml` | Audit logs |
 
-# Items in the inventory
-items:
-  # Static decorative item
-  decoration:
-    slot: 0
-    item:
-      material: BLACK_STAINED_GLASS_PANE
-      name: " "
+### Pattern Files
 
-  # Functional button
-  close:
-    slot: 49
-    item:
-      material: BARRIER
-      name: "&cClose"
-    actions:
-      - type: close
-```
+| File | Description |
+|------|-------------|
+| `patterns/back.yml` | Back button template |
+| `patterns/decoration.yml` | Glass border decoration |
+| `patterns/pagination.yml` | Page navigation template |
 
 ## Main Auction Interface
 
 Example `auction.yml`:
 
 ```yaml
-name: "&6Auction House"
+# Title with placeholders
+name: "%zauctionhouse_category_name% (%page%/%max-page%)"
+
+# 6 rows
 size: 54
 
-# Fill empty slots
-fillItem:
-  material: BLACK_STAINED_GLASS_PANE
-  name: " "
+# Apply reusable patterns
+patterns:
+  - 'zauctionhouse-decoration'
 
 items:
-  # Category button
-  categories:
-    slot: 4
-    item:
-      material: CHEST
-      name: "&6Categories"
-      lore:
-        - "&7Browse by category"
-        - ""
-        - "&eClick to view categories"
-    actions:
-      - type: inventory
-        inventory: "zauctionhouse/categories.yml"
-
-  # Search button
-  search:
-    slot: 2
-    item:
-      material: COMPASS
-      name: "&eSearch"
-      lore:
-        - "&7Find specific items"
-        - ""
-        - "&eClick to search"
-    actions:
-      - type: input
-        input:
-          type: CHAT
-          message: "&eEnter search query:"
-          action: "ah search %input%"
-
-  # Sort button
-  sort:
-    slot: 6
-    item:
-      material: HOPPER
-      name: "&6Sort: &f%zauctionhouse_sort%"
-      lore:
-        - "&7Change sorting method"
-        - ""
-        - "&eClick to change"
-    actions:
-      - type: zauctionhouse
-        action: TOGGLE_SORT
-
-  # Player's listings
-  my-items:
-    slot: 45
-    item:
-      material: BOOK
-      name: "&aYour Listings"
-      lore:
-        - "&7Items: &f%zauctionhouse_player_items_listed%/%zauctionhouse_player_limit%"
-        - ""
-        - "&eClick to view"
-    actions:
-      - type: inventory
-        inventory: "zauctionhouse/player.yml"
-
-  # Expired items
-  expired:
-    slot: 46
-    item:
-      material: CLOCK
-      name: "&cExpired Items"
-      lore:
-        - "&7Items: &f%zauctionhouse_player_items_expired%"
-        - ""
-        - "&eClick to view"
-    actions:
-      - type: inventory
-        inventory: "zauctionhouse/expired.yml"
-
-  # Purchased items
-  purchased:
-    slot: 47
-    item:
-      material: CHEST_MINECART
-      name: "&aPurchased Items"
-      lore:
-        - "&7To claim: &f%zauctionhouse_player_items_to_claim%"
-        - ""
-        - "&eClick to view"
-    actions:
-      - type: inventory
-        inventory: "zauctionhouse/purchased.yml"
-
-  # Pagination - Previous
-  previous:
-    slot: 48
-    type: PREVIOUS
-    item:
-      material: ARROW
-      name: "&ePrevious Page"
-
-  # Page info
-  page-info:
-    slot: 49
-    item:
-      material: PAPER
-      name: "&ePage &f%page%&7/&f%max_page%"
-
-  # Pagination - Next
-  next:
-    slot: 50
-    type: NEXT
-    item:
-      material: ARROW
-      name: "&eNext Page"
-
-  # Close button
-  close:
-    slot: 53
+  # Main item display area
+  displayItems:
+    type: ZAUCTIONHOUSE_LISTED_ITEMS
+    empty-slot: 22
+    slots:
+      - 9-17    # Row 2
+      - 18-26   # Row 3
+      - 27-35   # Row 4
+      - 36-44   # Row 5
     item:
       material: BARRIER
-      name: "&cClose"
-    actions:
-      - type: close
+      name: '#ff0000&nNo items found'
 
-# Auction items pagination
-pagination:
-  # Slots for auction items (main area)
-  slots:
-    - 10-16
-    - 19-25
-    - 28-34
-    - 37-43
-
-  # Item template for each auction item
-  item:
-    # Uses the actual item being sold
-    useAuctionItem: true
-
-    # Additional lore added to items
-    lore:
-      - ""
-      - "&7Seller: &f%zauctionhouse_item_seller%"
-      - "&7Price: &6%zauctionhouse_item_price%"
-      - "&7Expires: &f%zauctionhouse_item_expire_time%"
-      - ""
-      - "&eLeft-click to purchase"
-      - "&eRight-click for info"
-
-  # Click actions
-  actions:
-    LEFT:
-      - type: inventory
-        inventory: "zauctionhouse/confirm_buy.yml"
-    RIGHT:
-      - type: message
-        messages:
-          - "&7Listed: %zauctionhouse_item_listed_ago% ago"
-```
-
-## Purchase Confirmation
-
-Example `confirm_buy.yml`:
-
-```yaml
-name: "&6Confirm Purchase"
-size: 27
-
-items:
-  # Item being purchased
-  item-preview:
-    slot: 13
-    type: AUCTION_ITEM_PREVIEW
-
-  # Confirm button
-  confirm:
-    slot: 11
-    item:
-      material: LIME_STAINED_GLASS_PANE
-      name: "&aConfirm Purchase"
-      lore:
-        - "&7Price: &6%zauctionhouse_item_price%"
-        - ""
-        - "&eClick to confirm"
-    actions:
-      - type: zauctionhouse
-        action: PURCHASE_ITEM
-
-  # Cancel button
-  cancel:
-    slot: 15
-    item:
-      material: RED_STAINED_GLASS_PANE
-      name: "&cCancel"
-      lore:
-        - "&7Return to auction house"
-    actions:
-      - type: back
-```
-
-## Sell Interface
-
-Example `sell.yml`:
-
-```yaml
-name: "&6Sell Item"
-size: 27
-
-items:
-  # Item being sold
-  selling-item:
+  # Categories button
+  categories:
     slot: 4
-    type: SELLING_ITEM_PREVIEW
-
-  # Price display
-  price:
-    slot: 13
+    type: inventory
+    plugin: "zAuctionHouse"
+    inventory: "categories"
+    is-permanent: true
     item:
-      material: GOLD_INGOT
-      name: "&6Price: &f%zauctionhouse_sell_price%"
+      material: CHEST
+      name: "#2CCED2<bold>ᴄᴀᴛᴇɢᴏʀɪᴇs"
       lore:
-        - "&7Click to change price"
-    actions:
-      - type: input
-        input:
-          type: ANVIL
-          item:
-            material: PAPER
-            name: "%zauctionhouse_sell_price%"
-          action: "ah setprice %input%"
-
-  # Economy selector
-  economy:
-    slot: 22
-    item:
-      material: EMERALD
-      name: "&6Currency: &f%zauctionhouse_sell_economy%"
-      lore:
-        - "&7Click to change currency"
-    actions:
-      - type: zauctionhouse
-        action: TOGGLE_ECONOMY
-
-  # Confirm sale
-  confirm:
-    slot: 11
-    item:
-      material: LIME_STAINED_GLASS_PANE
-      name: "&aList Item"
-      lore:
-        - "&7Price: &6%zauctionhouse_sell_price%"
-        - "&7Currency: &f%zauctionhouse_sell_economy%"
-        - "&7Expires: &f%zauctionhouse_sell_expire%"
         - ""
-        - "&eClick to list"
-    actions:
-      - type: zauctionhouse
-        action: CONFIRM_SELL
+        - "#8c8c8c• #2CCED2Click #92ffffto open"
 
-  # Cancel
-  cancel:
-    slot: 15
+  # Expired items button
+  expired-items:
+    type: ZAUCTIONHOUSE_EXPIRED_INVENTORY
+    slot: 45
     item:
-      material: RED_STAINED_GLASS_PANE
-      name: "&cCancel"
-    actions:
-      - type: close
+      url: "eyJ0ZXh0dXJlcy..."
+      name: "#2CCED2<bold>ᴇxᴘɪʀᴇᴅ ɪᴛᴇᴍs"
+      lore:
+        - "#92ffffYou have #2CCED2%expired-items% #92ffffexpired item%s%."
+        - ""
+        - "#8c8c8c• #2CCED2Click #92ffffto open"
+    else:
+      item:
+        url: "eyJ0ZXh0dXJlcy..."
+        name: "#2CCED2<bold>ᴇxᴘɪʀᴇᴅ ɪᴛᴇᴍs"
+        lore:
+          - "#ff3535You have no expired items."
+
+  # Purchased items button
+  purchased-items:
+    type: ZAUCTIONHOUSE_PURCHASED_INVENTORY
+    slot: 46
+    item:
+      url: "eyJ0ZXh0dXJlcy..."
+      name: "#2CCED2<bold>ᴘᴜʀᴄʜᴀsᴇᴅ ɪᴛᴇᴍs"
+      lore:
+        - "#92ffffYou have #2CCED2%purchased-items% #92ffffbought item%s%."
+        - ""
+        - "#8c8c8c• #2CCED2Click #92ffffto open"
+    else:
+      item:
+        url: "eyJ0ZXh0dXJlcy..."
+        name: "#2CCED2<bold>ᴘᴜʀᴄʜᴀsᴇᴅ ɪᴛᴇᴍs"
+        lore:
+          - "#ff3535You have no purchased items."
+
+  # Your items button
+  selling-items:
+    type: ZAUCTIONHOUSE_SELLING_INVENTORY
+    slot: 53
+    item:
+      url: "eyJ0ZXh0dXJlcy..."
+      name: "#2CCED2<bold>ʏᴏᴜʀ ɪᴛᴇᴍs"
+      lore:
+        - "#92ffffYou have #2CCED2%selling-items% #92ffffitem%s% on sale."
+        - ""
+        - "#8c8c8c• #2CCED2Click #92ffffto open"
+    else:
+      item:
+        url: "eyJ0ZXh0dXJlcy..."
+        name: "#2CCED2<bold>ʏᴏᴜʀ ɪᴛᴇᴍs"
+        lore:
+          - "#ff3535You have no items for sale."
+
+  # Pagination
+  previous:
+    is-permanent: true
+    type: PREVIOUS
+    slot: 48
+    item:
+      url: "eyJ0ZXh0dXJlcy..."
+      name: "#2CCED2<bold>ᴘʀᴇᴠɪᴏᴜs ᴘᴀɢᴇ"
+    else:
+      item:
+        material: LIGHT_BLUE_STAINED_GLASS_PANE
+        name: "<white>"
+
+  next:
+    is-permanent: true
+    type: NEXT
+    slot: 50
+    item:
+      url: "eyJ0ZXh0dXJlcy..."
+      name: "#2CCED2<bold>ɴᴇxᴛ ᴘᴀɢᴇ"
+    else:
+      item:
+        material: LIGHT_BLUE_STAINED_GLASS_PANE
+        name: "<white>"
+
+  # Info/refresh button
+  informations:
+    slot: 49
+    is-permanent: true
+    item:
+      material: BELL
+      name: "#2CCED2<bold>ᴀᴜᴄᴛɪᴏɴ ɪɴғᴏʀᴍᴀᴛɪᴏɴ"
+      lore:
+        - "#92ffffWelcome to the auction house."
+        - "#92ffffUsage#8c8c8c:"
+        - "#2CCED2/ah sell #92ffff<price> [<amount>]"
+        - ""
+        - "#92ffffNumber of items#8c8c8c: #2CCED2%zauctionhouse_listed_items%"
+        - "#92ffffSort type#8c8c8c: #2CCED2%zauctionhouse_sorting_name%"
+        - ""
+        - "#8c8c8c• #2CCED2Click #92ffffto refresh the items"
+
+  # Sort button
+  change-sort:
+    type: ZAUCTIONHOUSE_CHANGE_SORT
+    slot: 52
+    sorts:
+      - DECREASING_DATE
+      - DECREASING_PRICE
+      - ASCENDING_DATE
+      - ASCENDING_PRICE
+    enable-text: ' #F27438➜ %sorting%'
+    disable-text: ' #76CDCD➜ %sorting%'
+    loading-item:
+      material: HOPPER
+      name: "#2CCED2<bold>sᴏʀᴛ ᴛʏᴘᴇ"
+      lore:
+        - "#8c8c8c• #ff3535Loading, please wait"
+    item:
+      material: HOPPER
+      name: "#2CCED2<bold>sᴏʀᴛ ᴛʏᴘᴇ"
+      lore:
+        - "#92ffffAvailable sort types:"
+        - "%DECREASING_DATE%"
+        - "%DECREASING_PRICE%"
+        - "%ASCENDING_DATE%"
+        - "%ASCENDING_PRICE%"
+        - ""
+        - "#8c8c8c• #2CCED2Click #92ffffto change the sort type"
+```
+
+## zAuctionHouse Button Types
+
+### Display Buttons
+
+| Type | Description |
+|------|-------------|
+| `ZAUCTIONHOUSE_LISTED_ITEMS` | Display auction items with pagination |
+| `ZAUCTIONHOUSE_CATEGORY` | Category selector button |
+| `ZAUCTIONHOUSE_CHANGE_SORT` | Sort type cycling button |
+
+### Inventory Navigation Buttons
+
+| Type | Description |
+|------|-------------|
+| `ZAUCTIONHOUSE_EXPIRED_INVENTORY` | Opens expired items (with conditional display) |
+| `ZAUCTIONHOUSE_PURCHASED_INVENTORY` | Opens purchased items (with conditional display) |
+| `ZAUCTIONHOUSE_SELLING_INVENTORY` | Opens selling items (with conditional display) |
+
+### Item Action Buttons
+
+| Type | Description |
+|------|-------------|
+| `ZAUCTIONHOUSE_PURCHASE_CONFIRM` | Confirm purchase button |
+| `ZAUCTIONHOUSE_REMOVE_CONFIRM` | Confirm removal button |
+| `ZAUCTIONHOUSE_CLAIM_ITEM` | Claim single item |
+| `ZAUCTIONHOUSE_CLAIM_ALL` | Claim all items |
+
+## Category Inventory
+
+Example `categories.yml`:
+
+```yaml
+name: "#0c1719Categories"
+size: 27
+
+items:
+  # All category
+  all:
+    slot: 10
+    type: ZAUCTIONHOUSE_CATEGORY
+    category: all
+    item:
+      material: NETHER_STAR
+      name: "#2CCED2All Items"
+
+  # Weapons category
+  weapons:
+    slot: 11
+    type: ZAUCTIONHOUSE_CATEGORY
+    category: weapons
+    item:
+      material: DIAMOND_SWORD
+      name: "#2CCED2Weapons"
+
+  # Armor category
+  armor:
+    slot: 12
+    type: ZAUCTIONHOUSE_CATEGORY
+    category: armor
+    item:
+      material: DIAMOND_CHESTPLATE
+      name: "#2CCED2Armor"
+
+  # Tools category
+  tools:
+    slot: 13
+    type: ZAUCTIONHOUSE_CATEGORY
+    category: tools
+    item:
+      material: DIAMOND_PICKAXE
+      name: "#2CCED2Tools"
+
+  # Blocks category
+  blocks:
+    slot: 14
+    type: ZAUCTIONHOUSE_CATEGORY
+    category: blocks
+    item:
+      material: GRASS_BLOCK
+      name: "#2CCED2Blocks"
+
+  # Misc category
+  misc:
+    slot: 15
+    type: ZAUCTIONHOUSE_CATEGORY
+    category: misc
+    item:
+      material: CHEST
+      name: "#2CCED2Miscellaneous"
+
+  # Back button
+  back:
+    slot: 22
+    type: BACK
+    item:
+      material: ARROW
+      name: "#2CCED2Back"
 ```
 
 ## Patterns
 
-Use zMenu patterns for reusable elements:
+Use zMenu patterns for reusable elements.
 
+### Decoration Pattern
+
+`patterns/decoration.yml`:
 ```yaml
-# In patterns/auction_pattern.yml
+name: zauctionhouse-decoration
 size: 54
 
 items:
-  border:
-    slots:
-      - 0-8
-      - 45-53
+  top-border:
+    slots: 0-8
     item:
-      material: BLACK_STAINED_GLASS_PANE
-      name: " "
+      material: LIGHT_BLUE_STAINED_GLASS_PANE
+      name: "<white>"
+
+  bottom-border:
+    slots: 45-53
+    item:
+      material: LIGHT_BLUE_STAINED_GLASS_PANE
+      name: "<white>"
 ```
 
-Then use in inventories:
+### Using Patterns
 
 ```yaml
-# In auction.yml
-name: "&6Auction House"
+name: "My Inventory"
+size: 54
 patterns:
-  - "auction_pattern"
+  - 'zauctionhouse-decoration'
 
 items:
-  # Your items here
+  # Your items here (override pattern slots as needed)
 ```
 
-## Custom Actions
+## Inventory Placeholders
 
-zAuctionHouse provides custom actions:
+Available in inventory files:
 
-| Action | Description |
-|--------|-------------|
-| `PURCHASE_ITEM` | Purchase the selected item |
-| `REMOVE_ITEM` | Remove player's listing |
-| `CLAIM_EXPIRED` | Claim an expired item |
-| `CLAIM_PURCHASED` | Claim a purchased item |
-| `CLAIM_ALL_EXPIRED` | Claim all expired items |
-| `CLAIM_ALL_PURCHASED` | Claim all purchased items |
-| `CONFIRM_SELL` | Confirm selling an item |
-| `TOGGLE_SORT` | Change sort method |
-| `TOGGLE_ECONOMY` | Change economy |
-| `OPEN_CATEGORY` | Open a specific category |
+| Placeholder | Description |
+|-------------|-------------|
+| `%page%` | Current page number |
+| `%max-page%` | Total pages |
+| `%zauctionhouse_category_name%` | Current category |
+| `%zauctionhouse_listed_items%` | Total listed items |
+| `%zauctionhouse_sorting_name%` | Current sort name |
+| `%expired-items%` | Player's expired item count |
+| `%purchased-items%` | Player's purchased item count |
+| `%selling-items%` | Player's selling item count |
+| `%s%` | Pluralization suffix |
 
-Usage:
+## Conditional Display
 
-```yaml
-actions:
-  - type: zauctionhouse
-    action: PURCHASE_ITEM
-```
-
-## Tips
-
-### Dynamic Item Count
-
-Show item count in buttons:
+Show buttons only when relevant:
 
 ```yaml
-expired:
+expired-items:
+  type: ZAUCTIONHOUSE_EXPIRED_INVENTORY
+  slot: 45
+  # Shows when player has expired items
   item:
     material: CLOCK
-    name: "&cExpired (%zauctionhouse_player_items_expired%)"
+    name: "#2CCED2Expired Items"
+    lore:
+      - "You have %expired-items% items"
+  # Shows when no expired items
+  else:
+    item:
+      material: CLOCK
+      name: "#2CCED2Expired Items"
+      lore:
+        - "#ff3535You have no expired items"
 ```
 
-### Conditional Display
+## Custom Player Heads
 
-Hide buttons when empty:
-
-```yaml
-expired:
-  view-requirement:
-    requirements:
-      expired-check:
-        type: placeholder
-        placeholder: "%zauctionhouse_player_items_expired%"
-        action: SUPERIOR
-        value: 0
-```
-
-### Custom Category Layout
+Use Base64 textures for custom heads:
 
 ```yaml
-# categories.yml with custom layout
-name: "&6Categories"
-size: 45
-
-items:
-  weapons:
-    slot: 10
-    type: CATEGORY
-    category: weapons
-
-  armor:
-    slot: 12
-    type: CATEGORY
-    category: armor
+item:
+  url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjllYTFkODYyNDdmNGFmMzUxZWQxODY2YmNhNmEzMDQwYTA2YzY4MTc3Yzc4ZTQyMzE2YTEwOThlNjBmYjdkMyJ9fX0="
+  name: "#2CCED2Arrow Button"
 ```
 
 ## Reloading
 
 After modifying inventory files:
 
-```
-/ah admin reload
+```bash
+/ah reload
 ```
 
 Changes take effect immediately for new inventory opens.
+
+## Tips
+
+### Dynamic Item Count
+
+```yaml
+item:
+  material: CLOCK
+  name: "&cExpired (%expired-items%)"
+```
+
+### Loading State
+
+For sort buttons, show loading state:
+
+```yaml
+loading-item:
+  material: HOPPER
+  name: "#2CCED2Loading..."
+  lore:
+    - "Please wait"
+```
+
+### Localization
+
+Create localized inventories in `_fr/` folder for French translations:
+```
+inventories/
+├── auction.yml
+└── _fr/
+    └── auction.yml
+```

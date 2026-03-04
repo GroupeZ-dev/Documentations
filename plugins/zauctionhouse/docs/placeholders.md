@@ -1,150 +1,241 @@
 ---
 sidebar_position: 4
 title: Placeholders
-description: PlaceholderAPI placeholders for zAuctionHouse
+description: All placeholders available in zAuctionHouse V4
 ---
 
 # Placeholders
 
-zAuctionHouse provides PlaceholderAPI placeholders for use in scoreboards, holograms, chat plugins, and more.
+zAuctionHouse V4 provides placeholders for use in messages, lore, and with PlaceholderAPI.
 
 ## Requirements
 
-To use placeholders, you need [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) installed on your server.
+For PlaceholderAPI placeholders, you need [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) installed on your server.
 
-## Global Placeholders
+## Internal Placeholders
 
-These placeholders return server-wide auction statistics:
+These placeholders are used within zAuctionHouse configuration files (item lore, messages, etc.):
 
-| Placeholder | Description |
-|-------------|-------------|
-| `%zauctionhouse_total_items%` | Total items currently listed |
-| `%zauctionhouse_total_sales%` | Total number of sales (all time) |
-| `%zauctionhouse_total_value%` | Total value of all listed items |
-| `%zauctionhouse_items_sold_today%` | Items sold today |
-| `%zauctionhouse_items_listed_today%` | Items listed today |
+### Item Display Placeholders
 
-## Player Placeholders
-
-These placeholders return data specific to the player:
+Used in `item-lore` section of `config.yml`:
 
 | Placeholder | Description |
 |-------------|-------------|
-| `%zauctionhouse_player_items_listed%` | Number of items the player has listed |
-| `%zauctionhouse_player_items_sold%` | Total items the player has sold |
-| `%zauctionhouse_player_items_purchased%` | Total items the player has purchased |
-| `%zauctionhouse_player_items_expired%` | Number of expired items waiting |
-| `%zauctionhouse_player_items_to_claim%` | Number of purchased items to claim |
-| `%zauctionhouse_player_total_earned%` | Total money earned from sales |
-| `%zauctionhouse_player_total_spent%` | Total money spent on purchases |
-| `%zauctionhouse_player_limit%` | Player's listing limit |
-| `%zauctionhouse_player_limit_remaining%` | Remaining listing slots |
+| `%seller%` | Name of the player who listed the item |
+| `%buyer%` | Name of the player who bought the item |
+| `%price%` | Formatted price of the item |
+| `%time-remaining%` | Time until the listing expires |
+| `%date%` | Transaction date |
+| `%status%` | Dynamic action message (buy/retrieve) |
+| `%items%` | Item display names |
+| `%type%` | Log entry type |
+| `%player%` | Player involved in the action |
+| `%target%` | Target player (admin operations) |
 
-## Item Display Placeholders
+### Inventory Placeholders
 
-These placeholders are used internally in inventory configurations to display item information:
-
-| Placeholder | Description |
-|-------------|-------------|
-| `%zauctionhouse_item_seller%` | Seller's name |
-| `%zauctionhouse_item_seller_uuid%` | Seller's UUID |
-| `%zauctionhouse_item_price%` | Item price (formatted) |
-| `%zauctionhouse_item_price_raw%` | Item price (raw number) |
-| `%zauctionhouse_item_economy%` | Economy name used |
-| `%zauctionhouse_item_category%` | Item's category |
-| `%zauctionhouse_item_expire_date%` | Expiration date |
-| `%zauctionhouse_item_expire_time%` | Time until expiration |
-| `%zauctionhouse_item_listed_date%` | When the item was listed |
-| `%zauctionhouse_item_listed_ago%` | Time since listing |
-
-## Economy Placeholders
-
-For multi-economy setups:
+Used in inventory files:
 
 | Placeholder | Description |
 |-------------|-------------|
-| `%zauctionhouse_economy_<name>_items%` | Items listed with this economy |
-| `%zauctionhouse_economy_<name>_total_value%` | Total value in this economy |
+| `%page%` | Current page number |
+| `%max-page%` | Total number of pages |
+| `%zauctionhouse_category_name%` | Current category name |
+| `%expired-items%` | Number of expired items |
+| `%purchased-items%` | Number of purchased items |
+| `%selling-items%` | Number of items on sale |
+| `%s%` | Pluralization suffix ("" for 1, "s" for 2+) |
 
-Replace `<name>` with your economy name (e.g., `vault`, `playerpoints`).
+### Message Placeholders
 
-## Category Placeholders
+Used in `messages.yml`:
+
+| Placeholder | Description | Used In |
+|-------------|-------------|---------|
+| `%version%` | Current plugin version | Version messages |
+| `%latest%` | Latest available version | Version messages |
+| `%syntax%` | Command syntax | Error messages |
+| `%inventory-name%` | Missing inventory name | Error messages |
+| `%name%` | Economy name | Economy messages |
+| `%items%` | Item description | Transaction messages |
+| `%tax%` | Tax amount | Tax messages |
+| `%percentage%` | Tax percentage | Tax messages |
+| `%max-price%` | Maximum allowed price | Price error |
+| `%min-price%` | Minimum required price | Price error |
+| `%max-items%` | Maximum items allowed | Limit error |
+| `%amount%` | Amount value | Claim messages |
+| `%economy%` | Economy name | Claim messages |
+| `%count%` | Count of items | Notification messages |
+| `%total%` | Total value | Notification messages |
+| `%key%` | Cache key name | Admin cache |
+| `%value%` | Cache value | Admin cache |
+| `%source%` | Migration source | Migration messages |
+| `%details%` | Migration details | Migration messages |
+| `%progress%` | Migration progress | Migration messages |
+| `%players%` | Migrated players count | Migration messages |
+| `%transactions%` | Transaction count | Migration messages |
+| `%errors%` | Error count | Migration messages |
+| `%duration%` | Operation duration (ms) | Migration messages |
+| `%current%` | Current progress | Generate messages |
+| `%time%` | Time taken (ms) | Generate messages |
+
+### Item Format Placeholders
+
+Used in `item-display` section:
 
 | Placeholder | Description |
 |-------------|-------------|
-| `%zauctionhouse_category_<name>_items%` | Items in this category |
-| `%zauctionhouse_category_<name>_total_value%` | Total value in this category |
+| `%amount%` | Item quantity |
+| `%item-translation-key%` | Minecraft language key |
+| `%item-name%` | Custom item name |
 
-Replace `<name>` with your category name.
+### Sell Command Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%max-stack-size%` | Item's maximum stack size |
+
+## PlaceholderAPI Placeholders
+
+All PlaceholderAPI placeholders use the prefix `zauctionhouse_`:
+
+### Inventory Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%zauctionhouse_listed_items%` | Total number of items listed |
+| `%zauctionhouse_sorting_name%` | Current sort type name |
+| `%zauctionhouse_category_name%` | Current category name |
+
+## Discord Webhook Placeholders
+
+Used in `discord.yml` webhook configuration:
+
+### Item Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%item_id%` | Internal item ID |
+| `%item_material%` | Material name (lowercase) |
+| `%item_display%` | Item display name with formatting |
+| `%item_amount%` | Stack size |
+| `%item_lore%` | Item lore |
+| `%item_enchantments%` | List of enchantments |
+| `%item_custom_model_data%` | CustomModelData value |
+| `%item_dominant_color%` | Extracted dominant color |
+| `%item_image_url%` | URL to item image |
+
+### Player Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%seller_name%` | Seller's username |
+| `%seller_uuid%` | Seller's UUID |
+| `%buyer_name%` | Buyer's username (purchase only) |
+| `%buyer_uuid%` | Buyer's UUID (purchase only) |
+
+### Price Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%price%` | Raw price number |
+| `%formatted_price%` | Price with economy formatting |
+| `%economy_name%` | Economy internal name |
+| `%economy_display_name%` | Economy display name |
+
+### Time Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%created_at%` | When listing was created |
+| `%expires_at%` | When listing expires |
+| `%remaining_time%` | Time until expiration |
+| `%timestamp%` | Current timestamp |
+
+### Server Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%server_name%` | Server name (from config) |
+
+### Category Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%category_names%` | Comma-separated category names |
+| `%category_count%` | Number of matching categories |
 
 ## Usage Examples
 
-### Scoreboard (using TAB plugin)
+### Inventory Lore
 
 ```yaml
-scoreboard:
-  lines:
-    - "&6Auction House"
-    - "&7Items Listed: &f%zauctionhouse_player_items_listed%/%zauctionhouse_player_limit%"
-    - "&7Expired: &c%zauctionhouse_player_items_expired%"
-    - "&7To Claim: &a%zauctionhouse_player_items_to_claim%"
+# In inventories/auction.yml
+item:
+  material: BELL
+  name: "#2CCED2Auction Information"
+  lore:
+    - "#92ffffNumber of items: #2CCED2%zauctionhouse_listed_items%"
+    - "#92ffffSort type: #2CCED2%zauctionhouse_sorting_name%"
+    - ""
+    - "#8c8c8c• #2CCED2Click to refresh"
 ```
 
-### Hologram (using DecentHolograms)
-
-```
-/dh create auction
-/dh line add auction "&6&lAuction House"
-/dh line add auction "&7Total Items: &f%zauctionhouse_total_items%"
-/dh line add auction "&7Sold Today: &a%zauctionhouse_items_sold_today%"
-```
-
-### Chat Format (using EssentialsX)
+### Item Lore in Config
 
 ```yaml
-format: '{DISPLAYNAME} &7[AH: {zauctionhouse_player_items_listed}] &f{MESSAGE}'
+# In config.yml
+item-lore:
+  listed-auction-item:
+    - ""
+    - "<white>⌂ #92ffffSeller#8c8c8c: #2CCED2%seller%"
+    - "<white>☆ #92ffffPrice#8c8c8c: #2CCED2%price%"
+    - "<white>⌚ #92ffffExpire#8c8c8c: #969696%time-remaining%"
+    - ""
+    - "%status%"
 ```
 
-### Inventory Lore (in zMenu inventories)
+### Discord Webhook
 
 ```yaml
-items:
-  info:
-    slot: 4
-    item:
-      material: BOOK
-      name: "&6Your Statistics"
-      lore:
-        - "&7Items Listed: &f%zauctionhouse_player_items_listed%"
-        - "&7Total Sold: &a%zauctionhouse_player_items_sold%"
-        - "&7Total Purchased: &b%zauctionhouse_player_items_purchased%"
-        - "&7Total Earned: &6%zauctionhouse_player_total_earned%"
+# In discord.yml
+embed:
+  title: "New Item Listed!"
+  description: "**%seller_name%** has listed an item for sale"
+  fields:
+    - name: "Item"
+      value: "%item_display%"
+      inline: true
+    - name: "Price"
+      value: "%formatted_price%"
+      inline: true
 ```
 
-## Placeholder Refresh
-
-Placeholders are cached for performance. The cache refreshes:
-- Every 30 seconds for global placeholders
-- On-demand for player placeholders
-
-You can configure the cache duration in `config.yml`:
+### Custom Messages
 
 ```yaml
-placeholders:
-  cache-duration: 30 # seconds
+# In messages.yml
+item-sold: "#e6fff3You just sold %items% #e6fff3for #92bed8%price%#e6fff3."
+
+item-bought-seller: "#ffacd5%buyer% #e6fff3just bought %items% #e6fff3for #92bed8%price%#e6fff3."
+
+sales-notification:
+  - "<click:run_command:/ah history>#e6fff3While you were away, %count% of your items were sold for a total of %total%!"
+  - "<click:run_command:/ah history>#8c8c8c• #2CCED2Click here to view your sales history</click>"
 ```
 
-## Troubleshooting
+## Color Formatting
 
-### Placeholders not working
+zAuctionHouse V4 supports:
 
-1. Ensure PlaceholderAPI is installed: `/papi list`
-2. Check that the expansion is registered: `/papi ecloud list installed`
-3. Try reloading: `/papi reload`
+- **MiniMessage format**: `<red>`, `<bold>`, `<gradient:red:blue>`
+- **Hex colors**: `#RRGGBB` or `#RGB`
+- **Legacy codes**: `&c`, `&l`, etc. (MiniMessage recommended)
+- **Custom shortcuts**: `<primary>`, `<secondary>`, `<error>`, `<success>` (defined in config.yml)
 
-### Placeholders showing as text
-
-If placeholders appear as raw text (e.g., `%zauctionhouse_total_items%`):
-- The plugin using the placeholder may not support PlaceholderAPI
-- Try wrapping with `%papi_...%` in some plugins
-- Check the plugin's documentation for PlaceholderAPI support
+```yaml
+# Example using custom shortcuts
+message: "<primary>Welcome <secondary>to the auction house!"
+# Becomes: "#24d65d Welcome #656665 to the auction house!"
+```

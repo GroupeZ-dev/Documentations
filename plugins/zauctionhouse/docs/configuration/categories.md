@@ -1,66 +1,236 @@
 ---
 sidebar_position: 4
 title: Categories
-description: Configure item categories in zAuctionHouse
+description: Configure item categories in zAuctionHouse V4
 ---
 
 # Categories Configuration
 
 Categories organize items in the auction house, making it easier for players to find what they're looking for. Configure them in `categories.yml`.
 
+## How Categories Work
+
+- Each category has a unique ID (the YAML key, e.g., "weapons", "armor")
+- Categories use rules to determine which items belong to them
+- Items are automatically sorted into categories based on these rules
+- An item can appear in multiple categories if it matches multiple rules
+- A category without rules acts as a fallback for unmatched items
+
+:::info
+Category display order is defined in `inventories/categories.yml`, not in `categories.yml`. The categories file only defines the matching rules.
+:::
+
+## Category Settings
+
+```yaml
+settings:
+  # Enable/disable the category system
+  enabled: true
+
+  # Display name for the "All" category
+  all-category-name: "#0c1719Auction House"
+```
+
 ## Basic Category Structure
 
 ```yaml
-categories:
-  weapons:
-    # Display name
-    name: "&cWeapons"
+category-id:
+  display-name: "#0c1719Category Name"
+  rules:
+    - type: material
+      materials:
+        - DIAMOND
+        - EMERALD
+```
 
-    # Icon in category menu
-    icon:
-      material: DIAMOND_SWORD
-      name: "&cWeapons"
-      lore:
-        - "&7Swords, bows, and more"
+## Default Categories
 
-    # Slot in category menu (0-53)
-    slot: 10
+### Blocks Category
 
-    # Rules to match items (AND logic - all must match)
-    rules:
-      - type: material
-        values:
-          - DIAMOND_SWORD
-          - IRON_SWORD
-          - NETHERITE_SWORD
-          - BOW
-          - CROSSBOW
+Matches all placeable blocks using Bukkit's BLOCKS tag:
+
+```yaml
+blocks:
+  display-name: "#0c1719Blocks"
+  rules:
+    - type: tag
+      tags:
+        - BLOCKS
+```
+
+### Weapons Category
+
+Matches combat weapons:
+
+```yaml
+weapons:
+  display-name: "#0c1719Weapons"
+  rules:
+    # All sword types by suffix
+    - type: material-suffix
+      suffixes:
+        - "_SWORD"
+
+    # Ranged weapons by material
+    - type: material
+      materials:
+        - BOW
+        - CROSSBOW
+        - TRIDENT
+```
+
+### Armor Category
+
+Matches protective equipment:
+
+```yaml
+armor:
+  display-name: "#0c1719Armor"
+  rules:
+    # Standard armor pieces
+    - type: material-suffix
+      suffixes:
+        - "_HELMET"
+        - "_CHESTPLATE"
+        - "_LEGGINGS"
+        - "_BOOTS"
+
+    # Special items
+    - type: material
+      materials:
+        - ELYTRA
+        - SHIELD
+        - TURTLE_HELMET
+```
+
+### Tools Category
+
+Matches utility tools:
+
+```yaml
+tools:
+  display-name: "#0c1719Tools"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_PICKAXE"
+        - "_AXE"
+        - "_SHOVEL"
+        - "_HOE"
+
+    - type: material
+      materials:
+        - SHEARS
+        - FLINT_AND_STEEL
+        - FISHING_ROD
+```
+
+### Consumables Category
+
+Matches food and potions:
+
+```yaml
+consumables:
+  display-name: "#0c1719Consumables"
+  rules:
+    - type: material
+      materials:
+        - POTION
+        - SPLASH_POTION
+        - LINGERING_POTION
+        - GOLDEN_APPLE
+        - ENCHANTED_GOLDEN_APPLE
+        - COOKED_BEEF
+        - COOKED_PORKCHOP
+        - BREAD
+        - CAKE
+        - COOKIE
+        - PUMPKIN_PIE
+```
+
+### Resources Category
+
+Matches ores, ingots, and crafting materials:
+
+```yaml
+resources:
+  display-name: "#0c1719Resources"
+  rules:
+    - type: material
+      materials:
+        - COAL
+        - IRON_INGOT
+        - GOLD_INGOT
+        - DIAMOND
+        - EMERALD
+        - NETHERITE_INGOT
+        - LAPIS_LAZULI
+        - REDSTONE
+        - COPPER_INGOT
+        - AMETHYST_SHARD
+        - RAW_IRON
+        - RAW_GOLD
+        - RAW_COPPER
+```
+
+### Enchanted Books Category
+
+```yaml
+enchanted-books:
+  display-name: "#0c1719Enchanted Books"
+  rules:
+    - type: material
+      materials:
+        - ENCHANTED_BOOK
+```
+
+### Miscellaneous Category (Fallback)
+
+A category without rules catches all unmatched items:
+
+```yaml
+misc:
+  display-name: "#0c1719Miscellaneous"
+  # No rules = fallback category for unmatched items
 ```
 
 ## Rule Types
 
 ### Material Rule
 
-Match items by material type:
+Match items by exact material name:
 
 ```yaml
-rules:
-  - type: material
-    values:
-      - DIAMOND_SWORD
-      - DIAMOND_AXE
-      - DIAMOND_PICKAXE
+- type: material
+  materials:
+    - DIAMOND
+    - EMERALD
+    - GOLD_INGOT
 ```
 
-You can use wildcards:
+### Material Suffix Rule
+
+Match materials ending with a specific suffix:
 
 ```yaml
-rules:
-  - type: material
-    values:
-      - "*_SWORD"      # All swords
-      - "*_AXE"        # All axes
-      - "DIAMOND_*"    # All diamond items
+- type: material-suffix
+  suffixes:
+    - "_SWORD"
+    - "_HELMET"
+    - "_PICKAXE"
+```
+
+This matches WOODEN_SWORD, STONE_SWORD, IRON_SWORD, DIAMOND_SWORD, GOLDEN_SWORD, NETHERITE_SWORD, etc.
+
+### Tag Rule
+
+Match items using Bukkit/Paper item tags:
+
+```yaml
+- type: tag
+  tags:
+    - BLOCKS
+    - ITEMS
 ```
 
 ### Name Rule
@@ -68,32 +238,11 @@ rules:
 Match items by display name:
 
 ```yaml
-rules:
-  - type: name
-    # Match mode: CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, REGEX
-    mode: CONTAINS
-    value: "Legendary"
-    # Case sensitive matching
-    case-sensitive: false
-```
-
-Examples:
-
-```yaml
-# Match items with "Epic" in the name
 - type: name
-  mode: CONTAINS
-  value: "Epic"
-
-# Match items starting with "[Mythic]"
-- type: name
-  mode: STARTS_WITH
-  value: "[Mythic]"
-
-# Match using regex (items with Roman numerals)
-- type: name
-  mode: REGEX
-  value: ".*[IVX]+$"
+  mode: CONTAINS  # CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, REGEX
+  values:
+    - "Legendary"
+    - "Epic"
 ```
 
 ### Lore Rule
@@ -101,289 +250,291 @@ Examples:
 Match items by lore content:
 
 ```yaml
-rules:
-  - type: lore
-    mode: CONTAINS
-    value: "Soulbound"
-    # Check specific line (optional, -1 for any line)
-    line: -1
-```
-
-### NBT Tag Rule
-
-Match items by NBT tags (useful for custom items):
-
-```yaml
-rules:
-  - type: tag
-    # NBT path
-    path: "CustomItem.type"
-    value: "weapon"
-```
-
-For checking if a tag exists:
-
-```yaml
-rules:
-  - type: tag
-    path: "Enchantments"
-    exists: true
+- type: lore
+  mode: CONTAINS
+  values:
+    - "Soulbound"
+    - "Untradeable"
 ```
 
 ### Custom Model Data Rule
 
-Match items by custom model data:
+Match items by CustomModelData value:
 
 ```yaml
-rules:
-  - type: model-data
-    # Exact value
-    value: 1001
-
-# Or range
-- type: model-data
-  min: 1000
-  max: 1999
+- type: custom-model-data
+  values:
+    - 1001
+    - 1002
+    - 1003
 ```
 
-### Enchantment Rule
+### NBT Rule
 
-Match items by enchantments:
+Match items by NBT data:
 
 ```yaml
-rules:
-  - type: enchantment
-    # Enchantment name
-    enchantment: SHARPNESS
-    # Minimum level (optional)
-    min-level: 1
+- type: nbt
+  path: "custom.data.key"
+  value: "expected_value"
 ```
 
-## Rule Logic
+### Combination Rules
 
-### AND Logic (Default)
+#### AND Rule
 
-All rules must match for the item to be in the category:
+All rules must match:
 
 ```yaml
-categories:
-  legendary-weapons:
-    name: "&6Legendary Weapons"
-    # Item must be a sword AND have "Legendary" in name
-    rules:
-      - type: material
-        values:
-          - "*_SWORD"
-      - type: name
-        mode: CONTAINS
-        value: "Legendary"
+- type: and
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_SWORD"
+    - type: lore
+      mode: CONTAINS
+      values:
+        - "Special Edition"
 ```
 
-### OR Logic
+#### OR Rule
 
-Use `any-of` for OR logic - item matches if any rule matches:
+Any rule must match:
 
 ```yaml
-categories:
-  weapons:
-    name: "&cWeapons"
-    any-of:
-      - type: material
-        values:
-          - "*_SWORD"
-      - type: material
-        values:
-          - BOW
-          - CROSSBOW
+- type: or
+  rules:
+    - type: material
+      materials:
+        - DIAMOND_SWORD
+    - type: material
+      materials:
+        - NETHERITE_SWORD
 ```
 
-### Combined Logic
+## Custom Item Plugin Rules
 
-Mix AND and OR:
+### ItemsAdder
 
 ```yaml
-categories:
-  epic-gear:
-    name: "&5Epic Gear"
-    # Must match the material rule AND at least one in any-of
-    rules:
-      - type: material
-        values:
-          - "*_SWORD"
-          - "*_HELMET"
-          - "*_CHESTPLATE"
-    any-of:
-      - type: name
-        mode: CONTAINS
-        value: "Epic"
-      - type: lore
-        mode: CONTAINS
-        value: "Rare Item"
+- type: itemsadder
+  items:
+    - "namespace:item_id"      # Exact match
+    - "namespace:*"            # All items from namespace
+    - "mynamespace:rare_*"     # Wildcard pattern
 ```
 
-## Complete Categories Example
+### Oraxen
 
 ```yaml
-# Default category for unmatched items
-default-category: misc
+- type: oraxen
+  items:
+    - "custom_sword"
+    - "special_*"
+```
 
-categories:
-  weapons:
-    name: "&cWeapons"
-    icon:
-      material: DIAMOND_SWORD
-      name: "&cWeapons"
-      lore:
-        - "&7Swords, axes, bows, and more"
-        - ""
-        - "&eClick to browse!"
-    slot: 10
-    rules:
-      - type: material
-        values:
-          - "*_SWORD"
-          - "*_AXE"
-          - BOW
-          - CROSSBOW
-          - TRIDENT
+### Nexo
 
-  armor:
-    name: "&9Armor"
-    icon:
-      material: DIAMOND_CHESTPLATE
-      name: "&9Armor"
-      lore:
-        - "&7Helmets, chestplates, and more"
-    slot: 11
-    rules:
-      - type: material
-        values:
-          - "*_HELMET"
-          - "*_CHESTPLATE"
-          - "*_LEGGINGS"
-          - "*_BOOTS"
-          - SHIELD
-          - ELYTRA
+```yaml
+- type: nexo
+  items:
+    - "mythic_blade"
+    - "special_*"
+```
 
-  tools:
-    name: "&6Tools"
-    icon:
-      material: DIAMOND_PICKAXE
-      name: "&6Tools"
-      lore:
-        - "&7Pickaxes, shovels, and more"
-    slot: 12
-    rules:
-      - type: material
-        values:
-          - "*_PICKAXE"
-          - "*_SHOVEL"
-          - "*_HOE"
-          - SHEARS
-          - FISHING_ROD
-          - FLINT_AND_STEEL
+### MMOItems
 
-  potions:
-    name: "&dPotions"
-    icon:
-      material: POTION
-      name: "&dPotions"
-      lore:
-        - "&7Potions and brewing materials"
-    slot: 13
-    rules:
-      - type: material
-        values:
-          - POTION
-          - SPLASH_POTION
-          - LINGERING_POTION
-          - TIPPED_ARROW
+```yaml
+- type: mmoitems
+  items:
+    - "SWORD:CUTLASS"          # TYPE:ID format
+    - "SWORD:*"                # All swords
+    - "*:LEGENDARY_ITEM"       # Any type with this ID
+```
 
-  enchanted:
-    name: "&bEnchanted Items"
-    icon:
-      material: ENCHANTED_BOOK
-      name: "&bEnchanted Items"
-      lore:
-        - "&7All enchanted items"
-    slot: 14
-    rules:
-      - type: tag
-        path: "Enchantments"
-        exists: true
+### Other Supported Plugins
 
-  blocks:
-    name: "&aBlocks"
-    icon:
-      material: GRASS_BLOCK
-      name: "&aBlocks"
-      lore:
-        - "&7Building blocks"
+| Plugin | Rule Type |
+|--------|-----------|
+| ExecutableItems | `executableitems` |
+| EcoItems | `ecoitems` |
+| Crucible | `crucible` |
+| Slimefun | `slimefun` |
+| HeadDatabase | `headdatabase` |
+| Nova | `nova` |
+| Denizen | `denizen` |
+| AdvancedItems | `advanceditems` |
+| CustomCrafting | `customcrafting` |
+| zHead | `zhead` |
+| MagicCosmetics | `magiccosmetics` |
+| HMCCosmetics | `hmccosmetics` |
+| zItems | `zitems` |
+| CraftEngine | `craftengine` |
+| ExecutableBlocks | `executableblocks` |
+
+## Adding Custom Categories
+
+1. Add the category in `categories.yml`:
+
+```yaml
+my-custom-category:
+  display-name: "#ff5555My Category"
+  rules:
+    - type: material
+      materials:
+        - DIAMOND_BLOCK
+        - EMERALD_BLOCK
+```
+
+2. Add a button in `inventories/categories.yml`:
+
+```yaml
+items:
+  my-category-button:
     slot: 15
-    rules:
-      - type: material
-        values:
-          - "*_BLOCK"
-          - "*_BRICKS"
-          - "*_PLANKS"
-          - "*_SLAB"
-          - "*_STAIRS"
-          - "*_WALL"
-          - "*_FENCE"
-
-  food:
-    name: "&6Food"
-    icon:
-      material: GOLDEN_APPLE
-      name: "&6Food"
+    type: ZAUCTIONHOUSE_CATEGORY
+    category: my-custom-category
+    item:
+      material: DIAMOND_BLOCK
+      name: "#ff5555My Category"
       lore:
-        - "&7Food and consumables"
-    slot: 16
-    rules:
-      - type: material
-        values:
-          - APPLE
-          - GOLDEN_APPLE
-          - ENCHANTED_GOLDEN_APPLE
-          - BREAD
-          - COOKED_BEEF
-          - COOKED_PORKCHOP
-          - COOKED_CHICKEN
-          - COOKED_SALMON
-          - GOLDEN_CARROT
-          - CAKE
-
-  misc:
-    name: "&7Miscellaneous"
-    icon:
-      material: CHEST
-      name: "&7Miscellaneous"
-      lore:
-        - "&7Everything else"
-    slot: 19
-    # No rules - catches everything not in other categories
+        - "#92ffffClick to browse"
 ```
 
-## Category Priority
+## Category Examples
 
-When an item matches multiple categories, it goes to the first matching category. Order your categories from most specific to least specific:
+### Rare Items (by lore)
 
 ```yaml
-categories:
-  # Specific category first
-  legendary-weapons:
-    name: "&6Legendary Weapons"
-    rules:
-      - type: material
-        values: ["*_SWORD"]
-      - type: name
-        mode: CONTAINS
-        value: "Legendary"
+rare-items:
+  display-name: "#ff00ffRare Items"
+  rules:
+    - type: lore
+      mode: CONTAINS
+      values:
+        - "Rare"
+        - "Legendary"
+        - "Mythical"
+```
 
-  # General category after
-  weapons:
-    name: "&cWeapons"
-    rules:
-      - type: material
-        values: ["*_SWORD"]
+### All Custom Items
+
+```yaml
+custom-items:
+  display-name: "#ffd700Custom Items"
+  rules:
+    - type: itemsadder
+      items:
+        - "*:*"  # All ItemsAdder items
+    - type: oraxen
+      items:
+        - "*"    # All Oraxen items
+```
+
+### Combined Conditions
+
+```yaml
+special-swords:
+  display-name: "#ff0000Special Swords"
+  rules:
+    - type: and
+      rules:
+        - type: material-suffix
+          suffixes:
+            - "_SWORD"
+        - type: lore
+          mode: CONTAINS
+          values:
+            - "Special Edition"
+```
+
+## Full Example
+
+```yaml
+settings:
+  enabled: true
+  all-category-name: "#0c1719Auction House"
+
+blocks:
+  display-name: "#0c1719Blocks"
+  rules:
+    - type: tag
+      tags:
+        - BLOCKS
+
+weapons:
+  display-name: "#0c1719Weapons"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_SWORD"
+    - type: material
+      materials:
+        - BOW
+        - CROSSBOW
+        - TRIDENT
+
+armor:
+  display-name: "#0c1719Armor"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_HELMET"
+        - "_CHESTPLATE"
+        - "_LEGGINGS"
+        - "_BOOTS"
+    - type: material
+      materials:
+        - ELYTRA
+        - SHIELD
+        - TURTLE_HELMET
+
+tools:
+  display-name: "#0c1719Tools"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_PICKAXE"
+        - "_AXE"
+        - "_SHOVEL"
+        - "_HOE"
+    - type: material
+      materials:
+        - SHEARS
+        - FLINT_AND_STEEL
+        - FISHING_ROD
+
+consumables:
+  display-name: "#0c1719Consumables"
+  rules:
+    - type: material
+      materials:
+        - POTION
+        - SPLASH_POTION
+        - LINGERING_POTION
+        - GOLDEN_APPLE
+        - ENCHANTED_GOLDEN_APPLE
+
+resources:
+  display-name: "#0c1719Resources"
+  rules:
+    - type: material
+      materials:
+        - COAL
+        - IRON_INGOT
+        - GOLD_INGOT
+        - DIAMOND
+        - EMERALD
+        - NETHERITE_INGOT
+
+enchanted-books:
+  display-name: "#0c1719Enchanted Books"
+  rules:
+    - type: material
+      materials:
+        - ENCHANTED_BOOK
+
+misc:
+  display-name: "#0c1719Miscellaneous"
+  # Fallback category
 ```

@@ -1,299 +1,403 @@
 ---
 sidebar_position: 3
 title: Economies
-description: Configure economy systems in zAuctionHouse
+description: Configure economy systems in zAuctionHouse V4
 ---
 
 # Economies Configuration
 
-zAuctionHouse supports multiple economy systems. Configure them in the `economies/` folder.
+zAuctionHouse V4 supports multiple economy systems configured in `economies.yml`.
+
+## Supported Economy Types
+
+| Type | Description |
+|------|-------------|
+| `VAULT` | Standard Vault economy (EssentialsX, CMI, etc.) |
+| `PLAYER_POINTS` | PlayerPoints plugin currency |
+| `COINS_ENGINE` | CoinsEngine plugin currencies |
+| `REDIRECT` | Redirect to another economy by name |
+| `ITEM` | Item-based economy (trade items as currency) |
+| `LEVEL` | Experience levels as currency |
+| `EXPERIENCE` | Experience points as currency |
 
 ## Vault Economy
 
-The most common economy integration. Create `economies/vault.yml`:
+The most common economy integration:
 
 ```yaml
-# Enable this economy
-enabled: true
+economies:
+  - type: VAULT
+    is-enable: true
+    name: vault
+    display-name: "Vault"
+    format: "%price%$"
+    symbol: "v"
 
-# Display name for this economy
-name: "Money"
+    # Auto-deposit money to seller immediately
+    auto-claim: true
 
-# Icon for inventory display
-icon:
-  material: GOLD_INGOT
-  name: "&6Money"
+    # Only deposit when seller is online
+    must-be-online: false
 
-# Price restrictions
-price:
-  # Minimum price for any item
-  min: 1
-  # Maximum price for any item (0 for no limit)
-  max: 1000000000
+    # Optional permission to use this economy
+    # permission: "zauctionhouse.economy.vault"
 
-# Require permission to use this economy
-permission: ""  # Leave empty for everyone
+    # Economy transaction reasons
+    withdraw-reason: "Purchase of %items% (zAuctionHouse)"
+    deposit-reason: "Sale of %items% (zAuctionHouse)"
 
-# Tax configuration
+    # Price formatting mode
+    # PRICE_WITH_DECIMAL_FORMAT, PRICE_WITHOUT_DECIMAL, PRICE_WITH_REDUCTION
+    price-format: PRICE_WITH_DECIMAL_FORMAT
+
+    # Price limits
+    min-prices:
+      auction: 10
+      rent: 500
+      bid: 500
+    max-prices: 10000000000  # 10 billion
+
+    # Tax configuration
+    tax:
+      enabled: false
+      type: SELL
+      amount-type: PERCENTAGE
+      amount: 5
+      bypass-permission: "zauctionhouse.tax.bypass"
+      reductions:
+        - permission: "zauctionhouse.tax.vip"
+          percentage: 50
+        - permission: "zauctionhouse.tax.premium"
+          percentage: 25
+        - permission: "zauctionhouse.tax.member"
+          percentage: 10
+```
+
+## Tax Types
+
+| Type | Description |
+|------|-------------|
+| `SELL` | Tax paid by seller when listing |
+| `PURCHASE` | Tax deducted from seller's earnings on sale |
+| `BOTH` | Tax at both listing AND sale |
+| `CAPITALISM` | VAT-style, buyer pays extra |
+
+### Tax Examples
+
+**SELL Tax:**
+- List 1000$ item with 5% tax
+- Seller pays 50$ listing fee upfront
+- Buyer pays 1000$, Seller receives 1000$
+
+**PURCHASE Tax:**
+- Item sells for 1000$ with 5% tax
+- Buyer pays 1000$, Seller receives 950$
+
+**CAPITALISM Tax (VAT):**
+- Item listed for 1000$ with 5% VAT
+- Buyer pays 1050$, Seller receives 1000$
+
+## Item-Specific Tax Rules
+
+Apply different tax rates for specific items:
+
+```yaml
 tax:
-  # Enable tax on sales
-  enabled: true
-  # Tax percentage (10 = 10%)
-  percentage: 10
-  # Who pays the tax: SELLER or BUYER
-  payer: SELLER
+  item-rules:
+    enabled: true
+    rules:
+      - name: "diamond_tax"
+        priority: 100
+        type: PURCHASE
+        amount-type: PERCENTAGE
+        amount: 10
+        rule:
+          type: material
+          materials:
+            - DIAMOND
+            - DIAMOND_BLOCK
 
-# Auto-claim settings
-auto-claim:
-  # Automatically give money to seller on purchase
-  enabled: true
-  # If false, seller must claim from purchased items
+      - name: "rare_items"
+        priority: 90
+        type: CAPITALISM
+        amount-type: PERCENTAGE
+        amount: 15
+        rule:
+          type: and
+          rules:
+            - type: lore
+              mode: CONTAINS
+              values:
+                - "Rare"
 ```
 
 ## PlayerPoints Economy
 
-For servers using PlayerPoints. Create `economies/playerpoints.yml`:
-
 ```yaml
-enabled: true
-name: "Points"
-
-icon:
-  material: EMERALD
-  name: "&aPoints"
-
-price:
-  min: 1
-  max: 10000000
-
-tax:
-  enabled: false
-
-auto-claim:
-  enabled: true
+  - type: PLAYER_POINTS
+    is-enable: true
+    name: playerpoints
+    display-name: "Points"
+    format: "%price% Points"
+    symbol: "pp"
+    auto-claim: true
+    min-prices:
+      auction: 1
+    max-prices: 10000000
 ```
 
 ## Experience Economy
 
-Use player experience as currency. Create `economies/experience.yml`:
+Use experience points as currency:
 
 ```yaml
-enabled: true
-name: "Experience"
-
-icon:
-  material: EXPERIENCE_BOTTLE
-  name: "&aExperience"
-
-price:
-  min: 10
-  max: 100000
-
-tax:
-  enabled: false
-
-auto-claim:
-  enabled: true
+  - type: EXPERIENCE
+    is-enable: true
+    name: experience
+    display-name: "Experience"
+    format: "%price% XP"
+    symbol: "xp"
+    auto-claim: true
+    min-prices:
+      auction: 10
+    max-prices: 100000
 ```
 
-## Levels Economy
+## Level Economy
 
-Use player levels as currency. Create `economies/levels.yml`:
+Use player levels as currency:
 
 ```yaml
-enabled: true
-name: "Levels"
-
-icon:
-  material: ENCHANTED_BOOK
-  name: "&bLevels"
-
-price:
-  min: 1
-  max: 1000
-
-tax:
-  enabled: false
-
-auto-claim:
-  enabled: true
+  - type: LEVEL
+    is-enable: true
+    name: levels
+    display-name: "Levels"
+    format: "%price% Levels"
+    symbol: "lvl"
+    auto-claim: true
+    min-prices:
+      auction: 1
+    max-prices: 1000
 ```
 
 ## Item-Based Economy
 
-Use a specific item as currency. Create `economies/diamonds.yml`:
+Use specific items as currency:
 
 ```yaml
-enabled: true
-name: "Diamonds"
+  - type: ITEM
+    is-enable: true
+    name: diamonds
+    display-name: "Diamonds"
+    format: "%price% Diamonds"
+    symbol: "dia"
+    auto-claim: true
 
-# Define the currency item
-currency-item:
-  material: DIAMOND
-  # Optional: require specific name
-  name: ""
-  # Optional: require specific lore
-  lore: []
-  # Optional: require custom model data
-  model-data: 0
+    # Define the currency item
+    currency-item:
+      material: DIAMOND
+      # Optional requirements
+      name: ""
+      lore: []
+      model-data: 0
 
-icon:
-  material: DIAMOND
-  name: "&bDiamonds"
-
-price:
-  min: 1
-  max: 10000
-
-tax:
-  enabled: false
-
-auto-claim:
-  enabled: true
+    min-prices:
+      auction: 1
+    max-prices: 10000
 ```
 
-## Price Reduction
-
-Configure automatic price reduction over time:
+## CoinsEngine Economy
 
 ```yaml
-price-reduction:
-  # Enable price reduction
-  enabled: true
+  - type: COINS_ENGINE
+    is-enable: true
+    name: coins
+    display-name: "Coins"
+    format: "%price% Coins"
+    symbol: "c"
 
-  # Reduction schedule
-  schedule:
-    # After 1 day, reduce by 5%
-    - after: 1d
-      reduction: 5
-    # After 3 days, reduce by 10%
-    - after: 3d
-      reduction: 10
-    # After 7 days, reduce by 20%
-    - after: 7d
-      reduction: 20
+    # CoinsEngine currency name
+    currency: "coins"
 
-  # Minimum price (percentage of original)
-  minimum-percentage: 50
+    auto-claim: true
+    min-prices:
+      auction: 1
+    max-prices: 10000000
 ```
 
-With these settings:
-- Day 1-2: 100% of original price
-- Day 2-3: 95% of original price
-- Day 3-7: 90% of original price
-- Day 7+: 80% of original price (minimum 50%)
+## Redirect Economy
 
-## Tax Configuration Details
+Alias one economy to another:
 
 ```yaml
-tax:
-  enabled: true
-
-  # Base tax percentage
-  percentage: 10
-
-  # Who pays: SELLER or BUYER
-  payer: SELLER
-
-  # Permission to bypass tax
-  bypass-permission: "zauctionhouse.bypass.tax"
-
-  # Different tax rates based on permission
-  rates:
-    - permission: zauctionhouse.tax.vip
-      percentage: 5
-    - permission: zauctionhouse.tax.mvp
-      percentage: 2
-    - permission: zauctionhouse.tax.exempt
-      percentage: 0
+  - type: REDIRECT
+    is-enable: true
+    name: money
+    redirect-to: vault  # Redirects to vault economy
 ```
 
-## Multiple Economies Example
+## Default Economy
 
-You can have multiple economies active simultaneously. Players choose which to use when listing items.
-
-Directory structure:
-```
-economies/
-├── vault.yml        # Standard money
-├── points.yml       # PlayerPoints
-├── diamonds.yml     # Diamond currency
-└── tokens.yml       # Custom token item
-```
-
-In inventories, display economy selector:
+Set which economy is used by default:
 
 ```yaml
-# In sell.yml
-items:
-  economy-selector:
-    slot: 4
-    item:
-      material: GOLD_INGOT
-      name: "&6Select Currency"
-      lore:
-        - "&7Click to change currency"
-        - ""
-        - "&7Current: &f%economy%"
+default-economy:
+  auction: vault
+  rent: vault
+  bid: vault
 ```
 
-## Full Vault Economy Example
+## Price Formatting
 
-Complete `economies/vault.yml`:
+### Decimal Format
 
 ```yaml
-enabled: true
-name: "Money"
+# Java DecimalFormat pattern
+price-decimal-format: '#,###.#'
+```
 
-icon:
-  material: GOLD_INGOT
-  name: "&6Money"
-  lore:
-    - "&7Standard server currency"
-    - "&7Powered by Vault"
+Examples:
+- `#,###.#` -> "1,234.5"
+- `#,###.##` -> "1,234.56"
+- `#,###` -> "1,234"
 
-price:
-  min: 1
-  max: 1000000000
+### Price Reductions (Compact Display)
 
-  # Price limits per category
-  category-limits:
-    weapons:
-      min: 100
-      max: 100000
-    armor:
-      min: 100
-      max: 100000
-    blocks:
-      min: 1
-      max: 10000
-    misc:
-      min: 1
-      max: 50000
+When using `PRICE_WITH_REDUCTION`:
 
-permission: ""
+```yaml
+price-reductions:
+  # 0 - 999: Show as-is
+  - format: "#.#"
+    max-amount: 1000
 
-tax:
-  enabled: true
-  percentage: 10
-  payer: SELLER
-  bypass-permission: "zauctionhouse.bypass.tax"
-  rates:
-    - permission: zauctionhouse.tax.vip
-      percentage: 5
+  # 1K - 999K
+  - format: "%.1fK"
+    max-amount: 1000000
 
-price-reduction:
-  enabled: true
-  schedule:
-    - after: 3d
-      reduction: 10
-    - after: 7d
-      reduction: 20
-  minimum-percentage: 50
+  # 1M - 999M
+  - format: "%.1fM"
+    max-amount: 1000000000
 
-auto-claim:
-  enabled: true
+  # 1B - 999B
+  - format: "%.1fB"
+    max-amount: 1000000000000
 
-# Format for displaying prices
-format: "$%amount%"
+  # 1T+ with custom color
+  - format: "%.2fT"
+    max-amount: 1000000000000000
+    display: "<green>%amount%"
+
+  # Quadrillions with custom color
+  - format: "%.2fQ"
+    max-amount: 100000000000000000
+    display: "<red>%amount%"
+```
+
+## Multiple Economies Setup
+
+You can have multiple economies active simultaneously:
+
+```yaml
+economies:
+  - type: VAULT
+    is-enable: true
+    name: vault
+    # ...
+
+  - type: PLAYER_POINTS
+    is-enable: true
+    name: points
+    # ...
+
+  - type: ITEM
+    is-enable: true
+    name: diamonds
+    # ...
+```
+
+Players choose which economy to use when listing:
+```bash
+/ah sell 1000 64 vault
+/ah sell 500 32 points
+/ah sell 10 16 diamonds
+```
+
+## Permission-Based Access
+
+Restrict economy access by permission:
+
+```yaml
+  - type: VAULT
+    is-enable: true
+    name: premium_economy
+    permission: "zauctionhouse.economy.premium"
+    # ...
+```
+
+Only players with `zauctionhouse.economy.premium` can use this economy.
+
+## Full Example
+
+Complete `economies.yml`:
+
+```yaml
+economies:
+  # Main Vault economy
+  - type: VAULT
+    is-enable: true
+    name: vault
+    display-name: "Money"
+    format: "%price%$"
+    symbol: "v"
+    auto-claim: true
+    must-be-online: false
+    withdraw-reason: "Purchase of %items% (zAuctionHouse)"
+    deposit-reason: "Sale of %items% (zAuctionHouse)"
+    price-format: PRICE_WITH_DECIMAL_FORMAT
+    min-prices:
+      auction: 10
+      rent: 500
+      bid: 500
+    max-prices: 10000000000
+    tax:
+      enabled: true
+      type: SELL
+      amount-type: PERCENTAGE
+      amount: 5
+      bypass-permission: "zauctionhouse.tax.bypass"
+      reductions:
+        - permission: "zauctionhouse.tax.vip"
+          percentage: 50
+
+  # Secondary points economy
+  - type: PLAYER_POINTS
+    is-enable: true
+    name: points
+    display-name: "Points"
+    format: "%price% pts"
+    symbol: "p"
+    auto-claim: true
+    min-prices:
+      auction: 1
+    max-prices: 1000000
+    tax:
+      enabled: false
+
+default-economy:
+  auction: vault
+  rent: vault
+  bid: vault
+
+price-decimal-format: '#,###.#'
+
+price-reductions:
+  - format: "#.#"
+    max-amount: 1000
+  - format: "%.1fK"
+    max-amount: 1000000
+  - format: "%.1fM"
+    max-amount: 1000000000
+  - format: "%.1fB"
+    max-amount: 1000000000000
 ```

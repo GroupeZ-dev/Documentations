@@ -16,6 +16,7 @@ const sidebars = {
         'configuration/categories',
         'configuration/rules',
         'configuration/inventories',
+        'configuration/discord',
       ],
     },
     {
