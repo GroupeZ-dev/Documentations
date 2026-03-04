@@ -736,9 +736,9 @@ items:
     click-requirement:
       requirements:
         - type: placeholder
-          value: "%vault_eco_balance%"
+          placeholder: "%vault_eco_balance%"
           action: SUPERIOR_OR_EQUAL
-          number: 1000
+          value: 1000
     item:
       material: DIAMOND
       name: "&b&lPurchase - $1000"
@@ -848,9 +848,9 @@ Control whether the button can be clicked. The button is still visible, but clic
             click-requirement:
               requirements:
                 - type: placeholder
-                  value: "%vault_eco_balance%"
+                  placeholder: "%vault_eco_balance%"
                   action: SUPERIOR_OR_EQUAL
-                  number: 100
+                  value: 100
               deny:
                 - type: message
                   messages:
@@ -875,9 +875,9 @@ Control whether the button can be clicked. The button is still visible, but clic
             click_requirement:
               requirements:
                 - type: placeholder
-                  value: "%vault_eco_balance%"
+                  placeholder: "%vault_eco_balance%"
                   action: SUPERIOR_OR_EQUAL
-                  number: 100
+                  value: 100
               deny:
                 - type: message
                   messages:
@@ -902,9 +902,9 @@ Control whether the button can be clicked. The button is still visible, but clic
             click-requirements:
               requirements:
                 - type: placeholder
-                  value: "%vault_eco_balance%"
+                  placeholder: "%vault_eco_balance%"
                   action: SUPERIOR_OR_EQUAL
-                  number: 100
+                  value: 100
               deny:
                 - type: message
                   messages:
@@ -951,9 +951,9 @@ requirements:
 ```yaml
 requirements:
   - type: placeholder
-    value: "%player_level%"
+    placeholder: "%player_level%"
     action: SUPERIOR_OR_EQUAL
-    number: 10
+    value: 10
 ```
 
 **Comparison operators:** `==`, `!=`, `>=`, `>`, `<=`, `<`, `equals_string`, `equalsIgnoreCase`
@@ -1051,9 +1051,9 @@ items:
     click-requirement:
       requirements:
         - type: placeholder
-          value: "%vault_eco_balance%"
+          placeholder: "%vault_eco_balance%"
           action: SUPERIOR_OR_EQUAL
-          number: 500
+          value: 500
           deny:
             - type: message
               messages:

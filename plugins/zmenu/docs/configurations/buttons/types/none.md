@@ -109,9 +109,9 @@ items:
     click-requirement:
       requirements:
         - type: placeholder
-          value: "%dailyreward_claimed%"
+          placeholder: "%dailyreward_claimed%"
           action: EQUALS_STRING
-          target: "false"
+          value: "false"
           deny:
             - type: message
               messages:

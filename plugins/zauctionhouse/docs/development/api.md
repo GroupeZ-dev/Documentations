@@ -23,13 +23,14 @@ This separation allows you to depend only on the API module, keeping your plugin
 
 ## Maven Setup
 
-Add the JitPack repository:
+Add the GroupeZ repository:
 
 ```xml
 <repositories>
     <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
+        <id>groupez-releases</id>
+        <name>GroupeZ Repository</name>
+        <url>https://repo.groupez.dev/releases</url>
     </repository>
 </repositories>
 ```
@@ -39,9 +40,9 @@ Add the dependency:
 ```xml
 <dependencies>
     <dependency>
-        <groupId>com.github.Maxlego08</groupId>
-        <artifactId>zAuctionHouse-API</artifactId>
-        <version>4.0.0</version>
+        <groupId>fr.maxlego08.zauctionhouse</groupId>
+        <artifactId>zauctionhousev4-api</artifactId>
+        <version>4.0.0.0</version>
         <scope>provided</scope>
     </dependency>
 </dependencies>
@@ -49,19 +50,22 @@ Add the dependency:
 
 ## Gradle Setup
 
-Add the JitPack repository:
+Add the GroupeZ repository:
 
-```groovy
+```kotlin
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven {
+        name = "groupezReleases"
+        url = uri("https://repo.groupez.dev/releases")
+    }
 }
 ```
 
 Add the dependency:
 
-```groovy
+```kotlin
 dependencies {
-    compileOnly 'com.github.Maxlego08:zAuctionHouse-API:4.0.0'
+    compileOnly("fr.maxlego08.zauctionhouse:zauctionhousev4-api:4.0.0.0")
 }
 ```
 
@@ -102,159 +106,10 @@ public class MyPlugin extends JavaPlugin {
 }
 ```
 
-## Main Interfaces
-
-### AuctionPlugin
-
-The main entry point to the API:
-
-```java
-public interface AuctionPlugin {
-
-    // Get the auction manager
-    AuctionManager getAuctionManager();
-
-    // Get the economy manager
-    EconomyManager getEconomyManager();
-
-    // Get the category manager
-    CategoryManager getCategoryManager();
-
-    // Get the configuration manager
-    ConfigurationManager getConfigurationManager();
-
-    // Get sell service
-    AuctionSellService getSellService();
-
-    // Get purchase service
-    AuctionPurchaseService getPurchaseService();
-
-    // Get remove service
-    AuctionRemoveService getRemoveService();
-
-    // Get expire service
-    AuctionExpireService getExpireService();
-}
-```
-
-### AuctionManager
-
-Core auction operations:
-
-```java
-public interface AuctionManager {
-
-    // Get all listed items
-    List<AuctionItem> getListedItems();
-
-    // Get items by player
-    List<AuctionItem> getListedItems(UUID playerUuid);
-
-    // Get items by category
-    List<AuctionItem> getListedItems(Category category);
-
-    // Get expired items for a player
-    List<AuctionItem> getExpiredItems(UUID playerUuid);
-
-    // Get purchased items to claim
-    List<AuctionItem> getPurchasedItems(UUID playerUuid);
-
-    // Get item by ID
-    Optional<AuctionItem> getItem(UUID itemId);
-
-    // Search items
-    List<AuctionItem> search(String query);
-
-    // Get player's listing count
-    int getListingCount(UUID playerUuid);
-
-    // Get player's listing limit
-    int getListingLimit(Player player);
-}
-```
-
-## Quick Examples
-
-### List All Items
-
-```java
-AuctionManager manager = auctionPlugin.getAuctionManager();
-List<AuctionItem> items = manager.getListedItems();
-
-for (AuctionItem item : items) {
-    getLogger().info(String.format(
-        "Item: %s, Price: %d, Seller: %s",
-        item.getItemStack().getType(),
-        item.getPrice(),
-        item.getSellerName()
-    ));
-}
-```
-
-### Get Player Statistics
-
-```java
-UUID playerUuid = player.getUniqueId();
-AuctionManager manager = auctionPlugin.getAuctionManager();
-
-int listed = manager.getListingCount(playerUuid);
-int expired = manager.getExpiredItems(playerUuid).size();
-int toClaim = manager.getPurchasedItems(playerUuid).size();
-
-player.sendMessage(String.format(
-    "Listed: %d, Expired: %d, To Claim: %d",
-    listed, expired, toClaim
-));
-```
-
-### Sell an Item Programmatically
-
-```java
-AuctionSellService sellService = auctionPlugin.getSellService();
-EconomyManager economyManager = auctionPlugin.getEconomyManager();
-
-// Get the Vault economy
-AuctionEconomy economy = economyManager.getEconomy("vault")
-    .orElseThrow(() -> new IllegalStateException("Vault not found"));
-
-// Sell the item in player's hand
-ItemStack itemStack = player.getInventory().getItemInMainHand();
-long price = 1000;
-
-sellService.sell(player, itemStack, price, economy)
-    .thenAccept(result -> {
-        if (result.isSuccess()) {
-            player.sendMessage("Item listed successfully!");
-        } else {
-            player.sendMessage("Failed: " + result.getMessage());
-        }
-    });
-```
-
-## Asynchronous Operations
-
-All API operations that interact with the database return `CompletableFuture`:
-
-```java
-// Async operation example
-auctionPlugin.getSellService()
-    .sell(player, item, price, economy)
-    .thenAccept(result -> {
-        // Handle result on main thread if needed
-        Bukkit.getScheduler().runTask(plugin, () -> {
-            player.sendMessage(result.getMessage());
-        });
-    })
-    .exceptionally(throwable -> {
-        getLogger().severe("Error selling item: " + throwable.getMessage());
-        return null;
-    });
-```
-
 ## JavaDoc
 
 Full API documentation is available at:
-[javadocs.groupez.dev/zauctionhouse](https://javadocs.groupez.dev/zauctionhouse)
+[here](https://repo.groupez.dev/javadoc/snapshots/fr/maxlego08/zauctionhouse/zauctionhousev4-api/03b7a81)
 
 ## Next Steps
 

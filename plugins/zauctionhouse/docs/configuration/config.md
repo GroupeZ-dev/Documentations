@@ -1,313 +1,527 @@
 ---
 sidebar_position: 1
 title: Main Configuration
-description: Main configuration options for zAuctionHouse
+description: Main configuration options for zAuctionHouse V4
 ---
 
 # Main Configuration
 
-The main configuration file `config.yml` controls the core behavior of zAuctionHouse.
+The main configuration file `config.yml` controls the core behavior of zAuctionHouse V4.
 
-## Storage Configuration
-
-Configure how auction data is stored:
+## Debug & Monitoring
 
 ```yaml
-storage:
-  # Storage type: SQLITE, MYSQL, MARIADB
-  type: SQLITE
+# Enables detailed logs and error messages in the console
+enable-debug: false
 
-  # MySQL/MariaDB settings (ignored for SQLite)
-  host: localhost
+# Enables performance monitoring and logging
+# Logs execution times for heavy operations
+enable-performance-debug: false
+
+# Enables automatic version checking
+enable-version-checker: true
+
+# Performance debug filter configuration
+performance-debug:
+  filter:
+    # Filter mode: DISABLED, WHITELIST, BLACKLIST
+    mode: DISABLED
+    # List of operations to filter (supports wildcards)
+    operations:
+      - "loadItems.*"
+      - "SortedItemsCache.*"
+```
+
+### Performance Operations
+
+Available operation names for filtering:
+
+| Operation | Description |
+|-----------|-------------|
+| `loadItems.loadPlayers` | Time to load player data |
+| `loadItems.loadItemsFromDB` | Time to load items from database |
+| `loadItems.processItems` | Time to process loaded items |
+| `loadItems.total` | Total loading time |
+| `loadItems.rebuildSortedItemsCache` | Time to rebuild sorted cache |
+| `SortedItemsCache.rebuild` | Time to rebuild the sorted items cache |
+| `applyCategories` | Time to apply category filters |
+| `computeCategoryCount[categoryId]` | Time to count items per category |
+| `openInventory.<file name>` | Time to open a specific inventory |
+
+## General Settings
+
+```yaml
+# Date format for timestamps (Java SimpleDateFormat)
+# Examples:
+#   "dd/MM/yyyy HH:mm:ss" -> "25/12/2024 14:30:45"
+#   "MM-dd-yyyy hh:mm a"  -> "12-25-2024 02:30 PM"
+date-format: dd/MM/yyyy HH:mm:ss
+```
+
+## Database Configuration
+
+```yaml
+# Storage type: SQLITE, MYSQL, MARIADB
+storage-type: SQLITE
+
+# Server name for multi-server setups
+server-name: skyblock
+
+# Database connection settings (MySQL/MariaDB only)
+database-configuration:
+  table-prefix: zauctionhouse_
+  host: 192.168.10.10
   port: 3306
+  user: homestead
+  password: secret
   database: zauctionhouse
-  user: root
-  password: password
-  useSSL: false
-
-  # Connection pool settings
-  pool:
-    maximum-pool-size: 10
-    minimum-idle: 5
-    connection-timeout: 30000
-    idle-timeout: 600000
-    max-lifetime: 1800000
+  debug: false
 ```
 
-## Multi-Server Configuration
+### Storage Types
 
-Enable auction synchronization across multiple servers:
+| Type | Description | Best For |
+|------|-------------|----------|
+| `SQLITE` | Local file-based database | Single server, no setup required |
+| `MYSQL` | MySQL database server | Multi-server, large auction houses |
+| `MARIADB` | MariaDB database server | Multi-server, large auction houses |
+
+:::info
+For multi-server synchronization, use MySQL/MariaDB with the Redis addon.
+:::
+
+## Message Colors
+
+Define custom color shortcuts for use in messages:
 
 ```yaml
-multi-server:
-  # Enable multi-server synchronization
-  enabled: false
-
-  # Sync interval in seconds (0 for real-time via database triggers)
-  sync-interval: 5
-
-  # Server identifier (unique per server)
-  server-id: server-1
+message-colors:
+  - key: <primary>
+    color: '#24d65d'
+  - key: <secondary>
+    color: '#656665'
+  - key: <error>
+    color: '#ff0000'
+  - key: <success>
+    color: '#00ff00'
 ```
 
-## Number Formatting
+Use these in any message: `<primary>Welcome <secondary>to the auction house!`
 
-Configure how numbers are displayed:
+## Command Configuration
+
+:::warning
+A server restart is required after changing command settings!
+:::
 
 ```yaml
-formatting:
-  # Enable compact number format (1K, 1M, 1B)
-  compact-numbers: true
+commands:
+  main-command:
+    aliases:
+      - ah
+      - hdv
+      - auction
+      - zauction
 
-  # Decimal places for compact numbers
-  compact-decimals: 1
+  sell:
+    # Open GUI when running /ah sell without arguments
+    enable-sell-inventory: false
+    aliases:
+      - sell
+      - s
+      - vendre
+    arguments:
+      - name: price
+        display-name: price
+        required: true
+        auto-completion:
+          - 1000
+          - 10000
+          - 25000
+      - name: amount
+        display-name: amount
+        required: false
+        auto-completion:
+          - '1'
+          - '%max-stack-size%'
+      - name: economy
+        display-name: economy
+        required: false
+        auto-completion:
+          - vault
 
-  # Suffixes for compact numbers
-  suffixes:
-    thousand: "K"
-    million: "M"
-    billion: "B"
-    trillion: "T"
+  claim:
+    aliases:
+      - claim
+      - c
+      - recuperer
 
-  # Number of decimal places for prices
-  price-decimals: 2
-
-  # Thousand separator
-  thousand-separator: ","
-
-  # Decimal separator
-  decimal-separator: "."
+  page:
+    aliases:
+      - page
+      - p
 ```
 
-Example output with these settings:
-- `1500` displays as `1.5K`
-- `2500000` displays as `2.5M`
-- `1234.56` displays as `1,234.56`
+### Custom Inventory Commands
+
+Create shortcuts to specific inventories:
+
+```yaml
+  inventories:
+    - enable: true
+      permission: "zauctionhouse.selling"
+      description: "Open selling items"
+      aliases:
+        - 'selling'
+      inventory: SELLING_ITEMS
+
+    - enable: true
+      permission: "zauctionhouse.expired"
+      description: "Open expired items"
+      aliases:
+        - 'expired'
+      inventory: EXPIRED_ITEMS
+
+    - enable: true
+      permission: "zauctionhouse.purchased"
+      description: "Open purchased items"
+      aliases:
+        - 'purchased'
+      inventory: PURCHASED_ITEMS
+
+    - enable: true
+      permission: "zauctionhouse.history"
+      description: "Open history"
+      aliases:
+        - 'history'
+      inventory: HISTORY
+```
+
+## Price Shortcuts
+
+Allow players to use shorthand notation for large prices:
+
+```yaml
+number-sell-multiplication:
+  enable: true
+  formats:
+    - format: K
+      multiplication: 1000
+    - format: M
+      multiplication: 1000000
+    - format: B
+      multiplication: 1000000000
+    - format: T
+      multiplication: 1000000000000
+    # ... continues to TR (Tredecillion)
+```
+
+**Examples:**
+- `/ah sell 1K` = 1,000
+- `/ah sell 2.5M` = 2,500,000
+- `/ah sell 1B` = 1,000,000,000
 
 ## Expiration Settings
 
-Configure item expiration behavior:
+All times are in **seconds**.
 
 ```yaml
 expiration:
-  # Default expiration time for listed items
-  default: 7d
+  # Auction listings
+  auction:
+    default-expiration: 172800  # 2 days
+    permission:
+      enable: false
+      permissions:
+        - permission: zauctionhouse.expiration.vip
+          expiration: 3600       # 1 hour
+        - permission: zauctionhouse.expiration.elite
+          expiration: 7200       # 2 hours
+        - permission: zauctionhouse.expiration.legend
+          expiration: 259200     # 3 days
 
-  # Time format: s (seconds), m (minutes), h (hours), d (days)
+  # Bid listings (future feature)
+  bid:
+    default-expiration: 172800
 
-  # Maximum expiration time allowed
-  maximum: 30d
+  # Rent listings (future feature)
+  rent:
+    default-expiration: 172800
 
-  # Check expired items interval (in minutes)
-  check-interval: 5
+  # Expired items cleanup
+  expire:
+    default-expiration: 604800   # 1 week
 
-  # Delete expired items after this time (0 to keep forever)
-  delete-after: 30d
-
-  # Notify players about expiring items
-  notify-before-expiration: true
-  notify-time: 1h
+  # Purchased items cleanup
+  purchase:
+    default-expiration: 604800   # 1 week
 ```
+
+### Common Time Values
+
+| Time | Seconds |
+|------|---------|
+| 1 hour | 3600 |
+| 1 day | 86400 |
+| 2 days | 172800 |
+| 3 days | 259200 |
+| 1 week | 604800 |
+| 30 days | 2592000 |
 
 ## Item Limits
 
-Configure listing limits per player:
+Configure how many items players can list:
 
 ```yaml
-limits:
-  # Default limit for players without specific permissions
-  default: 10
-
-  # Permission-based limits (highest takes priority)
-  permissions:
-    - permission: zauctionhouse.limit.5
+permissions:
+  auction:
+    - permission: zauctionhouse.max.5
       limit: 5
-    - permission: zauctionhouse.limit.10
+    - permission: zauctionhouse.max.10
       limit: 10
-    - permission: zauctionhouse.limit.25
-      limit: 25
-    - permission: zauctionhouse.limit.50
-      limit: 50
-    - permission: zauctionhouse.limit.100
-      limit: 100
-    - permission: zauctionhouse.limit.unlimited
-      limit: -1  # -1 for unlimited
+    - permission: zauctionhouse.max.15
+      limit: 15
+
+  rent:
+    - permission: zauctionhouse.max.5
+      limit: 5
+    # ...
+
+  bid:
+    - permission: zauctionhouse.max.5
+      limit: 5
+    # ...
 ```
 
-## Cooldowns
+## World Restrictions
 
-Configure cooldowns for various actions:
-
-```yaml
-cooldowns:
-  # Cooldown between listing items (in seconds)
-  sell: 5
-
-  # Cooldown between purchases (in seconds)
-  purchase: 3
-
-  # Cooldown for using the search feature (in seconds)
-  search: 2
-```
-
-## Banned Worlds
-
-Prevent auction house usage in specific worlds:
+Prevent listing items in specific worlds (players can still browse/buy):
 
 ```yaml
 banned-worlds:
-  - minigames
-  - pvp_arena
-  - creative
+  auction:
+    - "world_the_end"
+  rent:
+    - "world_the_end"
+  bid:
+    - "world_the_end"
 ```
 
-## Sorting Options
+## Item Display Lore
 
-Configure default sorting and available sort options:
+Customize the lore added to items in the auction house:
 
 ```yaml
-sorting:
-  # Default sort method
-  default: NEWEST
+item-lore:
+  # Items in main auction listing
+  listed-auction-item:
+    - ""
+    - "<white>⌂ #92ffffSeller#8c8c8c: #2CCED2%seller%"
+    - "<white>☆ #92ffffPrice#8c8c8c: #2CCED2%price%"
+    - "<white>⌚ #92ffffExpire#8c8c8c: #969696%time-remaining%"
+    - ""
+    - "%status%"
 
-  # Available sort methods
-  # NEWEST, OLDEST, PRICE_LOW, PRICE_HIGH, NAME_AZ, NAME_ZA
+  # Bulk sales (multiple items)
+  multiple-listed-auction-item:
+    - ""
+    - "<white>⌂ #92ffffSeller#8c8c8c: #2CCED2%seller%"
+    - "<white>☆ #92ffffPrice#8c8c8c: #2CCED2%price%"
+    - "<white>⌚ #92ffffExpire#8c8c8c: #969696%time-remaining%"
+    - ""
+    - "#8c8c8c• #2CCED2ʟᴇғᴛ ᴄʟɪᴄᴋ #92ffffᴛᴏ sᴇᴇ ᴛʜᴇ ᴄᴏɴᴛᴇɴᴛ"
+    - "%status%"
 
-  # Remember player's sort preference
-  remember-preference: true
+  # Expired items
+  expired-item:
+    - ""
+    - "<white>⌚ #92ffffExpire#8c8c8c: #969696%time-remaining%"
+    - ""
+    - "#8c8c8c• #2CCED2Click to retrieve this item"
+
+  # Purchased items
+  purchased-item:
+    - ""
+    - "<white>⌚ #92ffffExpire#8c8c8c: #969696%time-remaining%"
+    - ""
+    - "#8c8c8c• #2CCED2Click to retrieve this item"
+
+  # Your items on sale
+  selling-item:
+    - ""
+    - "<white>⌚ #92ffffExpire#8c8c8c: #969696%time-remaining%"
+    - ""
+    - "#8c8c8c• #2CCED2Click to retrieve this item"
+
+  # Item being purchased
+  being-purchased-item:
+    - ""
+    - "<white>⌚ #92ffffExpire#8c8c8c: #969696%time-remaining%"
+    - ""
+    - "#8c8c8c• #ff3535Your item is being purchased, you cannot retrieve it."
+
+  # History items
+  history-item:
+    - ""
+    - "<white>⌂ #92ffffBuyer#8c8c8c: #2CCED2%buyer%"
+    - "<white>☆ #92ffffPrice#8c8c8c: #2CCED2%price%"
+    - "<white>⌚ #92ffffDate#8c8c8c: #969696%date%"
+
+  # Dynamic status messages
+  status:
+    seller: "#8c8c8c• #2CCED2ᴄʟɪᴄᴋ #92ffffᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴛʜɪs ɪᴛᴇᴍ"
+    buyer: "#8c8c8c• #2CCED2ᴄʟɪᴄᴋ #92ffffᴛᴏ ʙᴜʏ ᴛʜɪs ɪᴛᴇᴍ"
+    right-seller: "#8c8c8c• #2CCED2ʀɪɢʜᴛ ᴄʟɪᴄᴋ #92ffffᴛᴏ ʀᴇᴛʀɪᴇᴠᴇ ᴛʜɪs ɪᴛᴇᴍ"
+    right-buyer: "#8c8c8c• #2CCED2ʀɪɢʜᴛ ᴄʟɪᴄᴋ #92ffffᴛᴏ ʙᴜʏ ᴛʜɪs ɪᴛᴇᴍ"
+
+  # Log type names
+  log-type-names:
+    SALE: "Item Listed"
+    PURCHASE: "Item Purchased"
+    REMOVE_LISTED: "Removed from Listing"
+    REMOVE_SELLING: "Retrieved Selling Item"
+    REMOVE_EXPIRED: "Retrieved Expired"
+    REMOVE_PURCHASED: "Retrieved Purchase"
 ```
 
-## Anti-Exploit Settings
+### Available Placeholders
 
-Protection against exploits and duplication:
+| Placeholder | Description |
+|-------------|-------------|
+| `%seller%` | Seller's name |
+| `%buyer%` | Buyer's name |
+| `%price%` | Formatted price |
+| `%time-remaining%` | Time until expiration |
+| `%date%` | Transaction date |
+| `%status%` | Dynamic action message |
+| `%items%` | Item display names |
+| `%type%` | Log entry type |
+| `%player%` | Player involved |
+| `%target%` | Target player (admin) |
+
+## Time Format
+
+Configure how time is displayed:
 
 ```yaml
-protection:
-  # Prevent selling items with specific NBT tags
-  block-creative-items: true
+time:
+  second: second
+  seconds: seconds
+  minute: minute
+  minutes: minutes
+  hour: hour
+  hours: hours
+  day: day
+  days: days
 
-  # Maximum stack size to sell (0 for no limit)
-  max-stack-size: 64
-
-  # Minimum time between identical item listings (seconds)
-  duplicate-listing-cooldown: 10
-
-  # Check TPS before allowing actions
-  tps-protection:
-    enabled: true
-    minimum-tps: 15.0
+  # Format strings (printf-style)
+  time-day: '%02dᴅ %02dʜ %02dᴍ'      # >= 1 day
+  time-hour: '%02dʜ %02dᴍ %02ds'     # >= 1 hour
+  time-minute: '%02dᴍ %02ds'          # >= 1 minute
+  time-second: '%02ds'                # < 1 minute
 ```
 
-## Logging
-
-Configure action logging:
+## Action Behavior
 
 ```yaml
-logging:
-  # Log to file
-  file-logging: true
+action:
+  # Auto-refresh inventory after actions
+  update-inventory-on-action: true
 
-  # Log file location
-  log-file: logs/auction.log
+  # Removing items from listings
+  remove-listed-item:
+    give-item: false           # Give to inventory or expired items
+    open-inventory: true       # Reopen inventory after
+    open-confirm-inventory: true  # Show confirmation
 
-  # Actions to log
-  log-actions:
-    - SELL
-    - PURCHASE
-    - EXPIRE
-    - REMOVE
-    - CLAIM
+  # Removing expired items
+  remove-expired-item:
+    open-inventory: true
+
+  # Purchasing items
+  purchased-item:
+    give-item: false           # Give to inventory or purchased items
+    player-inventory-must-have-free-space: true
+    open-inventory: true
+    money-item:
+      enable: true
+      duration: 60             # Ticks to show error
+      item:
+        material: BARRIER
+        name: "#ff3535✘ You don't have enough money to buy this!"
+    money-message: true
+    money-sound:
+      enable: true
+      category: MASTER
+      sound: minecraft:entity.villager.no
+      volume: 1
+      pitch: 1
+
+  # Removing selling items
+  selling-item:
+    open-inventory: true
 ```
 
-## Notifications
-
-Configure player notifications:
+## Auto-Claim Configuration
 
 ```yaml
-notifications:
-  # Notify seller when item is purchased
-  notify-seller-on-sale: true
-
-  # Notify player when item expires
-  notify-on-expiration: true
-
-  # Sound effects
-  sounds:
-    enabled: true
-    on-sale: ENTITY_PLAYER_LEVELUP
-    on-purchase: ENTITY_EXPERIENCE_ORB_PICKUP
-    on-expiration: BLOCK_NOTE_BLOCK_BASS
+auto-claim:
+  # Auto-deposit pending money on join
+  enable: false
+  delay-ticks: 20              # Wait before claiming
+  notify-player: true          # Message on auto-claim
+  notify-pending: true         # Notify about pending money
+  notify-delay-ticks: 40
+  deposit-reason: "Claimed pending auction money"
 ```
 
-## Full Example
-
-Here's a complete `config.yml` example:
+## Sales Notification
 
 ```yaml
-storage:
-  type: SQLITE
+sales-notification:
+  # Notify about offline sales on join
+  enable: true
+  delay-ticks: 60
+```
 
-multi-server:
-  enabled: false
-  sync-interval: 5
-  server-id: server-1
+## Sorting Configuration
 
-formatting:
-  compact-numbers: true
-  compact-decimals: 1
-  suffixes:
-    thousand: "K"
-    million: "M"
-    billion: "B"
-  price-decimals: 2
-  thousand-separator: ","
-  decimal-separator: "."
+```yaml
+sort-items:
+  # Default sort: ASCENDING_PRICE, ASCENDING_DATE, DECREASING_DATE, DECREASING_PRICE
+  default-sort: DECREASING_DATE
 
-expiration:
-  default: 7d
-  maximum: 30d
-  check-interval: 5
-  delete-after: 30d
-  notify-before-expiration: true
-  notify-time: 1h
+  # Display names for sort types
+  translations:
+    ASCENDING_PRICE: "ᴀsᴄᴇɴᴅɪɴɢ ᴘʀɪᴄᴇ"
+    ASCENDING_DATE: "ᴀsᴄᴇɴᴅɪɴɢ ᴅᴀᴛᴇ"
+    DECREASING_DATE: "ᴅᴇᴄʀᴇᴀsɪɴɢ ᴅᴀᴛᴇ"
+    DECREASING_PRICE: "ᴅᴇᴄʀᴇᴀsɪɴɢ ᴘʀɪᴄᴇ"
+```
 
-limits:
-  default: 10
-  permissions:
-    - permission: zauctionhouse.limit.25
-      limit: 25
-    - permission: zauctionhouse.limit.50
-      limit: 50
-    - permission: zauctionhouse.limit.unlimited
-      limit: -1
+## Migration Settings
 
-cooldowns:
-  sell: 5
-  purchase: 3
-  search: 2
+Migrate data from zAuctionHouse V3:
 
-banned-worlds:
-  - minigames
+```yaml
+migration:
+  zauctionhouse-v3:
+    source-type: SQLITE        # MYSQL, MARIADB, SQLITE, or JSON
+    table-prefix: "zauctionhouse_"
+    sqlite-path: "plugins/zAuctionHousev3/database.db"
 
-sorting:
-  default: NEWEST
-  remember-preference: true
+    # MySQL/MariaDB settings
+    host: "localhost"
+    port: 3306
+    database: "zauctionhouse"
+    user: "root"
+    password: ""
 
-protection:
-  block-creative-items: true
-  max-stack-size: 64
-  tps-protection:
-    enabled: true
-    minimum-tps: 15.0
+    # JSON settings
+    json-folder: "plugins/zAuctionHouseV3"
+```
 
-logging:
-  file-logging: true
-  log-file: logs/auction.log
-
-notifications:
-  notify-seller-on-sale: true
-  notify-on-expiration: true
-  sounds:
-    enabled: true
-    on-sale: ENTITY_PLAYER_LEVELUP
+To migrate, run:
+```bash
+/ah admin migrate zauctionhousev3 confirm
 ```

@@ -1,106 +1,75 @@
 ---
 sidebar_position: 1
-title: Introduction
-description: Introduction to zAuctionHouse - The next generation auction house plugin for Minecraft
+title: Getting Started
+description: Discover zAuctionHouse - A powerful auction house plugin for your Minecraft server
 ---
 
-# zAuctionHouse
+# Getting Started
 
-Welcome to the zAuctionHouse documentation!
+Welcome to **zAuctionHouse**, the ultimate auction house plugin for your Minecraft server!
 
-zAuctionHouse is the complete rewrite of zAuctionHouse, featuring a modern architecture, improved performance, and an extensive API for developers. It integrates seamlessly with zMenu for fully customizable inventory interfaces.
+zAuctionHouse allows your players to buy and sell items in a fully customizable marketplace. Whether you're running a small survival server or a large network, zAuctionHouse scales to meet your needs.
 
-## What's New in V4?
+## Why zAuctionHouse?
 
-zAuctionHouse has been rebuilt from the ground up with:
+### Easy to Use
+Players can list items for sale with a simple command and browse the auction house through an intuitive interface. No complicated setup required - just install and play!
 
-- **New Architecture** - Modular design with separate API, Core, and Hooks modules
-- **Service-Based System** - Dedicated services for selling, purchasing, and item management
-- **CompletableFuture API** - Fully asynchronous operations for better performance
-- **Enhanced Event System** - Pre and Post events for complete control over auction operations
-- **Improved Item Management** - Better abstraction with Item and AuctionItem interfaces
-
-## Key Features
+### Fully Customizable
+Every aspect of zAuctionHouse can be customized to match your server's style. Thanks to [zMenu](./why-zmenu) integration, you have complete control over the inventory interfaces.
 
 ### Multiple Economies
-Support for various economy systems:
-- Vault (any Vault-compatible economy)
-- PlayerPoints
-- Experience / Levels
-- Custom item currencies
-- Create your own economy implementation
+Support for various economy systems including Vault, PlayerPoints, CoinsEngine, Experience/Levels, and even item-based currencies. You can also create your own custom economy implementation!
 
-### Flexible Category System
-- Define categories with powerful rule system
-- Material, name, lore, NBT tags, and model data rules
-- Combine rules with AND/OR logic
-- Blacklist and whitelist support
+### Powerful Category System
+Organize your auction house with a flexible category system. Define categories based on materials, item names, lore, NBT tags, and more. Supports custom item plugins like ItemsAdder, Oraxen, Nexo, and MMOItems.
 
-### Advanced Item Management
-- List items for sale with customizable expiration times
-- Auto-claim system for purchased items
-- Price reduction over time
-- Tax system on sales or purchases
-
-### Full Customization
-- All interfaces customizable via zMenu
-- Custom messages for every action
-- Number formatting (K, M, B suffixes)
-- Multi-language support
+### Advanced Features
+- **Tax System** - Configure taxes on sales and purchases with permission-based exemptions
+- **Bulk Sales** - Sell multiple items in a single listing
+- **Shulker Preview** - Players can preview shulker box contents before buying
+- **Auto-Claim** - Automatically claim sold items when players log in
+- **Discord Integration** - Send notifications to Discord when items are sold
 
 ### Multi-Server Support
-- Synchronize auctions across multiple servers
-- MySQL/MariaDB database support
-- Real-time updates between servers
+Running a server network? zAuctionHouse supports MySQL/MariaDB databases and Redis for real-time synchronization across multiple servers.
+:::info
+You need to buy the addon [zAuctionHouseRedis](https://groupez.dev/resources/zauctionhouse-redis.210) for this feature
+:::
 
-### Developer API
-- Clean, documented API
-- Service-based architecture
-- Event system with pre/post hooks
-- Custom economy implementation support
+### Folia Compatible
+Full support for Folia servers, ensuring optimal performance on modern server software.
 
-## Comparison with V3
+### Developer Friendly
+Extensive API with service-based architecture, async operations via CompletableFuture, and a comprehensive event system for plugin integration.
 
-| Feature | V3 | V4 |
-|---------|----|----|
-| Architecture | Monolithic | Modular (API/Core/Hooks) |
-| Async Operations | Partial | Full CompletableFuture |
-| Event System | Basic | Pre/Post Events |
-| Services | Integrated | Dedicated Services |
-| Item Abstraction | Basic | Item/AuctionItem Interfaces |
-| Code Quality | Good | Completely Refactored |
+## Key Features Overview
 
-## Requirements
-
-- **Java 21+**
-- **Minecraft 1.20.5+**
-- **[zMenu](https://modrinth.com/plugin/zmenu)** - Required for inventory interfaces
-- **PlaceholderAPI** - Optional, for placeholder support
-- **Vault** - Optional, for economy integration
-
-## Supported Platforms
-
-zAuctionHouse works with:
-- Spigot
-- Paper (recommended)
-- Purpur
-- Pufferfish
-- Folia
+| Feature | Description |
+|---------|-------------|
+| **Auction Listings** | Players can list items with customizable prices and expiration times |
+| **Category Browsing** | Organized item categories for easy navigation |
+| **Search & Filter** | Find items quickly with powerful search options |
+| **Transaction History** | Track all purchases and sales |
+| **Expired Items** | Retrieve items that didn't sell |
+| **Permission System** | Fine-grained control over who can do what |
+| **PlaceholderAPI** | Display auction data anywhere using placeholders |
 
 ## Quick Links
 
-- [Installation Guide](./installation)
-- [Commands & Permissions](./commands-permissions)
-- [Configuration](./configuration/config)
-- [API Documentation](./development/api)
+- [Installation Guide](./installation) - Get started in minutes
+- [Why zMenu?](./why-zmenu) - Learn about zMenu integration
+- [Commands & Permissions](./commands-permissions) - Full command reference
+- [Configuration](./configuration/config) - Customize everything
+- [API Documentation](./development/api) - For developers
 
 ## Support
 
 Need help? Here are your options:
-- **Discord**: Join our [Discord server](https://discord.groupez.dev) for support
-- **GitHub**: Report issues on [GitHub](https://github.com/Maxlego08/zAuctionHouse)
+- **Discord**: Join our [Discord server](https://discord.groupez.dev) for community support
+- **Documentation**: You're reading it!
+- **GitHub**: Report issues on [GitHub](https://github.com/GroupeZ-dev/zAuctionHouse)
 
-## Download
-
-- **Modrinth**: [modrinth.com/plugin/zauctionhouse](https://modrinth.com/plugin/zauctionhouse)
-- **SpigotMC**: [spigotmc.org/resources/zauctionhouse](https://www.spigotmc.org/resources/zauctionhouse.00000/)
+:::info Premium Support
+Support is provided to users who have purchased the plugin. Free trial users can access community support on Discord.
+:::
