@@ -3,6 +3,7 @@ const sidebars = {
   zauctionhouseSidebar: [
     'introduction',
     'installation',
+    'why-zmenu',
     'commands-permissions',
     'placeholders',
     {
@@ -15,8 +16,26 @@ const sidebars = {
         'configuration/economies',
         'configuration/categories',
         'configuration/rules',
-        'configuration/inventories',
         'configuration/discord',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Inventories',
+      collapsed: false,
+      items: [
+        'inventories/buttons',
+        'inventories/auction',
+        'inventories/categories',
+        'inventories/sell',
+        'inventories/expired-items',
+        'inventories/purchased-items',
+        'inventories/selling-items',
+        'inventories/history',
+        'inventories/purchase-confirm',
+        'inventories/remove-confirm',
+        'inventories/shulker-content',
+        'inventories/patterns',
       ],
     },
     {
