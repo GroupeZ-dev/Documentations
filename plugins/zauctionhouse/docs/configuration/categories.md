@@ -20,6 +20,18 @@ Categories organize items in the auction house, making it easier for players to 
 Category display order is defined in `inventories/categories.yml`, not in `categories.yml`. The categories file only defines the matching rules.
 :::
 
+:::tip Multiple Files
+You don't have to define all categories in `categories.yml`. You can create a `categories/` folder and split your categories into multiple YAML files for better organization:
+```
+plugins/zAuctionHouse/
+├── categories.yml          # Main file (optional)
+└── categories/
+    ├── weapons.yml
+    ├── armor.yml
+    └── custom-items.yml
+```
+:::
+
 ## Category Settings
 
 ```yaml
@@ -196,181 +208,7 @@ misc:
 
 ## Rule Types
 
-### Material Rule
-
-Match items by exact material name:
-
-```yaml
-- type: material
-  materials:
-    - DIAMOND
-    - EMERALD
-    - GOLD_INGOT
-```
-
-### Material Suffix Rule
-
-Match materials ending with a specific suffix:
-
-```yaml
-- type: material-suffix
-  suffixes:
-    - "_SWORD"
-    - "_HELMET"
-    - "_PICKAXE"
-```
-
-This matches WOODEN_SWORD, STONE_SWORD, IRON_SWORD, DIAMOND_SWORD, GOLDEN_SWORD, NETHERITE_SWORD, etc.
-
-### Tag Rule
-
-Match items using Bukkit/Paper item tags:
-
-```yaml
-- type: tag
-  tags:
-    - BLOCKS
-    - ITEMS
-```
-
-### Name Rule
-
-Match items by display name:
-
-```yaml
-- type: name
-  mode: CONTAINS  # CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, REGEX
-  values:
-    - "Legendary"
-    - "Epic"
-```
-
-### Lore Rule
-
-Match items by lore content:
-
-```yaml
-- type: lore
-  mode: CONTAINS
-  values:
-    - "Soulbound"
-    - "Untradeable"
-```
-
-### Custom Model Data Rule
-
-Match items by CustomModelData value:
-
-```yaml
-- type: custom-model-data
-  values:
-    - 1001
-    - 1002
-    - 1003
-```
-
-### NBT Rule
-
-Match items by NBT data:
-
-```yaml
-- type: nbt
-  path: "custom.data.key"
-  value: "expected_value"
-```
-
-### Combination Rules
-
-#### AND Rule
-
-All rules must match:
-
-```yaml
-- type: and
-  rules:
-    - type: material-suffix
-      suffixes:
-        - "_SWORD"
-    - type: lore
-      mode: CONTAINS
-      values:
-        - "Special Edition"
-```
-
-#### OR Rule
-
-Any rule must match:
-
-```yaml
-- type: or
-  rules:
-    - type: material
-      materials:
-        - DIAMOND_SWORD
-    - type: material
-      materials:
-        - NETHERITE_SWORD
-```
-
-## Custom Item Plugin Rules
-
-### ItemsAdder
-
-```yaml
-- type: itemsadder
-  items:
-    - "namespace:item_id"      # Exact match
-    - "namespace:*"            # All items from namespace
-    - "mynamespace:rare_*"     # Wildcard pattern
-```
-
-### Oraxen
-
-```yaml
-- type: oraxen
-  items:
-    - "custom_sword"
-    - "special_*"
-```
-
-### Nexo
-
-```yaml
-- type: nexo
-  items:
-    - "mythic_blade"
-    - "special_*"
-```
-
-### MMOItems
-
-```yaml
-- type: mmoitems
-  items:
-    - "SWORD:CUTLASS"          # TYPE:ID format
-    - "SWORD:*"                # All swords
-    - "*:LEGENDARY_ITEM"       # Any type with this ID
-```
-
-### Other Supported Plugins
-
-| Plugin | Rule Type |
-|--------|-----------|
-| ExecutableItems | `executableitems` |
-| EcoItems | `ecoitems` |
-| Crucible | `crucible` |
-| Slimefun | `slimefun` |
-| HeadDatabase | `headdatabase` |
-| Nova | `nova` |
-| Denizen | `denizen` |
-| AdvancedItems | `advanceditems` |
-| CustomCrafting | `customcrafting` |
-| zHead | `zhead` |
-| MagicCosmetics | `magiccosmetics` |
-| HMCCosmetics | `hmccosmetics` |
-| zItems | `zitems` |
-| CraftEngine | `craftengine` |
-| ExecutableBlocks | `executableblocks` |
+Categories use the same rule system as the blacklist/whitelist configuration. For a complete list of all available rule types (material, material-suffix, material-prefix, name, lore, custom-model-data, tag, AND/OR combinations, and custom item plugins), see the [Rules documentation](./rules.md#rule-types-reference).
 
 ## Adding Custom Categories
 

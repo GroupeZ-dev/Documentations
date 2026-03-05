@@ -59,13 +59,25 @@ Match materials ending with a specific suffix:
     - "_SPAWN_EGG"   # All spawn eggs
 ```
 
+### Material Prefix Rule
+
+Match materials starting with a specific prefix:
+
+```yaml
+- type: material-prefix
+  prefixes:
+    - "DIAMOND_"     # DIAMOND_SWORD, DIAMOND_PICKAXE, etc.
+    - "NETHERITE_"   # All netherite items
+    - "GOLDEN_"      # All golden items
+```
+
 ### Name Rule
 
 Match items by display name:
 
 ```yaml
 - type: name
-  mode: CONTAINS  # CONTAINS, EQUALS, STARTS_WITH, ENDS_WITH, REGEX
+  mode: CONTAINS  # CONTAINS or EQUALS
   values:
     - "Admin"
     - "Untradeable"
@@ -76,9 +88,16 @@ Match items by display name:
 |------|-------------|
 | `CONTAINS` | Name contains the value anywhere |
 | `EQUALS` | Name exactly equals the value |
-| `STARTS_WITH` | Name starts with the value |
-| `ENDS_WITH` | Name ends with the value |
-| `REGEX` | Name matches the regex pattern |
+
+When using `EQUALS` mode, you can configure the `ignore-case` option to ignore case sensitivity during comparison (enabled by default):
+
+```yaml
+- type: name
+  mode: EQUALS
+  ignore-case: true  # true by default
+  values:
+    - "Excalibur"
+```
 
 ### Lore Rule
 
@@ -86,7 +105,7 @@ Match items by lore content:
 
 ```yaml
 - type: lore
-  mode: CONTAINS
+  mode: CONTAINS  # CONTAINS or EQUALS
   values:
     - "Soulbound"
     - "Cannot be traded"
@@ -99,6 +118,9 @@ Match items by CustomModelData value:
 
 ```yaml
 - type: custom-model-data
+  ranges:
+    - min: 100
+      max: 110
   values:
     - 1001
     - 1002
@@ -114,16 +136,6 @@ Match items using Bukkit/Paper item tags:
   tags:
     - BLOCKS
     - ITEMS
-```
-
-### NBT Rule
-
-Match items by NBT data:
-
-```yaml
-- type: nbt
-  path: "custom.data.key"
-  value: "expected_value"
 ```
 
 ### Combination Rules
@@ -225,15 +237,6 @@ All custom item plugin rules support **wildcard patterns** using `*`:
     - "charm_*"
 ```
 
-### Crucible (MythicCrucible)
-
-```yaml
-- type: crucible
-  items:
-    - "mythic_blade"
-    - "dungeon_*"
-```
-
 ### Slimefun
 
 ```yaml
@@ -263,19 +266,30 @@ All custom item plugin rules support **wildcard patterns** using `*`:
     - "*:solar_panel"           # Any addon with solar_panel
 ```
 
-### Other Supported Plugins
+### Denizen
 
-| Plugin | Rule Type |
-|--------|-----------|
-| Denizen | `denizen` |
-| AdvancedItems | `advanceditems` |
-| CustomCrafting | `customcrafting` |
-| zHead | `zhead` |
-| MagicCosmetics | `magiccosmetics` |
-| HMCCosmetics | `hmccosmetics` |
-| zItems | `zitems` |
-| CraftEngine | `craftengine` |
-| ExecutableBlocks | `executableblocks` |
+```yaml
+- type: denizen
+  items:
+    - "items-tags"
+```
+
+### CraftEngine
+
+```yaml
+- type: craftengine
+  items:
+    - "custom-woods"
+```
+
+### ExecutableBlocks
+
+```yaml
+- type: executableblocks
+  items:
+    - "block-id"
+```
+
 
 ## Blacklist Example
 
@@ -412,7 +426,7 @@ You can save items in Base64 format using `/zmenu save <item name>` then referen
 :::
 
 :::info Reload
-After modifying rules, reload with `/ah reload`. Existing listings are not affected - they remain until expired or purchased.
+After modifying rules, reload with `/ah admin reload`. Existing listings are not affected - they remain until expired or purchased.
 :::
 
 ## Bypass Permission
