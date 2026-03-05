@@ -8,6 +8,10 @@ description: Configure item categories in zAuctionHouse V4
 
 Categories organize items in the auction house, making it easier for players to find what they're looking for. Configure them in `categories.yml`.
 
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src="https://img.groupez.dev/zauctionhouse/v4/categories.png" alt="Description" style={{ width: '600px', height: 'auto' }} />
+</div>
+
 ## How Categories Work
 
 - Each category has a unique ID (the YAML key, e.g., "weapons", "armor")
