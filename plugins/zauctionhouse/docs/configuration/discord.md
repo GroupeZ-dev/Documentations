@@ -8,6 +8,13 @@ description: Configure Discord webhook notifications in zAuctionHouse V4
 
 zAuctionHouse V4 can send notifications to Discord when items are listed or purchased. Configure webhooks in `discord.yml`.
 
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src="https://img.groupez.dev/zauctionhouse/v4/discord-2.png" alt="Description" style={{ width: '600px', height: 'auto' }} />
+</div>
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src="https://img.groupez.dev/zauctionhouse/v4/discord-1.png" alt="Description" style={{ width: '400px', height: 'auto' }} />
+</div>
+
 ## Setup
 
 1. In Discord, go to **Server Settings** → **Integrations** → **Webhooks**
@@ -30,6 +37,8 @@ server-name: "My Server"
 ```
 
 ## Item Image Settings
+
+This section allows you to display the item image in the Discord embed. You can also extract the dominant color from the image to use as the embed color.
 
 ```yaml
 # URL pattern for item icons

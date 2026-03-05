@@ -8,6 +8,18 @@ description: Travailler avec les interfaces Item et AuctionItem dans zAuctionHou
 
 zAuctionHouse utilise une couche d'abstraction propre pour les objets. Comprendre les interfaces `Item` et `AuctionItem` est essentiel pour l'intégration API.
 
+## Architecture des Ventes
+
+Toutes les ventes dans zAuctionHouse sont gérées via l'interface `Item`. Cette interface sert de fondation pour chaque type de transaction dans le plugin.
+
+Chaque type de vente étend l'interface `Item` pour ajouter son comportement et ses données spécifiques. Actuellement, le plugin implémente `AuctionItem` pour les annonces à prix fixe standard. Les futures mises à jour introduiront des types de vente supplémentaires qui suivent le même modèle :
+
+- **AuctionItem** - Annonces à prix fixe avec achat instantané (actuellement disponible)
+- **BidItem** - Annonces de style enchères avec système d'offres (prévu)
+- **RentItem** - Annonces de location avec accès basé sur le temps (prévu)
+
+Ce modèle d'héritage assure un comportement cohérent sur tous les types de vente tout en permettant à chaque implémentation de définir sa propre logique et propriétés spécifiques.
+
 ## Interface Item
 
 L'interface de base `Item` représente tout objet dans le système :

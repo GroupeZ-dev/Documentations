@@ -1,106 +1,75 @@
 ---
 sidebar_position: 1
-title: Introduction
-description: Introduction à zAuctionHouse - Le plugin d'hôtel des ventes nouvelle génération pour Minecraft
+title: Premiers pas
+description: Découvrez zAuctionHouse - Un puissant plugin d'hôtel des ventes pour votre serveur Minecraft
 ---
 
-# zAuctionHouse
+# Premiers pas
 
-Bienvenue dans la documentation de zAuctionHouse !
+Bienvenue sur **zAuctionHouse**, le plugin d'hôtel des ventes ultime pour votre serveur Minecraft !
 
-zAuctionHouse est la réécriture complète de zAuctionHouse, avec une architecture moderne, des performances améliorées et une API complète pour les développeurs. Il s'intègre parfaitement avec zMenu pour des interfaces d'inventaire entièrement personnalisables.
+zAuctionHouse permet à vos joueurs d'acheter et vendre des objets dans une place de marché entièrement personnalisable. Que vous gériez un petit serveur survie ou un grand réseau, zAuctionHouse s'adapte à vos besoins.
 
-## Nouveautés de la V4
+## Pourquoi zAuctionHouse ?
 
-zAuctionHouse a été entièrement reconstruit avec :
+### Facile à utiliser
+Les joueurs peuvent mettre des objets en vente avec une simple commande et parcourir l'hôtel des ventes via une interface intuitive. Aucune configuration compliquée requise - installez et jouez !
 
-- **Nouvelle Architecture** - Conception modulaire avec des modules API, Core et Hooks séparés
-- **Système basé sur les Services** - Services dédiés pour la vente, l'achat et la gestion des objets
-- **API CompletableFuture** - Opérations entièrement asynchrones pour de meilleures performances
-- **Système d'Événements Amélioré** - Événements Pre et Post pour un contrôle total des opérations
-- **Gestion des Objets Améliorée** - Meilleure abstraction avec les interfaces Item et AuctionItem
+### Entièrement personnalisable
+Chaque aspect de zAuctionHouse peut être personnalisé pour correspondre au style de votre serveur. Grâce à l'intégration de [zMenu](./why-zmenu), vous avez un contrôle total sur les interfaces d'inventaire.
 
-## Fonctionnalités Principales
+### Économies multiples
+Support de divers systèmes économiques incluant Vault, PlayerPoints, CoinsEngine, Expérience/Niveaux, et même des monnaies basées sur des objets. Vous pouvez également créer votre propre implémentation d'économie personnalisée !
 
-### Économies Multiples
-Support de divers systèmes économiques :
-- Vault (toute économie compatible Vault)
-- PlayerPoints
-- Expérience / Niveaux
-- Monnaies d'objets personnalisées
-- Créez votre propre implémentation économique
+### Système de catégories puissant
+Organisez votre hôtel des ventes avec un système de catégories flexible. Définissez des catégories basées sur les matériaux, noms d'objets, lore, tags NBT, et plus encore. Support des plugins d'objets personnalisés comme ItemsAdder, Oraxen, Nexo et MMOItems.
 
-### Système de Catégories Flexible
-- Définissez des catégories avec un système de règles puissant
-- Règles par matériau, nom, lore, tags NBT et model data
-- Combinez les règles avec une logique ET/OU
-- Support des listes noires et blanches
+### Fonctionnalités avancées
+- **Système de taxes** - Configurez des taxes sur les ventes et achats avec des exemptions basées sur les permissions
+- **Ventes en masse** - Vendez plusieurs objets en une seule annonce
+- **Aperçu des Shulkers** - Les joueurs peuvent prévisualiser le contenu des boîtes Shulker avant d'acheter
+- **Réclamation automatique** - Réclamez automatiquement les objets vendus quand les joueurs se connectent
+- **Intégration Discord** - Envoyez des notifications sur Discord quand des objets sont vendus
 
-### Gestion Avancée des Objets
-- Mettez en vente des objets avec des durées d'expiration personnalisables
-- Système de réclamation automatique pour les objets achetés
-- Réduction de prix au fil du temps
-- Système de taxes sur les ventes ou achats
+### Support multi-serveur
+Vous gérez un réseau de serveurs ? zAuctionHouse supporte les bases de données MySQL/MariaDB et Redis pour une synchronisation en temps réel sur plusieurs serveurs.
+:::info
+Vous devez acheter l'addon [zAuctionHouseRedis](https://groupez.dev/resources/zauctionhouse-redis.210) pour cette fonctionnalité
+:::
 
-### Personnalisation Complète
-- Toutes les interfaces personnalisables via zMenu
-- Messages personnalisés pour chaque action
-- Formatage des nombres (suffixes K, M, B)
-- Support multilingue
+### Compatible Folia
+Support complet des serveurs Folia, garantissant des performances optimales sur les logiciels serveur modernes.
 
-### Support Multi-Serveur
-- Synchronisez les enchères sur plusieurs serveurs
-- Support des bases de données MySQL/MariaDB
-- Mises à jour en temps réel entre serveurs
+### Adapté aux développeurs
+API complète avec architecture basée sur les services, opérations asynchrones via CompletableFuture, et un système d'événements complet pour l'intégration de plugins.
 
-### API Développeur
-- API propre et documentée
-- Architecture basée sur les services
-- Système d'événements avec hooks pre/post
-- Support pour les implémentations d'économie personnalisées
+## Aperçu des fonctionnalités clés
 
-## Comparaison avec la V3
+| Fonctionnalité | Description |
+|----------------|-------------|
+| **Annonces de vente** | Les joueurs peuvent lister des objets avec des prix et délais d'expiration personnalisables |
+| **Navigation par catégorie** | Catégories d'objets organisées pour une navigation facile |
+| **Recherche & Filtres** | Trouvez rapidement des objets avec des options de recherche puissantes |
+| **Historique des transactions** | Suivez tous les achats et ventes |
+| **Objets expirés** | Récupérez les objets qui n'ont pas été vendus |
+| **Système de permissions** | Contrôle précis sur qui peut faire quoi |
+| **PlaceholderAPI** | Affichez les données de l'hôtel des ventes partout grâce aux placeholders |
 
-| Fonctionnalité | V3 | V4 |
-|----------------|----|----|
-| Architecture | Monolithique | Modulaire (API/Core/Hooks) |
-| Opérations Async | Partiel | CompletableFuture Complet |
-| Système d'Événements | Basique | Événements Pre/Post |
-| Services | Intégrés | Services Dédiés |
-| Abstraction des Objets | Basique | Interfaces Item/AuctionItem |
-| Qualité du Code | Bonne | Entièrement Refactorisé |
+## Liens rapides
 
-## Prérequis
-
-- **Java 21+**
-- **Minecraft 1.20.5+**
-- **[zMenu](https://modrinth.com/plugin/zmenu)** - Requis pour les interfaces d'inventaire
-- **PlaceholderAPI** - Optionnel, pour le support des placeholders
-- **Vault** - Optionnel, pour l'intégration économique
-
-## Plateformes Supportées
-
-zAuctionHouse fonctionne avec :
-- Spigot
-- Paper (recommandé)
-- Purpur
-- Pufferfish
-- Folia
-
-## Liens Rapides
-
-- [Guide d'Installation](./installation)
-- [Commandes & Permissions](./commands-permissions)
-- [Configuration](./configuration/config)
-- [Documentation API](./development/api)
+- [Guide d'installation](./installation) - Commencez en quelques minutes
+- [Pourquoi zMenu ?](./why-zmenu) - En savoir plus sur l'intégration de zMenu
+- [Commandes & Permissions](./commands-permissions) - Référence complète des commandes
+- [Configuration](./configuration/config) - Personnalisez tout
+- [Documentation API](./development/api) - Pour les développeurs
 
 ## Support
 
 Besoin d'aide ? Voici vos options :
-- **Discord** : Rejoignez notre [serveur Discord](https://discord.groupez.dev) pour obtenir de l'aide
-- **GitHub** : Signalez les problèmes sur [GitHub](https://github.com/Maxlego08/zAuctionHouse)
+- **Discord** : Rejoignez notre [serveur Discord](https://discord.groupez.dev) pour le support communautaire
+- **Documentation** : Vous êtes en train de la lire !
+- **GitHub** : Signalez les problèmes sur [GitHub](https://github.com/GroupeZ-dev/zAuctionHouse)
 
-## Téléchargement
-
-- **Modrinth** : [modrinth.com/plugin/zauctionhouse](https://modrinth.com/plugin/zauctionhouse)
-- **SpigotMC** : [spigotmc.org/resources/zauctionhouse](https://www.spigotmc.org/resources/zauctionhouse.00000/)
+:::info Support Premium
+Le support est fourni aux utilisateurs ayant acheté le plugin. Les utilisateurs de la version d'essai gratuite peuvent accéder au support communautaire sur Discord.
+:::
