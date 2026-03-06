@@ -228,6 +228,11 @@ items:
       name: "&eMenu Content"
 ```
 
+**Example**
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src="https://img.groupez.dev/zmenu/title-animation.gif" alt="Description" style={{ width: '600px', height: 'auto' }} />
+</div>
+
 ---
 
 ### clear-inventory
