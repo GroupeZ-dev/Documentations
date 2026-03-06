@@ -80,8 +80,7 @@ items:
       material: ENCHANTED_BOOK
       name: "&d&lSharpness V"
       enchantments:
-        - type: SHARPNESS
-          level: 5
+        - SHARPNESS,5
     buyPrice: 5000.0
     # No sellPrice = cannot sell
 ```
@@ -181,8 +180,7 @@ items:
       material: DIAMOND_PICKAXE
       name: "&a&lUnique Pickaxe"
       enchantments:
-        - type: EFFICIENCY
-          level: 10
+        - EFFICIENCY,10
     buyPrice: 10000.0
     unstackable: true  # Each purchase is separate
 ```
@@ -357,8 +355,7 @@ item:
   model-id: 1001
   glow: true
   enchantments:
-    - type: SHARPNESS
-      level: 5
+    - SHARPNESS,5
   flags:
     - HIDE_ENCHANTS
     - HIDE_ATTRIBUTES

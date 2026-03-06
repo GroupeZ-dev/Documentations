@@ -7,6 +7,7 @@ const sidebars = {
     'commands-permissions',
     'placeholders',
     'multi-server',
+    'optimization',
     'migration',
     {
       type: 'category',
