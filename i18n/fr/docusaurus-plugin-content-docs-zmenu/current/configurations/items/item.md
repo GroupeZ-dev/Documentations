@@ -239,12 +239,9 @@ Ajouter des enchantements a l'item.
 item:
   material: DIAMOND_SWORD
   enchantments:
-    - type: SHARPNESS
-      level: 5
-    - type: UNBREAKING
-      level: 3
-    - type: FIRE_ASPECT
-      level: 2
+    - SHARPNESS,5
+    - UNBREAKING,3
+    - FIRE_ASPECT,2
 ```
 
 Types d'enchantements courants :
@@ -263,8 +260,7 @@ Masquer certains attributs d'item en utilisant les drapeaux d'item.
 item:
   material: DIAMOND_SWORD
   enchantments:
-    - type: SHARPNESS
-      level: 5
+    - SHARPNESS,5
   flags:
     - HIDE_ENCHANTS
     - HIDE_ATTRIBUTES
@@ -503,12 +499,9 @@ item:
     - "&7Fortune III"
     - "&7Solidite III"
   enchantments:
-    - type: EFFICIENCY
-      level: 5
-    - type: FORTUNE
-      level: 3
-    - type: UNBREAKING
-      level: 3
+    - EFFICIENCY,5
+    - FORTUNE,3
+    - UNBREAKING,3
   flags:
     - HIDE_ENCHANTS
   glow: true

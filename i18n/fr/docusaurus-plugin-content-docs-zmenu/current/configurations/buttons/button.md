@@ -513,8 +513,7 @@ items:
         - ""
         - "&e▸ Cliquez pour acheter"
       enchantments:
-        - type: SHARPNESS
-          level: 5
+        - SHARPNESS,5
       flags:
         - HIDE_ENCHANTS
       glow: true
