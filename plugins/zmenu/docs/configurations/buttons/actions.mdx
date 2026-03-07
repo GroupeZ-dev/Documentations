@@ -27,6 +27,59 @@ items:
         sound: UI_BUTTON_CLICK
 ```
 
+## Common Options
+
+All actions support the following optional parameters:
+
+### delay
+
+Add a delay (in ticks) before the action is executed. 20 ticks = 1 second.
+
+```yaml
+actions:
+  - type: refresh
+    delay: 10  # Wait 10 ticks before refreshing
+```
+
+---
+
+### chance
+
+Set a percentage chance for the action to execute. Combined with `deny-chance-actions` to define fallback actions when the chance fails.
+
+```yaml
+actions:
+  - type: console-command
+    commands:
+      - "give %player% diamond 1"
+    chance: 50  # 50% chance to execute
+    deny-chance-actions:  # Actions to execute if chance fails
+      - type: message
+        messages:
+          - "&cNo luck this time!"
+```
+
+**Options:**
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `delay` | Integer | Delay in ticks before execution (20 ticks = 1 second) |
+| `chance` | Integer | Percentage chance (0-100) for the action to execute |
+| `deny-chance-actions` | List | Actions to execute if the chance check fails |
+
+**Example with both options:**
+
+```yaml
+actions:
+  - type: refresh
+    delay: 20  # Wait 1 second
+    chance: 75  # 75% chance
+    deny-chance-actions:
+      - type: message
+        messages:
+          - "&cThe refresh failed!"
+```
+
 ## Message Actions
 
 <Tabs>
@@ -1051,6 +1104,16 @@ click-requirement:
 ```
 
 ## Quick Reference Table
+
+### Common Options (all actions)
+
+| Option | Description |
+|--------|-------------|
+| `delay` | Delay in ticks before execution |
+| `chance` | Percentage chance to execute |
+| `deny-chance-actions` | Fallback actions if chance fails |
+
+### Action Types
 
 | Action | Description |
 |--------|-------------|

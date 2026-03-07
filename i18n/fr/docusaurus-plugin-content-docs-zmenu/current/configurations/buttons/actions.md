@@ -24,6 +24,59 @@ items:
         sound: UI_BUTTON_CLICK
 ```
 
+## Options communes
+
+Toutes les actions supportent les parametres optionnels suivants :
+
+### delay
+
+Ajouter un delai (en ticks) avant l'execution de l'action. 20 ticks = 1 seconde.
+
+```yaml
+actions:
+  - type: refresh
+    delay: 10  # Attendre 10 ticks avant de rafraichir
+```
+
+---
+
+### chance
+
+Definir un pourcentage de chance pour que l'action s'execute. Combine avec `deny-chance-actions` pour definir des actions alternatives lorsque la chance echoue.
+
+```yaml
+actions:
+  - type: console-command
+    commands:
+      - "give %player% diamond 1"
+    chance: 50  # 50% de chance d'execution
+    deny-chance-actions:  # Actions a executer si la chance echoue
+      - type: message
+        messages:
+          - "&cPas de chance cette fois !"
+```
+
+**Options :**
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `delay` | Entier | Delai en ticks avant l'execution (20 ticks = 1 seconde) |
+| `chance` | Entier | Pourcentage de chance (0-100) pour que l'action s'execute |
+| `deny-chance-actions` | Liste | Actions a executer si la verification de chance echoue |
+
+**Exemple avec les deux options :**
+
+```yaml
+actions:
+  - type: refresh
+    delay: 20  # Attendre 1 seconde
+    chance: 75  # 75% de chance
+    deny-chance-actions:
+      - type: message
+        messages:
+          - "&cLe rafraichissement a echoue !"
+```
+
 ## Actions de message
 
 ### message
@@ -634,6 +687,16 @@ click-requirement:
 ```
 
 ## Tableau de reference rapide
+
+### Options communes (toutes les actions)
+
+| Option | Description |
+|--------|-------------|
+| `delay` | Delai en ticks avant l'execution |
+| `chance` | Pourcentage de chance d'execution |
+| `deny-chance-actions` | Actions alternatives si la chance echoue |
+
+### Types d'actions
 
 | Action | Description |
 |--------|-------------|
