@@ -14,23 +14,23 @@ zAuctionHouse uses [CurrenciesAPI](https://github.com/GroupeZ-dev/CurrenciesAPI)
 
 ## Supported Economy Types
 
-| Plugin | Type |
-|--------|------|
-| [Vault](https://www.spigotmc.org/resources/34315/) | `VAULT` |
-| [PlayerPoints](https://www.spigotmc.org/resources/80745/) | `PLAYERPOINTS` |
-| [BeastTokens](https://www.spigotmc.org/resources/13409/) | `BEASTTOKENS` |
-| [ElementalTokens](https://builtbybit.com/resources/16707/) | `ELEMENTALTOKENS` |
-| [ElementalGems](https://builtbybit.com/resources/14920/) | `ELEMENTALGEMS` |
-| [CoinsEngine](https://www.spigotmc.org/resources/84121/) | `COINSENGINE` |
-| [VotingPlugin](https://www.spigotmc.org/resources/15358/) | `VOTINGPLUGIN` |
-| [RedisEconomy](https://www.spigotmc.org/resources/105965/) | `REDISECONOMY` |
-| [RoyaleEconomy](https://polymart.org/product/113/royaleeconomy-1-8-1-21) | `ROYALEECONOMY` |
-| [EcoBits](https://www.spigotmc.org/resources/109967/) | `ECOBITS` |
-| [zEssentials](https://www.spigotmc.org/resources/118014/) | `ZESSENTIALS` |
-| [zMenu](https://www.spigotmc.org/resources/110402/) | `ZMENUITEMS` |
-| Item (Vanilla) | `ITEM` |
-| Level (Vanilla) | `LEVEL` |
-| Experience (Vanilla) | `EXPERIENCE` |
+| Plugin | Type | Supports `currency-name` |
+|--------|------|:------------------------:|
+| [Vault](https://www.spigotmc.org/resources/34315/) | `VAULT` | No |
+| [PlayerPoints](https://www.spigotmc.org/resources/80745/) | `PLAYERPOINTS` | No |
+| [BeastTokens](https://www.spigotmc.org/resources/13409/) | `BEASTTOKENS` | No |
+| [ElementalTokens](https://builtbybit.com/resources/16707/) | `ELEMENTALTOKENS` | No |
+| [ElementalGems](https://builtbybit.com/resources/14920/) | `ELEMENTALGEMS` | No |
+| [CoinsEngine](https://www.spigotmc.org/resources/84121/) | `COINSENGINE` | **Yes** |
+| [VotingPlugin](https://www.spigotmc.org/resources/15358/) | `VOTINGPLUGIN` | No |
+| [RedisEconomy](https://www.spigotmc.org/resources/105965/) | `REDISECONOMY` | **Yes** |
+| [RoyaleEconomy](https://polymart.org/product/113/royaleeconomy-1-8-1-21) | `ROYALEECONOMY` | No |
+| [EcoBits](https://www.spigotmc.org/resources/109967/) | `ECOBITS` | **Yes** |
+| [zEssentials](https://www.spigotmc.org/resources/118014/) | `ZESSENTIALS` | **Yes** |
+| [zMenu](https://www.spigotmc.org/resources/110402/) | `ZMENUITEMS` | No |
+| Item (Vanilla) | `ITEM` | No (uses `item` config) |
+| Level (Vanilla) | `LEVEL` | No |
+| Experience (Vanilla) | `EXPERIENCE` | No |
 
 You can also use `REDIRECT` to alias one economy to another.
 
@@ -214,7 +214,7 @@ economies:
     name: vault
     # ...
 
-  - type: PLAYER_POINTS
+  - type: PLAYERPOINTS
     is-enable: true
     name: points
     # ...
@@ -230,6 +230,141 @@ Players choose which economy to use when listing:
 /ah sell 1000 64 vault
 /ah sell 500 32 points
 /ah sell 10 16 diamonds
+```
+
+## Item Economy
+
+Use a specific item as currency. Players pay with items from their inventory:
+
+```yaml
+economies:
+  - type: ITEM
+    is-enable: true
+    name: item
+    display-name: "Diamonds"
+    format: "%price%d"
+    symbol: "d"
+
+    # Define the currency item (supports all zMenu item properties)
+    item:
+      material: DIAMOND
+      # Optional: require specific name
+      # name: "&bCurrency Diamond"
+      # Optional: require specific lore
+      # lore:
+      #   - "&7Official currency"
+      # Optional: require custom model data
+      # model-data: 1001
+
+    # Auto-deposit items to seller immediately
+    auto-claim: true
+
+    # Transaction reasons
+    withdraw-reason: "Purchase of %items% (zAuctionHouse)"
+    deposit-reason: "Sale of %items% (zAuctionHouse)"
+
+    # If true, seller must be online to receive items
+    # If offline, they must use /ah claim to get their items
+    must-be-online: true
+
+    # Price formatting mode
+    price-format: PRICE_WITH_REDUCTION
+
+    # Price limits
+    min-prices: 1
+    max-prices: 64
+```
+
+### Item Configuration
+
+The `item` section supports all item properties available in zMenu:
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&b&lPremium Diamond"
+  lore:
+    - "&7Server currency"
+    - "&7Cannot be dropped"
+  model-data: 1001
+  glow: true
+  # ... any other zMenu item properties
+```
+
+This allows you to create custom currency items that must match specific criteria.
+
+## Currency Name Economy
+
+For plugins that support multiple currencies (zEssentials, EcoBits, CoinsEngine, RedisEconomy), you can specify which currency to use:
+
+```yaml
+economies:
+  - type: ZESSENTIALS  # Also works with: ECOBITS, COINSENGINE, REDISECONOMY
+    currency-name: "coins"  # The currency name from the plugin
+    is-enable: true
+    name: coins
+    display-name: "Coins"
+    format: "%price%c"
+    symbol: "c"
+
+    # Auto-deposit to seller immediately
+    auto-claim: true
+
+    # Player doesn't need to be online
+    must-be-online: false
+
+    # Transaction reasons
+    withdraw-reason: "Purchase of %items% (zAuctionHouse)"
+    deposit-reason: "Sale of %items% (zAuctionHouse)"
+
+    # Price formatting mode
+    price-format: PRICE_WITH_REDUCTION
+
+    # Price limits
+    min-prices: 1
+    max-prices: 99999
+```
+
+### Supported Plugins with Multiple Currencies
+
+| Plugin | Type | Currency Configuration |
+|--------|------|------------------------|
+| [zEssentials](https://www.spigotmc.org/resources/118014/) | `ZESSENTIALS` | Uses currency name from zEssentials economy module |
+| [EcoBits](https://www.spigotmc.org/resources/109967/) | `ECOBITS` | Uses EcoBits currency identifier |
+| [CoinsEngine](https://www.spigotmc.org/resources/84121/) | `COINSENGINE` | Uses CoinsEngine currency name |
+| [RedisEconomy](https://www.spigotmc.org/resources/105965/) | `REDISECONOMY` | Uses RedisEconomy currency name |
+
+### Example: Multiple Currencies from Same Plugin
+
+```yaml
+economies:
+  # zEssentials - Main coins
+  - type: ZESSENTIALS
+    currency-name: "coins"
+    is-enable: true
+    name: coins
+    display-name: "Coins"
+    format: "%price% coins"
+    symbol: "c"
+    auto-claim: true
+    must-be-online: false
+    price-format: PRICE_WITH_REDUCTION
+    min-prices: 1
+    max-prices: 999999
+
+  # zEssentials - Premium gems
+  - type: ZESSENTIALS
+    currency-name: "gems"
+    is-enable: true
+    name: gems
+    display-name: "Gems"
+    format: "%price% gems"
+    symbol: "g"
+    auto-claim: true
+    must-be-online: false
+    price-format: PRICE_WITH_REDUCTION
+    min-prices: 1
+    max-prices: 10000
 ```
 
 ## Permission-Based Access

@@ -109,18 +109,18 @@ Always backup your data before migrating! Migration cannot be undone.
 
 ### Basic Permissions
 
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `zauctionhouse.use` | Access the auction house | true |
-| `zauctionhouse.sell` | Sell items on the auction house | true |
-| `zauctionhouse.selling` | View your listed items | true |
-| `zauctionhouse.expired` | View your expired items | true |
-| `zauctionhouse.purchased` | View purchased items | true |
-| `zauctionhouse.history` | View sales history | true |
-| `zauctionhouse.reload` | Reload configurations | op |
-| `zauctionhouse.admin` | Access admin features | op |
-| `zauctionhouse.admin.items` | Add/remove items as admin | op |
-| `zauctionhouse.admin.remove-inventory` | Remove items from sale via GUI | op |
+| Permission | Description |
+|------------|-------------|
+| `zauctionhouse.use` | Access the auction house | 
+| `zauctionhouse.sell` | Sell items on the auction house | 
+| `zauctionhouse.selling` | View your listed items | 
+| `zauctionhouse.expired` | View your expired items | 
+| `zauctionhouse.purchased` | View purchased items | 
+| `zauctionhouse.history` | View sales history | 
+| `zauctionhouse.reload` | Reload configurations | 
+| `zauctionhouse.admin` | Access admin features | 
+| `zauctionhouse.admin.items` | Add/remove items as admin | 
+| `zauctionhouse.admin.remove-inventory` | Remove items from sale via GUI | 
 
 ### Item Limit Permissions
 

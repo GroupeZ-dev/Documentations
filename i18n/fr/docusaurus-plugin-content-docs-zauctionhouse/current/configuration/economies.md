@@ -121,35 +121,137 @@ auto-claim:
 
 ## Économie basée sur les Objets
 
-Utilisez un objet spécifique comme monnaie. Créez `economies/diamonds.yml` :
+Utilisez un objet spécifique comme monnaie. Les joueurs paient avec des objets de leur inventaire :
 
 ```yaml
-enabled: true
-name: "Diamants"
+economies:
+  - type: ITEM
+    is-enable: true
+    name: item
+    display-name: "Diamants"
+    format: "%price%d"
+    symbol: "d"
 
-# Définir l'objet de monnaie
-currency-item:
+    # Définir l'objet de monnaie (supporte toutes les propriétés d'item zMenu)
+    item:
+      material: DIAMOND
+      # Optionnel : nécessite un nom spécifique
+      # name: "&bDiamant Monnaie"
+      # Optionnel : nécessite un lore spécifique
+      # lore:
+      #   - "&7Monnaie officielle"
+      # Optionnel : nécessite un custom model data
+      # model-data: 1001
+
+    # Dépôt automatique des objets au vendeur immédiatement
+    auto-claim: true
+
+    # Raisons de transaction
+    withdraw-reason: "Purchase of %items% (zAuctionHouse)"
+    deposit-reason: "Sale of %items% (zAuctionHouse)"
+
+    # Si true, le vendeur doit être en ligne pour recevoir les objets
+    # Sinon, il doit utiliser /ah claim pour récupérer ses objets
+    must-be-online: true
+
+    # Mode de formatage des prix
+    price-format: PRICE_WITH_REDUCTION
+
+    # Limites de prix
+    min-prices: 1
+    max-prices: 64
+```
+
+### Configuration de l'Objet
+
+La section `item` supporte toutes les propriétés d'item disponibles dans zMenu :
+
+```yaml
+item:
   material: DIAMOND
-  # Optionnel : nécessite un nom spécifique
-  name: ""
-  # Optionnel : nécessite un lore spécifique
-  lore: []
-  # Optionnel : nécessite un custom model data
-  model-data: 0
+  name: "&b&lDiamant Premium"
+  lore:
+    - "&7Monnaie du serveur"
+    - "&7Ne peut pas être jeté"
+  model-data: 1001
+  glow: true
+  # ... toute autre propriété d'item zMenu
+```
 
-icon:
-  material: DIAMOND
-  name: "&bDiamants"
+Cela vous permet de créer des objets de monnaie personnalisés qui doivent correspondre à des critères spécifiques.
 
-price:
-  min: 1
-  max: 10000
+## Économie avec Nom de Currency
 
-tax:
-  enabled: false
+Pour les plugins qui supportent plusieurs monnaies (zEssentials, EcoBits, CoinsEngine, RedisEconomy), vous pouvez spécifier quelle monnaie utiliser :
 
-auto-claim:
-  enabled: true
+```yaml
+economies:
+  - type: ZESSENTIALS  # Fonctionne aussi avec : ECOBITS, COINSENGINE, REDISECONOMY
+    currency-name: "coins"  # Le nom de la monnaie du plugin
+    is-enable: true
+    name: coins
+    display-name: "Coins"
+    format: "%price%c"
+    symbol: "c"
+
+    # Dépôt automatique au vendeur immédiatement
+    auto-claim: true
+
+    # Le joueur n'a pas besoin d'être en ligne
+    must-be-online: false
+
+    # Raisons de transaction
+    withdraw-reason: "Purchase of %items% (zAuctionHouse)"
+    deposit-reason: "Sale of %items% (zAuctionHouse)"
+
+    # Mode de formatage des prix
+    price-format: PRICE_WITH_REDUCTION
+
+    # Limites de prix
+    min-prices: 1
+    max-prices: 99999
+```
+
+### Plugins Supportés avec Plusieurs Monnaies
+
+| Plugin | Type | Configuration de la Monnaie |
+|--------|------|----------------------------|
+| [zEssentials](https://www.spigotmc.org/resources/118014/) | `ZESSENTIALS` | Utilise le nom de monnaie du module économie zEssentials |
+| [EcoBits](https://www.spigotmc.org/resources/109967/) | `ECOBITS` | Utilise l'identifiant de monnaie EcoBits |
+| [CoinsEngine](https://www.spigotmc.org/resources/84121/) | `COINSENGINE` | Utilise le nom de monnaie CoinsEngine |
+| [RedisEconomy](https://www.spigotmc.org/resources/105965/) | `REDISECONOMY` | Utilise le nom de monnaie RedisEconomy |
+
+### Exemple : Plusieurs Monnaies du Même Plugin
+
+```yaml
+economies:
+  # zEssentials - Coins principaux
+  - type: ZESSENTIALS
+    currency-name: "coins"
+    is-enable: true
+    name: coins
+    display-name: "Coins"
+    format: "%price% coins"
+    symbol: "c"
+    auto-claim: true
+    must-be-online: false
+    price-format: PRICE_WITH_REDUCTION
+    min-prices: 1
+    max-prices: 999999
+
+  # zEssentials - Gems premium
+  - type: ZESSENTIALS
+    currency-name: "gems"
+    is-enable: true
+    name: gems
+    display-name: "Gems"
+    format: "%price% gems"
+    symbol: "g"
+    auto-claim: true
+    must-be-online: false
+    price-format: PRICE_WITH_REDUCTION
+    min-prices: 1
+    max-prices: 10000
 ```
 
 ## Réduction de Prix
