@@ -33,7 +33,7 @@ Before installing, ensure your server meets these requirements:
 | Requirement | Version |
 |-------------|---------|
 | **Java** | 21 or higher |
-| **Minecraft** | 1.21 or higher |
+| **Minecraft** | 1.20 to 1.21+ |
 
 ### Supported Server Software
 
