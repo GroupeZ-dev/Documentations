@@ -73,7 +73,7 @@ items:
 
 ---
 
-### page
+### to-page
 
 Ouvre l'inventaire a une page specifique.
 
@@ -83,7 +83,7 @@ items:
     type: INVENTORY
     slot: 0
     inventory: "paginated_menu"
-    page: 3
+    to-page: 3
 ```
 
 ## Exemples
@@ -203,7 +203,7 @@ items:
     type: INVENTORY
     slot: 10
     inventory: "items_catalog"
-    page: 1
+    to-page: 1
     item:
       material: PAPER
       name: "&7Page 1"
@@ -212,7 +212,7 @@ items:
     type: INVENTORY
     slot: 11
     inventory: "items_catalog"
-    page: 2
+    to-page: 2
     item:
       material: PAPER
       name: "&7Page 2"
@@ -221,7 +221,7 @@ items:
     type: INVENTORY
     slot: 12
     inventory: "items_catalog"
-    page: 3
+    to-page: 3
     item:
       material: PAPER
       name: "&7Page 3"

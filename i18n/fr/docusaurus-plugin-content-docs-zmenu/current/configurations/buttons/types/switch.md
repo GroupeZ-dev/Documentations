@@ -15,7 +15,7 @@ items:
   toggle:
     type: SWITCH
     slot: 13
-    placeholder: "%zmenu_player_value_notifications%"
+    key: "%zmenu_player_value_notifications%"
     buttons:
       "true":
         item:
@@ -42,16 +42,21 @@ items:
             key: "notifications"
             value: "true"
           - type: refresh
+
+    # Etat par defaut
+    item:
+      material: GRAY_DYE
+      name: "&7&lNotifications : OFF"
 ```
 
 ## Proprietes
 
-### placeholder
+### key
 
 **Requis.** Le placeholder a evaluer pour determiner quel bouton afficher.
 
 ```yaml
-placeholder: "%zmenu_player_value_setting%"
+key: "%zmenu_player_value_setting%"
 ```
 
 ---
@@ -76,17 +81,24 @@ buttons:
         messages: ["La valeur est 2"]
 ```
 
----
+### Etat par defaut
 
-### default
-
-Bouton a afficher quand la valeur du placeholder ne correspond a aucun bouton defini.
+L'etat par defaut (quand la valeur du placeholder ne correspond a aucune cle dans la section `buttons`) est defini par les proprietes standard du bouton (`item`, `actions`, etc.) placees directement au niveau du bouton.
 
 ```yaml
-default:
-  item:
-    material: BARRIER
-    name: "&cEtat inconnu"
+items:
+  mon-switch:
+    type: SWITCH
+    slot: 13
+    key: "%placeholder%"
+    buttons:
+      "valeur1":
+        item:
+          material: DIAMOND
+    # Ceci est l'etat par defaut
+    item:
+      material: BARRIER
+      name: "&cEtat inconnu"
 ```
 
 ## Exemples
@@ -98,7 +110,7 @@ items:
   toggle-pvp:
     type: SWITCH
     slot: 13
-    placeholder: "%zmenu_player_value_pvp_enabled%"
+    key: "%zmenu_player_value_pvp_enabled%"
     buttons:
       "true":
         item:
@@ -141,16 +153,16 @@ items:
             sound: ENTITY_ENDER_DRAGON_GROWL
           - type: refresh
 
-    default:
-      item:
-        material: SHIELD
-        name: "&a&lPvP : DESACTIVE"
-      actions:
-        - type: data
-          action: SET
-          key: "pvp_enabled"
-          value: "true"
-        - type: refresh
+    # Etat par defaut si le placeholder ne correspond ni a "true" ni a "false"
+    item:
+      material: SHIELD
+      name: "&a&lPvP : DESACTIVE"
+    actions:
+      - type: data
+        action: SET
+        key: "pvp_enabled"
+        value: "true"
+      - type: refresh
 ```
 
 ### Bouton multi-etats
@@ -160,7 +172,7 @@ items:
   difficulty:
     type: SWITCH
     slot: 22
-    placeholder: "%zmenu_player_value_difficulty%"
+    key: "%zmenu_player_value_difficulty%"
     buttons:
       "easy":
         item:
@@ -207,16 +219,16 @@ items:
             value: "easy"
           - type: refresh
 
-    default:
-      item:
-        material: YELLOW_WOOL
-        name: "&e&lDifficulte : NORMAL"
-      actions:
-        - type: data
-          action: SET
-          key: "difficulty"
-          value: "hard"
-        - type: refresh
+    # Etat par defaut
+    item:
+      material: YELLOW_WOOL
+      name: "&e&lDifficulte : NORMAL"
+    actions:
+      - type: data
+        action: SET
+        key: "difficulty"
+        value: "hard"
+      - type: refresh
 ```
 
 ### Affichage base sur le rang
@@ -226,7 +238,7 @@ items:
   rank-display:
     type: SWITCH
     slot: 4
-    placeholder: "%luckperms_primary_group_name%"
+    key: "%luckperms_primary_group_name%"
     buttons:
       "default":
         item:
@@ -259,10 +271,10 @@ items:
             - "&7Votre rang actuel"
           glow: true
 
-    default:
-      item:
-        material: COAL
-        name: "&7&lMembre"
+    # Etat par defaut
+    item:
+      material: COAL
+      name: "&7&lMembre"
 ```
 
 ### Indicateur de progression
@@ -272,7 +284,7 @@ items:
   quest-status:
     type: SWITCH
     slot: 31
-    placeholder: "%zmenu_player_value_quest_stage%"
+    key: "%zmenu_player_value_quest_stage%"
     buttons:
       "0":
         item:
@@ -339,10 +351,10 @@ items:
           lore:
             - "&7Vous avez complete cette quete"
 
-    default:
-      item:
-        material: PAPER
-        name: "&7&lQuete : Non commencee"
+    # Etat par defaut
+    item:
+      material: PAPER
+      name: "&7&lQuete : Non commencee"
 ```
 
 ## Notes importantes

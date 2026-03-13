@@ -8,6 +8,10 @@ description: Bouton qui navigue vers la page precedente
 
 Le type de bouton `PREVIOUS` navigue vers la page precedente dans un inventaire pagine.
 
+:::info
+Les boutons `PREVIOUS` sont permanents par defaut. Ils seront automatiquement affiches sur toutes les pages d'un inventaire pagine, meme si `is-permanent: true` n'est pas explicitement defini dans la configuration.
+:::
+
 ## Utilisation
 
 ```yaml

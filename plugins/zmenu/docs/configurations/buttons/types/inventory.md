@@ -73,7 +73,7 @@ items:
 
 ---
 
-### page
+### to-page
 
 Open the inventory at a specific page.
 
@@ -200,7 +200,7 @@ items:
     type: INVENTORY
     slot: 10
     inventory: "items_catalog"
-    page: 1
+    to-page: 1
     item:
       material: PAPER
       name: "&7Page 1"
@@ -209,7 +209,7 @@ items:
     type: INVENTORY
     slot: 11
     inventory: "items_catalog"
-    page: 2
+    to-page: 2
     item:
       material: PAPER
       name: "&7Page 2"
