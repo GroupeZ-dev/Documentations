@@ -266,6 +266,202 @@ item:
 
 ---
 
+### max-stack-size
+
+Set a custom max stack size for the item.
+
+```yaml
+item:
+  material: DIAMOND
+  max-stack-size: 16
+```
+
+---
+
+### max-damage
+
+Set a custom max durability for the item.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  max-damage: 500
+```
+
+---
+
+### damage
+
+Set the current durability damage for the item.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  damage: 50  # 50 durability used
+```
+
+---
+
+### repair-cost
+
+Set the anvil repair cost for the item.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  repair-cost: 10
+```
+
+---
+
+### unbreakable
+
+Make the item unbreakable (infinite durability).
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  unbreakable: true
+```
+
+---
+
+### unbreakable-show-in-tooltip
+
+Show "Unbreakable" in the item tooltip when the item is unbreakable.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  unbreakable: true
+  unbreakable-show-in-tooltip: false
+```
+
+---
+
+### fire-resistant
+
+Make the item fire resistant (does not burn in lava or fire).
+
+```yaml
+item:
+  material: DIAMOND
+  fire-resistant: true
+```
+
+---
+
+### hide-tooltip
+
+Completely hide the item tooltip when hovering over the item in the inventory.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lHidden Tooltip" # You can still set a name and lore, but they won't be visible in the tooltip
+  hide-tooltip: true
+```
+
+---
+
+### hide-additional-tooltip
+
+Hide the additional tooltip line that shows enchantments, attributes, etc. The item name and lore will still be visible.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  name: "&6&lHidden Additional Tooltip"
+  enchantments:
+    - SHARPNESS,5
+  hide-additional-tooltip: true
+```
+
+---
+
+### enchantment-glint
+
+Enable the enchantment glint effect without showing enchantments in the tooltip.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lGlowing Diamond"
+  enchantment-glint: true
+```
+
+---
+
+### enchantment-show-in-tooltip
+
+Define whether enchantments should be listed in the item tooltip.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  name: "&6&lTooltip Enchantments"
+  enchantments:
+    - SHARPNESS,5
+  enchantment-show-in-tooltip: false
+```
+
+---
+
+### attribute-show-in-tooltip
+
+Define whether attribute modifiers should be listed in the item tooltip.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  name: "&6&lTooltip Attributes"
+  attributes:
+    - attribute: ATTACK_DAMAGE
+      amount: 10
+      operation: ADD_NUMBER
+      slot: MAINHAND
+  attribute-show-in-tooltip: false
+```
+
+---
+
+### item-rarity
+
+Set the item rarity, which can be used by resource packs to apply different colors or effects.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lRare Diamond"
+  item-rarity: RARE
+```
+
+<details>
+<summary>Click to show rarity options</summary>
+
+    Available rarities:
+    - `COMMON`
+    - `UNCOMMON`
+    - `RARE`
+    - `EPIC`
+
+</details>
+
+---
+
+### tooltip-style
+
+Set the tooltip style, which can be used by resource packs to apply different formatting.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lStyled Diamond"
+  tooltip-style: "fancy"
+```
+
+---
+
 ### model-id
 
 <Tabs>
@@ -438,6 +634,65 @@ So if the target placeholder resolves to "Notch", the item name will display as 
 
 ---
 
+### attributes
+
+Define attribute modifiers for the item.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  attributes:
+    - attribute: ATTACK_SPEED
+      amount: 5
+      operation: ADD_NUMBER
+      slot: MAINHAND
+```
+
+List of all available attributes [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/Attribute.html).
+Available operations:
+- `ADD_NUMBER`
+- `ADD_SCALAR`
+- `MULTIPLY_SCALAR_1`
+Available slots can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/EquipmentSlotGroup.html).
+
+---
+
+### attribute-merge-strategy
+
+Define how attribute modifiers should merge with existing item attributes.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  attributes:
+    - attribute: ATTACK_DAMAGE
+      amount: 10
+      operation: ADD_NUMBER
+      slot: MAINHAND
+  attribute-merge-strategy: REPLACE
+```
+
+**Merge Strategies:**
+- `REPLACE` - Replace all existing attributes with the defined ones.
+- `ADD` - Add the defined attributes to the existing ones.
+- `KEEP_HIGHEST` - For each attribute, keep the highest value between existing and defined.
+- `KEEP_LOWEST` - For each attribute, keep the lowest value between existing and defined.
+- `SUM` - Sum the values of existing and defined attributes together.
+
+---
+
+### clear-default-attributes
+
+Remove default attributes from items (e.g., remove attack damage from swords).
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  clear-default-attributes: true
+```
+
+---
+
 ### enchantments
 
 <Tabs>
@@ -462,6 +717,9 @@ So if the target placeholder resolves to "Notch", the item name will display as 
 </Tabs>
 
 You can use either `enchantments` or `enchants` to add enchantments to your item.
+
+<details>
+<summary>Click to show supported enchantments and aliases</summary>
 
 **Supported Enchantments and Aliases:**
 
@@ -510,10 +768,30 @@ You can use either `enchantments` or `enchants` to add enchantments to your item
 | DENSITY               | density                                                                                                                                               |
 | WIND_BURST            | WIND_BURST, windburst, wind, burst                                                                                                                    |
 
+</details>
+
 **Usage:**
 - Each enchantment entry is in the format `ENCHANTMENT_NAME,level` (e.g., `SHARPNESS,5`).
 - You can use any alias listed above for the enchantment name.
 - These options are for the top-level item configuration, not for components.
+
+---
+
+### trim
+
+Define armor trim patterns and materials.
+
+```yaml
+item:
+  material: DIAMOND_CHESTPLATE
+  trim:
+    enable: true
+    pattern: "coast"
+    material: "iron"
+```
+
+**Available Patterns:** [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/meta/trim/TrimPattern.html)
+**Available Materials:** [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/meta/trim/TrimMaterial.html)
 
 ---
 
