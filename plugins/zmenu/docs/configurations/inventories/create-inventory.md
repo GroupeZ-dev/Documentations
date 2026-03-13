@@ -227,7 +227,7 @@ items:
       lore:
         - "&7Exclusive VIP teleport"
     click-requirement:
-      requirement:
+      vip-check:
         clicks:
           - ALL
         requirements:

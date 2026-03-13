@@ -64,13 +64,16 @@ LuckPerms integration allows for advanced permission-based features.
 **Example:**
 ```yaml
 click-requirement:
-  requirements:
-    - type: luckperm
-      group: vip
-      deny:
-        - type: message
-          messages:
-            - "&cYou need VIP rank to use this!"
+  vip-check:
+    clicks:
+      - ALL
+    requirements:
+      - type: luckperm
+        group: vip
+        deny:
+          - type: message
+            messages:
+             - "&cYou need VIP rank to use this!"
 ```
 
 ---
@@ -227,10 +230,13 @@ Jobs Reborn integration for job-based requirements.
 **Example:**
 ```yaml
 click-requirement:
-  requirements:
-    - type: job
-      job: Miner
-      level: 10
+  job-check:
+    clicks:
+      - ALL
+    requirements:
+      - type: job
+        job: Miner
+        level: 10
 ```
 
 ---

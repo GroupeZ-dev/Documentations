@@ -17,7 +17,7 @@ Une exigence verifie une condition (permission, valeur de placeholder, item en i
 ```yaml
 click-requirement:
   vip-requirement:
-    click:
+    clicks:
       - ALL
     requirements:
       - type: permission
@@ -64,17 +64,20 @@ items:
   achat:
     slot: 0
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          number: 100
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 100$ pour acheter ceci !"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
+      achat:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            value: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            number: 100
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 100$ pour acheter ceci !"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
       success:
         - type: currency-withdraw
           amount: 100
@@ -327,14 +330,17 @@ items:
       material: HOPPER
       name: "&6&lDefinir la quantite"
     click-requirement:
-      requirements:
-        - type: regex
-          input: "%input%"
-          regex: "^[1-9][0-9]?$|^64$"
-          deny:
-            - type: message
-              messages:
-                - "&cVeuillez entrer un nombre entre 1 et 64"
+      verification:
+        clicks:
+          - ALL
+        requirements:
+          - type: regex
+            input: "%input%"
+            regex: "^[1-9][0-9]?$|^64$"
+            deny:
+              - type: message
+                messages:
+                  - "&cVeuillez entrer un nombre entre 1 et 64"
       success:
         - type: data
           key: "amount"
@@ -541,15 +547,18 @@ Actions executees quand **cette exigence specifique** (ou le bloc d'exigences gl
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: placeholder
-      placeholder: "%vault_eco_balance%"
-      action: SUPERIOR_OR_EQUAL
-      value: 500
-      deny:
-        - type: message
-          messages:
-            - "&cVous avez besoin de 500$ !"
+  achat:
+    clicks:
+      - ALL
+    requirements:
+      - type: placeholder
+        placeholder: "%vault_eco_balance%"
+        action: SUPERIOR_OR_EQUAL
+        value: 500
+        deny:
+          - type: message
+            messages:
+              - "&cVous avez besoin de 500$ !"
   success:
     - type: currency-withdraw
       amount: 500
@@ -573,26 +582,29 @@ Vous pouvez combiner plusieurs exigences. **Toutes** les exigences doivent etre 
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: permission
-      permission: "server.vip"
-      deny:
+  default:
+    clicks:
+      - ALL
+    requirements:
+      - type: permission
+        permission: "server.vip"
+        deny:
         - type: message
           messages:
             - "&cVous avez besoin du rang VIP !"
-    - type: placeholder
-      placeholder: "%vault_eco_balance%"
-      action: SUPERIOR_OR_EQUAL
-      value: 1000
-      deny:
+      - type: placeholder
+        placeholder: "%vault_eco_balance%"
+        action: SUPERIOR_OR_EQUAL
+        value: 1000
+        deny:
         - type: message
           messages:
             - "&cVous avez besoin de 1000$ !"
-    - type: item
-      item:
+      - type: item
+        item:
         material: DIAMOND
         amount: 5
-      deny:
+        deny:
         - type: message
           messages:
             - "&cVous avez besoin de 5 diamants !"
@@ -677,11 +689,14 @@ items:
           lore:
             - "&7Cliquez pour reclamer !"
         click-requirement:
-          requirements:
-            - type: placeholder
-              placeholder: "%player_level%"
-              value: "10"
-              action: SUPERIOR_OR_EQUAL
+          recuperer:
+            clicks:
+              - ALL
+            requirements:
+              - type: placeholder
+                placeholder: "%player_level%"
+                value: "10"
+                action: SUPERIOR_OR_EQUAL
           success:
             - type: data
               action: SET
@@ -812,17 +827,20 @@ items:
         - "&e▸ Cliquez pour acheter"
       glow: true
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          value: 500
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 500$ pour acheter ceci !"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
+      achat:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            value: 500
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 500$ pour acheter ceci !"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
       success:
         - type: currency-withdraw
           amount: 500
@@ -851,15 +869,18 @@ items:
       lore:
         - "&7Reclamez votre recompense quotidienne !"
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          action: SUPERIOR_OR_EQUAL
-          value: 86400
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez deja reclame la recompense du jour !"
+      recuperer:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
+            action: SUPERIOR_OR_EQUAL
+            value: 86400
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez deja reclame la recompense du jour !"
       success:
         - type: data
           action: SET
@@ -967,15 +988,18 @@ items:
         - "&7Cout : &e50 pieces"
         - "&7Vos pieces : &f%zmenu_player_value_coins%"
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%zmenu_player_value_coins%"
-          action: SUPERIOR_OR_EQUAL
-          value: 50
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 50 pieces !"
+      achat:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_player_value_coins%"
+            action: SUPERIOR_OR_EQUAL
+            value: 50
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 50 pieces !"
       success:
         - type: data
           action: SUBTRACT
