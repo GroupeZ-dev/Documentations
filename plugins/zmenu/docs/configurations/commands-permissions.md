@@ -18,24 +18,26 @@ The main command is `/zm` (alias: `/zmenu`).
 
 ### General Commands
 
-| Command | Permission | Description |
-|---------|-----------|-------------|
-| `/zm` | `zmenu.use` | Display the help menu |
-| `/zm version` | - | Display plugin version information |
-| `/zm list` | `zmenu.use` | List all loaded inventories |
-| `/zm documentation` | `zmenu.documentation` | View documentation links |
-| `/zm addons` | `zmenu.use` | List official addons |
-| `/zm contributors` | `zmenu.use` | Show plugin contributors |
+| Command                                                    | Permission            | Description                                |
+|------------------------------------------------------------|-----------------------|--------------------------------------------|
+| `/zm`                                                      | `zmenu.use`           | Display the help menu                      |
+| `/zm version`                                              | `zmenu.version`       | Display plugin version information         |
+| `/zm list`                                                 | `zmenu.list`          | List all loaded inventories                |
+| `/zm documentation`                                        | `zmenu.documentation` | View documentation links                   |
+| `/zm addons`                                               | `zmenu.addons`        | List official addons                       |
+| `/zm contributors`                                         | `zmenu.contributors`  | Show plugin contributors                   |
+| `/zm create <file name> <inventory size> <inventory name>` | `zmenu.create`        | Create a new inventory file                |
+| `/zm editor`                                               | `zmenu.editor`        | Send a link to the online inventory editor |
+
 
 ### Inventory Commands
 
-| Command | Permission | Description |
-|---------|-----------|-------------|
-| `/zm open <inventory>` | `zmenu.open` | Open an inventory for yourself |
-| `/zm open <inventory> <player>` | `zmenu.open` | Open an inventory for another player |
-| `/zm open <inventory> <player> <args...>` | `zmenu.open` | Open inventory with arguments |
-| `/zm create [name]` | `zmenu.create` | Create a new inventory from template |
-| `/zm editor [name]` | `zmenu.editor` | Open the inventory editor |
+| Command                                           | Permission   | Description                              |
+|---------------------------------------------------|--------------|------------------------------------------|
+| `/zm open <inventory>`                            | `zmenu.open` | Open an inventory for yourself           |
+| `/zm open <inventory> <player>`                   | `zmenu.open` | Open an inventory for another player     |
+| `/zm open <inventory> <player> <args...>`         | `zmenu.open` | Open inventory with arguments            |
+| `/zm openMainMenu [<player>] [<display message>]` | `zmenu.open` | Open the main menu with optional message |
 
 **Examples:**
 ```
@@ -46,14 +48,14 @@ The main command is `/zm` (alias: `/zmenu`).
 
 ### Reload Commands
 
-| Command | Permission | Description |
-|---------|-----------|-------------|
-| `/zm reload` | `zmenu.reload` | Reload all configurations |
-| `/zm reload config` | `zmenu.reload` | Reload config.yml and messages only |
-| `/zm reload inventory` | `zmenu.reload` | Reload all inventories |
-| `/zm reload inventory <name>` | `zmenu.reload` | Reload a specific inventory |
-| `/zm reload command` | `zmenu.reload` | Reload all commands |
-| `/zm reload command <name>` | `zmenu.reload` | Reload a specific command |
+| Command                       | Permission     | Description                         |
+|-------------------------------|----------------|-------------------------------------|
+| `/zm reload`                  | `zmenu.reload` | Reload all configurations           |
+| `/zm reload config`           | `zmenu.reload` | Reload config.yml and messages only |
+| `/zm reload inventory`        | `zmenu.reload` | Reload all inventories              |
+| `/zm reload inventory <name>` | `zmenu.reload` | Reload a specific inventory         |
+| `/zm reload command`          | `zmenu.reload` | Reload all commands                 |
+| `/zm reload command <name>`   | `zmenu.reload` | Reload a specific command           |
 
 **Examples:**
 ```
@@ -64,23 +66,23 @@ The main command is `/zm` (alias: `/zmenu`).
 
 ### Item Commands
 
-| Command | Permission | Description |
-|---------|-----------|-------------|
-| `/zm giveitem <inventory> <player>` | `zmenu.giveitem` | Give a clickable item to player |
-| `/zm giveopenitem <inventory> <player>` | `zmenu.giveopenitem` | Give menu-opening item to player |
-| `/zm save <name>` | `zmenu.save` | Save held item as inventory |
+| Command                                 | Permission             | Description                      |
+|-----------------------------------------|------------------------|----------------------------------|
+| `/zm giveitem <inventory> <player>`     | `zmenu.give.item`      | Give a clickable item to player  |
+| `/zm giveopenitem <inventory> <player>` | `zmenu.give.open.item` | Give menu-opening item to player |
+| `/zm save <name>`                       | `zmenu.save`           | Save held item as inventory      |
 
 ### Player Data Commands
 
-| Command | Permission | Description |
-|---------|-----------|-------------|
-| `/zm players add <player> <key> <value>` | `zmenu.players` | Add value to player data |
-| `/zm players set <player> <key> <value>` | `zmenu.players` | Set player data value |
-| `/zm players get <player> <key>` | `zmenu.players` | Get player data value |
-| `/zm players remove <player> <key>` | `zmenu.players` | Remove player data key |
-| `/zm players removeall <key>` | `zmenu.players` | Remove key from all players |
-| `/zm players keys <player>` | `zmenu.players` | List all keys for a player |
-| `/zm players convert` | `zmenu.players` | Convert JSON data to SQL |
+| Command                                  | Permission      | Description                 |
+|------------------------------------------|-----------------|-----------------------------|
+| `/zm players add <player> <key> <value>` | `zmenu.players` | Add value to player data    |
+| `/zm players set <player> <key> <value>` | `zmenu.players` | Set player data value       |
+| `/zm players get <player> <key>`         | `zmenu.players` | Get player data value       |
+| `/zm players remove <player> <key>`      | `zmenu.players` | Remove player data key      |
+| `/zm players removeall <key>`            | `zmenu.players` | Remove key from all players |
+| `/zm players keys <player>`              | `zmenu.players` | List all keys for a player  |
+| `/zm players convert`                    | `zmenu.players` | Convert JSON data to SQL    |
 
 **Examples:**
 ```
@@ -92,55 +94,55 @@ The main command is `/zm` (alias: `/zmenu`).
 
 ### Dialog Commands
 
-| Command | Permission | Description |
-|---------|-----------|-------------|
-| `/zm dialog open <dialog>` | `zmenu.dialog` | Open a dialog for yourself |
+| Command                             | Permission     | Description                |
+|-------------------------------------|----------------|----------------------------|
+| `/zm dialog open <dialog>`          | `zmenu.dialog` | Open a dialog for yourself |
 | `/zm dialog open <dialog> <player>` | `zmenu.dialog` | Open a dialog for a player |
 
 ### Utility Commands
 
-| Command | Permission | Description |
-|---------|-----------|-------------|
-| `/zm convert` | `zmenu.convert` | Convert configurations from other plugins |
-| `/zm testdupe` | `zmenu.dupe` | Test the anti-dupe system |
-| `/zm dumplog` | `zmenu.dumplog` | Export debug logs |
+| Command        | Permission      | Description                               |
+|----------------|-----------------|-------------------------------------------|
+| `/zm convert`  | `zmenu.convert` | Convert configurations from other plugins |
+| `/zm testdupe` | `zmenu.dupe`    | Test the anti-dupe system                 |
+| `/zm dumplog`  | `zmenu.dumplog` | Export debug logs                         |
 
 ## Permission List
 
 ### Core Permissions
 
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `zmenu.use` | Access to basic commands | true |
-| `zmenu.open` | Open inventories | op |
-| `zmenu.open.bypass` | Bypass inventory open requirements | op |
-| `zmenu.reload` | Reload configurations | op |
-| `zmenu.create` | Create new inventories | op |
-| `zmenu.editor` | Access inventory editor | op |
+| Permission          | Description                        | Default |
+|---------------------|------------------------------------|---------|
+| `zmenu.use`         | Access to basic commands           | true    |
+| `zmenu.open`        | Open inventories                   | op      |
+| `zmenu.open.bypass` | Bypass inventory open requirements | op      |
+| `zmenu.reload`      | Reload configurations              | op      |
+| `zmenu.create`      | Create new inventories             | op      |
+| `zmenu.editor`      | Access inventory editor            | op      |
 
 ### Item Permissions
 
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `zmenu.giveitem` | Give clickable items | op |
-| `zmenu.giveopenitem` | Give menu-opening items | op |
-| `zmenu.save` | Save items as inventories | op |
+| Permission             | Description               | Default |
+|------------------------|---------------------------|---------|
+| `zmenu.give.item`      | Give clickable items      | op      |
+| `zmenu.give.open.item` | Give menu-opening items   | op      |
+| `zmenu.save`           | Save items as inventories | op      |
 
 ### Player Data Permissions
 
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `zmenu.players` | Manage player data | op |
+| Permission      | Description        | Default |
+|-----------------|--------------------|---------|
+| `zmenu.players` | Manage player data | op      |
 
 ### Utility Permissions
 
-| Permission | Description | Default |
-|------------|-------------|---------|
-| `zmenu.convert` | Convert from other plugins | op |
-| `zmenu.dupe` | Test anti-dupe system | op |
-| `zmenu.documentation` | View documentation | op |
-| `zmenu.dialog` | Open dialogs | op |
-| `zmenu.dumplog` | Export debug logs | op |
+| Permission            | Description                | Default |
+|-----------------------|----------------------------|---------|
+| `zmenu.convert`       | Convert from other plugins | op      |
+| `zmenu.dupe`          | Test anti-dupe system      | op      |
+| `zmenu.documentation` | View documentation         | op      |
+| `zmenu.dialog`        | Open dialogs               | op      |
+| `zmenu.dumplog`       | Export debug logs          | op      |
 
 ## Custom Command Permissions
 
@@ -149,7 +151,7 @@ When you create custom commands in `commands/commands.yml`, you can define custo
 ```yaml
 commands:
   shop:
-    command: /shop
+    command: shop
     inventory: shop_menu
     permission: myserver.shop
     aliases:
