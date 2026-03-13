@@ -151,6 +151,7 @@ requirements:
 | `placeholder` | String | The placeholder to evaluate |
 | `action` | String | The comparison operator |
 | `value` | Number/String | The value to compare against |
+| `target` | String | (Optional) Evaluate the placeholder for this player (by name) |
 
 #### String comparison
 
@@ -237,12 +238,14 @@ requirements:
     item:
       material: DIAMOND
       amount: 5
+    verification: SIMILAR
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
 | `item.material` | String | The Minecraft material name |
-| `item.amount` | Number | The minimum quantity required |
+| `amount` | Number | The minimum quantity required |
+| `verification` | String | (Optional) Verification type: `SIMILAR`, `EXACT`, `MATERIAL`, `AIR`, `AMOUNT` (Default: `SIMILAR`) |
 
 You can also check for items with specific properties:
 
@@ -252,7 +255,7 @@ requirements:
     item:
       material: DIAMOND_SWORD
       name: "&6Legendary Blade"
-      amount: 1
+    amount: 1
 ```
 
 ---
@@ -275,19 +278,17 @@ requirements:
 
 ### job
 
-Checks if the player has reached a specific job level. Requires [Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/).
+Checks if the player has a specific job. Requires [Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/).
 
 ```yaml
 requirements:
   - type: job
     job: Miner
-    level: 10
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
 | `job` | String | The job name |
-| `level` | Number | The minimum level required |
 
 ---
 
@@ -314,10 +315,15 @@ items:
   set-amount:
     type: INPUT
     slot: 13
-    input-message:
-      - "&eEnter the amount to purchase:"
-      - "&7(1-64)"
-    input-cancel: "cancel"
+    inputType: NUMBER
+    conditions:
+      min: 1
+      max: 64
+    success-actions:
+      - type: data
+        key: "amount"
+        value: "%input%"
+      - type: refresh
     item:
       material: HOPPER
       name: "&6&lSet Amount"
@@ -346,12 +352,12 @@ Checks the player's name.
 ```yaml
 requirements:
   - type: player-name
-    name: "Notch"
+    player-name: "Notch"
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `name` | String | The player name to check |
+| `player-name` | String | The player name to check (also supports `playerName` or `playername`) |
 
 ---
 
