@@ -19,11 +19,18 @@ items:
   input-button:
     type: INPUT
     slot: 13
-    input-message: "&eEnter your nickname:"
-    input-cancel: "cancel"
+    inputType: TEXT
+    conditions:
+      regex: "^[a-zA-Z0-9]*$"
+    success-actions:
+      - type: message
+        messages: ["&aValid input: %input%"]
+    error-actions:
+      - type: message
+        messages: ["&cInvalid input! Only alphanumeric characters allowed."]
     item:
       material: NAME_TAG
-      name: "&a&lChange Nickname"
+      name: "&a&lEnter Text"
 ```
 
 ## Configuration
@@ -31,9 +38,12 @@ items:
 | Property | Description | Required |
 |----------|-------------|----------|
 | `type` | Must be `INPUT` | Yes |
-| `slot` | Button position | Yes |
-| `input-message` | Message shown to player when waiting for input | Yes |
-| `input-cancel` | Word to type to cancel (default: "cancel") | No |
+| `inputType` | Type of input (`TEXT`, `NUMBER`, `LONG`, `DECIMAL`) | No (Default: `TEXT`) |
+| `conditions.regex` | Regex to validate input | No |
+| `conditions.min` | Minimum value/length | No (Default: 0) |
+| `conditions.max` | Maximum value/length | No (Default: 0) |
+| `success-actions` | Actions to execute on valid input | No |
+| `error-actions` | Actions to execute on invalid input | No |
 | `item` | Visual appearance | Yes |
 
 ## Example
@@ -48,25 +58,27 @@ items:
   change-nick:
     type: INPUT
     slot: 13
-    input-message:
-      - "&7"
-      - "&e&lEnter your new nickname"
-      - "&7Type your desired nickname in chat"
-      - "&7Type &ccancel &7to abort"
-      - "&7"
-    input-cancel: "cancel"
-    item:
-      material: NAME_TAG
-      name: "&a&lChange Nickname"
-      lore:
-        - "&7Click to change your display name"
-    actions:
+    inputType: TEXT
+    conditions:
+      min: 3
+      max: 16
+      regex: "^[a-zA-Z0-9_]*$"
+    success-actions:
       - type: console-command
         commands:
           - "nick %player% %input%"
       - type: message
         messages:
           - "&aYour nickname has been changed to &e%input%"
+    error-actions:
+      - type: message
+        messages:
+          - "&cInvalid nickname! Must be 3-16 alphanumeric characters."
+    item:
+      material: NAME_TAG
+      name: "&a&lChange Nickname"
+      lore:
+        - "&7Click to change your display name"
 
   back:
     type: BACK
@@ -76,27 +88,6 @@ items:
       name: "&c&lBack"
 ```
 
-### Search Function
-
-```yaml
-items:
-  search:
-    type: INPUT
-    slot: 4
-    input-message: "&eEnter search term:"
-    input-cancel: "cancel"
-    item:
-      material: COMPASS
-      name: "&e&lSearch"
-      lore:
-        - "&7Click to search"
-    actions:
-      - type: inventory
-        inventory: "search_results"
-        arguments:
-          query: "%input%"
-```
-
 ### Amount Input
 
 ```yaml
@@ -104,30 +95,26 @@ items:
   set-amount:
     type: INPUT
     slot: 13
-    input-message:
-      - "&eEnter the amount to purchase:"
-      - "&7(1-64)"
-    input-cancel: "cancel"
+    inputType: NUMBER
+    conditions:
+      min: 1
+      max: 64
+    success-actions:
+      - type: data
+        key: "amount"
+        value: "%input%"
+      - type: message
+        messages: ["&aAmount set to %input%"]
+      - type: refresh
+    error-actions:
+      - type: message
+        messages: ["&cPlease enter a number between 1 and 64"]
     item:
       material: HOPPER
       name: "&6&lSet Amount"
       lore:
         - "&7Current: &e%amount%"
         - "&7Click to change"
-    click-requirement:
-      requirements:
-        - type: regex
-          input: "%input%"
-          regex: "^[1-9][0-9]?$|^64$"
-          deny:
-            - type: message
-              messages:
-                - "&cPlease enter a number between 1 and 64"
-      success:
-        - type: data
-          key: "amount"
-          value: "%input%"
-        - type: refresh
 ```
 
 ## Placeholders
@@ -139,8 +126,8 @@ items:
 ## Notes
 
 - The inventory will close when the player needs to type
-- Use `input-cancel` to allow players to abort the input
-- Validate input using `click-requirement` with regex
+- Validate input using `conditions` with regex, min, or max values
+- Use `%input%` in your actions to access the player's text
 
 ## Next Steps
 

@@ -39,6 +39,10 @@ items:
 
 The `NEXT` button only appears/works when there are more pages available.
 
+:::info
+`NEXT` buttons are permanent by default. They will automatically be shown on all pages of a paginated inventory, even if `is-permanent: true` is not explicitly set in the configuration.
+:::
+
 ## Properties
 
 | Property | Description |

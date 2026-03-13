@@ -17,7 +17,7 @@ Une exigence verifie une condition (permission, valeur de placeholder, item en i
 ```yaml
 click-requirement:
   vip-requirement:
-    click:
+    clicks:
       - ALL
     requirements:
       - type: permission
@@ -64,17 +64,20 @@ items:
   achat:
     slot: 0
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          number: 100
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 100$ pour acheter ceci !"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
+      achat:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            value: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            number: 100
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 100$ pour acheter ceci !"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
       success:
         - type: currency-withdraw
           amount: 100
@@ -140,32 +143,27 @@ Compare une valeur de placeholder a une cible. C'est le type d'exigence le plus 
 ```yaml
 requirements:
   - type: placeholder
-    value: "%player_level%"
+    placeholder: "%player_level%"
     action: SUPERIOR_OR_EQUAL
-    number: 10
+    value: 10
 ```
 
 | Cle | Type | Description |
 |-----|------|-------------|
-| `value` | String | Le placeholder a evaluer |
+| `placeholder` | String | Le placeholder a evaluer |
 | `action` | String | L'operateur de comparaison |
-| `number` | Number | La valeur numerique a comparer |
+| `value` | Number/String | La valeur a comparer |
+| `target` | String | (Optionnel) Evaluer le placeholder pour ce joueur (par son nom) |
 
 #### Comparaison de texte
 
 ```yaml
 requirements:
   - type: placeholder
-    value: "%player_world%"
+    placeholder: "%player_world%"
     action: EQUALS_STRING
-    target: "world_nether"
+    value: "world_nether"
 ```
-
-| Cle | Type | Description |
-|-----|------|-------------|
-| `value` | String | Le placeholder a evaluer |
-| `action` | String | L'operateur de comparaison |
-| `target` | String | La valeur texte a comparer |
 
 #### Operateurs de comparaison
 
@@ -242,12 +240,14 @@ requirements:
     item:
       material: DIAMOND
       amount: 5
+    verification: SIMILAR
 ```
 
 | Cle | Type | Description |
 |-----|------|-------------|
 | `item.material` | String | Le nom du materiau Minecraft |
-| `item.amount` | Number | La quantite minimum requise |
+| `amount` | Number | La quantite minimum requise |
+| `verification` | String | (Optionnel) Type de verification : `SIMILAR`, `EXACT`, `MATERIAL`, `AIR`, `AMOUNT` (Defaut : `SIMILAR`) |
 
 Vous pouvez aussi verifier des items avec des proprietes specifiques :
 
@@ -257,7 +257,7 @@ requirements:
     item:
       material: DIAMOND_SWORD
       name: "&6Lame legendaire"
-      amount: 1
+    amount: 1
 ```
 
 ---
@@ -280,19 +280,17 @@ requirements:
 
 ### job
 
-Verifie si le joueur a atteint un niveau de metier specifique. Necessite [Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/).
+Verifie si le joueur a un metier specifique. Necessite [Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/).
 
 ```yaml
 requirements:
   - type: job
     job: Miner
-    level: 10
 ```
 
 | Cle | Type | Description |
 |-----|------|-------------|
 | `job` | String | Le nom du metier |
-| `level` | Number | Le niveau minimum requis |
 
 ---
 
@@ -319,22 +317,30 @@ items:
   definir-quantite:
     type: INPUT
     slot: 13
-    input-message:
-      - "&eEntrez la quantite a acheter :"
-      - "&7(1-64)"
-    input-cancel: "cancel"
+    inputType: NUMBER
+    conditions:
+      min: 1
+      max: 64
+    success-actions:
+      - type: data
+        key: "amount"
+        value: "%input%"
+      - type: refresh
     item:
       material: HOPPER
       name: "&6&lDefinir la quantite"
     click-requirement:
-      requirements:
-        - type: regex
-          input: "%input%"
-          regex: "^[1-9][0-9]?$|^64$"
-          deny:
-            - type: message
-              messages:
-                - "&cVeuillez entrer un nombre entre 1 et 64"
+      verification:
+        clicks:
+          - ALL
+        requirements:
+          - type: regex
+            input: "%input%"
+            regex: "^[1-9][0-9]?$|^64$"
+            deny:
+              - type: message
+                messages:
+                  - "&cVeuillez entrer un nombre entre 1 et 64"
       success:
         - type: data
           key: "amount"
@@ -351,12 +357,12 @@ Verifie le nom du joueur.
 ```yaml
 requirements:
   - type: player-name
-    name: "Notch"
+    player-name: "Notch"
 ```
 
 | Cle | Type | Description |
 |-----|------|-------------|
-| `name` | String | Le nom du joueur a verifier |
+| `player-name` | String | Le nom du joueur a verifier (supporte aussi `playerName` ou `playername`) |
 
 ---
 
@@ -517,7 +523,7 @@ Dans cet exemple, le joueur doit avoir `zmenu.test` **et** `zmenu.test2` (le blo
 
 ## Actions success et deny
 
-Chaque exigence peut avoir des actions `deny`, et le bloc d'exigence global peut avoir des actions `success`.
+Chaque exigence peut avoir des actions `success` et `deny`.
 
 ### deny
 
@@ -537,19 +543,22 @@ requirements:
 
 ### success
 
-Actions executees quand **toutes les exigences** sont remplies. Defini au niveau du bloc d'exigence (en dehors de la liste `requirements`).
+Actions executees quand **cette exigence specifique** (ou le bloc d'exigences global) est remplie.
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: placeholder
-      value: "%vault_eco_balance%"
-      action: SUPERIOR_OR_EQUAL
-      number: 500
-      deny:
-        - type: message
-          messages:
-            - "&cVous avez besoin de 500$ !"
+  achat:
+    clicks:
+      - ALL
+    requirements:
+      - type: placeholder
+        placeholder: "%vault_eco_balance%"
+        action: SUPERIOR_OR_EQUAL
+        value: 500
+        deny:
+          - type: message
+            messages:
+              - "&cVous avez besoin de 500$ !"
   success:
     - type: currency-withdraw
       amount: 500
@@ -573,26 +582,29 @@ Vous pouvez combiner plusieurs exigences. **Toutes** les exigences doivent etre 
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: permission
-      permission: "server.vip"
-      deny:
+  default:
+    clicks:
+      - ALL
+    requirements:
+      - type: permission
+        permission: "server.vip"
+        deny:
         - type: message
           messages:
             - "&cVous avez besoin du rang VIP !"
-    - type: placeholder
-      value: "%vault_eco_balance%"
-      action: SUPERIOR_OR_EQUAL
-      number: 1000
-      deny:
+      - type: placeholder
+        placeholder: "%vault_eco_balance%"
+        action: SUPERIOR_OR_EQUAL
+        value: 1000
+        deny:
         - type: message
           messages:
             - "&cVous avez besoin de 1000$ !"
-    - type: item
-      item:
+      - type: item
+        item:
         material: DIAMOND
         amount: 5
-      deny:
+        deny:
         - type: message
           messages:
             - "&cVous avez besoin de 5 diamants !"
@@ -677,11 +689,14 @@ items:
           lore:
             - "&7Cliquez pour reclamer !"
         click-requirement:
-          requirements:
-            - type: placeholder
-              placeholder: "%player_level%"
-              value: "10"
-              action: SUPERIOR_OR_EQUAL
+          recuperer:
+            clicks:
+              - ALL
+            requirements:
+              - type: placeholder
+                placeholder: "%player_level%"
+                value: "10"
+                action: SUPERIOR_OR_EQUAL
           success:
             - type: data
               action: SET
@@ -713,9 +728,9 @@ click-requirement:
       - ALL
     requirements:
       - type: placeholder
-        value: "%vault_eco_balance%"
+        placeholder: "%vault_eco_balance%"
         action: SUPERIOR_OR_EQUAL
-        number: 100
+        value: 100
         deny:
           - type: message
             messages:
@@ -752,9 +767,9 @@ click-requirement:
       - LEFT
     requirements:
       - type: placeholder
-        value: "%vault_eco_balance%"
+        placeholder: "%vault_eco_balance%"
         action: SUPERIOR_OR_EQUAL
-        number: 100
+        value: 100
         deny:
           - type: message
             messages:
@@ -770,9 +785,9 @@ click-requirement:
       - RIGHT
     requirements:
       - type: placeholder
-        value: "%vault_eco_balance%"
+        placeholder: "%vault_eco_balance%"
         action: SUPERIOR_OR_EQUAL
-        number: 6400
+        value: 6400
         deny:
           - type: message
             messages:
@@ -812,17 +827,20 @@ items:
         - "&e▸ Cliquez pour acheter"
       glow: true
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          number: 500
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 500$ pour acheter ceci !"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
+      achat:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            value: 500
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 500$ pour acheter ceci !"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
       success:
         - type: currency-withdraw
           amount: 500
@@ -851,15 +869,18 @@ items:
       lore:
         - "&7Reclamez votre recompense quotidienne !"
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          action: SUPERIOR_OR_EQUAL
-          number: 86400
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez deja reclame la recompense du jour !"
+      recuperer:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
+            action: SUPERIOR_OR_EQUAL
+            value: 86400
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez deja reclame la recompense du jour !"
       success:
         - type: data
           action: SET
@@ -967,15 +988,18 @@ items:
         - "&7Cout : &e50 pieces"
         - "&7Vos pieces : &f%zmenu_player_value_coins%"
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%zmenu_player_value_coins%"
-          action: SUPERIOR_OR_EQUAL
-          number: 50
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 50 pieces !"
+      achat:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_player_value_coins%"
+            action: SUPERIOR_OR_EQUAL
+            value: 50
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 50 pieces !"
       success:
         - type: data
           action: SUBTRACT
@@ -989,7 +1013,7 @@ items:
 
 ### Initialiser des valeurs par defaut
 
-Utilisez un bouton invisible avec `view-requirement` pour definir des donnees joueur par defaut lors de la premiere visite :
+Utilisez un bouton invisible with `view-requirement` pour definir des donnees joueur par defaut lors de la premiere visite :
 
 ```yaml
 items:
@@ -998,9 +1022,9 @@ items:
     view-requirement:
       requirements:
         - type: placeholder
-          value: "%zmenu_player_value_initialized%"
+          placeholder: "%zmenu_player_value_initialized%"
           action: DIFFERENT
-          target: "true"
+          value: "true"
     item:
       material: AIR
     actions:

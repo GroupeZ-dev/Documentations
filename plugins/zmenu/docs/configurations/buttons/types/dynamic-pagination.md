@@ -30,12 +30,12 @@ items:
 
 ## Configuration
 
-| Property | Description | Required |
-|----------|-------------|----------|
-| `type` | Must be `DYNAMIC_PAGINATION` | Yes |
-| `slots` | Slots where paginated items appear | Yes |
-| `source` | Data source identifier | Yes |
-| `item` | Item template for each entry | Yes |
+| Property | Description                        | Required |
+|----------|------------------------------------|----------|
+| `type`   | Must be `DYNAMIC_PAGINATION`       | Yes      |
+| `slots`  | Slots where paginated items appear | Yes      |
+| `source` | Data source identifier             | Yes      |
+| `item`   | Item template for each entry       | Yes      |
 
 ## Example
 

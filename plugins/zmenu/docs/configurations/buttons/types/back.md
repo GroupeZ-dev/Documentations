@@ -36,13 +36,13 @@ If there's no previous inventory in history, clicking a BACK button does nothing
 
 The `BACK` button accepts all standard button properties:
 
-| Property | Description |
-|----------|-------------|
-| `slot` / `slots` | Position(s) in inventory |
-| `item` | Visual appearance |
-| `sound` | Sound on click |
-| `is-permanent` | Show on all pages |
-| `view-requirement` | Conditions to see |
+| Property           | Description              |
+|--------------------|--------------------------|
+| `slot` / `slots`   | Position(s) in inventory |
+| `item`             | Visual appearance        |
+| `sound`            | Sound on click           |
+| `is-permanent`     | Show on all pages        |
+| `view-requirement` | Conditions to see        |
 
 ## Examples
 
