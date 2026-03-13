@@ -227,19 +227,22 @@ items:
       lore:
         - "&7Exclusive VIP teleport"
     click-requirement:
-      requirements:
-        - type: permission
-          permission: "server.vip"
-          deny:
-            - type: message
-              messages:
-                - "&cYou need VIP rank to use this!"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: player-command
-          commands:
-            - "warp vip"
+      requirement:
+        clicks:
+          - ALL
+        requirements:
+          - type: permission
+            permission: "server.vip"
+            deny:
+              - type: message
+                messages:
+                  - "&cYou need VIP rank to use this!"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
+        success:
+          - type: player-command
+            commands:
+              - "warp vip"
 ```
 
 ## Understanding Slot Numbers
