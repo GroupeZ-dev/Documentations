@@ -64,23 +64,26 @@ items:
   achat:
     slot: 0
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          number: 100
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 100$ pour acheter ceci !"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: currency-withdraw
-          amount: 100
-        - type: message
-          messages:
-            - "&aAchat reussi !"
+      <requirement_name>:
+        clicks: # Optionnel, par defaut ALL. Disponible : ALL, SHIFT_LEFT, RIGHT, SHIFT_RIGHT, WINDOW_BORDER_LEFT, WINDOW_BORDER_RIGHT, MIDDLE, NUMBER_KEY, DOUBLE_CLICK, DROP, CONTROL_DROP, CREATIVE, SWAP_OFFHAND, UNKNOWN
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            value: 100
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 100$ pour acheter ceci !"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
+        success:
+          - type: currency-withdraw
+            amount: 100
+          - type: message
+            messages:
+              - "&aAchat reussi !"
     item:
       material: GOLD_INGOT
       name: "&e&lAcheter - 100$"
@@ -812,29 +815,32 @@ items:
         - "&e▸ Cliquez pour acheter"
       glow: true
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          number: 500
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 500$ pour acheter ceci !"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: currency-withdraw
-          amount: 500
-        - type: console-command
-          commands:
-            - "give %player% diamond_sword 1"
-        - type: message
-          messages:
-            - "&aAchat reussi !"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
-        - type: close
+      achat-verification:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            value: 500
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 500$ pour acheter ceci !"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
+        success:
+          - type: currency-withdraw
+            amount: 500
+          - type: console-command
+            commands:
+              - "give %player% diamond_sword 1"
+          - type: message
+            messages:
+              - "&aAchat reussi !"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
+          - type: close
 ```
 
 ### Recompense quotidienne avec cooldown
@@ -851,33 +857,36 @@ items:
       lore:
         - "&7Reclamez votre recompense quotidienne !"
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          action: SUPERIOR_OR_EQUAL
-          number: 86400
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez deja reclame la recompense du jour !"
-      success:
-        - type: data
-          action: SET
-          key: "last_daily"
-          value: "%zmenu_time_unix_timestamp%"
-        - type: console-command
-          commands:
-            - "give %player% diamond 5"
-        - type: data
-          action: ADD
-          key: "daily_streak"
-          value: "1"
-        - type: message
-          messages:
-            - "&aRecompense quotidienne reclamee !"
-            - "&7Serie : &e%zmenu_player_value_daily_streak%"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
+      verification-cooldown:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
+            action: SUPERIOR_OR_EQUAL
+            value: 86400
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez deja reclame la recompense du jour !"
+        success:
+          - type: data
+            action: SET
+            key: "last_daily"
+            value: "%zmenu_time_unix_timestamp%"
+          - type: console-command
+            commands:
+              - "give %player% diamond 5"
+          - type: data
+            action: ADD
+            key: "daily_streak"
+            value: "1"
+          - type: message
+            messages:
+              - "&aRecompense quotidienne reclamee !"
+              - "&7Serie : &e%zmenu_player_value_daily_streak%"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
 ```
 
 ### Menu reserve aux VIP
@@ -967,24 +976,27 @@ items:
         - "&7Cout : &e50 pieces"
         - "&7Vos pieces : &f%zmenu_player_value_coins%"
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%zmenu_player_value_coins%"
-          action: SUPERIOR_OR_EQUAL
-          number: 50
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 50 pieces !"
-      success:
-        - type: data
-          action: SUBTRACT
-          key: "coins"
-          value: "50"
-        - type: console-command
-          commands:
-            - "give %player% diamond 1"
-        - type: refresh
+      verification-pieces:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_player_value_coins%"
+            action: SUPERIOR_OR_EQUAL
+            value: 50
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 50 pieces !"
+        success:
+          - type: data
+            action: SUBTRACT
+            key: "coins"
+            value: "50"
+          - type: console-command
+            commands:
+              - "give %player% diamond 1"
+          - type: refresh
 ```
 
 ### Initialiser des valeurs par defaut

@@ -65,6 +65,8 @@ items:
     slot: 0
     click-requirement:
       <requirement_name>:
+        clicks: # Optional, defaults to ALL. Available: ALL, SHIFT_LEFT, RIGHT, SHIFT_RIGHT, WINDOW_BORDER_LEFT, WINDOW_BORDER_RIGHT, MIDDLE, NUMBER_KEY, DOUBLE_CLICK, DROP, CONTROL_DROP, CREATIVE, SWAP_OFFHAND, UNKNOWN
+          - ALL
         requirements:
           - type: placeholder
             placeholder: "%vault_eco_balance%"
@@ -800,29 +802,32 @@ items:
         - "&e▸ Click to purchase"
       glow: true
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          value: 500
-          deny:
-            - type: message
-              messages:
-                - "&cYou need $500 to buy this!"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: currency-withdraw
-          amount: 500
-        - type: console-command
-          commands:
-            - "give %player% diamond_sword 1"
-        - type: message
-          messages:
-            - "&aPurchase successful!"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
-        - type: close
+      purchase-check:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            value: 500
+            deny:
+              - type: message
+                messages:
+                  - "&cYou need $500 to buy this!"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
+        success:
+          - type: currency-withdraw
+            amount: 500
+          - type: console-command
+            commands:
+              - "give %player% diamond_sword 1"
+          - type: message
+            messages:
+              - "&aPurchase successful!"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
+          - type: close
 ```
 
 ### Daily Reward with Cooldown
@@ -839,33 +844,36 @@ items:
       lore:
         - "&7Claim your daily reward!"
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          action: SUPERIOR_OR_EQUAL
-          value: 86400
-          deny:
-            - type: message
-              messages:
-                - "&cYou already claimed today's reward!"
-      success:
-        - type: data
-          action: SET
-          key: "last_daily"
-          value: "%zmenu_time_unix_timestamp%"
-        - type: console-command
-          commands:
-            - "give %player% diamond 5"
-        - type: data
-          action: ADD
-          key: "daily_streak"
-          value: "1"
-        - type: message
-          messages:
-            - "&aDaily reward claimed!"
-            - "&7Streak: &e%zmenu_player_value_daily_streak%"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
+      cooldown-check:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
+            action: SUPERIOR_OR_EQUAL
+            value: 86400
+            deny:
+              - type: message
+                messages:
+                  - "&cYou already claimed today's reward!"
+        success:
+          - type: data
+            action: SET
+            key: "last_daily"
+            value: "%zmenu_time_unix_timestamp%"
+          - type: console-command
+            commands:
+              - "give %player% diamond 5"
+          - type: data
+            action: ADD
+            key: "daily_streak"
+            value: "1"
+          - type: message
+            messages:
+              - "&aDaily reward claimed!"
+              - "&7Streak: &e%zmenu_player_value_daily_streak%"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
 ```
 
 ### VIP-Gated Menu
@@ -955,24 +963,27 @@ items:
         - "&7Cost: &e50 coins"
         - "&7Your coins: &f%zmenu_player_value_coins%"
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%zmenu_player_value_coins%"
-          action: SUPERIOR_OR_EQUAL
-          value: 50
-          deny:
-            - type: message
-              messages:
-                - "&cYou need 50 coins!"
-      success:
-        - type: data
-          action: SUBTRACT
-          key: "coins"
-          value: "50"
-        - type: console-command
-          commands:
-            - "give %player% diamond 1"
-        - type: refresh
+      coins-check:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_player_value_coins%"
+            action: SUPERIOR_OR_EQUAL
+            value: 50
+            deny:
+              - type: message
+                messages:
+                  - "&cYou need 50 coins!"
+        success:
+          - type: data
+            action: SUBTRACT
+            key: "coins"
+            value: "50"
+          - type: console-command
+            commands:
+              - "give %player% diamond 1"
+          - type: refresh
 ```
 
 ### Initialize Default Values
