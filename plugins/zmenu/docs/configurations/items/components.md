@@ -363,10 +363,10 @@ Custom model data for resource pack integration.
 
 | Key       | Type          | Description                                                                                                                                                                         |
 |-----------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `floats`  | List<Float>   | Float values for predicates                                                                                                                                                         |
-| `flags`   | List<Boolean> | Boolean flags for predicates                                                                                                                                                        |
-| `strings` | List<String>  | String values for predicates                                                                                                                                                        |
-| `colors`  | List<Color>   | Color values. Each entry can be a hex string (e.g., `"#FFAA00"` or `"#80FFAA00"`), an integer (RGB or ARGB), a list of floats (RGB[A], 0.0–1.0), or a list of ints (RGB[A], 0–255). |
+| `floats`  | List\<Float\>   | Float values for predicates                                                                                                                                                         |
+| `flags`   | List\<Boolean\> | Boolean flags for predicates                                                                                                                                                        |
+| `strings` | List\<String\>  | String values for predicates                                                                                                                                                        |
+| `colors`  | List\<Color\>   | Color values. Each entry can be a hex string (e.g., `"#FFAA00"` or `"#80FFAA00"`), an integer (RGB or ARGB), a list of floats (RGB\[A\], 0.0–1.0), or a list of ints (RGB\[A\], 0–255). |
 
 ```yaml
 components:
@@ -450,8 +450,8 @@ Sets the dye color for leather armor and other dyeable items.
 |---------------|-------------------------------------------------|
 | String        | Hex string (e.g., `"#FFAA00"` or `"#80FFAA00"`) |
 | Integer       | Integer RGB or ARGB (decimal)                   |
-| List<Float>   | List of floats (RGB[A], 0.0–1.0)                |
-| List<Integer> | List of ints (RGB[A], 0–255)                    |
+| List\<Float\>   | List of floats (RGB\[A\], 0.0–1.0)                |
+| List\<Integer\> | List of ints (RGB\[A\], 0–255)                    |
 
 ```yaml
 components:
@@ -659,8 +659,8 @@ Configures a single firework star explosion effect.
 |---------------|-------------------------------------------------|
 | String        | Hex string (e.g., `"#FFAA00"` or `"#80FFAA00"`) |
 | Integer       | Integer RGB or ARGB (decimal)                   |
-| List<Float>   | List of floats (RGB[A], 0.0–1.0)                |
-| List<Integer> | List of ints (RGB[A], 0–255)                    |
+| List\<Float\>   | List of floats (RGB\[A\], 0.0–1.0)                |
+| List\<Integer\> | List of ints (RGB\[A\], 0–255)                    |
 
 ```yaml
 components:
