@@ -23,7 +23,7 @@ items:
 
 ## Properties
 
-### page
+### to-page
 
 **Required.** The page number to jump to.
 

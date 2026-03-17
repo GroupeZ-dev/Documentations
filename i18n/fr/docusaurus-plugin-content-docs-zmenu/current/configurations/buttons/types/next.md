@@ -39,6 +39,10 @@ items:
 
 Le bouton `NEXT` n'apparait/fonctionne que lorsqu'il y a plus de pages disponibles.
 
+:::info
+Les boutons `NEXT` sont permanents par defaut. Ils seront automatiquement affiches sur toutes les pages d'un inventaire pagine, meme si `is-permanent: true` n'est pas explicitement defini dans la configuration.
+:::
+
 ## Proprietes
 
 | Propriete | Description |

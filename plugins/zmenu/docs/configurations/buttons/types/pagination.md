@@ -22,9 +22,12 @@ items:
       - 10-16
       - 19-25
       - 28-34
+    elements:
+      - display_name: "Diamond"
+      - display_name: "Emerald"
     item:
       material: STONE
-      name: "&7Item %index%"
+      name: "&7%display_name%"
 ```
 
 ## Configuration
@@ -33,7 +36,12 @@ items:
 |----------|-------------|----------|
 | `type` | Must be `PAGINATION` | Yes |
 | `slots` | Slots where paginated items appear | Yes |
+| `elements` | List of data for each entry | Yes |
 | `item` | Item template for each entry | Yes |
+
+:::tip
+If a key in `elements` contains a list (e.g., for lore), the values will be joined with newlines. You can use these keys as placeholders in your `item` configuration.
+:::
 
 ## Example
 
@@ -51,12 +59,17 @@ items:
       - 10-16
       - 19-25
       - 28-34
+    elements:
+      - display_name: "Diamond"
+        lore_value: "Valuable"
+      - display_name: "Emerald"
+        lore_value: "Traded"
     item:
       material: PAPER
-      name: "&e&lItem #%index%"
+      name: "&e&l%display_name%"
       lore:
-        - "&7This is item number %index%"
-
+        - "&7This item is %lore_value%"
+```
   # Navigation buttons
   previous:
     type: PREVIOUS

@@ -16,13 +16,13 @@ items:
     type: SWITCH
     slot: 13
     key: "%zmenu_player_value_notifications%"
-buttons:
-        "true":
-          item:
-            material: LIME_DYE
-            name: "&a&lNotifications: ON"
-          lore:
-            - "&7Click to disable"
+    buttons:
+      "true":
+        item:
+          material: LIME_DYE
+          name: "&a&lNotifications: ON"
+        lore:
+          - "&7Click to disable"
         actions:
           - type: data
             action: SET
@@ -35,19 +35,24 @@ buttons:
         item:
           material: GRAY_DYE
           name: "&7&lNotifications: OFF"
-          lore:
-            - "&7Click to enable"
+        lore:
+          - "&7Click to enable"
         actions:
           - type: data
             action: SET
             key: "notifications"
             value: "true"
           - type: refresh
+
+    # Default state
+    item:
+      material: GRAY_DYE
+      name: "&7&lNotifications: OFF"
 ```
 
 ## Properties
 
-### placeholder
+### key
 
 **Required.** The placeholder to evaluate for determining which button to display.
 
@@ -77,17 +82,24 @@ buttons:
         messages: ["Value is 2"]
 ```
 
----
+### Default State
 
-### default
-
-Button to display when the placeholder value doesn't match any defined buttons.
+The default state (when the placeholder value doesn't match any key in the `buttons` section) is defined by the standard button properties (`item`, `actions`, etc.) placed directly at the button level.
 
 ```yaml
-default:
-  item:
-    material: BARRIER
-    name: "&cUnknown State"
+items:
+  my-switch:
+    type: SWITCH
+    slot: 13
+    key: "%placeholder%"
+    buttons:
+      "value1":
+        item:
+          material: DIAMOND
+    # This is the default state
+    item:
+      material: BARRIER
+      name: "&cUnknown State"
 ```
 
 ## Examples
@@ -143,16 +155,16 @@ items:
             sound: ENTITY_ENDER_DRAGON_GROWL
           - type: refresh
 
-    default:
-      item:
-        material: SHIELD
-        name: "&a&lPvP: DISABLED"
-      actions:
-        - type: data
-          action: SET
-          key: "pvp_enabled"
-          value: "true"
-        - type: refresh
+    # Default state if placeholder doesn't match "true" or "false"
+    item:
+      material: SHIELD
+      name: "&a&lPvP: DISABLED"
+    actions:
+      - type: data
+        action: SET
+        key: "pvp_enabled"
+        value: "true"
+      - type: refresh
 ```
 
 ### Multi-State Button
@@ -212,16 +224,16 @@ items:
             value: "easy"
           - type: refresh
 
-    default:
-      item:
-        material: YELLOW_WOOL
-        name: "&e&lDifficulty: NORMAL"
-      actions:
-        - type: data
-          action: SET
-          key: "difficulty"
-          value: "hard"
-        - type: refresh
+    # Default state
+    item:
+      material: YELLOW_WOOL
+      name: "&e&lDifficulty: NORMAL"
+    actions:
+      - type: data
+        action: SET
+        key: "difficulty"
+        value: "hard"
+      - type: refresh
 ```
 
 ### Rank-Based Display
@@ -268,10 +280,10 @@ items:
             - "&7Your current rank"
           glow: true
 
-    default:
-      item:
-        material: COAL
-        name: "&7&lMember"
+    # Default state
+    item:
+      material: COAL
+      name: "&7&lMember"
 ```
 
 ### Progress Indicator
@@ -353,10 +365,10 @@ items:
           lore:
             - "&7You've completed this quest"
 
-    default:
-      item:
-        material: PAPER
-        name: "&7&lQuest: Not Started"
+    # Default state
+    item:
+      material: PAPER
+      name: "&7&lQuest: Not Started"
 ```
 
 ## Important Notes

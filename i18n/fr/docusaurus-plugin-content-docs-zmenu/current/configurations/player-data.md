@@ -125,24 +125,27 @@ items:
       lore:
         - "&7Cout : &e50 pieces"
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%zmenu_player_value_coins%"
-          action: SUPERIOR_OR_EQUAL
-          number: 50
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez besoin de 50 pieces !"
-      success:
-        - type: data
-          action: SUBTRACT
-          key: "coins"
-          value: "50"
-        - type: console-command
-          commands:
-            - "give %player% diamond 1"
-        - type: refresh
+      achat:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            value: "%zmenu_player_value_coins%"
+            action: SUPERIOR_OR_EQUAL
+            number: 50
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez besoin de 50 pieces !"
+        success:
+          - type: data
+            action: SUBTRACT
+            key: "coins"
+            value: "50"
+          - type: console-command
+            commands:
+              - "give %player% diamond 1"
+          - type: refresh
 ```
 
 ### Parametre a bascule
@@ -196,6 +199,7 @@ items:
 
 ```yaml
 items:
+  # Systeme de recompense quotidienne
   daily-reward:
     slot: 22
     item:
@@ -206,33 +210,36 @@ items:
         - ""
         - "&7Derniere reclamation : &f%zmenu_player_value_last_daily%"
     click-requirement:
-      requirements:
-        - type: placeholder
-          value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          action: SUPERIOR_OR_EQUAL
-          number: 86400  # 24 heures en secondes
-          deny:
-            - type: message
-              messages:
-                - "&cVous avez deja reclame la recompense d'aujourd'hui !"
-      success:
-        - type: data
-          action: SET
-          key: "last_daily"
-          value: "%zmenu_time_unix_timestamp%"
-        - type: console-command
-          commands:
-            - "give %player% diamond 5"
-        - type: data
-          action: ADD
-          key: "daily_streak"
-          value: "1"
-        - type: message
-          messages:
-            - "&aRecompense quotidienne reclamee !"
-            - "&7Serie : &e%zmenu_player_value_daily_streak%"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
+      recuperer:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            value: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
+            action: SUPERIOR_OR_EQUAL
+            number: 86400  # 24 heures en secondes
+            deny:
+              - type: message
+                messages:
+                  - "&cVous avez deja reclame la recompense d'aujourd'hui !"
+        success:
+          - type: data
+            action: SET
+            key: "last_daily"
+            value: "%zmenu_time_unix_timestamp%"
+          - type: console-command
+            commands:
+              - "give %player% diamond 5"
+          - type: data
+            action: ADD
+            key: "daily_streak"
+            value: "1"
+          - type: message
+            messages:
+              - "&aRecompense quotidienne reclamee !"
+              - "&7Serie : &e%zmenu_player_value_daily_streak%"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
 ```
 
 ### Suivi de progression

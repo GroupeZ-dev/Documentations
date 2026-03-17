@@ -125,24 +125,27 @@ items:
       lore:
         - "&7Cost: &e50 coins"
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%zmenu_player_value_coins%"
-          action: SUPERIOR_OR_EQUAL
-          value: 50
-          deny:
-            - type: message
-              messages:
-                - "&cYou need 50 coins!"
-      success:
-        - type: data
-          action: SUBTRACT
-          key: "coins"
-          value: "50"
-        - type: console-command
-          commands:
-            - "give %player% diamond 1"
-        - type: refresh
+      purchase:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_player_value_coins%"
+            action: SUPERIOR_OR_EQUAL
+            value: 50
+            deny:
+              - type: message
+                messages:
+                  - "&cYou need 50 coins!"
+        success:
+          - type: data
+            action: SUBTRACT
+            key: "coins"
+            value: "50"
+          - type: console-command
+            commands:
+              - "give %player% diamond 1"
+          - type: refresh
 ```
 
 ### Toggle Setting
@@ -196,6 +199,7 @@ items:
 
 ```yaml
 items:
+  # Daily reward system
   daily-reward:
     slot: 22
     item:
@@ -206,33 +210,36 @@ items:
         - ""
         - "&7Last claim: &f%zmenu_player_value_last_daily%"
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
-          action: SUPERIOR_OR_EQUAL
-          value: 86400  # 24 hours in seconds
-          deny:
-            - type: message
-              messages:
-                - "&cYou already claimed today's reward!"
-      success:
-        - type: data
-          action: SET
-          key: "last_daily"
-          value: "%zmenu_time_unix_timestamp%"
-        - type: console-command
-          commands:
-            - "give %player% diamond 5"
-        - type: data
-          action: ADD
-          key: "daily_streak"
-          value: "1"
-        - type: message
-          messages:
-            - "&aDaily reward claimed!"
-            - "&7Streak: &e%zmenu_player_value_daily_streak%"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
+      claim:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%zmenu_math_%zmenu_time_unix_timestamp%-%zmenu_player_value_last_daily%%"
+            action: SUPERIOR_OR_EQUAL
+            value: 86400  # 24 hours in seconds
+            deny:
+              - type: message
+                messages:
+                  - "&cYou already claimed today's reward!"
+        success:
+          - type: data
+            action: SET
+            key: "last_daily"
+            value: "%zmenu_time_unix_timestamp%"
+          - type: console-command
+            commands:
+              - "give %player% diamond 5"
+          - type: data
+            action: ADD
+            key: "daily_streak"
+            value: "1"
+          - type: message
+            messages:
+              - "&aDaily reward claimed!"
+              - "&7Streak: &e%zmenu_player_value_daily_streak%"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
 ```
 
 ### Progress Tracking
