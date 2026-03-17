@@ -13,15 +13,15 @@ Requirements are conditions that must be met before a button is displayed, click
 A requirement checks a condition (permission, placeholder value, item in inventory, etc.). Based on the result:
 - If **all** requirements are met, the `success` actions are executed
 - If **any** requirement fails, the `deny` actions of that requirement are executed
-
 ```yaml
 click-requirement:
   vip-requirement:
-    click:
+    clicks:
       - ALL
     requirements:
       - type: permission
         permission: "server.vip"
+```
         deny:
           - type: message
             messages:
@@ -64,8 +64,8 @@ items:
   purchase:
     slot: 0
     click-requirement:
-      <requirement_name>:
-        clicks: # Optional, defaults to ALL. Available: ALL, SHIFT_LEFT, RIGHT, SHIFT_RIGHT, WINDOW_BORDER_LEFT, WINDOW_BORDER_RIGHT, MIDDLE, NUMBER_KEY, DOUBLE_CLICK, DROP, CONTROL_DROP, CREATIVE, SWAP_OFFHAND, UNKNOWN
+      purchase:
+        clicks:
           - ALL
         requirements:
           - type: placeholder
@@ -153,6 +153,7 @@ requirements:
 | `placeholder` | String | The placeholder to evaluate |
 | `action` | String | The comparison operator |
 | `value` | Number/String | The value to compare against |
+| `target` | String | (Optional) Evaluate the placeholder for this player (by name) |
 
 #### String comparison
 
@@ -239,12 +240,14 @@ requirements:
     item:
       material: DIAMOND
       amount: 5
+    verification: SIMILAR
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
 | `item.material` | String | The Minecraft material name |
-| `item.amount` | Number | The minimum quantity required |
+| `amount` | Number | The minimum quantity required |
+| `verification` | String | (Optional) Verification type: `SIMILAR`, `EXACT`, `MATERIAL`, `AIR`, `AMOUNT` (Default: `SIMILAR`) |
 
 You can also check for items with specific properties:
 
@@ -254,7 +257,7 @@ requirements:
     item:
       material: DIAMOND_SWORD
       name: "&6Legendary Blade"
-      amount: 1
+    amount: 1
 ```
 
 ---
@@ -277,19 +280,17 @@ requirements:
 
 ### job
 
-Checks if the player has reached a specific job level. Requires [Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/).
+Checks if the player has a specific job. Requires [Jobs Reborn](https://www.spigotmc.org/resources/jobs-reborn.4216/).
 
 ```yaml
 requirements:
   - type: job
     job: Miner
-    level: 10
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
 | `job` | String | The job name |
-| `level` | Number | The minimum level required |
 
 ---
 
@@ -316,22 +317,30 @@ items:
   set-amount:
     type: INPUT
     slot: 13
-    input-message:
-      - "&eEnter the amount to purchase:"
-      - "&7(1-64)"
-    input-cancel: "cancel"
+    inputType: NUMBER
+    conditions:
+      min: 1
+      max: 64
+    success-actions:
+      - type: data
+        key: "amount"
+        value: "%input%"
+      - type: refresh
     item:
       material: HOPPER
       name: "&6&lSet Amount"
     click-requirement:
-      requirements:
-        - type: regex
-          input: "%input%"
-          regex: "^[1-9][0-9]?$|^64$"
-          deny:
-            - type: message
-              messages:
-                - "&cPlease enter a number between 1 and 64"
+      check:
+        clicks:
+          - ALL
+        requirements:
+          - type: regex
+            input: "%input%"
+            regex: "^[1-9][0-9]?$|^64$"
+            deny:
+             - type: message
+               messages:
+                 - "&cPlease enter a number between 1 and 64"
       success:
         - type: data
           key: "amount"
@@ -348,12 +357,12 @@ Checks the player's name.
 ```yaml
 requirements:
   - type: player-name
-    name: "Notch"
+    player-name: "Notch"
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `name` | String | The player name to check |
+| `player-name` | String | The player name to check (also supports `playerName` or `playername`) |
 
 ---
 
@@ -538,15 +547,18 @@ Actions executed when **all requirements** are met. Defined at the requirement b
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: placeholder
-      placeholder: "%vault_eco_balance%"
-      action: SUPERIOR_OR_EQUAL
-      value: 500
-      deny:
-        - type: message
-          messages:
-            - "&cYou need $500!"
+  purchase:
+    clicks:
+      - ALL
+    requirements:
+      - type: placeholder
+        placeholder: "%vault_eco_balance%"
+        action: SUPERIOR_OR_EQUAL
+        value: 500
+        deny:
+          - type: message
+            messages:
+              - "&cYou need $500!"
   success:
     - type: currency-withdraw
       amount: 500
@@ -570,33 +582,36 @@ You can combine multiple requirements. **All** requirements must be met for the 
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: permission
-      permission: "server.vip"
-      deny:
-        - type: message
-          messages:
-            - "&cYou need VIP rank!"
-    - type: placeholder
-      placeholder: "%vault_eco_balance%"
-      action: SUPERIOR_OR_EQUAL
-      value: 1000
-      deny:
-        - type: message
-          messages:
-            - "&cYou need $1000!"
-    - type: item
-      item:
-        material: DIAMOND
-        amount: 5
-      deny:
-        - type: message
-          messages:
-            - "&cYou need 5 diamonds!"
-  success:
-    - type: message
-      messages:
-        - "&aAll conditions met!"
+  default:
+    clicks:
+      - ALL
+    requirements:
+      - type: permission
+        permission: "server.vip"
+        deny:
+          - type: message
+            messages:
+              - "&cYou need VIP rank!"
+      - type: placeholder
+        placeholder: "%vault_eco_balance%"
+        action: SUPERIOR_OR_EQUAL
+        value: 1000
+        deny:
+          - type: message
+            messages:
+              - "&cYou need $1000!"
+      - type: item
+        item:
+          material: DIAMOND
+          amount: 5
+        deny:
+          - type: message
+            messages:
+              - "&cYou need 5 diamonds!"
+    success:
+      - type: message
+        messages:
+          - "&aAll conditions met!"
 ```
 
 In this example, the player must have the VIP permission **AND** $1000 **AND** 5 diamonds. If any condition fails, the corresponding deny message is shown.
@@ -674,11 +689,14 @@ items:
           lore:
             - "&7Click to claim!"
         click-requirement:
-          requirements:
-            - type: placeholder
-              placeholder: "%player_level%"
-              value: "10"
-              action: SUPERIOR_OR_EQUAL
+          claim:
+            clicks:
+              - ALL
+            requirements:
+              - type: placeholder
+                placeholder: "%player_level%"
+                value: "10"
+                action: SUPERIOR_OR_EQUAL
           success:
             - type: data
               action: SET
@@ -802,7 +820,7 @@ items:
         - "&e▸ Click to purchase"
       glow: true
     click-requirement:
-      purchase-check:
+      purchase:
         clicks:
           - ALL
         requirements:
@@ -816,18 +834,18 @@ items:
                   - "&cYou need $500 to buy this!"
               - type: sound
                 sound: ENTITY_VILLAGER_NO
-        success:
-          - type: currency-withdraw
-            amount: 500
-          - type: console-command
-            commands:
-              - "give %player% diamond_sword 1"
-          - type: message
-            messages:
-              - "&aPurchase successful!"
-          - type: sound
-            sound: ENTITY_PLAYER_LEVELUP
-          - type: close
+      success:
+        - type: currency-withdraw
+          amount: 500
+        - type: console-command
+          commands:
+            - "give %player% diamond_sword 1"
+        - type: message
+          messages:
+            - "&aPurchase successful!"
+        - type: sound
+          sound: ENTITY_PLAYER_LEVELUP
+        - type: close
 ```
 
 ### Daily Reward with Cooldown
@@ -844,7 +862,7 @@ items:
       lore:
         - "&7Claim your daily reward!"
     click-requirement:
-      cooldown-check:
+      claim:
         clicks:
           - ALL
         requirements:
@@ -856,24 +874,24 @@ items:
               - type: message
                 messages:
                   - "&cYou already claimed today's reward!"
-        success:
-          - type: data
-            action: SET
-            key: "last_daily"
-            value: "%zmenu_time_unix_timestamp%"
-          - type: console-command
-            commands:
-              - "give %player% diamond 5"
-          - type: data
-            action: ADD
-            key: "daily_streak"
-            value: "1"
-          - type: message
-            messages:
-              - "&aDaily reward claimed!"
-              - "&7Streak: &e%zmenu_player_value_daily_streak%"
-          - type: sound
-            sound: ENTITY_PLAYER_LEVELUP
+      success:
+        - type: data
+          action: SET
+          key: "last_daily"
+          value: "%zmenu_time_unix_timestamp%"
+        - type: console-command
+          commands:
+            - "give %player% diamond 5"
+        - type: data
+          action: ADD
+          key: "daily_streak"
+          value: "1"
+        - type: message
+          messages:
+            - "&aDaily reward claimed!"
+            - "&7Streak: &e%zmenu_player_value_daily_streak%"
+        - type: sound
+          sound: ENTITY_PLAYER_LEVELUP
 ```
 
 ### VIP-Gated Menu
@@ -963,7 +981,7 @@ items:
         - "&7Cost: &e50 coins"
         - "&7Your coins: &f%zmenu_player_value_coins%"
     click-requirement:
-      coins-check:
+      purchase:
         clicks:
           - ALL
         requirements:
@@ -975,15 +993,15 @@ items:
               - type: message
                 messages:
                   - "&cYou need 50 coins!"
-        success:
-          - type: data
-            action: SUBTRACT
-            key: "coins"
-            value: "50"
-          - type: console-command
-            commands:
-              - "give %player% diamond 1"
-          - type: refresh
+      success:
+        - type: data
+          action: SUBTRACT
+          key: "coins"
+          value: "50"
+        - type: console-command
+          commands:
+            - "give %player% diamond 1"
+        - type: refresh
 ```
 
 ### Initialize Default Values

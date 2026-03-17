@@ -8,6 +8,10 @@ description: Button that navigates to the previous page
 
 The `PREVIOUS` button type navigates to the previous page in a paginated inventory.
 
+:::info
+`PREVIOUS` buttons are permanent by default. They will automatically be shown on all pages of a paginated inventory, even if `is-permanent: true` is not explicitly set in the configuration.
+:::
+
 ## Usage
 
 ```yaml

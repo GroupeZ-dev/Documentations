@@ -33,14 +33,14 @@ Defines the attack range of an item in blocks.
 
 **Minecraft Wiki:** [attack_range](https://minecraft.wiki/w/Data_component_format#attack_range)
 
-| Key | Type | Default | Range | Description |
-|-----|------|---------|-------|-------------|
-| `min-reach` | Float | `0` | 0-64 | Minimum reach distance in survival mode |
-| `max-reach` | Float | `3` | 0-64 | Maximum reach distance in survival mode |
-| `min-creative-reach` | Float | `0` | 0-64 | Minimum reach distance in creative mode |
-| `max-creative-reach` | Float | `5` | 0-64 | Maximum reach distance in creative mode |
-| `hitbox-margin` | Float | `0.3` | 0-1 | Additional margin for hitbox detection |
-| `mob-factor` | Float | `1` | 0-2 | Multiplier applied to mob hitboxes |
+| Key                  | Type  | Default | Range | Description                             |
+|----------------------|-------|---------|-------|-----------------------------------------|
+| `min-reach`          | Float | `0`     | 0-64  | Minimum reach distance in survival mode |
+| `max-reach`          | Float | `3`     | 0-64  | Maximum reach distance in survival mode |
+| `min-creative-reach` | Float | `0`     | 0-64  | Minimum reach distance in creative mode |
+| `max-creative-reach` | Float | `5`     | 0-64  | Maximum reach distance in creative mode |
+| `hitbox-margin`      | Float | `0.3`   | 0-1   | Additional margin for hitbox detection  |
+| `mob-factor`         | Float | `1`     | 0-2   | Multiplier applied to mob hitboxes      |
 
 ```yaml
 components:
@@ -61,13 +61,13 @@ Adds attribute modifiers to the item.
 
 **Minecraft Wiki:** [attribute_modifiers](https://minecraft.wiki/w/Data_component_format#attribute_modifiers)
 
-| Key | Type | Required | Description |
-|-----|------|----------|-------------|
-| `type` | String | Yes | Attribute type (e.g., `generic.attack_damage`) |
-| `amount` | Double | Yes | Value of the modifier |
-| `operation` | String | Yes | Operation type: `add_value`, `add_multiplied_base`, `add_multiplied_total` |
-| `slot` | String | No | Equipment slot: `any`, `mainhand`, `offhand`, `head`, `chest`, `legs`, `feet` |
-| `id` | String | No | Unique identifier for the modifier |
+| Key         | Type   | Required | Description                                                                   |
+|-------------|--------|----------|-------------------------------------------------------------------------------|
+| `type`      | String | Yes      | Attribute type (e.g., `generic.attack_damage`)                                |
+| `amount`    | Double | Yes      | Value of the modifier                                                         |
+| `operation` | String | Yes      | Operation type: `ADD_NUMBER`, `ADD_SCALAR`, `MULTIPLY_SCALAR_1`               |
+| `slot`      | String | No       | Equipment slot: `any`, `mainhand`, `offhand`, `head`, `chest`, `legs`, `feet` |
+| `key`       | String | No       | Unique identifier for the modifier                                            |
 
 ```yaml
 components:
@@ -76,28 +76,14 @@ components:
       amount: 10
       operation: add_value
       slot: mainhand
-      id: "my_plugin:attack_bonus"
+      key: "my_plugin:attack_bonus"
     - type: generic.movement_speed
       amount: 0.1
       operation: add_multiplied_base
       slot: feet
 ```
 
-**Available Attribute Types:**
-- `generic.armor` - Armor points
-- `generic.armor_toughness` - Armor toughness
-- `generic.attack_damage` - Attack damage
-- `generic.attack_knockback` - Attack knockback
-- `generic.attack_speed` - Attack speed
-- `generic.flying_speed` - Flying speed
-- `generic.follow_range` - Follow range
-- `generic.knockback_resistance` - Knockback resistance
-- `generic.luck` - Luck
-- `generic.max_absorption` - Max absorption
-- `generic.max_health` - Max health
-- `generic.movement_speed` - Movement speed
-- `generic.scale` - Entity scale
-- `generic.step_height` - Step height
+**Available Attributes:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/Attribute.html), support custom attributes if registered in the registry.
 
 ---
 
@@ -129,7 +115,7 @@ components:
   base-color: RED
 ```
 
-**Available Colors:** `WHITE`, `ORANGE`, `MAGENTA`, `LIGHT_BLUE`, `YELLOW`, `LIME`, `PINK`, `GRAY`, `LIGHT_GRAY`, `CYAN`, `PURPLE`, `BLUE`, `BROWN`, `GREEN`, `RED`, `BLACK`
+**Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html).
 
 ---
 
@@ -155,16 +141,16 @@ Configures shield-like blocking behavior for items.
 
 **Minecraft Wiki:** [blocks_attacks](https://minecraft.wiki/w/Data_component_format#blocks_attacks)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `block-delay-seconds` | Float | `0` | Delay before blocking becomes active |
-| `disable-cooldown-scale` | Float | `1` | Cooldown scale when shield is disabled |
-| `block-sound` | String | - | Sound played when blocking |
-| `disabled-sound` | String | - | Sound played when shield is disabled |
-| `item-damage.threshold` | Float | `0` | Damage threshold before item takes damage |
-| `item-damage.base` | Float | `0` | Base item damage |
-| `item-damage.factor` | Float | `1.5` | Damage multiplier factor |
-| `damage-reductions` | List | `[]` | List of damage reduction rules |
+| Key                      | Type   | Default | Description                               |
+|--------------------------|--------|---------|-------------------------------------------|
+| `block-delay-seconds`    | Float  | `0`     | Delay before blocking becomes active      |
+| `disable-cooldown-scale` | Float  | `1`     | Cooldown scale when shield is disabled    |
+| `block-sound`            | String | -       | Sound played when blocking                |
+| `disabled-sound`         | String | -       | Sound played when shield is disabled      |
+| `item-damage.threshold`  | Float  | `0`     | Damage threshold before item takes damage |
+| `item-damage.base`       | Float  | `0`     | Base item damage                          |
+| `item-damage.factor`     | Float  | `1.5`   | Damage multiplier factor                  |
+| `damage-reductions`      | List   | `[]`    | List of damage reduction rules            |
 
 **Damage Reduction Properties:**
 | Key | Type | Description |
@@ -210,6 +196,7 @@ components:
 ## bundle-contents
 
 Stores items inside a bundle.
+Use zMenu item syntax inside each entry.
 
 **Minecraft Wiki:** [bundle_contents](https://minecraft.wiki/w/Data_component_format#bundle_contents)
 
@@ -249,13 +236,13 @@ Configures how an item is consumed.
 
 **Minecraft Wiki:** [consumable](https://minecraft.wiki/w/Data_component_format#consumable)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `consume-seconds` | Float | `1.6` | Time to consume the item in seconds |
-| `animation` | String | `EAT` | Animation type |
-| `consume-sound` | String | `entity.generic.eat` | Sound played when consuming |
-| `has-consume-particles` | Boolean | `true` | Whether to show particles when consuming |
-| `on-consume-effects` | List | `[]` | Effects to apply when consumed |
+| Key                     | Type    | Default              | Description                              |
+|-------------------------|---------|----------------------|------------------------------------------|
+| `consume-seconds`       | Float   | `1.6`                | Time to consume the item in seconds      |
+| `animation`             | String  | `EAT`                | Animation type                           |
+| `consume-sound`         | String  | `entity.generic.eat` | Sound played when consuming              |
+| `has-consume-particles` | Boolean | `true`               | Whether to show particles when consuming |
+| `on-consume-effects`    | List    | `[]`                 | Effects to apply when consumed           |
 
 ```yaml
 components:
@@ -299,11 +286,11 @@ Stores items inside the item (like shulker boxes).
 
 **Minecraft Wiki:** [container](https://minecraft.wiki/w/Data_component_format#container)
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `slot` | Integer | Slot index (0-26 for shulker boxes) |
-| `material` | String | Item material |
-| `amount` | Integer | Item amount |
+| Key        | Type    | Description                         |
+|------------|---------|-------------------------------------|
+| `slot`     | Integer | Slot index (0-26 for shulker boxes) |
+
+Use zMenu item syntax inside each entry.
 
 ```yaml
 components:
@@ -324,10 +311,10 @@ Sets the loot table for container items.
 
 **Minecraft Wiki:** [container_loot](https://minecraft.wiki/w/Data_component_format#container_loot)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `loot-table` | String | - | Loot table name (e.g., `DESERT_PYRAMID`) |
-| `seed` | Long | `0` | Random seed for loot generation |
+| Key          | Type   | Default | Description                              |
+|--------------|--------|---------|------------------------------------------|
+| `loot-table` | String | -       | Loot table name (e.g., `DESERT_PYRAMID`) |
+| `seed`       | Long   | `0`     | Random seed for loot generation          |
 
 ```yaml
 components:
@@ -336,7 +323,7 @@ components:
     seed: 12345
 ```
 
-**Available Loot Tables:** `ABANDONED_MINESHAFT`, `BASTION_BRIDGE`, `BURIED_TREASURE`, `DESERT_PYRAMID`, `END_CITY_TREASURE`, `JUNGLE_TEMPLE`, `NETHER_BRIDGE`, `PILLAGER_OUTPOST`, `SHIPWRECK_TREASURE`, `SIMPLE_DUNGEON`, `STRONGHOLD_CORRIDOR`, `VILLAGE_ARMORER`, `WOODLAND_MANSION`, and more.
+**Available Loot Tables:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/loot/LootTables.html).
 
 ---
 
@@ -374,12 +361,12 @@ Custom model data for resource pack integration.
 
 **Minecraft Wiki:** [custom_model_data](https://minecraft.wiki/w/Data_component_format#custom_model_data)
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `floats` | List&lt;Float&gt; | Float values for predicates |
-| `flags` | List&lt;Boolean&gt; | Boolean flags for predicates |
-| `strings` | List&lt;String&gt; | String values for predicates |
-| `colors` | List&lt;Color&gt; | Color values (hex format) |
+| Key       | Type          | Description                                                                                                                                                                         |
+|-----------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `floats`  | List<Float>   | Float values for predicates                                                                                                                                                         |
+| `flags`   | List<Boolean> | Boolean flags for predicates                                                                                                                                                        |
+| `strings` | List<String>  | String values for predicates                                                                                                                                                        |
+| `colors`  | List<Color>   | Color values. Each entry can be a hex string (e.g., `"#FFAA00"` or `"#80FFAA00"`), an integer (RGB or ARGB), a list of floats (RGB[A], 0.0–1.0), or a list of ints (RGB[A], 0–255). |
 
 ```yaml
 components:
@@ -393,8 +380,13 @@ components:
     strings:
       - "variant_a"
     colors:
-      - "#FF5555"
-      - "#55FF55"
+      - "#FFAA00"         # Hex string (RRGGBB)
+      - "#80FFAA00"       # Hex string (AARRGGBB)
+      - 16755200          # Integer RGB (decimal)
+      - [1.0, 0.5, 0.0]   # List of floats (RGB, 0.0–1.0)
+      - [1.0, 0.5, 0.0, 0.5] # List of floats (RGBA, 0.0–1.0)
+      - [255, 128, 0]     # List of ints (RGB, 0–255)
+      - [128, 255, 128, 0]# List of ints (RGBA, 0–255)
 ```
 
 ---
@@ -428,7 +420,7 @@ components:
     types: "minecraft:is_fire"
 ```
 
-**Available Damage Type Tags:** `is_fire`, `is_explosion`, `is_projectile`, `is_fall`, `bypasses_armor`, `bypasses_shield`, `is_drowning`, `is_freezing`
+**Available Damage Type Tags:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/tag/DamageTypeTags.html).
 
 ---
 
@@ -454,9 +446,23 @@ Sets the dye color for leather armor and other dyeable items.
 
 **Minecraft Wiki:** [dyed_color](https://minecraft.wiki/w/Data_component_format#dyed_color)
 
+| Type          | Description                                     |
+|---------------|-------------------------------------------------|
+| String        | Hex string (e.g., `"#FFAA00"` or `"#80FFAA00"`) |
+| Integer       | Integer RGB or ARGB (decimal)                   |
+| List<Float>   | List of floats (RGB[A], 0.0–1.0)                |
+| List<Integer> | List of ints (RGB[A], 0–255)                    |
+
 ```yaml
 components:
-  dyed-color: "#FF5555"
+  # Only use one of the following formats for dyed-color:
+  dyed-color: "#FFAA00"         # Hex string (RRGGBB)
+  # dyed-color: "#80FFAA00"       # Hex string (AARRGGBB)
+  # dyed-color: 16755200          # Integer RGB (decimal)
+  # dyed-color: [1.0, 0.5, 0.0]   # List of floats (RGB, 0.0–1.0)
+  # dyed-color: [1.0, 0.5, 0.0, 0.5] # List of floats (RGBA, 0.0–1.0)
+  # dyed-color: [255, 128, 0]     # List of ints (RGB, 0–255)
+  # dyed-color: [128, 255, 128, 0]# List of ints (RGBA, 0–255)
 ```
 
 ---
@@ -510,25 +516,110 @@ components:
 
 ---
 
+### custom_name <span class="badge badge--danger">Paper only</span>
+
+Sets the custom name of the item.
+
+**Minecraft Wiki:** [custom_name](https://minecraft.wiki/w/Data_component_format#custom_name)
+
+```yaml
+components:
+  custom-name: "&6&lLegendary Sword"
+```
+
+---
+
+### intangible_projectile <span class="badge badge--danger">Paper only</span>
+
+Makes projectiles fired from this item intangible (pass through blocks).
+
+**Minecraft Wiki:** [intangible_projectile](https://minecraft.wiki/w/Data_component_format#intangible_projectile)
+
+```yaml
+components:
+  intangible_projectile: true
+```
+
+---
+
+### map_decorations <span class="badge badge--danger">Paper only</span>
+
+Adds map decorations to filled maps.
+
+**Minecraft Wiki:** [map_decorations](https://minecraft.wiki/w/Data_component_format#map_decorations)
+
+| Key        | Type    | Description                                                                                                                   |
+|------------|---------|-------------------------------------------------------------------------------------------------------------------------------|
+| `type`     | String  | Decoration type (e.g., `red_marker`) [full list](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/map/MapCursor.Type.html) |
+| `x`        | Integer | X coordinate on the map                                                                                                       |
+| `z`        | Integer | Z coordinate on the map                                                                                                       |
+| `rotation` | Integer | Rotation                                                                                                                      |
+
+```yaml
+components:
+  map_decorations:
+    - type: red_marker
+      x: 100
+      z: -50
+      rotation: 0
+    - type: blue_marker
+      x: -30
+      z: 75
+      rotation: 4
+```
+
+---
+
+### note_block_sound <span class="badge badge--danger">Paper only</span>
+
+Sets the sound played when a note block item is placed.
+
+**Minecraft Wiki:** [note_block_sound](https://minecraft.wiki/w/Data_component_format#note_block_sound)
+
+```yaml
+components:
+  note_block_sound: "minecraft:block.note_block.bell"
+```
+
+---
+
+### pot_decorations <span class="badge badge--danger">Paper only</span>
+
+Adds decorations to decorated pots.
+Requires the item to be a pottery shard or brick. Each decoration is represented by a string ID corresponding to a specific pattern or design.
+
+**Minecraft Wiki:** [pot_decorations](https://minecraft.wiki/w/Data_component_format#pot_decorations)
+
+```yaml
+components:
+  pot_decorations:
+    - "skull_pottery_sherd"
+    - "heart_pottery_sherd"
+    - "blade_pottery_sherd"
+    - "brick"
+```
+
+---
+
 ## equippable <span class="badge badge--danger">1.21.2+</span>
 
 Configures equipment properties for any item.
 
 **Minecraft Wiki:** [equippable](https://minecraft.wiki/w/Data_component_format#equippable)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `slot` | String | - | Equipment slot: `HEAD`, `CHEST`, `LEGS`, `FEET`, `MAINHAND`, `OFFHAND`, `BODY` |
-| `equip-sound` | String | - | Sound when equipping |
-| `asset-id` | String | - | Resource location for the equipment model |
-| `dispensable` | Boolean | `true` | Can be equipped by dispensers |
-| `swappable` | Boolean | `true` | Can be swapped with other equipment |
-| `damage-on-hurt` | Boolean | `true` | Takes damage when the entity is hurt |
-| `equip-on-interact` | Boolean | `false` | Equip on right-click interaction |
-| `camera-overlay` | String | - | Resource location for camera overlay |
-| `can-be-sheared` | Boolean | `false` | Can be sheared off the entity |
-| `shearing-sound` | String | - | Sound when shearing |
-| `allowed-entities` | List | - | Entities that can wear this item |
+| Key                 | Type    | Default | Description                                                                    |
+|---------------------|---------|---------|--------------------------------------------------------------------------------|
+| `slot`              | String  | -       | Equipment slot: `HEAD`, `CHEST`, `LEGS`, `FEET`, `MAINHAND`, `OFFHAND`, `BODY` |
+| `equip-sound`       | String  | -       | Sound when equipping                                                           |
+| `asset-id`          | String  | -       | Resource location for the equipment model                                      |
+| `dispensable`       | Boolean | `true`  | Can be equipped by dispensers                                                  |
+| `swappable`         | Boolean | `true`  | Can be swapped with other equipment                                            |
+| `damage-on-hurt`    | Boolean | `true`  | Takes damage when the entity is hurt                                           |
+| `equip-on-interact` | Boolean | `false` | Equip on right-click interaction                                               |
+| `camera-overlay`    | String  | -       | Resource location for camera overlay                                           |
+| `can-be-sheared`    | Boolean | `false` | Can be sheared off the entity                                                  |
+| `shearing-sound`    | String  | -       | Sound when shearing                                                            |
+| `allowed-entities`  | List    | -       | Entities that can wear this item                                               |
 
 ```yaml
 components:
@@ -554,20 +645,43 @@ Configures a single firework star explosion effect.
 
 **Minecraft Wiki:** [firework_explosion](https://minecraft.wiki/w/Data_component_format#firework_explosion)
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `shape` | String | Shape: `BALL`, `LARGE_BALL`, `BURST`, `CREEPER`, `STAR` |
-| `colors` | Color | Primary color (hex format) |
-| `fade_colors` | Color | Fade color (hex format) |
-| `has_trail` | Boolean | Has trail effect |
-| `has_twinkle` | Boolean | Has twinkle/flicker effect |
+| Key           | Type       | Description                                                                                                                                                                             |
+|---------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `shape`       | String     | Shape: `BALL`, `LARGE_BALL`, `BURST`, `CREEPER`, `STAR`                                                                                                                                 |
+| `colors`      | Color/List | Primary color(s). Each entry can be a hex string (e.g., `"#FFAA00"` or `"#80FFAA00"`), an integer (RGB or ARGB), a list of floats (RGB[A], 0.0–1.0), or a list of ints (RGB[A], 0–255). |
+| `fade_colors` | Color/List | Fade color(s). Same formats as `colors`.                                                                                                                                                |
+| `has_trail`   | Boolean    | Has trail effect                                                                                                                                                                        |
+| `has_twinkle` | Boolean    | Has twinkle/flicker effect                                                                                                                                                              |
+
+**Accepted Color Formats for `colors` and `fade_colors`:**
+
+| Type          | Description                                     |
+|---------------|-------------------------------------------------|
+| String        | Hex string (e.g., `"#FFAA00"` or `"#80FFAA00"`) |
+| Integer       | Integer RGB or ARGB (decimal)                   |
+| List<Float>   | List of floats (RGB[A], 0.0–1.0)                |
+| List<Integer> | List of ints (RGB[A], 0–255)                    |
 
 ```yaml
 components:
   firework-explosion:
     shape: STAR
-    colors: "#FF0000"
-    fade_colors: "#FFFF00"
+    # Only use one of the following formats for colors:
+    colors: "#FFAA00"         # Hex string (RRGGBB)
+    # colors: "#80FFAA00"       # Hex string (AARRGGBB)
+    # colors: 16755200          # Integer RGB (decimal)
+    # colors: [1.0, 0.5, 0.0]   # List of floats (RGB, 0.0–1.0)
+    # colors: [1.0, 0.5, 0.0, 0.5] # List of floats (RGBA, 0.0–1.0)
+    # colors: [255, 128, 0]     # List of ints (RGB, 0–255)
+    # colors: [128, 255, 128, 0]# List of ints (RGBA, 0–255)
+    # Only use one of the following formats for fade_colors:
+    fade_colors: "#FFFF00"         # Hex string (RRGGBB)
+    # fade_colors: "#80FFFF00"       # Hex string (AARRGGBB)
+    # fade_colors: 16776960          # Integer RGB (decimal)
+    # fade_colors: [1.0, 1.0, 0.0]   # List of floats (RGB, 0.0–1.0)
+    # fade_colors: [1.0, 1.0, 0.0, 0.5] # List of floats (RGBA, 0.0–1.0)
+    # fade_colors: [255, 255, 0]     # List of ints (RGB, 0–255)
+    # fade_colors: [128, 255, 255, 0]# List of ints (RGBA, 0–255)
     has_trail: true
     has_twinkle: true
 ```
@@ -580,19 +694,12 @@ Configures firework rockets.
 
 **Minecraft Wiki:** [fireworks](https://minecraft.wiki/w/Data_component_format#fireworks)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `flight-duration` | Integer | `1` | Flight duration (1-3) |
-| `explosions` | List | `[]` | List of explosion effects |
+| Key               | Type    | Default | Description               |
+|-------------------|---------|---------|---------------------------|
+| `flight-duration` | Integer | `1`     | Flight duration (1-3)     |
+| `explosions`      | List    | `[]`    | List of explosion effects |
 
-**Explosion Properties:**
-| Key | Type | Description |
-|-----|------|-------------|
-| `shape` | String | Shape: `BALL`, `LARGE_BALL`, `BURST`, `CREEPER`, `STAR` |
-| `colors` | List | Primary colors (hex format) |
-| `fade-colors` | List | Fade colors (hex format) |
-| `has-trail` | Boolean | Has trail effect |
-| `has-twinkle` | Boolean | Has twinkle effect |
+Each entry in `explosions` follows the same properties as [`firework-explosion`](#firework-explosion).
 
 ```yaml
 components:
@@ -617,11 +724,11 @@ Makes any item edible.
 
 **Minecraft Wiki:** [food](https://minecraft.wiki/w/Data_component_format#food)
 
-| Key | Type | Default | Required | Description |
-|-----|------|---------|----------|-------------|
-| `nutrition` | Integer | - | Yes | Food points restored (hunger bars) |
-| `saturation` | Float | - | Yes | Saturation modifier |
-| `can-always-eat` | Boolean | `false` | No | Can eat even when not hungry |
+| Key              | Type    | Default | Required | Description                        |
+|------------------|---------|---------|----------|------------------------------------|
+| `nutrition`      | Integer | -       | Yes      | Food points restored (hunger bars) |
+| `saturation`     | Float   | -       | Yes      | Saturation modifier                |
+| `can-always-eat` | Boolean | `false` | No       | Can eat even when not hungry       |
 
 ```yaml
 components:
@@ -660,12 +767,12 @@ components:
 
 **Advanced configuration:**
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `sound-event` | String | Sound to play |
-| `use-duration` | Float | Duration of use in seconds |
-| `range` | Float | Hearing range in blocks |
-| `description` | String | Instrument description |
+| Key            | Type   | Description                |
+|----------------|--------|----------------------------|
+| `sound-event`  | String | Sound to play              |
+| `use-duration` | Float  | Duration of use in seconds |
+| `range`        | Float  | Hearing range in blocks    |
+| `description`  | String | Instrument description     |
 
 ```yaml
 components:
@@ -725,16 +832,16 @@ Configures lance-like weapon behavior for mounted combat.
 
 **Minecraft Wiki:** [kinetic_weapon](https://minecraft.wiki/w/Data_component_format#kinetic_weapon)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `delay-ticks` | Integer | `0` | Delay before attack in ticks |
-| `forward-movement` | Float | `0` | Forward movement on hit |
-| `damage-multiplier` | Float | `1` | Damage multiplier |
-| `sound` | String | - | Sound when charging |
-| `hit-sound` | String | - | Sound when hitting |
-| `damage-conditions` | Object | - | Conditions for dealing damage |
-| `dismount-conditions` | Object | - | Conditions for dismounting target |
-| `knockback-conditions` | Object | - | Conditions for knockback |
+| Key                    | Type    | Default | Description                       |
+|------------------------|---------|---------|-----------------------------------|
+| `delay-ticks`          | Integer | `0`     | Delay before attack in ticks      |
+| `forward-movement`     | Float   | `0`     | Forward movement on hit           |
+| `damage-multiplier`    | Float   | `1`     | Damage multiplier                 |
+| `sound`                | String  | -       | Sound when charging               |
+| `hit-sound`            | String  | -       | Sound when hitting                |
+| `damage-conditions`    | Object  | -       | Conditions for dealing damage     |
+| `dismount-conditions`  | Object  | -       | Conditions for dismounting target |
+| `knockback-conditions` | Object  | -       | Conditions for knockback          |
 
 **Condition Properties:**
 | Key | Type | Description |
@@ -769,11 +876,11 @@ Configures compass lodestone tracking.
 
 **Minecraft Wiki:** [lodestone_tracker](https://minecraft.wiki/w/Data_component_format#lodestone_tracker)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `tracked` | Boolean | `true` | Whether the lodestone is tracked |
-| `target.post` | List&lt;Integer&gt; | - | Target coordinates [x, y, z] |
-| `target.dimension` | String | - | World name |
+| Key                | Type                | Default | Description                      |
+|--------------------|---------------------|---------|----------------------------------|
+| `tracked`          | Boolean             | `true`  | Whether the lodestone is tracked |
+| `target.post`      | List&lt;Integer&gt; | -       | Target coordinates [x, y, z]     |
+| `target.dimension` | String              | -       | World name                       |
 
 ```yaml
 components:
@@ -816,9 +923,15 @@ Sets the map marker color for filled maps.
 
 **Minecraft Wiki:** [map_color](https://minecraft.wiki/w/Data_component_format#map_color)
 
+> [!NOTE]
+> The `map-color` field uses the same color parsing method as [`firework-explosion`](#firework-explosion) `colors` and `fade_colors`. All supported formats (hex string, integer, float/int arrays/lists) are accepted.
+
 ```yaml
 components:
   map-color: "#FF5555"
+  # map-color: 16737717
+  # map-color: [1.0, 0.33, 0.33]
+  # map-color: [255, 85, 85]
 ```
 
 ---
@@ -894,12 +1007,12 @@ Configures trident-like weapon behavior.
 
 **Minecraft Wiki:** [piercing_weapon](https://minecraft.wiki/w/Data_component_format#piercing_weapon)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `deals-knockback` | Boolean | `true` | Whether hits deal knockback |
-| `dismounts` | Boolean | `false` | Whether hits dismount riders |
-| `sound` | String | - | Sound when thrown |
-| `hit-sound` | String | - | Sound when hitting |
+| Key               | Type    | Default | Description                  |
+|-------------------|---------|---------|------------------------------|
+| `deals-knockback` | Boolean | `true`  | Whether hits deal knockback  |
+| `dismounts`       | Boolean | `false` | Whether hits dismount riders |
+| `sound`           | String  | -       | Sound when thrown            |
+| `hit-sound`       | String  | -       | Sound when hitting           |
 
 ```yaml
 components:
@@ -921,9 +1034,12 @@ Configures potion effects and appearance.
 | Key | Type | Description |
 |-----|------|-------------|
 | `potion` | String | Base potion type (e.g., `speed`, `healing`) |
-| `custom-color` | String | Custom potion color (hex format) |
+| `custom-color` | String/Number/List | Custom potion color. **Uses the same color parsing method as [`firework-explosion`](#firework-explosion) `colors` and `fade_colors`.** |
 | `custom-name` | String | Custom potion name |
 | `custom-effects` | List | List of custom potion effects |
+
+> [!NOTE]
+> The `custom-color` field accepts all formats supported by [`firework-explosion`](#firework-explosion) `colors`: hex string, integer, list of floats, or list of ints. Refer to that section for a full table and YAML examples.
 
 **Custom Effect Properties:**
 | Key | Type | Description |
@@ -939,7 +1055,14 @@ Configures potion effects and appearance.
 components:
   potion-contents:
     potion: speed
-    custom-color: "#FF0000"
+    # Only use one of the following formats for custom-color:
+    custom-color: "#FF0000"         # Hex string (RRGGBB)
+    # custom-color: "#80FF0000"       # Hex string (AARRGGBB)
+    # custom-color: 16711680          # Integer RGB (decimal)
+    # custom-color: [1.0, 0.0, 0.0]   # List of floats (RGB, 0.0–1.0)
+    # custom-color: [1.0, 0.0, 0.0, 0.5] # List of floats (RGBA, 0.0–1.0)
+    # custom-color: [255, 0, 0]     # List of ints (RGB, 0–255)
+    # custom-color: [128, 255, 0, 0]# List of ints (RGBA, 0–255)
     custom-name: "&cSuper Speed Potion"
     custom-effects:
       - type: speed
@@ -952,6 +1075,40 @@ components:
         amplifier: 2
         duration: 600
 ```
+
+---
+
+### hide_tooltip
+
+Hides the tooltip when hovering over the item.
+
+**Minecraft Wiki:** [hide_tooltip](https://minecraft.wiki/w/Data_component_format#hide_tooltip)
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `hide_tooltip` | Boolean | Whether to hide the tooltip |
+
+```yaml
+components:
+  hide_tooltip: true
+```
+
+#### Paper only
+
+One more setting to hide specific tooltip lines:
+| Key | Type | Description |
+|-----|------|-------------|
+| `hidden_components` | List | List of component types to hide from tooltip (e.g., `ATTACK_RANGE`, `ATTRIBUTE_MODIFIERS`) [full list](https://jd.papermc.io/paper/1.21.11/io/papermc/paper/datacomponent/DataComponentTypes.html) |
+
+```yaml
+components:
+  hide_tooltip: true
+  hidden_components:
+    - ATTACK_RANGE
+    - ATTRIBUTE_MODIFIERS
+```
+
+
 
 ---
 
@@ -1054,7 +1211,8 @@ components:
 
 ## stored-enchantments
 
-Enchantments stored in enchanted books.
+Enchantments stored in enchanted books. 
+Supported enchantments are the same as the [`enchantments`](#enchantments) component, but these enchantments are only stored in the book and do not apply any effects until transferred to an item using an anvil.
 
 **Minecraft Wiki:** [stored_enchantments](https://minecraft.wiki/w/Data_component_format#stored_enchantments)
 
@@ -1072,6 +1230,15 @@ components:
 Sets potion effects for suspicious stew.
 
 **Minecraft Wiki:** [suspicious_stew_effects](https://minecraft.wiki/w/Data_component_format#suspicious_stew_effects)
+
+| Key            | Type    | Description                                          |
+|----------------|---------|------------------------------------------------------|
+| id             | String  | Potion effect type (e.g., `blindness`, `saturation`) |
+| duration       | Integer | Effect duration in ticks (20 ticks = 1 second)       |
+| amplifier      | Boolean | Effect level (0 = level 1)                           |
+| ambient        | Boolean | Ambient particles (like beacon)                      |
+| show_particles | Boolean | Show effect particles                                |
+| show_icon      | Boolean | Show effect icon                                     |
 
 ```yaml
 components:
@@ -1092,10 +1259,10 @@ Configures the swing animation when using the item.
 
 **Minecraft Wiki:** [swing_animation](https://minecraft.wiki/w/Data_component_format#swing_animation)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `duration` | Integer | `6` | Animation duration in ticks |
-| `type` | String | `WHACK` | Animation type |
+| Key        | Type    | Default | Description                 |
+|------------|---------|---------|-----------------------------|
+| `duration` | Integer | `6`     | Animation duration in ticks |
+| `type`     | String  | `WHACK` | Animation type              |
 
 ```yaml
 components:
@@ -1114,12 +1281,12 @@ Turn any item into a tool with mining capabilities.
 
 **Minecraft Wiki:** [tool](https://minecraft.wiki/w/Data_component_format#tool)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `default-mining-speed` | Float | `1.0` | Default speed for blocks not in rules |
-| `damage-per-block` | Integer | `1` | Durability lost per block mined |
-| `can-destroy-blocks-in-creative` | Boolean | `true` | Can break blocks in creative mode |
-| `rules` | List | `[]` | Block-specific mining rules |
+| Key                              | Type    | Default | Description                           |
+|----------------------------------|---------|---------|---------------------------------------|
+| `default-mining-speed`           | Float   | `1.0`   | Default speed for blocks not in rules |
+| `damage-per-block`               | Integer | `1`     | Durability lost per block mined       |
+| `can-destroy-blocks-in-creative` | Boolean | `true`  | Can break blocks in creative mode     |
+| `rules`                          | List    | `[]`    | Block-specific mining rules           |
 
 **Rule Properties:**
 | Key | Type | Default | Description |
@@ -1185,10 +1352,10 @@ Applies armor trim patterns.
 
 **Minecraft Wiki:** [trim](https://minecraft.wiki/w/Data_component_format#trim)
 
-| Key | Type | Required | Description |
-|-----|------|----------|-------------|
-| `material` | String | Yes | Trim material |
-| `pattern` | String | Yes | Trim pattern |
+| Key        | Type   | Required | Description   |
+|------------|--------|----------|---------------|
+| `material` | String | Yes      | Trim material |
+| `pattern`  | String | Yes      | Trim pattern  |
 
 ```yaml
 components:
@@ -1222,10 +1389,10 @@ Adds a cooldown after using the item.
 
 **Minecraft Wiki:** [use_cooldown](https://minecraft.wiki/w/Data_component_format#use_cooldown)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `seconds` | Float | `0` | Cooldown duration in seconds |
-| `cooldown-group` | String | - | Cooldown group identifier (items in the same group share cooldown) |
+| Key              | Type   | Default | Description                                                        |
+|------------------|--------|---------|--------------------------------------------------------------------|
+| `seconds`        | Float  | `0`     | Cooldown duration in seconds                                       |
+| `cooldown-group` | String | -       | Cooldown group identifier (items in the same group share cooldown) |
 
 ```yaml
 components:
@@ -1242,11 +1409,11 @@ Configures effects when using the item (like spyglass).
 
 **Minecraft Wiki:** [use_effects](https://minecraft.wiki/w/Data_component_format#use_effects)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `can-sprint` | Boolean | `false` | Can sprint while using |
-| `speed-multiplier` | Float | `0.2` | Movement speed multiplier while using |
-| `interact-vibrations` | Boolean | `true` | Emit sculk vibrations when interacting |
+| Key                   | Type    | Default | Description                            |
+|-----------------------|---------|---------|----------------------------------------|
+| `can-sprint`          | Boolean | `false` | Can sprint while using                 |
+| `speed-multiplier`    | Float   | `0.2`   | Movement speed multiplier while using  |
+| `interact-vibrations` | Boolean | `true`  | Emit sculk vibrations when interacting |
 
 ```yaml
 components:
@@ -1261,6 +1428,7 @@ components:
 ## use-remainder <span class="badge badge--danger">1.21.2+</span>
 
 Item left after using (like bowls from stew).
+Use zMenu item syntax here.
 
 **Minecraft Wiki:** [use_remainder](https://minecraft.wiki/w/Data_component_format#use_remainder)
 
@@ -1273,16 +1441,77 @@ components:
 
 ---
 
+### death_protection <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.2+</span>
+
+Configures death protection for items (similar to a Totem of Undying).
+
+**Minecraft Wiki:** [death_protection](https://minecraft.wiki/w/Data_component_format#death_protection)
+
+| Key             | Type | Description                                      |
+|-----------------|------|--------------------------------------------------|
+| `death_effects` | List | List of effects to apply when death is prevented |
+
+```yaml
+components:
+  death_protection:
+    death_effects:
+      - type: APPLY_EFFECTS
+        probability: 1.0
+        effects:
+          - id: regeneration
+            amplified: true
+            duration: 900
+          - id: fire_resistance
+            duration: 800
+          - id: absorption
+            amplified: true
+            duration: 100
+      - type: PLAY_SOUND
+        sound: item.totem.use
+      - type: TELEPORT_RANDOMLY
+        diameter: 16.0
+      - type: CLEAR_ALL_EFFECTS
+      - type: REMOVE_EFFECTS
+        effects:
+          - poison
+          - wither
+```
+
+**Effect Types:**
+- `APPLY_EFFECTS` - Apply potion effects with probability
+- `PLAY_SOUND` - Play a sound
+- `TELEPORT_RANDOMLY` - Teleport randomly within diameter
+- `CLEAR_ALL_EFFECTS` - Clear all potion effects
+- `REMOVE_EFFECTS` - Remove specific effects
+
+---
+
+### repairable <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.2+</span>
+
+Configures item repair behavior.
+
+**Minecraft Wiki:** [repairable](https://minecraft.wiki/w/Data_component_format#repairable)
+
+```yaml
+components:
+  repairable:
+    items:
+      - minecraft:diamond
+      - minecraft:netherite_ingot
+```
+
+---
+
 ## weapon <span class="badge badge--danger">1.21.5+</span>
 
 Configures weapon damage properties.
 
 **Minecraft Wiki:** [weapon](https://minecraft.wiki/w/Data_component_format#weapon)
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `item-damage-per-attack` | Integer | `1` | Durability lost per attack |
-| `disable-blocking-for-seconds` | Float | `0` | Duration to disable shield blocking |
+| Key                            | Type    | Default | Description                         |
+|--------------------------------|---------|---------|-------------------------------------|
+| `item-damage-per-attack`       | Integer | `1`     | Durability lost per attack          |
+| `disable-blocking-for-seconds` | Float   | `0`     | Duration to disable shield blocking |
 
 ```yaml
 components:
@@ -1293,14 +1522,40 @@ components:
 
 ---
 
+### provides_banner_patterns <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.5+</span>
+
+Configures banner pattern providing behavior for items.
+
+**Minecraft Wiki:** [provides_banner_patterns](https://minecraft.wiki/w/Data_component_format#provides_banner_patterns)
+
+```yaml
+components:
+  provides_banner_patterns: "minecraft:flower_banner_pattern"
+```
+
+---
+
+### provides_trim_material <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.5+</span>
+
+Configures trim material providing behavior for items.
+
+**Minecraft Wiki:** [provides_trim_material](https://minecraft.wiki/w/Data_component_format#provides_trim_material)
+
+```yaml
+components:
+  provides_trim_material: "minecraft:gold"
+```
+
+---
+
 ## writable-book-content
 
 Content for book and quill (writable book).
 
 **Minecraft Wiki:** [writable_book_content](https://minecraft.wiki/w/Data_component_format#writable_book_content)
 
-| Key | Type | Description |
-|-----|------|-------------|
+| Key     | Type | Description                         |
+|---------|------|-------------------------------------|
 | `pages` | List | List of pages with raw text content |
 
 ```yaml
@@ -1321,12 +1576,12 @@ Content for signed written books.
 
 **Minecraft Wiki:** [written_book_content](https://minecraft.wiki/w/Data_component_format#written_book_content)
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `title` | String | Book title |
-| `author` | String | Book author name |
+| Key          | Type   | Description                                                                 |
+|--------------|--------|-----------------------------------------------------------------------------|
+| `title`      | String | Book title                                                                  |
+| `author`     | String | Book author name                                                            |
 | `generation` | String | Book generation: `ORIGINAL`, `COPY_OF_ORIGINAL`, `COPY_OF_COPY`, `TATTERED` |
-| `pages` | List | List of pages with raw text content |
+| `pages`      | List   | List of pages with raw text content                                         |
 
 ```yaml
 components:
@@ -1339,6 +1594,292 @@ components:
       - raw: "Chapter 2\n\nThe mysterious figure appeared..."
       - raw: "The End"
 ```
+
+---
+
+### axolotl/variant
+
+Configures axolotl variant for axolotl.
+
+```yaml
+components:
+  axolotl/variant: "lucy"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Axolotl.Variant.html)
+
+---
+
+### cat/collar
+
+Configures cat collar color for cat.
+
+```yaml
+components:
+  cat/collar: "red"
+```
+
+---
+
+### cat/variant
+
+Configures cat variant for cat.
+
+```yaml
+components:
+  cat/variant: "siamese"
+```
+
+**Available Variants:* can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Cat.Type.html)
+
+---
+
+### chicken/variant <span class="badge badge--danger">1.21.5+</span>
+
+Configures chicken variant for chicken.
+
+```yaml
+components:
+  chicken/variant: "COLD"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Chicken.Variant.html)
+
+---
+
+### cow/variant <span class="badge badge--danger">1.21.5+</span>
+
+Configures cow variant for cow.
+
+```yaml
+components:
+  cow/variant: "COLD"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Cow.Variant.html)
+
+---
+
+### fox/variant
+
+Configures fox variant for fox.
+
+```yaml
+components:
+  fox/variant: "RED"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Fox.Type.html)
+
+---
+
+### frog/variant
+
+Configures frog variant for frog.
+
+```yaml
+components:
+  frog/variant: "TEMPERATE"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Frog.Variant.html)
+
+---
+
+### horse/variant
+
+Configures horse variant for horse.
+
+```yaml
+components:
+  horse/variant: "BLACK"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Horse.Color.html)
+
+---
+
+### llama/variant
+
+Configures llama variant for llama.
+
+```yaml
+components:
+  llama/variant: "CREAMY"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Llama.Color.html)
+
+---
+
+### mooshroom/variant
+
+Configures mooshroom variant for mooshroom.
+
+```yamlcomponents:
+  mooshroom/variant: "BROWN"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/MushroomCow.Variant.html)
+
+---
+
+### painting/variant <span class="badge badge--danger">1.20.5+</span>
+
+Configures painting variant for painting.
+
+```yaml
+components:
+  painting/variant: "WITHER"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Art.html)
+
+---
+
+### parrot/variant
+
+Configures parrot variant for parrot.
+
+```yaml
+components:
+  parrot/variant: "BLUE"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Parrot.Variant.html)
+
+---
+
+### pig/variant <span class="badge badge--danger">1.21.5+</span>
+
+Configures pig variant for pig.
+
+```yaml
+components:
+  pig/variant: "COLD"
+``` 
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Pig.Variant.html)
+
+---
+
+### rabbit/variant
+
+Configures rabbit variant for rabbit.
+
+```yaml
+components:
+  rabbit/variant: "BLACK"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Rabbit.Type.html)
+
+---
+
+### salmon/size <span class="badge badge--danger">1.21.5+</span>
+
+Configures salmon size for salmon.
+
+```yaml
+components:
+  salmon/size: "SMALL"
+```
+
+**Available Sizes:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Salmon.Variant.html)
+
+---
+
+
+### sheep/color
+
+Configures sheep color for sheep.
+
+```yaml
+components:
+  sheep/color: "BLACK"
+```
+
+**Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
+
+---
+
+### shulker/color
+
+Configures shulker color for shulker.
+
+```yaml
+components:
+  shulker/color: "PURPLE"
+```
+
+**Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
+
+---
+
+---
+
+### tropical_fish/base_color
+
+Configures tropical fish base color.
+
+```yaml
+components:
+  tropical_fish/base_color: "ORANGE"
+```
+
+**Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
+
+---
+
+### tropical_fish/pattern_color
+
+Configures tropical fish pattern color.
+
+```yaml
+components:
+  tropical_fish/pattern_color: "BLUE"
+```
+
+**Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
+
+---
+
+### villager/variant
+
+Configures villager variant for villager.
+
+```yaml
+components:
+  villager/variant: "PLAINS"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Villager.Type.html)
+
+---
+
+### wolf/variant <span class="badge badge--danger">1.20.5+</span>
+
+Configures wolf variant for wolf.
+
+```yaml
+components:
+  wolf/variant: "RED"
+```
+
+**Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Wolf.Variant.html)
+
+---
+
+### wolf/collar <span class="badge badge--danger">1.20.5+</span>
+
+Configures wolf collar color for wolf.
+
+```yaml
+components:
+  wolf/collar: "BLUE"
+```
+
+**Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
 
 ---
 
@@ -1387,15 +1928,15 @@ item:
 
 ## Version Compatibility
 
-| Component | Minimum Version |
-|-----------|-----------------|
-| Most components | 1.20.5 |
-| `food`, `tool`, `container-loot`, `custom-data`, `damage-resistant`, `ominous-bottle-amplifier` | 1.20.5 |
-| `jukebox-playable` | 1.21 |
-| `consumable`, `enchantable`, `equippable`, `glider`, `item-model`, `tooltip-style`, `use-cooldown`, `use-remainder` | 1.21.2 |
-| `blocks-attacks`, `break-sound`, `potion-duration-scale`, `tooltip-display`, `weapon` | 1.21.5 |
-| `profile` | 1.21.9 |
-| `attack-range`, `damage-type`, `kinetic-weapon`, `minimum-attack-charge`, `piercing-weapon`, `swing-animation`, `use-effects` | 1.21.11 |
+| Component                                                                                                                                                                                                                                                                                                                      | Minimum Version |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|
+| Most components                                                                                                                                                                                                                                                                                                                | 1.20.5          |
+| `food`, `tool`, `container-loot`, `custom-data`, `damage-resistant`, `ominous-bottle-amplifier`, `painting/variant`, `wolf/variant`, `wolf/collar`                                                                                                                                                                             | 1.20.5          |
+| `jukebox-playable`                                                                                                                                                                                                                                                                                                             | 1.21            |
+| `consumable`, `enchantable`, `equippable`, `glider`, `item-model`, `tooltip-style`, `use-cooldown`, `use-remainder`, `death_protection`, `repairable`                                                                                                                                                                          | 1.21.2          |
+| `blocks-attacks`, `break-sound`, `potion-duration-scale`, `tooltip-display`, `weapon`, `provides_banner_patterns`, `provides_trim_material`, `chicken/variant`, `cow/variant`, `pig/variant`, `salmon/size`                                                                                                                     | 1.21.5          |
+| `profile`                                                                                                                                                                                                                                                                                                                      | 1.21.9          |
+| `attack-range`, `damage-type`, `kinetic-weapon`, `minimum-attack-charge`, `piercing-weapon`, `swing-animation`, `use-effects`                                                                                                                                                                                                  | 1.21.11         |
 
 ## Next Steps
 

@@ -14,36 +14,36 @@ These placeholders are available without any additional plugins:
 
 ### Player Placeholders
 
-| Placeholder | Description | Example Output |
-|-------------|-------------|----------------|
-| `%player%` | Player's name | `Notch` |
+| Placeholder | Description   | Example Output |
+|-------------|---------------|----------------|
+| `%player%`  | Player's name | `Notch`        |
 
 ### Pagination Placeholders
 
-| Placeholder | Description | Example Output |
-|-------------|-------------|----------------|
-| `%page%` | Current page number | `1` |
-| `%maxPage%` | Maximum page number | `5` |
-| `%max-page%` | Maximum page number (alias) | `5` |
-| `%zmenu_player_page%` | Current page (PAPI format) | `1` |
-| `%zmenu_player_next_page%` | Next page number | `2` |
-| `%zmenu_player_previous_page%` | Previous page number | `0` |
-| `%zmenu_player_max_page%` | Maximum page (PAPI format) | `5` |
+| Placeholder                    | Description                 | Example Output |
+|--------------------------------|-----------------------------|----------------|
+| `%page%`                       | Current page number         | `1`            |
+| `%maxPage%`                    | Maximum page number         | `5`            |
+| `%max-page%`                   | Maximum page number (alias) | `5`            |
+| `%zmenu_player_page%`          | Current page (PAPI format)  | `1`            |
+| `%zmenu_player_next_page%`     | Next page number            | `2`            |
+| `%zmenu_player_previous_page%` | Previous page number        | `0`            |
+| `%zmenu_player_max_page%`      | Maximum page (PAPI format)  | `5`            |
 
 ### Inventory History Placeholders
 
-| Placeholder | Description | Example Output |
-|-------------|-------------|----------------|
-| `%zmenu_player_previous_inventories%` | Number of previous inventories in history | `3` |
+| Placeholder                           | Description                               | Example Output |
+|---------------------------------------|-------------------------------------------|----------------|
+| `%zmenu_player_previous_inventories%` | Number of previous inventories in history | `3`            |
 
 ### Math Placeholders
 
 Perform calculations directly in your configuration:
 
-| Placeholder | Description | Example |
-|-------------|-------------|---------|
-| `%zmenu_math_<expression>%` | Calculate a math expression | `%zmenu_math_5+5%` → `10` |
-| `%zmenu_formatted_math_<expression>%` | Formatted math result | `%zmenu_formatted_math_1000+500%` → `1,500` |
+| Placeholder                           | Description                 | Example                                     |
+|---------------------------------------|-----------------------------|---------------------------------------------|
+| `%zmenu_math_<expression>%`           | Calculate a math expression | `%zmenu_math_5+5%` → `10`                   |
+| `%zmenu_formatted_math_<expression>%` | Formatted math result       | `%zmenu_formatted_math_1000+500%` → `1,500` |
 
 **Supported Operations:**
 - Addition: `+`
@@ -61,8 +61,8 @@ lore:
 
 ### Player Data Placeholders
 
-| Placeholder | Description |
-|-------------|-------------|
+| Placeholder                  | Description           |
+|------------------------------|-----------------------|
 | `%zmenu_player_value_<key>%` | Get player data value |
 
 **Example:**
@@ -74,8 +74,8 @@ lore:
 
 ### Command Argument Placeholders
 
-| Placeholder | Description |
-|-------------|-------------|
+| Placeholder              | Description                |
+|--------------------------|----------------------------|
 | `%zmenu_argument_<key>%` | Get command argument value |
 
 This placeholder retrieves arguments passed through custom commands configured in zMenu.
@@ -109,8 +109,8 @@ When a player runs `/punish Notch`, the placeholder `%zmenu_argument_player%` wi
 
 ### Global Placeholder Placeholders
 
-| Placeholder | Description |
-|-------------|-------------|
+| Placeholder                         | Description                  |
+|-------------------------------------|------------------------------|
 | `%zmenu_global_placeholders_<key>%` | Get global placeholder value |
 
 **Example:**
@@ -119,23 +119,23 @@ When a player runs `/punish Notch`, the placeholder `%zmenu_argument_player%` wi
 server-name: "My Server"
 
 # In inventory
-name: "&6%zmenu_global_placeholders_server-name%"
+name: "&6%server-name%" # Replacing directly when zMenu load the inventory
 ```
 
 ### Time Placeholders
 
-| Placeholder | Description | Example Output |
-|-------------|-------------|----------------|
-| `%zmenu_time_unix_timestamp%` | Current Unix timestamp | `1704067200` |
-| `%zmenu_time_next_day_unix_timestamp%` | Tomorrow's Unix timestamp | `1704153600` |
-| `%zmenu_time_today_start_unix_timestamp%` | Start of today timestamp | `1704067200` |
+| Placeholder                               | Description               | Example Output |
+|-------------------------------------------|---------------------------|----------------|
+| `%zmenu_time_unix_timestamp%`             | Current Unix timestamp    | `1704067200`   |
+| `%zmenu_time_next_day_unix_timestamp%`    | Tomorrow's Unix timestamp | `1704153600`   |
+| `%zmenu_time_today_start_unix_timestamp%` | Start of today timestamp  | `1704067200`   |
 
 ### Statistic Placeholders
 
-| Placeholder | Description | Example Output |
-|-------------|-------------|----------------|
-| `%zmenu_statistic_hours_played%` | Hours played (rounded) | `42` |
-| `%zmenu_statistic_time_played%` | Formatted playtime | `1d 18h 30m` |
+| Placeholder                      | Description            | Example Output |
+|----------------------------------|------------------------|----------------|
+| `%zmenu_statistic_hours_played%` | Hours played (rounded) | `42`           |
+| `%zmenu_statistic_time_played%`  | Formatted playtime     | `1d 18h 30m`   |
 
 ## PlaceholderAPI Integration
 
@@ -151,13 +151,13 @@ zMenu fully supports PlaceholderAPI. Any PAPI placeholder works in:
 
 Install expansions with: `/papi ecloud download <name>`
 
-| Expansion | Placeholders | Example |
-|-----------|-------------|---------|
-| Player | `%player_name%`, `%player_health%`, `%player_level%` | `%player_name%` → `Notch` |
-| Vault | `%vault_eco_balance%`, `%vault_eco_balance_formatted%` | `%vault_eco_balance%` → `1500.00` |
-| Statistic | `%statistic_deaths%`, `%statistic_kills%` | `%statistic_deaths%` → `42` |
-| Server | `%server_online%`, `%server_max_players%` | `%server_online%` → `50` |
-| LuckPerms | `%luckperms_prefix%`, `%luckperms_primary_group_name%` | `%luckperms_prefix%` → `[Admin]` |
+| Expansion | Placeholders                                           | Example                           |
+|-----------|--------------------------------------------------------|-----------------------------------|
+| Player    | `%player_name%`, `%player_health%`, `%player_level%`   | `%player_name%` → `Notch`         |
+| Vault     | `%vault_eco_balance%`, `%vault_eco_balance_formatted%` | `%vault_eco_balance%` → `1500.00` |
+| Statistic | `%statistic_deaths%`, `%statistic_kills%`              | `%statistic_deaths%` → `42`       |
+| Server    | `%server_online%`, `%server_max_players%`              | `%server_online%` → `50`          |
+| LuckPerms | `%luckperms_prefix%`, `%luckperms_primary_group_name%` | `%luckperms_prefix%` → `[Admin]`  |
 
 ### Using PlaceholderAPI
 
@@ -232,15 +232,18 @@ Use placeholders in requirements to create dynamic conditions:
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: placeholder
-      placeholder: "%vault_eco_balance%"
-      action: SUPERIOR_OR_EQUAL
-      value: 100
-      deny:
-        - type: message
-          messages:
-            - "&cYou need at least $100!"
+   requirement:
+      clicks:
+         - ALL
+      requirements:
+       - type: placeholder
+         placeholder: "%vault_eco_balance%"
+         action: SUPERIOR_OR_EQUAL
+         value: 100
+         deny:
+           - type: message
+             messages:
+              - "&cYou need at least $100!"
 ```
 
 ## Placeholder Formatting
@@ -285,17 +288,17 @@ If placeholders aren't working:
 
 ## Quick Reference Table
 
-| Category | Placeholder | Description |
-|----------|-------------|-------------|
-| Player | `%player%` | Player name |
-| Page | `%page%` | Current page |
-| Page | `%maxPage%` | Max page |
-| Math | `%zmenu_math_<expr>%` | Calculate expression |
-| Data | `%zmenu_player_value_<key>%` | Player data |
-| Argument | `%zmenu_argument_<key>%` | Command argument |
-| Global | `%zmenu_global_placeholders_<key>%` | Global value |
-| Time | `%zmenu_time_unix_timestamp%` | Unix time |
-| Stats | `%zmenu_statistic_hours_played%` | Hours played |
+| Category | Placeholder                         | Description          |
+|----------|-------------------------------------|----------------------|
+| Player   | `%player%`                          | Player name          |
+| Page     | `%page%`                            | Current page         |
+| Page     | `%maxPage%`                         | Max page             |
+| Math     | `%zmenu_math_<expr>%`               | Calculate expression |
+| Data     | `%zmenu_player_value_<key>%`        | Player data          |
+| Argument | `%zmenu_argument_<key>%`            | Command argument     |
+| Global   | `%zmenu_global_placeholders_<key>%` | Global value         |
+| Time     | `%zmenu_time_unix_timestamp%`       | Unix time            |
+| Stats    | `%zmenu_statistic_hours_played%`    | Hours played         |
 
 ## Next Steps
 

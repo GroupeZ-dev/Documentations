@@ -1,0 +1,1070 @@
+---
+sidebar_position: 1
+title: Item Configuration
+description: Complete reference for item configuration in zMenu
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Item Configuration
+
+Items are the visual elements displayed in your inventory buttons. This page documents all available item configuration options.
+
+## Basic Item Structure
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&bMy Item"
+  lore:
+    - "&7Line 1"
+    - "&7Line 2"
+```
+
+## Configuration Options
+
+### material
+
+The material type for the item. zMenu supports vanilla Minecraft materials and many custom item plugins.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+```
+
+#### Material Loaders
+
+zMenu supports many material sources through its loader system:
+
+| Plugin               | Syntax                                                  | Price    | Link                                                                           |
+|----------------------|---------------------------------------------------------|----------|--------------------------------------------------------------------------------|
+| **Bukkit**           | `STONE`, `DIAMOND_SWORD`                                | Built-in | Vanilla Minecraft                                                              |
+| **PlaceholderAPI**   | `%your_placeholder_material%`                           | Free     | [SpigotMC](https://www.spigotmc.org/resources/6245/)                           |
+| **Armor (slot)**     | `armor:HEAD`, `armor:CHEST`, `armor:LEGS`, `armor:FEET` | Built-in | Player's equipped armor                                                        |
+| **zHead**            | `zhd:<id>`                                              | Free     | [Polymart](https://polymart.org/resource/2070)                                 |
+| **MagicCosmetics**   | `magic_cosmetics:HAT`, `magic_cosmetics:BAG`, etc.      | Paid     | [Polymart](https://polymart.org/product/6981/magic-cosmetics-gui-non-animated) |
+| **HMCCosmetics**     | `hmc_cosmetics:<type>`, `hmc_cosmetics:<type>-<player>` | Paid     | [SpigotMC](https://www.spigotmc.org/resources/100107/)                         |
+| **zItems**           | `zitems:<id>`                                           | Paid     | [SpigotMC](https://www.spigotmc.org/resources/118638/)                         |
+| **HeadDatabase**     | `hdb:<id>`                                              | Paid     | [SpigotMC](https://www.spigotmc.org/resources/14280/)                          |
+| **Oraxen**           | `oraxen:<item name>`                                    | Paid     | [SpigotMC](https://www.spigotmc.org/resources/72448/)                          |
+| **ItemsAdder**       | `itemsadder:<item name>`                                | Paid     | [SpigotMC](https://www.spigotmc.org/resources/73355/)                          |
+| **SlimeFun**         | `slimefun:<item name>`                                  | Free     | [GitHub](https://github.com/Slimefun/Slimefun4)                                |
+| **Nova**             | `nova:<item/block name>`                                | Free     | [GitHub](https://github.com/xenondevs/Nova)                                    |
+| **Base64**           | `base64:<item in base64>`                               | Built-in | Import items as base64 string                                                  |
+| **PlayerHead**       | `playerHead:<player name>`, `playerHead:%player%`       | Built-in | Display a player's head                                                        |
+| **CraftEngine**      | `craftengine:<item id>`                                 | Free     | [Modrinth](https://modrinth.com/plugin/craftengine)                            |
+| **ExecutableItems**  | `ei:<item id>`                                          | Paid     | [SpigotMC](https://www.spigotmc.org/resources/83070/)                          |
+| **ExecutableBlocks** | `eb:<block id>`                                         | Paid     | [SpigotMC](https://www.spigotmc.org/resources/94696/)                          |
+| **Nexo**             | `nexo:<item id>`                                        | Paid     | [MCModels](https://mcmodels.net/products/13172/nexo)                           |
+| **MMOItems**         | `mmoitems:<type>:<item id>`                             | Paid     | [SpigotMC](https://www.spigotmc.org/resources/39267/)                          |
+| **BaseHead**         | `basehead-<head-url>`                                   | Built-in | Use a base64 head texture directly in the material field                       |
+
+**Examples:**
+
+```yaml
+# Vanilla material
+material: DIAMOND_SWORD
+
+# Player head
+material: "playerHead:%player%"
+
+# Custom head from zHead
+material: "zhd:123"
+
+# ItemsAdder custom item
+material: "itemsadder:my_namespace:ruby_gem"
+
+# Oraxen custom item
+material: "oraxen:amethyst_sword"
+```
+
+---
+
+### name
+
+The display name of the item.
+
+<Tabs>
+    <TabItem value="name" label="name">
+        ```yaml
+        item:
+        material: DIAMOND
+        name: "&b&lShiny Diamond"
+        ```
+    </TabItem>
+    <TabItem value="display-name" label="display-name">
+        ```yaml
+        item:
+        material: DIAMOND
+        display-name: "&b&lShiny Diamond"
+        ```
+    </TabItem>
+    <TabItem value="display_name" label="display_name">
+        ```yaml
+        item:
+        material: DIAMOND
+        display_name: "&b&lShiny Diamond"
+        ```
+    </TabItem>
+</Tabs>
+
+**Aliases:**
+- `name`
+- `display-name`
+- `display_name`
+
+**Features:**
+- Supports color codes (`&6`, `&#FF5500`)
+- Supports MiniMessage (if enabled)
+- Supports placeholders (`%player%`)
+
+---
+
+### translated-name
+
+<Tabs>
+    <TabItem value="translatedName" label="translatedName">
+        ```yaml
+        item:
+          material: DIAMOND_SWORD
+          translatedName: "item.minecraft.diamond_sword"
+        ```
+    </TabItem>
+    <TabItem value="translated-name" label="translated-name">
+        ```yaml
+        item:
+          material: DIAMOND_SWORD
+          translated-name: "item.minecraft.diamond_sword"
+        ```
+    </TabItem>
+</Tabs>
+
+This displays the item name in the player's client language.
+
+---
+
+### lore
+
+The description lines shown below the item name.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  name: "&6&lLegendary Sword"
+  lore:
+    - "&7A powerful weapon"
+    - ""
+    - "&7Damage: &c+50"
+    - "&7Speed: &a+10%"
+    - ""
+    - "&eClick to equip!"
+```
+
+Each list item is a new line. Empty strings (`""`) create blank lines.
+
+---
+
+### lore-type
+
+Define how the lore should interact with existing item lore. This is especially useful when using material loaders (ItemsAdder, Oraxen, etc.) where the loaded item already has lore.
+
+<Tabs>
+    <TabItem value="replace" label="REPLACE (default)">
+        ```yaml
+        item:
+          material: "oraxen:custom_item"
+          lore:
+            - "&7This replaces all existing lore"
+          lore-type: REPLACE
+        ```
+    </TabItem>
+    <TabItem value="append" label="APPEND">
+        ```yaml
+        item:
+          material: "itemsadder:namespace:item"
+          lore:
+            - ""
+            - "&eClick to use!"
+          lore-type: APPEND
+        ```
+    </TabItem>
+    <TabItem value="prepend" label="PREPEND">
+        ```yaml
+        item:
+          material: "zitems:legendary_sword"
+          lore:
+            - "&6&lLEGENDARY"
+            - ""
+          lore-type: PREPEND
+        ```
+    </TabItem>
+</Tabs>
+
+**Available Types:**
+
+| Type      | Description                                  |
+|-----------|----------------------------------------------|
+| `REPLACE` | Replace the existing lore entirely (default) |
+| `APPEND`  | Add lines after the existing lore            |
+| `PREPEND` | Add lines before the existing lore           |
+
+---
+
+### translated-lore
+
+<Tabs>
+    <TabItem value="translatedLore" label="translatedLore">
+        ```yaml
+        item:
+          material: DIAMOND_SWORD
+          translatedLore:
+            - "item.minecraft.diamond_sword.desc"
+        ```
+    </TabItem>
+    <TabItem value="translated-lore" label="translated-lore">
+        ```yaml
+        item:
+          material: DIAMOND_SWORD
+          translated-lore:
+            - "item.minecraft.diamond_sword.desc"
+        ```
+    </TabItem>
+</Tabs>
+
+---
+
+### amount
+
+The stack size of the item.
+
+```yaml
+item:
+  material: DIAMOND
+  amount: 64
+```
+
+You can also use placeholders:
+
+```yaml
+item:
+  material: DIAMOND
+  amount: "%zmenu_player_value_coins%"  # Dynamic amount
+```
+
+---
+
+### durability
+
+Set the durability/damage value for tools and armor.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  durability: 100  # 100 durability used
+```
+
+---
+
+### max-stack-size
+
+Set a custom max stack size for the item.
+
+```yaml
+item:
+  material: DIAMOND
+  max-stack-size: 16
+```
+
+---
+
+### max-damage
+
+Set a custom max durability for the item.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  max-damage: 500
+```
+
+---
+
+### damage
+
+Set the current durability damage for the item.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  damage: 50  # 50 durability used
+```
+
+---
+
+### repair-cost
+
+Set the anvil repair cost for the item.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  repair-cost: 10
+```
+
+---
+
+### unbreakable
+
+Make the item unbreakable (infinite durability).
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  unbreakable: true
+```
+
+---
+
+### unbreakable-show-in-tooltip
+
+Show "Unbreakable" in the item tooltip when the item is unbreakable.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  unbreakable: true
+  unbreakable-show-in-tooltip: false
+```
+
+---
+
+### fire-resistant
+
+Make the item fire resistant (does not burn in lava or fire).
+
+```yaml
+item:
+  material: DIAMOND
+  fire-resistant: true
+```
+
+---
+
+### hide-tooltip
+
+Completely hide the item tooltip when hovering over the item in the inventory.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lHidden Tooltip" # You can still set a name and lore, but they won't be visible in the tooltip
+  hide-tooltip: true
+```
+
+---
+
+### hide-additional-tooltip
+
+Hide the additional tooltip line that shows enchantments, attributes, etc. The item name and lore will still be visible.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  name: "&6&lHidden Additional Tooltip"
+  enchantments:
+    - SHARPNESS,5
+  hide-additional-tooltip: true
+```
+
+---
+
+### enchantment-glint
+
+Enable the enchantment glint effect without showing enchantments in the tooltip.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lGlowing Diamond"
+  enchantment-glint: true
+```
+
+---
+
+### enchantment-show-in-tooltip
+
+Define whether enchantments should be listed in the item tooltip.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  name: "&6&lTooltip Enchantments"
+  enchantments:
+    - SHARPNESS,5
+  enchantment-show-in-tooltip: false
+```
+
+---
+
+### attribute-show-in-tooltip
+
+Define whether attribute modifiers should be listed in the item tooltip.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  name: "&6&lTooltip Attributes"
+  attributes:
+    - attribute: ATTACK_DAMAGE
+      amount: 10
+      operation: ADD_NUMBER
+      slot: MAINHAND
+  attribute-show-in-tooltip: false
+```
+
+---
+
+### item-rarity
+
+Set the item rarity, which can be used by resource packs to apply different colors or effects.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lRare Diamond"
+  item-rarity: RARE
+```
+
+<details>
+<summary>Click to show rarity options</summary>
+
+    Available rarities:
+    - `COMMON`
+    - `UNCOMMON`
+    - `RARE`
+    - `EPIC`
+
+</details>
+
+---
+
+### tooltip-style
+
+Set the tooltip style, which can be used by resource packs to apply different formatting.
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&6&lStyled Diamond"
+  tooltip-style: "fancy"
+```
+
+---
+
+### model-id
+
+<Tabs>
+    <TabItem value="model-id" label="model-id">
+        ```yaml
+        item:
+          material: DIAMOND
+          model-id: 12345
+        ```
+    </TabItem>
+    <TabItem value="modelID" label="modelID">
+        ```yaml
+        item:
+          material: DIAMOND
+          modelID: 12345
+        ```
+    </TabItem>
+    <TabItem value="modelId" label="modelId">
+        ```yaml
+        item:
+          material: DIAMOND
+          modelId: 12345
+        ```
+    </TabItem>
+    <TabItem value="customModelId" label="customModelId">
+        ```yaml
+        item:
+          material: DIAMOND
+          customModelId: 12345
+        ```
+    </TabItem>
+    <TabItem value="customModelData" label="customModelData">
+        ```yaml
+        item:
+          material: DIAMOND
+          customModelData: 12345
+        ```
+    </TabItem>
+    <TabItem value="model_data" label="model_data">
+        ```yaml
+        item:
+          material: DIAMOND
+          model_data: 12345
+        ```
+    </TabItem>
+    <TabItem value="custom-model-id" label="custom-model-id">
+        ```yaml
+        item:
+          material: DIAMOND
+          custom-model-id: 12345
+        ```
+    </TabItem>
+    <TabItem value="custom-model-data" label="custom-model-data">
+        ```yaml
+        item:
+          material: DIAMOND
+          custom-model-data: 12345
+        ```
+    </TabItem>
+    <TabItem value="model-data" label="model-data">
+        ```yaml
+        item:
+          material: DIAMOND
+          model-data: 12345
+        ```
+    </TabItem>
+</Tabs>
+
+This allows resource packs to display custom models for items.
+
+---
+
+### item-model <span class="badge badge--danger">1.21+</span>
+
+Set the item model using a namespaced key (Minecraft 1.21+).
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  item-model: "minecraft:custom/my_sword"
+```
+
+Or with a custom namespace:
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  item-model: "mypack:weapons/legendary_blade"
+```
+
+---
+
+### equipped-model <span class="badge badge--danger">1.21+</span>
+
+Set the model displayed when the item is equipped (Minecraft 1.21+).
+
+```yaml
+item:
+  material: DIAMOND_CHESTPLATE
+  equipped-model: "minecraft:custom/my_armor"
+```
+
+This is used for armor and equipment that changes appearance when worn.
+
+---
+
+### glow
+
+Add an enchantment glow effect without showing enchantments. Equivalent to adding `HIDE_ENCHANTS` flag with a dummy enchantment.
+
+```yaml
+item:
+  material: NETHER_STAR
+  name: "&6&lSpecial Item"
+  glow: true
+```
+
+---
+
+### player-head
+
+Display a player's head. The material is automatically set to `PLAYER_HEAD`.
+
+```yaml
+item:
+  player-head: "%player%"  # Current player's head
+  name: "&a%player%'s Head"
+```
+
+You can also use a specific player name:
+
+```yaml
+item:
+  player-head: "Notch"
+```
+
+:::tip
+You don't need to specify `material: PLAYER_HEAD` when using `player-head`. The plugin handles this automatically.
+:::
+
+---
+
+### url
+
+Use a custom head texture URL (base64 encoded texture).
+
+```yaml
+item:
+  material: PLAYER_HEAD
+  url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUv..."
+  name: "&6Custom Head"
+```
+
+Get head textures from sites like [minecraft-heads.com](https://minecraft-heads.com/).
+
+---
+
+### target
+
+Set the target player for placeholders in the item name and lore.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  target: "%zmenu_argument_player%"  # Use a placeholder that resolves to a player name
+  name: "&6&l%player_name%'s Sword"
+```
+
+So if the target placeholder resolves to "Notch", the item name will display as "Notch's Sword" for that player.
+
+---
+
+### attributes
+
+Define attribute modifiers for the item.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  attributes:
+    - attribute: ATTACK_SPEED
+      amount: 5
+      operation: ADD_NUMBER
+      slot: MAINHAND
+```
+
+<details>
+    <summary>Click to show attribute options</summary>
+
+    List of all available attributes [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/attribute/Attribute.html).
+    Available operations:
+    - `ADD_NUMBER`
+    - `ADD_SCALAR`
+    - `MULTIPLY_SCALAR_1`
+    Available slots can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/EquipmentSlotGroup.html).
+
+</details>
+
+---
+
+### attribute-merge-strategy
+
+Define how attribute modifiers should merge with existing item attributes.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  attributes:
+    - attribute: ATTACK_DAMAGE
+      amount: 10
+      operation: ADD_NUMBER
+      slot: MAINHAND
+  attribute-merge-strategy: REPLACE
+```
+
+<details>
+    <summary>Click to show merge strategy options</summary>
+
+    **Merge Strategies:**
+    - `REPLACE` - Replace all existing attributes with the defined ones.
+    - `ADD` - Add the defined attributes to the existing ones.
+    - `KEEP_HIGHEST` - For each attribute, keep the highest value between existing and defined.
+    - `KEEP_LOWEST` - For each attribute, keep the lowest value between existing and defined.
+    - `SUM` - Sum the values of existing and defined attributes together.
+
+</details>
+
+---
+
+### clear-default-attributes
+
+Remove default attributes from items (e.g., remove attack damage from swords).
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  clear-default-attributes: true
+```
+
+---
+
+### enchantments
+
+<Tabs>
+    <TabItem value="enchantments" label="enchantments">
+        ```yaml
+        item:
+          material: DIAMOND_SWORD
+          enchantments:
+            - SHARPNESS,5
+            - UNBREAKING,3
+        ```
+    </TabItem>
+    <TabItem value="enchants" label="enchants">
+        ```yaml
+        item:
+          material: DIAMOND_SWORD
+          enchants:
+            - SHARPNESS,5
+            - UNBREAKING,3
+        ```
+    </TabItem>
+</Tabs>
+
+You can use either `enchantments` or `enchants` to add enchantments to your item.
+
+<details>
+<summary>Click to show supported enchantments and aliases</summary>
+
+**Supported Enchantments and Aliases:**
+
+| Main Name             | Aliases                                                                                                                                               |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SHARPNESS             | DAMAGE_ALL, SHARPNESS, alldamage, alldmg, sharpness, sharp, dal                                                                                       |
+| BANE_OF_ARTHROPODS    | DAMAGE_ARTHROPODS, BANE_OF_ARTHROPODS, ardmg, baneofarthropods, baneofarthropod, arthropod, dar                                                       |
+| SMITE                 | DAMAGE_UNDEAD, undeaddamage, smite, du                                                                                                                |
+| EFFICIENCY            | DIG_SPEED, EFFICIENCY, digspeed, efficiency, minespeed, cutspeed, ds, eff                                                                             |
+| UNBREAKING            | DURABILITY, dura, unbreaking, d                                                                                                                       |
+| THORNS                | thorns, highcrit, thorn, highercrit, t                                                                                                                |
+| FIRE_ASPECT           | FIRE_ASPECT, fireaspect, fire, meleefire, meleeflame, fa                                                                                              |
+| KNOCKBACK             | knockback, kback, kb, k                                                                                                                               |
+| FORTUNE               | LOOT_BONUS_BLOCKS, FORTUNE, blockslootbonus, fortune, fort, lbb                                                                                       |
+| LOOTING               | LOOT_BONUS_MOBS, LOOTING, mobslootbonus, mobloot, looting, lbm                                                                                        |
+| RESPIRATION           | OXYGEN, RESPIRATION, oxygen, respiration, breathing, breath, o                                                                                        |
+| PROTECTION            | PROTECTION_ENVIRONMENTAL, PROTECTION, protection, prot, protect, p                                                                                    |
+| BLAST_PROTECTION      | PROTECTION_EXPLOSIONS, BLAST_PROTECTION, explosionsprotection, explosionprotection, expprot, blastprotection, bprotection, bprotect, blastprotect, pe |
+| FEATHER_FALLING       | PROTECTION_FALL, FEATHER_FALLING, fallprotection, fallprot, featherfall, featherfalling, pfa                                                          |
+| FIRE_PROTECTION       | PROTECTION_FIRE, FIRE_PROTECTION, fireprotection, flameprotection, fireprotect, flameprotect, fireprot, flameprot, pf                                 |
+| PROJECTILE_PROTECTION | PROTECTION_PROJECTILE, PROJECTILE_PROTECTION, projectileprotection, projprot, pp                                                                      |
+| SILK_TOUCH            | SILK_TOUCH, silktouch, softtouch, st                                                                                                                  |
+| AQUA_AFFINITY         | WATER_WORKER, AQUA_AFFINITY, waterworker, aquaaffinity, watermine, ww                                                                                 |
+| FLAME                 | ARROW_FIRE, FLAME, firearrow, flame, flamearrow, af                                                                                                   |
+| POWER                 | ARROW_DAMAGE, POWER, arrowdamage, power, arrowpower, ad                                                                                               |
+| PUNCH                 | ARROW_KNOCKBACK, PUNCH, arrowknockback, arrowkb, punch, arrowpunch, ak                                                                                |
+| INFINITY              | ARROW_INFINITE, INFINITY, infinitearrows, infarrows, infinity, infinite, unlimited, unlimitedarrows, ai                                               |
+| LUCK_OF_THE_SEA       | LUCK, LUCK_OF_THE_SEA, luck, luckofsea, luckofseas, rodluck                                                                                           |
+| LURE                  | lure, rodlure                                                                                                                                         |
+| DEPTH_STRIDER         | DEPTH_STRIDER, depthstrider, depth, strider                                                                                                           |
+| FROST_WALKER          | FROST_WALKER, frostwalker, frost, walker                                                                                                              |
+| MENDING               | mending                                                                                                                                               |
+| BINDING_CURSE         | BINDING_CURSE, bindingcurse, bindcurse, binding, bind                                                                                                 |
+| VANISHING_CURSE       | VANISHING_CURSE, vanishingcurse, vanishcurse, vanishing, vanish                                                                                       |
+| SWEEPING_EDGE         | SWEEPING_EDGE, sweepingedge, sweepedge, sweeping                                                                                                      |
+| LOYALTY               | loyalty, loyal, return                                                                                                                                |
+| IMPALING              | impaling, impale, oceandamage, oceandmg                                                                                                               |
+| RIPTIDE               | riptide, rip, tide, launch                                                                                                                            |
+| CHANNELING            | channelling, chanelling, channeling, chaneling, channel                                                                                               |
+| MULTISHOT             | multishot, tripleshot                                                                                                                                 |
+| QUICK_CHARGE          | QUICK_CHARGE, quickcharge, quickdraw, fastcharge, fastdraw                                                                                            |
+| PIERCING              | piercing                                                                                                                                              |
+| SOUL_SPEED            | SOUL_SPEED, soulspeed, soilspeed, sandspeed                                                                                                           |
+| SWIFT_SNEAK           | swiftsneak, SWIFT_SNEAK                                                                                                                               |
+| BREACH                | breach                                                                                                                                                |
+| DENSITY               | density                                                                                                                                               |
+| WIND_BURST            | WIND_BURST, windburst, wind, burst                                                                                                                    |
+
+</details>
+
+**Usage:**
+- Each enchantment entry is in the format `ENCHANTMENT_NAME,level` (e.g., `SHARPNESS,5`).
+- You can use any alias listed above for the enchantment name.
+- These options are for the top-level item configuration, not for components.
+
+---
+
+### trim
+
+Define armor trim patterns and materials.
+
+```yaml
+item:
+  material: DIAMOND_CHESTPLATE
+  trim:
+    enable: true
+    pattern: "coast"
+    material: "iron"
+```
+
+**Available Patterns:** [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/meta/trim/TrimPattern.html)
+**Available Materials:** [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/meta/trim/TrimMaterial.html)
+
+---
+
+### flags
+
+Hide certain item attributes using item flags.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  enchantments:
+    - SHARPNESS,5
+  flags:
+    - HIDE_ENCHANTS
+    - HIDE_ATTRIBUTES
+```
+
+<details>
+<summary>Click to show all available flags</summary>
+
+| Flag                               | Description                      |
+|------------------------------------|----------------------------------|
+| `HIDE_ENCHANTS`                    | Hide enchantment list            |
+| `HIDE_ATTRIBUTES`                  | Hide attribute modifiers         |
+| `HIDE_UNBREAKABLE`                 | Hide "Unbreakable" tag           |
+| `HIDE_DESTROYS`                    | Hide "Can destroy" list          |
+| `HIDE_PLACED_ON`                   | Hide "Can be placed on" list     |
+| `HIDE_ADDITIONAL_TOOLTIP`          | Hide additional tooltip          |
+| `HIDE_DYE`                         | Hide leather armor dye color     |
+| `HIDE_ARMOR_TRIM`                  | Hide armor trim pattern          |
+| `HIDE_CUSTOM_DATA`                 | Hide custom data                 |
+| `HIDE_MAX_STACK_SIZE`              | Hide max stack size              |
+| `HIDE_MAX_DAMAGE`                  | Hide max damage                  |
+| `HIDE_DAMAGE`                      | Hide damage                      |
+| `HIDE_CUSTOM_NAME`                 | Hide custom name                 |
+| `HIDE_ITEM_NAME`                   | Hide item name                   |
+| `HIDE_ITEM_MODEL`                  | Hide item model                  |
+| `HIDE_LORE`                        | Hide lore                        |
+| `HIDE_RARITY`                      | Hide rarity                      |
+| `HIDE_ENCHANTMENTS`                | Hide enchantments                |
+| `HIDE_CAN_PLACE_ON`                | Hide can place on                |
+| `HIDE_CAN_BREAK`                   | Hide can break                   |
+| `HIDE_ATTRIBUTE_MODIFIERS`         | Hide attribute modifiers         |
+| `HIDE_CUSTOM_MODEL_DATA`           | Hide custom model data           |
+| `HIDE_TOOLTIP_DISPLAY`             | Hide tooltip display             |
+| `HIDE_REPAIR_COST`                 | Hide repair cost                 |
+| `HIDE_CREATIVE_SLOT_LOCK`          | Hide creative slot lock          |
+| `HIDE_ENCHANTMENT_GLINT_OVERRIDE`  | Hide enchantment glint override  |
+| `HIDE_INTANGIBLE_PROJECTILE`       | Hide intangible projectile       |
+| `HIDE_FOOD`                        | Hide food                        |
+| `HIDE_CONSUMABLE`                  | Hide consumable                  |
+| `HIDE_USE_REMAINDER`               | Hide use remainder               |
+| `HIDE_USE_COOLDOWN`                | Hide use cooldown                |
+| `HIDE_DAMAGE_RESISTANT`            | Hide damage resistant            |
+| `HIDE_TOOL`                        | Hide tool                        |
+| `HIDE_WEAPON`                      | Hide weapon                      |
+| `HIDE_ENCHANTABLE`                 | Hide enchantable                 |
+| `HIDE_EQUIPPABLE`                  | Hide equippable                  |
+| `HIDE_REPAIRABLE`                  | Hide repairable                  |
+| `HIDE_GLIDER`                      | Hide glider                      |
+| `HIDE_TOOLTIP_STYLE`               | Hide tooltip style               |
+| `HIDE_DEATH_PROTECTION`            | Hide death protection            |
+| `HIDE_BLOCKS_ATTACKS`              | Hide blocks attacks              |
+| `HIDE_STORED_ENCHANTMENTS`         | Hide stored enchantments         |
+| `HIDE_DYED_COLOR`                  | Hide dyed color                  |
+| `HIDE_MAP_COLOR`                   | Hide map color                   |
+| `HIDE_MAP_ID`                      | Hide map id                      |
+| `HIDE_MAP_DECORATIONS`             | Hide map decorations             |
+| `HIDE_MAP_POST_PROCESSING`         | Hide map post processing         |
+| `HIDE_CHARGED_PROJECTILES`         | Hide charged projectiles         |
+| `HIDE_BUNDLE_CONTENTS`             | Hide bundle contents             |
+| `HIDE_POTION_CONTENTS`             | Hide potion contents             |
+| `HIDE_POTION_DURATION_SCALE`       | Hide potion duration scale       |
+| `HIDE_SUSPICIOUS_STEW_EFFECTS`     | Hide suspicious stew effects     |
+| `HIDE_WRITABLE_BOOK_CONTENT`       | Hide writable book content       |
+| `HIDE_WRITTEN_BOOK_CONTENT`        | Hide written book content        |
+| `HIDE_TRIM`                        | Hide trim                        |
+| `HIDE_DEBUG_STICK_STATE`           | Hide debug stick state           |
+| `HIDE_ENTITY_DATA`                 | Hide entity data                 |
+| `HIDE_BUCKET_ENTITY_DATA`          | Hide bucket entity data          |
+| `HIDE_BLOCK_ENTITY_DATA`           | Hide block entity data           |
+| `HIDE_INSTRUMENT`                  | Hide instrument                  |
+| `HIDE_PROVIDES_TRIM_MATERIAL`      | Hide provides trim material      |
+| `HIDE_OMINOUS_BOTTLE_AMPLIFIER`    | Hide ominous bottle amplifier    |
+| `HIDE_JUKEBOX_PLAYABLE`            | Hide jukebox playable            |
+| `HIDE_PROVIDES_BANNER_PATTERNS`    | Hide provides banner patterns    |
+| `HIDE_RECIPES`                     | Hide recipes                     |
+| `HIDE_LODESTONE_TRACKER`           | Hide lodestone tracker           |
+| `HIDE_FIREWORK_EXPLOSION`          | Hide firework explosion          |
+| `HIDE_FIREWORKS`                   | Hide fireworks                   |
+| `HIDE_PROFILE`                     | Hide profile                     |
+| `HIDE_NOTE_BLOCK_SOUND`            | Hide note block sound            |
+| `HIDE_BANNER_PATTERNS`             | Hide banner patterns             |
+| `HIDE_BASE_COLOR`                  | Hide base color                  |
+| `HIDE_POT_DECORATIONS`             | Hide pot decorations             |
+| `HIDE_CONTAINER`                   | Hide container                   |
+| `HIDE_BLOCK_STATE`                 | Hide block state                 |
+| `HIDE_BEES`                        | Hide bees                        |
+| `HIDE_LOCK`                        | Hide lock                        |
+| `HIDE_CONTAINER_LOOT`              | Hide container loot              |
+| `HIDE_BREAK_SOUND`                 | Hide break sound                 |
+| `HIDE_VILLAGER_VARIANT`            | Hide villager variant            |
+| `HIDE_WOLF_VARIANT`                | Hide wolf variant                |
+| `HIDE_WOLF_SOUND_VARIANT`          | Hide wolf sound variant          |
+| `HIDE_WOLF_COLLAR`                 | Hide wolf collar                 |
+| `HIDE_FOX_VARIANT`                 | Hide fox variant                 |
+| `HIDE_SALMON_SIZE`                 | Hide salmon size                 |
+| `HIDE_PARROT_VARIANT`              | Hide parrot variant              |
+| `HIDE_TROPICAL_FISH_PATTERN`       | Hide tropical fish pattern       |
+| `HIDE_TROPICAL_FISH_BASE_COLOR`    | Hide tropical fish base color    |
+| `HIDE_TROPICAL_FISH_PATTERN_COLOR` | Hide tropical fish pattern color |
+| `HIDE_MOOSHROOM_VARIANT`           | Hide mooshroom variant           |
+| `HIDE_RABBIT_VARIANT`              | Hide rabbit variant              |
+| `HIDE_PIG_VARIANT`                 | Hide pig variant                 |
+| `HIDE_COW_VARIANT`                 | Hide cow variant                 |
+| `HIDE_CHICKEN_VARIANT`             | Hide chicken variant             |
+| `HIDE_FROG_VARIANT`                | Hide frog variant                |
+| `HIDE_HORSE_VARIANT`               | Hide horse variant               |
+| `HIDE_PAINTING_VARIANT`            | Hide painting variant            |
+| `HIDE_LLAMA_VARIANT`               | Hide llama variant               |
+| `HIDE_AXOLOTL_VARIANT`             | Hide axolotl variant             |
+| `HIDE_CAT_VARIANT`                 | Hide cat variant                 |
+| `HIDE_CAT_COLLAR`                  | Hide cat collar                  |
+| `HIDE_SHEEP_COLOR`                 | Hide sheep color                 |
+| `HIDE_SHULKER_COLOR`               | Hide shulker color               |
+
+</details>
+
+---
+
+## Components <span class="badge badge--danger">1.20.5+</span>
+
+Starting from Minecraft 1.20.5, items use a new component system. zMenu provides full support for over 40+ component types including food, tools, weapons, attributes, and more.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  components:
+    custom-name: "&6&lLegendary Sword"
+    rarity: EPIC
+    enchantments:
+      sharpness: 5
+    fire-resistant: true
+```
+
+For the complete components reference, see the dedicated [Components](./components) page.
+
+---
+
+## Complete Examples
+
+### Simple Item
+
+```yaml
+item:
+  material: DIAMOND
+  name: "&b&lDiamond"
+  lore:
+    - "&7A precious gem"
+```
+
+### Player Head with Texture
+
+```yaml
+item:
+  player-head: "%player%"
+  name: "&6&lPlayer Profile"
+  lore:
+    - "&7Click to view!"
+  glow: true
+```
+
+Or with a custom texture URL:
+
+```yaml
+item:
+  url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA..."
+  name: "&6&lTreasure Chest"
+  lore:
+    - "&7Click to open!"
+  glow: true
+```
+
+### Enchanted Tool
+
+```yaml
+item:
+  material: DIAMOND_PICKAXE
+  name: "&a&lMiner's Dream"
+  lore:
+    - "&7The ultimate mining tool"
+    - ""
+    - "&7Efficiency V"
+    - "&7Fortune III"
+    - "&7Unbreaking III"
+  enchantments:
+    - EFFICIENCY,5
+    - FORTUNE,3
+    - UNBREAKING,3
+  flags:
+    - HIDE_ENCHANTS
+  glow: true
+```
+
+### Dynamic Item with Placeholders
+
+```yaml
+item:
+  player-head: "%player%"
+  name: "&6&l%player%'s Profile"
+  lore:
+    - "&8&m─────────────────"
+    - ""
+    - "&7Level: &a%player_level%"
+    - "&7Health: &c%player_health%/%player_max_health%"
+    - "&7Balance: &6$%vault_eco_balance_formatted%"
+    - ""
+    - "&7Kills: &a%statistic_player_kills%"
+    - "&7Deaths: &c%statistic_deaths%"
+    - ""
+    - "&8&m─────────────────"
+```
+
+### Custom Model Item
+
+```yaml
+item:
+  material: PAPER
+  name: "&e&lMagic Wand"
+  lore:
+    - "&7Cast powerful spells!"
+  model-id: 10001
+  glow: true
+```
+
+## Using ItemsAdder/Oraxen
+
+For custom items from ItemsAdder:
+
+```yaml
+item:
+  material: ITEMSADDER:my_namespace:ruby_gem
+  name: "&c&lRuby Gem"
+```
+
+For Oraxen items:
+
+```yaml
+item:
+  material: ORAXEN:amethyst_sword
+  name: "&d&lAmethyst Sword"
+```
+
+## Best Practices
+
+1. **Use meaningful names** - Make item names clear and descriptive
+2. **Format lore consistently** - Use separators and spacing for readability
+3. **Hide unnecessary info** - Use flags to hide enchantments/attributes when not needed
+4. **Use placeholders** - Make items dynamic with PlaceholderAPI
+5. **Test with resource packs** - If using customModelData, verify the models display correctly
+
+## Next Steps
+
+- Learn how to use items in [Buttons](../buttons/button)
+- Add [Actions](../buttons/actions) to make items interactive
+- Create [Patterns](../patterns) for reusable item templates

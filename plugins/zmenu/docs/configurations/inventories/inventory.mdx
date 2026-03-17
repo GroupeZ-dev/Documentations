@@ -4,6 +4,9 @@ title: Inventory Configuration
 description: Complete reference for inventory configuration options
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Inventory Configuration
 
 This page documents all available configuration options for creating inventories in zMenu.
@@ -47,9 +50,29 @@ items:
 
 The title displayed at the top of the inventory.
 
-```yaml
-name: "&6&lMy Server Menu"
-```
+<Tabs>
+    <TabItem value="name" label="Name">
+        ```yaml
+        name: "&6&lMy Server Menu"
+        ```
+    </TabItem>
+    <TabItem value="name-list" label="Name with List">
+        Each line was joined together to create a single title.
+
+        ```yaml
+        name:
+          - "&6&lMy Server Menu"
+          - "&7Welcome, &f%player%&7!"
+        ```
+    </TabItem>
+    <TabItem value="title" label="Title">
+        ```yaml
+        title: "&6&lMy Server Menu"
+        ```
+    </TabItem>
+</Tabs>
+
+**Aliases:** `name` and `title` are interchangeable. You can use either one to define the inventory title.
 
 **Features:**
 - Supports color codes (`&6`, `&#FF5500`)
@@ -67,14 +90,14 @@ name: "&6Shop &7(Page %page%/%max-page%)"
 
 The number of slots in the inventory. Must be a multiple of 9 (for CHEST type).
 
-| Size | Rows | Description |
-|------|------|-------------|
-| 9 | 1 | Single row |
-| 18 | 2 | Two rows |
-| 27 | 3 | Three rows (small chest) |
-| 36 | 4 | Four rows |
-| 45 | 5 | Five rows |
-| 54 | 6 | Six rows (double chest) |
+| Size | Rows | Description              |
+|------|------|--------------------------|
+| 9    | 1    | Single row               |
+| 18   | 2    | Two rows                 |
+| 27   | 3    | Three rows (small chest) |
+| 36   | 4    | Four rows                |
+| 45   | 5    | Five rows                |
+| 54   | 6    | Six rows (double chest)  |
 
 ```yaml
 size: 54
@@ -92,28 +115,28 @@ type: CHEST
 
 **Available types:**
 
-| Type | Size | Description |
-|------|------|-------------|
-| `CHEST` | 9-54 | Standard chest inventory (default) |
-| `DISPENSER` | 9 | 3x3 dispenser layout |
-| `DROPPER` | 9 | 3x3 dropper layout |
-| `FURNACE` | 3 | Furnace layout |
-| `WORKBENCH` | 10 | Crafting table layout |
-| `ENCHANTING` | 2 | Enchanting table layout |
-| `BREWING` | 5 | Brewing stand layout |
-| `ANVIL` | 3 | Anvil layout |
-| `BEACON` | 1 | Beacon layout |
-| `HOPPER` | 5 | Hopper layout (5 slots) |
-| `SHULKER_BOX` | 27 | Shulker box layout |
-| `BARREL` | 27 | Barrel layout |
-| `BLAST_FURNACE` | 3 | Blast furnace layout |
-| `LECTERN` | 1 | Lectern layout |
-| `SMOKER` | 3 | Smoker layout |
-| `LOOM` | 4 | Loom layout |
-| `CARTOGRAPHY` | 3 | Cartography table layout |
-| `GRINDSTONE` | 3 | Grindstone layout |
-| `STONECUTTER` | 2 | Stonecutter layout |
-| `SMITHING` | 4 | Smithing table layout |
+| Type            | Size | Description                        |
+|-----------------|------|------------------------------------|
+| `CHEST`         | 9-54 | Standard chest inventory (default) |
+| `DISPENSER`     | 9    | 3x3 dispenser layout               |
+| `DROPPER`       | 9    | 3x3 dropper layout                 |
+| `FURNACE`       | 3    | Furnace layout                     |
+| `WORKBENCH`     | 10   | Crafting table layout              |
+| `ENCHANTING`    | 2    | Enchanting table layout            |
+| `BREWING`       | 5    | Brewing stand layout               |
+| `ANVIL`         | 3    | Anvil layout                       |
+| `BEACON`        | 1    | Beacon layout                      |
+| `HOPPER`        | 5    | Hopper layout (5 slots)            |
+| `SHULKER_BOX`   | 27   | Shulker box layout                 |
+| `BARREL`        | 27   | Barrel layout                      |
+| `BLAST_FURNACE` | 3    | Blast furnace layout               |
+| `LECTERN`       | 1    | Lectern layout                     |
+| `SMOKER`        | 3    | Smoker layout                      |
+| `LOOM`          | 4    | Loom layout                        |
+| `CARTOGRAPHY`   | 3    | Cartography table layout           |
+| `GRINDSTONE`    | 3    | Grindstone layout                  |
+| `STONECUTTER`   | 2    | Stonecutter layout                 |
+| `SMITHING`      | 4    | Smithing table layout              |
 
 :::info
 When using a type other than `CHEST`, the `size` option is ignored as each type has a fixed size.
@@ -184,15 +207,15 @@ title-animation:
 
 **Configuration options:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `titles` | List | - | List of title frames to cycle through |
-| `cycles` | Integer | -1 | Number of animation cycles (-1 for infinite) |
-| `initial-delay` | Integer | 0 | Delay before animation starts |
-| `interval` | Integer | 1 | Time between each frame |
-| `time-unit` | String | SECONDS | Time unit for delays (SECONDS, MILLISECONDS, TICKS) |
-| `show-items-after-animation` | Boolean | true | Show items after animation completes |
-| `item-update-interval` | Integer | 1 | How often to update items during animation |
+| Option                       | Type    | Default | Description                                         |
+|------------------------------|---------|---------|-----------------------------------------------------|
+| `titles`                     | List    | -       | List of title frames to cycle through               |
+| `cycles`                     | Integer | -1      | Number of animation cycles (-1 for infinite)        |
+| `initial-delay`              | Integer | 0       | Delay before animation starts                       |
+| `interval`                   | Integer | 1       | Time between each frame                             |
+| `time-unit`                  | String  | SECONDS | Time unit for delays (SECONDS, MILLISECONDS, TICKS) |
+| `show-items-after-animation` | Boolean | true    | Show items after animation completes                |
+| `item-update-interval`       | Integer | 1       | How often to update items during animation          |
 
 **Time units:**
 - `NANOSECONDS`
@@ -205,7 +228,7 @@ title-animation:
 
 **Complete example:**
 ```yaml
-name: "&6Loading..."
+name: "&6Loading"
 size: 27
 
 title-animation:
@@ -249,6 +272,21 @@ clear-inventory: true
 
 ---
 
+### clear-inventory-type
+
+Choice what type of inventory clear is used to clear the player's inventory.
+
+```yaml
+clear-inventory-type: DEFAULT
+```
+
+**Options:**
+- `DEFAULT` - Clears the inventory using the default method (clears the player's inventory and saves the contents to restore later)
+- `PACKET_EVENT` - Clears the inventory using PacketEvents (sends packets to the player to clear their inventory without actually modifying it, so items remain in their inventory but are not visible)
+
+---
+
+
 ### cancel-item-pickup
 
 Prevent players from picking up items while the inventory is open.
@@ -260,6 +298,16 @@ cancel-item-pickup: true
 **Use cases:**
 - Preventing accidental item pickup during menu interaction
 - Clean GUI experience without interference
+
+---
+
+### click-limiter-enabled
+
+Enable a click limiter to prevent players from clicking too fast.
+
+```yaml
+click-limiter-enabled: true
+```
 
 ---
 
@@ -287,6 +335,8 @@ items:
       lore:
         - "&7Viewing player profile"
 ```
+
+Useful for profile menus or any inventory opened for a specific player.
 
 ---
 
@@ -319,11 +369,24 @@ When applied, all buttons in the inventory will inherit these actions. Button-sp
 
 Define an item to fill all empty slots.
 
-```yaml
-fill-item:
-  material: BLACK_STAINED_GLASS_PANE
-  name: "&8"
-```
+<Tabs>
+    <TabItem value="fill-item" label="fill-item">
+        ```yaml
+        fill-item:
+          material: BLACK_STAINED_GLASS_PANE
+          name: "&8"
+        ```
+    </TabItem>
+    <TabItem value="fillItem" label="fillItem">
+        ```yaml
+        fillItem:
+          material: BLACK_STAINED_GLASS_PANE
+          name: "&8"
+        ```
+    </TabItem>
+</Tabs>
+
+**Aliases:** `fill-item` and `fillItem` are interchangeable.
 
 This automatically fills any slot not occupied by a button.
 
@@ -418,14 +481,28 @@ If requirements aren't met, the inventory won't open and deny actions will execu
 
 ### open-requirement
 
-Alternative name for view-requirement (same functionality).
+Requirements that must be met to open this inventory. Similar to `view-requirement`, but checked before opening the inventory, allowing you to prevent the inventory from opening at all if conditions aren't met.
 
-```yaml
-open-requirement:
-  requirements:
-    - type: permission
-      permission: "myserver.premium"
-```
+<Tabs>
+    <TabItem value="open-requirement" label="open-requirement">
+        ```yaml
+        open-requirement:
+          requirements:
+            - type: permission
+              permission: "myserver.premium"
+        ```
+    </TabItem>
+    <TabItem value="open_requirement" label="open_requirement">
+        ```yaml
+        open_requirement:
+          requirements:
+            - type: permission
+              permission: "myserver.premium"
+        ```
+    </TabItem>
+</Tabs>
+
+**Aliases:** `open_requirement` and `open-requirement` are interchangeable.
 
 ---
 
@@ -433,18 +510,37 @@ open-requirement:
 
 Define an item that opens this inventory when held and clicked.
 
-```yaml
-open-with-item:
-  item:
-    material: COMPASS
-    name: "&6&lMenu"
-    lore:
-      - "&7Right-click to open"
-  actions:
-    - RIGHT_CLICK
-    - RIGHT_CLICK_BLOCK
-  type: full  # full, contains, or starts_with
-```
+<Tabs>
+    <TabItem value="open-with-item" label="open-with-item">
+        ```yaml
+        open-with-item:
+          item:
+            material: COMPASS
+            name: "&6&lMenu"
+            lore:
+              - "&7Right-click to open"
+          actions:
+            - RIGHT_CLICK
+          type: full # full, contains, or starts_with
+        ```
+    </TabItem>
+    <TabItem value="openWithItem" label="openWithItem">
+        ```yaml
+        openWithItem:
+          item:
+            material: COMPASS
+            name: "&6&lMenu"
+            lore:
+              - "&7Right-click to open"
+          actions:
+            - RIGHT_CLICK
+          type: full # full, contains, or starts_with
+        ```
+    </TabItem>
+</Tabs>
+
+
+**Aliases:** `open-with-item` and `openWithItem` are interchangeable.
 
 **Actions types:**
 - `RIGHT_CLICK` - Right click in air
