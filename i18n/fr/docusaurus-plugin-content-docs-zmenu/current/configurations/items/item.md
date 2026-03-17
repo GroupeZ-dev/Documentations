@@ -271,7 +271,7 @@ item:
 | Drapeau | Description |
 |---------|-------------|
 | `HIDE_ENCHANTS` | Masquer la liste des enchantements |
-| `HIDE_ATTRIBUTES` | Masquer les modificateurs d'attributs |
+| `HIDE_ATTRIBUTES` | Masquer les modificateurs d'attributs (1.21.5+ uniquement) |
 | `HIDE_UNBREAKABLE` | Masquer le tag "Incassable" |
 | `HIDE_DESTROYS` | Masquer la liste "Peut detruire" |
 | `HIDE_PLACED_ON` | Masquer la liste "Peut etre place sur" |

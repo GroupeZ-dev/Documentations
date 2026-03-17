@@ -22,6 +22,7 @@ zAuctionHouse uses [CurrenciesAPI](https://github.com/GroupeZ-dev/CurrenciesAPI)
 | [ElementalTokens](https://builtbybit.com/resources/16707/) | `ELEMENTALTOKENS` | No |
 | [ElementalGems](https://builtbybit.com/resources/14920/) | `ELEMENTALGEMS` | No |
 | [CoinsEngine](https://www.spigotmc.org/resources/84121/) | `COINSENGINE` | **Yes** |
+| [ExcellentEconomy](https://www.spigotmc.org/resources/excellenteconomy-%E2%AD%90-economy-and-custom-currencies.84121/) | `EXCELLENTECONOMY` | **Yes** |
 | [VotingPlugin](https://www.spigotmc.org/resources/15358/) | `VOTINGPLUGIN` | No |
 | [RedisEconomy](https://www.spigotmc.org/resources/105965/) | `REDISECONOMY` | **Yes** |
 | [RoyaleEconomy](https://polymart.org/product/113/royaleeconomy-1-8-1-21) | `ROYALEECONOMY` | No |
@@ -333,6 +334,7 @@ economies:
 | [EcoBits](https://www.spigotmc.org/resources/109967/) | `ECOBITS` | Uses EcoBits currency identifier |
 | [CoinsEngine](https://www.spigotmc.org/resources/84121/) | `COINSENGINE` | Uses CoinsEngine currency name |
 | [RedisEconomy](https://www.spigotmc.org/resources/105965/) | `REDISECONOMY` | Uses RedisEconomy currency name |
+| [ExcellentEconomy](https://www.spigotmc.org/resources/excellenteconomy-%E2%AD%90-economy-and-custom-currencies.84121/) | `EXCELLENTECONOMY` | Uses ExcellentEconomy currency name |
 
 ### Example: Multiple Currencies from Same Plugin
 

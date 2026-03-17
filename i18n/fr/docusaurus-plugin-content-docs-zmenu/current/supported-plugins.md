@@ -48,6 +48,19 @@ Vault fournit une API d'economie unifiee que zMenu utilise pour les actions base
 
 ---
 
+### ExcellentEconomy
+
+**Telechargement** : [SpigotMC](https://www.spigotmc.org/resources/excellenteconomy-%E2%AD%90-economy-and-custom-currencies.84121/)
+
+ExcellentEconomy fournit un systeme d'economie multi-devises avec support de monnaies personnalisees.
+
+**Fonctionnalites activees :**
+- Action `currency-deposit`
+- Action `currency-withdraw`
+- Support multi-devises via le parametre `economy`
+
+---
+
 ## Plugins de permissions
 
 ### LuckPerms
@@ -266,6 +279,7 @@ PacketEvents est requis pour le systeme de dialogues (Minecraft 1.20.5+).
 |--------|-----------|------------------|----------------|
 | PlaceholderAPI | Placeholders | - | Valeurs dynamiques |
 | Vault | Economie | - | Actions de monnaie |
+| ExcellentEconomy | Economie | - | Actions multi-devises |
 | LuckPerms | Permissions | - | Exigences de groupe |
 | ItemsAdder | Items personnalises | `ITEMSADDER:` | Items/textures personnalises |
 | Oraxen | Items personnalises | `ORAXEN:` | Items/modeles personnalises |

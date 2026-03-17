@@ -126,6 +126,21 @@ economies:
     deny-message: "&cYou don't have enough coins to buy this."
 ```
 
+### ExcellentEconomy
+
+Integration with ExcellentEconomy plugin (multi-currency support):
+
+```yaml
+economies:
+  EXCELLENTECONOMY:
+    name: excellenteconomy
+    type: EXCELLENTECONOMY
+    currency: "%price% coins"
+    is-enable: true
+    currency-name: "coins"  # ExcellentEconomy currency name
+    deny-message: "&cYou don't have enough coins to buy this."
+```
+
 ### TokenManager
 
 Integration with TokenManager plugin:

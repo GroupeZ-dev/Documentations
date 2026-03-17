@@ -390,7 +390,7 @@ item:
 | Flag | Description |
 |------|-------------|
 | `HIDE_ENCHANTS` | Hide enchantment list |
-| `HIDE_ATTRIBUTES` | Hide attribute modifiers |
+| `HIDE_ATTRIBUTES` | Hide attribute modifiers (1.21.5+ only) |
 | `HIDE_UNBREAKABLE` | Hide "Unbreakable" tag |
 | `HIDE_DESTROYS` | Hide "Can destroy" list |
 | `HIDE_PLACED_ON` | Hide "Can be placed on" list |

@@ -182,11 +182,11 @@ Cela vous permet de créer des objets de monnaie personnalisés qui doivent corr
 
 ## Économie avec Nom de Currency
 
-Pour les plugins qui supportent plusieurs monnaies (zEssentials, EcoBits, CoinsEngine, RedisEconomy), vous pouvez spécifier quelle monnaie utiliser :
+Pour les plugins qui supportent plusieurs monnaies (zEssentials, EcoBits, CoinsEngine, ExcellentEconomy, RedisEconomy), vous pouvez spécifier quelle monnaie utiliser :
 
 ```yaml
 economies:
-  - type: ZESSENTIALS  # Fonctionne aussi avec : ECOBITS, COINSENGINE, REDISECONOMY
+  - type: ZESSENTIALS  # Fonctionne aussi avec : ECOBITS, COINSENGINE, EXCELLENTECONOMY, REDISECONOMY
     currency-name: "coins"  # Le nom de la monnaie du plugin
     is-enable: true
     name: coins
@@ -220,6 +220,7 @@ economies:
 | [EcoBits](https://www.spigotmc.org/resources/109967/) | `ECOBITS` | Utilise l'identifiant de monnaie EcoBits |
 | [CoinsEngine](https://www.spigotmc.org/resources/84121/) | `COINSENGINE` | Utilise le nom de monnaie CoinsEngine |
 | [RedisEconomy](https://www.spigotmc.org/resources/105965/) | `REDISECONOMY` | Utilise le nom de monnaie RedisEconomy |
+| [ExcellentEconomy](https://www.spigotmc.org/resources/excellenteconomy-%E2%AD%90-economy-and-custom-currencies.84121/) | `EXCELLENTECONOMY` | Utilise le nom de monnaie ExcellentEconomy |
 
 ### Exemple : Plusieurs Monnaies du Même Plugin
 
