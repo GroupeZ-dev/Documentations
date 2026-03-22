@@ -26,9 +26,12 @@ Utilisés dans la section `item-lore` de `config.yml` :
 | `%buyer%` | Nom du joueur qui a acheté l'objet |
 | `%price%` | Prix formaté de l'objet |
 | `%time-remaining%` | Temps avant expiration de l'annonce |
+| `%formatted-expire-date%` | Date d'expiration formatée |
 | `%date%` | Date de la transaction |
 | `%status%` | Message d'action dynamique (acheter/récupérer) |
 | `%items%` | Noms d'affichage des objets |
+| `%economy-name%` | Nom interne de l'économie |
+| `%economy-display-name%` | Nom d'affichage de l'économie |
 | `%type%` | Type d'entrée de log |
 | `%player%` | Joueur impliqué dans l'action |
 | `%target%` | Joueur cible (opérations admin) |
@@ -90,6 +93,30 @@ Utilisés dans la section `item-display` :
 | `%item-translation-key%` | Clé de langue Minecraft |
 | `%item-name%` | Nom personnalisé de l'objet |
 
+### Placeholders d'inventaire de vente
+
+Utilisés dans les boutons de l'inventaire de vente :
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%price%` | Prix de mise en vente actuel |
+| `%economy%` | Nom d'affichage de l'économie sélectionnée |
+| `%economy_name%` | Nom interne de l'économie sélectionnée |
+| `%item_count%` | Nombre d'objets en vente |
+| `%left_click_amount%` | Ajustement du prix au clic gauche |
+| `%right_click_amount%` | Ajustement du prix au clic droit |
+| `%shift_left_click_amount%` | Ajustement du prix au shift+clic gauche |
+| `%shift_right_click_amount%` | Ajustement du prix au shift+clic droit |
+
+### Placeholders de Shulker
+
+Utilisés dans les boutons de contenu de shulker :
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%shulker_current%` | Numéro du shulker actuel (à partir de 1) |
+| `%shulker_total%` | Nombre total de shulkers |
+
 ### Placeholders de commande Sell
 
 | Placeholder | Description |
@@ -100,13 +127,28 @@ Utilisés dans la section `item-display` :
 
 Tous les placeholders PlaceholderAPI utilisent le préfixe `zauctionhouse_` :
 
-### Placeholders d'inventaire
+### Placeholders globaux
 
 | Placeholder | Description |
 |-------------|-------------|
-| `%zauctionhouse_listed_items%` | Nombre total d'objets listés |
-| `%zauctionhouse_sorting_name%` | Nom du type de tri actuel |
-| `%zauctionhouse_category_name%` | Nom de la catégorie actuelle |
+| `%zauctionhouse_listed_items%` | Nombre total d'objets actuellement listés |
+| `%zauctionhouse_category_count_<catégorie>%` | Nombre d'objets dans une catégorie spécifique (ex : `%zauctionhouse_category_count_weapons%`) |
+
+### Placeholders joueur
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%zauctionhouse_expired_items%` | Nombre d'objets expirés du joueur |
+| `%zauctionhouse_selling_items%` | Nombre d'objets que le joueur vend actuellement |
+| `%zauctionhouse_purchased_items%` | Nombre d'objets achetés du joueur |
+| `%zauctionhouse_sorting_value%` | Valeur du type de tri actuel (ex : `DECREASING_DATE`) |
+| `%zauctionhouse_sorting_name%` | Nom d'affichage du type de tri actuel |
+| `%zauctionhouse_category_name%` | Nom d'affichage de la catégorie actuelle |
+| `%zauctionhouse_category_id%` | ID de la catégorie actuelle (par défaut `main`) |
+| `%zauctionhouse_pending_money%` | Argent en attente total (formaté avec la devise) |
+| `%zauctionhouse_pending_money_raw%` | Argent en attente total (nombre brut) |
+| `%zauctionhouse_pending_money_<économie>%` | Argent en attente pour une économie spécifique (ex : `%zauctionhouse_pending_money_coins%`) |
+| `%zauctionhouse_has_pending_money%` | `true` ou `false` selon si le joueur a de l'argent en attente |
 
 ## Placeholders Webhook Discord
 

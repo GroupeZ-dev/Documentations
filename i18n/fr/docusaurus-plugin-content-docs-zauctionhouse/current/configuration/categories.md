@@ -364,6 +364,18 @@ categories:
     # Pas de règles - attrape tout ce qui n'est pas dans d'autres catégories
 ```
 
+## Permissible de Catégorie
+
+zAuctionHouse fournit un permissible zMenu personnalisé `zauctionhouse_category` qui permet d'afficher ou masquer des boutons selon la catégorie actuellement sélectionnée par le joueur. Utile pour afficher des boutons uniquement dans certaines catégories.
+
+```yaml
+requirements:
+  - type: zauctionhouse_category
+    category: "weapons"
+```
+
+Le bouton ne sera visible que lorsque le joueur a sélectionné la catégorie `weapons`. Si aucune catégorie n'est sélectionnée, la valeur par défaut est `main`.
+
 ## Priorité des Catégories
 
 Quand un objet correspond à plusieurs catégories, il va dans la première catégorie correspondante. Ordonnez vos catégories de la plus spécifique à la moins spécifique :

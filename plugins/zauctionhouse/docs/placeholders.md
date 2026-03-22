@@ -26,9 +26,12 @@ Used in `item-lore` section of `config.yml`:
 | `%buyer%` | Name of the player who bought the item |
 | `%price%` | Formatted price of the item |
 | `%time-remaining%` | Time until the listing expires |
+| `%formatted-expire-date%` | Formatted expiration date |
 | `%date%` | Transaction date |
 | `%status%` | Dynamic action message (buy/retrieve) |
 | `%items%` | Item display names |
+| `%economy-name%` | Economy internal name |
+| `%economy-display-name%` | Economy display name |
 | `%type%` | Log entry type |
 | `%player%` | Player involved in the action |
 | `%target%` | Target player (admin operations) |
@@ -90,6 +93,30 @@ Used in `item-display` section:
 | `%item-translation-key%` | Minecraft language key |
 | `%item-name%` | Custom item name |
 
+### Sell Inventory Placeholders
+
+Used in sell inventory buttons:
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%price%` | Current listing price |
+| `%economy%` | Display name of selected economy |
+| `%economy_name%` | Internal name of selected economy |
+| `%item_count%` | Number of items being sold |
+| `%left_click_amount%` | Price adjustment on left click |
+| `%right_click_amount%` | Price adjustment on right click |
+| `%shift_left_click_amount%` | Price adjustment on shift+left click |
+| `%shift_right_click_amount%` | Price adjustment on shift+right click |
+
+### Shulker Placeholders
+
+Used in shulker content buttons:
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%shulker_current%` | Current shulker number (1-based) |
+| `%shulker_total%` | Total number of shulkers |
+
 ### Sell Command Placeholders
 
 | Placeholder | Description |
@@ -100,13 +127,28 @@ Used in `item-display` section:
 
 All PlaceholderAPI placeholders use the prefix `zauctionhouse_`:
 
-### Inventory Placeholders
+### Global Placeholders
 
 | Placeholder | Description |
 |-------------|-------------|
-| `%zauctionhouse_listed_items%` | Total number of items listed |
-| `%zauctionhouse_sorting_name%` | Current sort type name |
-| `%zauctionhouse_category_name%` | Current category name |
+| `%zauctionhouse_listed_items%` | Total number of items currently listed |
+| `%zauctionhouse_category_count_<category>%` | Number of items in a specific category (e.g., `%zauctionhouse_category_count_weapons%`) |
+
+### Player Placeholders
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%zauctionhouse_expired_items%` | Number of expired items for the player |
+| `%zauctionhouse_selling_items%` | Number of items the player is currently selling |
+| `%zauctionhouse_purchased_items%` | Number of purchased items for the player |
+| `%zauctionhouse_sorting_value%` | Current sort type value (e.g., `DECREASING_DATE`) |
+| `%zauctionhouse_sorting_name%` | Current sort type display name |
+| `%zauctionhouse_category_name%` | Current category display name |
+| `%zauctionhouse_category_id%` | Current category ID (defaults to `main`) |
+| `%zauctionhouse_pending_money%` | Total pending money (formatted with currency) |
+| `%zauctionhouse_pending_money_raw%` | Total pending money (raw number) |
+| `%zauctionhouse_pending_money_<economy>%` | Pending money for a specific economy (e.g., `%zauctionhouse_pending_money_coins%`) |
+| `%zauctionhouse_has_pending_money%` | `true` or `false` whether the player has pending money |
 
 ## Discord Webhook Placeholders
 
