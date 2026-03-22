@@ -313,6 +313,11 @@ Personnalisez le lore ajouté aux objets dans l'hôtel des ventes :
 
 ```yaml
 item-lore:
+  # Force la quantité affichée de l'objet à 1 dans l'inventaire de l'hôtel des ventes.
+  # La quantité réelle est conservée en interne et donnée à l'acheteur lors de l'achat.
+  # Utile pour garder un affichage propre et uniforme.
+  force-amount-one: false
+
   # Objets dans la liste principale
   listed-auction-item:
     - ""

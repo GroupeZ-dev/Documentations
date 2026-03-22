@@ -182,6 +182,18 @@ items:
 | `%zauctionhouse_category_count_all%` | Total items in auction |
 | `%zauctionhouse_category_count_<name>%` | Items in specific category |
 
+## Category Permissible
+
+zAuctionHouse provides a custom zMenu permissible `zauctionhouse_category` that allows conditional button visibility based on the player's currently selected category. This is useful to show/hide buttons depending on the active category filter.
+
+```yaml
+requirements:
+  - type: zauctionhouse_category
+    category: "weapons"
+```
+
+The button will only be visible when the player has selected the `weapons` category. If no category is selected, the default is `main`.
+
 ## Adding Custom Categories
 
 To add a new category:

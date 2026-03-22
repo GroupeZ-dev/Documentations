@@ -313,6 +313,11 @@ Customize the lore added to items in the auction house:
 
 ```yaml
 item-lore:
+  # Forces the displayed item amount to 1 in the auction inventory.
+  # The real amount is preserved internally and given to the buyer on purchase.
+  # Useful to keep a clean, uniform display.
+  force-amount-one: false
+
   # Items in main auction listing
   listed-auction-item:
     - ""
