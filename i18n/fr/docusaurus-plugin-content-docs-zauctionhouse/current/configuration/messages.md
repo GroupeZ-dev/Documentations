@@ -15,6 +15,97 @@ Les messages supportent :
 - **Codes de couleur legacy** - `&a`, `&l`, `&6`
 - **PlaceholderAPI** - `%player_name%`, `%zauctionhouse_*%`
 
+## Types de Messages
+
+Chaque message peut être configuré avec un type d'affichage spécifique en utilisant le champ `type`. Si aucun type n'est spécifié, `TCHAT` est utilisé par défaut.
+
+| Type | Description |
+|------|-------------|
+| `TCHAT` | Affiche le message dans le chat (par défaut) |
+| `ACTION` | Affiche le message dans la barre d'action au-dessus de la hotbar |
+| `TITLE` | Affiche le message en titre à l'écran |
+| `CENTER` | Affiche le message centré dans le chat |
+| `WITHOUT_PREFIX` | Affiche le message dans le chat sans le préfixe du plugin |
+| `BOSSBAR` | Affiche le message en barre de boss en haut de l'écran |
+| `NONE` | N'affiche pas le message |
+
+### Utilisation Basique
+
+Vous pouvez définir le type de n'importe quel message en utilisant le format objet :
+
+```yaml
+# Format simple (TCHAT par défaut)
+item-sold: "#e6fff3Vous venez de vendre %items% #e6fff3pour #92bed8%price%#e6fff3."
+
+# Avec type explicite
+item-sold:
+  type: ACTION
+  message: "#e6fff3Vous venez de vendre %items% #e6fff3pour #92bed8%price%#e6fff3."
+```
+
+### Plusieurs Parties de Message
+
+Une seule clé de message peut déclencher plusieurs types d'affichage à la fois en utilisant une liste :
+
+```yaml
+item-sold:
+  - type: TCHAT
+    messages:
+      - "#e6fff3Vous venez de vendre %items% #e6fff3pour #92bed8%price%#e6fff3."
+  - type: ACTION
+    message: "#e6fff3Vendu pour #92bed8%price%#e6fff3 !"
+```
+
+### Type Title
+
+Le type `TITLE` prend en charge des champs supplémentaires pour contrôler l'affichage du titre :
+
+```yaml
+item-sold:
+  type: TITLE
+  title: "<success>Objet Vendu !"
+  subtitle: "#e6fff3Vous avez vendu %items% #e6fff3pour #92bed8%price%"
+  start: 100    # Durée du fondu d'entrée en millisecondes (défaut : 100)
+  time: 2800    # Durée d'affichage en millisecondes (défaut : 2800)
+  end: 100      # Durée du fondu de sortie en millisecondes (défaut : 100)
+```
+
+### Type BossBar
+
+Le type `BOSSBAR` affiche une barre de boss en haut de l'écran avec une apparence personnalisable :
+
+```yaml
+item-sold:
+  type: BOSSBAR
+  text: "#e6fff3Vous venez de vendre %items% #e6fff3pour #92bed8%price%#e6fff3."
+  color: WHITE       # Couleur de la barre : PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE (défaut : WHITE)
+  overlay: PROGRESS  # Style de la barre : PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20 (défaut : PROGRESS)
+  flags: []          # Flags optionnels : DARKEN_SKY, PLAY_BOSS_MUSIC, CREATE_FOG
+  duration: 60       # Durée d'affichage en ticks (défaut : 60)
+  static: false      # Si true, la barre ne s'anime pas (défaut : false)
+```
+
+### Combiner Plusieurs Types
+
+Vous pouvez combiner différents types pour créer des notifications riches :
+
+```yaml
+item-bought-buyer:
+  - type: TCHAT
+    messages:
+      - "#e6fff3Vous venez d'acheter %items% #e6fff3pour #92bed8%price%#e6fff3."
+  - type: TITLE
+    title: "<success>Achat Terminé !"
+    subtitle: "#92bed8%price%"
+    start: 100
+    time: 2800
+    end: 100
+  - type: BOSSBAR
+    text: "#e6fff3Achat de %items% pour #92bed8%price%"
+    color: GREEN
+    duration: 100
+```
+
 ## Structure des Messages
 
 ```yaml

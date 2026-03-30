@@ -16,6 +16,97 @@ Messages support:
 - **Legacy codes**: `&a`, `&l`, `&6` (MiniMessage recommended)
 - **Custom color shortcuts**: `<primary>`, `<secondary>`, `<error>`, `<success>` (defined in config.yml)
 
+## Message Types
+
+Each message can be configured with a specific display type using the `type` field. If no type is specified, `TCHAT` is used by default.
+
+| Type | Description |
+|------|-------------|
+| `TCHAT` | Display message in the chat window (default) |
+| `ACTION` | Display message in the action bar above the hotbar |
+| `TITLE` | Display message as a title on screen |
+| `CENTER` | Display message centered in chat |
+| `WITHOUT_PREFIX` | Display message in chat without the plugin prefix |
+| `BOSSBAR` | Display message as a boss bar at the top of the screen |
+| `NONE` | Do not display the message |
+
+### Basic Usage
+
+You can set the type of any message using the object format:
+
+```yaml
+# Simple format (defaults to TCHAT)
+item-sold: "#e6fff3You just sold %items% #e6fff3for #92bed8%price%#e6fff3."
+
+# With explicit type
+item-sold:
+  type: ACTION
+  message: "#e6fff3You just sold %items% #e6fff3for #92bed8%price%#e6fff3."
+```
+
+### Multiple Message Parts
+
+A single message key can trigger multiple display types at once using a list:
+
+```yaml
+item-sold:
+  - type: TCHAT
+    messages:
+      - "#e6fff3You just sold %items% #e6fff3for #92bed8%price%#e6fff3."
+  - type: ACTION
+    message: "#e6fff3Sold for #92bed8%price%#e6fff3!"
+```
+
+### Title Type
+
+The `TITLE` type supports additional fields to control the title display:
+
+```yaml
+item-sold:
+  type: TITLE
+  title: "<success>Item Sold!"
+  subtitle: "#e6fff3You sold %items% #e6fff3for #92bed8%price%"
+  start: 100    # Fade-in duration in milliseconds (default: 100)
+  time: 2800    # Display duration in milliseconds (default: 2800)
+  end: 100      # Fade-out duration in milliseconds (default: 100)
+```
+
+### BossBar Type
+
+The `BOSSBAR` type displays a boss bar at the top of the screen with customizable appearance:
+
+```yaml
+item-sold:
+  type: BOSSBAR
+  text: "#e6fff3You just sold %items% #e6fff3for #92bed8%price%#e6fff3."
+  color: WHITE       # Bar color: PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE (default: WHITE)
+  overlay: PROGRESS  # Bar style: PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20 (default: PROGRESS)
+  flags: []          # Optional flags: DARKEN_SKY, PLAY_BOSS_MUSIC, CREATE_FOG
+  duration: 60       # Display duration in ticks (default: 60)
+  static: false      # If true, the bar does not animate (default: false)
+```
+
+### Combining Multiple Types
+
+You can combine different types to create rich notifications:
+
+```yaml
+item-bought-buyer:
+  - type: TCHAT
+    messages:
+      - "#e6fff3You have just bought %items% #e6fff3for #92bed8%price%#e6fff3."
+  - type: TITLE
+    title: "<success>Purchase Complete!"
+    subtitle: "#92bed8%price%"
+    start: 100
+    time: 2800
+    end: 100
+  - type: BOSSBAR
+    text: "#e6fff3Purchased %items% for #92bed8%price%"
+    color: GREEN
+    duration: 100
+```
+
 ## General Messages
 
 ```yaml

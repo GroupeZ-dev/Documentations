@@ -190,7 +190,9 @@ These buttons open other inventories.
 | [`ZAUCTIONHOUSE_EXPIRED_INVENTORY`](#zauctionhouse_expired_inventory) | Opens expired items inventory | [Auction](./auction) |
 | [`ZAUCTIONHOUSE_PURCHASED_INVENTORY`](#zauctionhouse_purchased_inventory) | Opens purchased items inventory | [Auction](./auction) |
 | [`ZAUCTIONHOUSE_SELLING_INVENTORY`](#zauctionhouse_selling_inventory) | Opens selling items inventory | [Auction](./auction) |
+| [`ZAUCTIONHOUSE_HISTORY_INVENTORY`](#zauctionhouse_history_inventory) | Opens sales history inventory | [Auction](./auction) |
 | [`ZAUCTIONHOUSE_CATEGORY`](#zauctionhouse_category) | Opens auction filtered by category | [Categories](./categories) |
+| [`ZAUCTIONHOUSE_CATEGORY_SWITCHER`](#zauctionhouse_category_switcher) | Cycles through categories with left/right click | [Auction](./auction) |
 
 ---
 
@@ -311,6 +313,34 @@ selling-items:
 
 ---
 
+### ZAUCTIONHOUSE_HISTORY_INVENTORY
+
+Opens the sales history inventory.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `item` | Item | Button appearance |
+
+**Example:**
+
+```yaml
+history:
+  type: ZAUCTIONHOUSE_HISTORY_INVENTORY
+  slot: 47
+  item:
+    material: BOOK
+    name: "#2CCED2<bold>sᴀʟᴇs ʜɪsᴛᴏʀʏ"
+    lore:
+      - "#92ffffView your sales history."
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto open"
+```
+
+---
+
 ### ZAUCTIONHOUSE_CATEGORY
 
 Opens the auction house filtered by a specific category.
@@ -346,6 +376,67 @@ weapons:
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto browse"
 ```
+
+---
+
+### ZAUCTIONHOUSE_CATEGORY_SWITCHER
+
+Cycles through categories using left/right click. Displays a dynamic lore showing the enable/disable state for each category.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `enable-text` | String | Format for the currently selected category |
+| `disable-text` | String | Format for unselected categories |
+| `categories` | List | List of category IDs to cycle through |
+| `item` | Item | Button appearance |
+
+**Placeholders:**
+- `%category%` - Current category display name
+- `%<category-id>%` - Replaced by `enable-text` or `disable-text` for each category
+
+**Example:**
+
+```yaml
+category-switcher:
+  type: ZAUCTIONHOUSE_CATEGORY_SWITCHER
+  slot: 49
+  enable-text: "&a● %category%"
+  disable-text: "&7○ %category%"
+  categories:
+    - "main"
+    - "weapons"
+    - "armor"
+    - "tools"
+    - "blocks"
+    - "consumables"
+    - "resources"
+    - "enchanted-books"
+    - "misc"
+  item:
+    material: COMPASS
+    name: "&6Categories &7(&f%category%&7)"
+    lore:
+      - ""
+      - "%main%"
+      - "%weapons%"
+      - "%armor%"
+      - "%tools%"
+      - "%blocks%"
+      - "%consumables%"
+      - "%resources%"
+      - "%enchanted-books%"
+      - "%misc%"
+      - ""
+      - "&7Left-click &8» &fNext"
+      - "&7Right-click &8» &fPrevious"
+```
+
+:::tip
+Use `"main"` as a category ID to represent "All Items" (no filtering).
+:::
 
 ---
 

@@ -358,6 +358,78 @@ items:
   # Vos objets ici
 ```
 
+## Bouton Historique des Ventes
+
+Le bouton `ZAUCTIONHOUSE_HISTORY_INVENTORY` ouvre l'inventaire de l'historique des ventes.
+
+```yaml
+history:
+  type: ZAUCTIONHOUSE_HISTORY_INVENTORY
+  slot: 47
+  item:
+    material: BOOK
+    name: "#2CCED2<bold>ʜɪsᴛᴏʀɪǫᴜᴇ ᴅᴇs ᴠᴇɴᴛᴇs"
+    lore:
+      - "#92ffffConsultez votre historique de ventes."
+      - ""
+      - "#8c8c8c• #2CCED2Cliquez #92ffffpour ouvrir"
+```
+
+## Bouton Sélecteur de Catégories
+
+Le bouton `ZAUCTIONHOUSE_CATEGORY_SWITCHER` permet de parcourir les catégories avec un clic gauche/droit. Affiche un lore dynamique montrant l'état activé/désactivé de chaque catégorie.
+
+| Propriété | Type | Description |
+|-----------|------|-------------|
+| `slot` | Nombre | Position du bouton |
+| `enable-text` | String | Format pour la catégorie sélectionnée |
+| `disable-text` | String | Format pour les catégories non sélectionnées |
+| `categories` | Liste | Liste des IDs de catégories |
+| `item` | Item | Apparence du bouton |
+
+**Placeholders :**
+- `%category%` - Nom d'affichage de la catégorie actuelle
+- `%<category-id>%` - Remplacé par `enable-text` ou `disable-text` pour chaque catégorie
+
+```yaml
+category-switcher:
+  type: ZAUCTIONHOUSE_CATEGORY_SWITCHER
+  slot: 49
+  enable-text: "&a● %category%"
+  disable-text: "&7○ %category%"
+  categories:
+    - "main"
+    - "weapons"
+    - "armor"
+    - "tools"
+    - "blocks"
+    - "consumables"
+    - "resources"
+    - "enchanted-books"
+    - "misc"
+  item:
+    material: COMPASS
+    name: "&6Catégories &7(&f%category%&7)"
+    lore:
+      - ""
+      - "%main%"
+      - "%weapons%"
+      - "%armor%"
+      - "%tools%"
+      - "%blocks%"
+      - "%consumables%"
+      - "%resources%"
+      - "%enchanted-books%"
+      - "%misc%"
+      - ""
+      - "&7Clic gauche &8» &fSuivant"
+      - "&7Clic droit &8» &fPrécédent"
+```
+
+:::tip
+Utilisez `"main"` comme ID de catégorie pour représenter "Tous les objets" (sans filtrage).
+:::
+
 ## Actions Personnalisées
 
 zAuctionHouse fournit des actions personnalisées :

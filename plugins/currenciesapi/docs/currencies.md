@@ -16,6 +16,7 @@ Complete reference for all currency systems supported by CurrenciesAPI.
 | PlayerPoints | `PLAYERPOINTS` | No | No |
 | EcoBits | `ECOBITS` | Yes | No |
 | CoinsEngine | `COINSENGINE` | Yes | No |
+| ExcellentEconomy | `EXCELLENTECONOMY` | Yes | No |
 | zEssentials | `ZESSENTIALS` | No | No |
 | VotingPlugin | `VOTINGPLUGIN` | No | No |
 | RedisEconomy | `REDISECONOMY` | Yes | No |
@@ -78,6 +79,25 @@ BigDecimal coins = currency.getBalance(player, "coins");
 ```
 
 **Link:** [SpigotMC](https://www.spigotmc.org/resources/coinsengine.84121/)
+
+---
+
+### ExcellentEconomy
+
+Multi-currency economy system (formerly CoinsEngine).
+
+```java
+Currencies currency = Currencies.EXCELLENTECONOMY;
+
+// Default currency
+currency.deposit(player, new BigDecimal("100"));
+
+// Specific currency
+BigDecimal gems = currency.getBalance(player, "gems");
+BigDecimal coins = currency.getBalance(player, "coins");
+```
+
+**Link:** [SpigotMC](https://www.spigotmc.org/resources/excellenteconomy-%E2%AD%90-economy-and-custom-currencies.84121/)
 
 ---
 
