@@ -255,10 +255,12 @@ openWithItem:
 ```
 
 **Types d'actions :**
-- `RIGHT_CLICK` - Clic droit dans l'air
-- `LEFT_CLICK` - Clic gauche dans l'air
-- `RIGHT_CLICK_BLOCK` - Clic droit sur un bloc
-- `LEFT_CLICK_BLOCK` - Clic gauche sur un bloc
+- `RIGHT_CLICK` - Clic droit dans l'air + sur les blocs
+- `LEFT_CLICK` - Clic gauche dans l'air + sur les blocs
+- `RIGHT_CLICK_AIR` - Clic droit dans l'air uniquement
+- `LEFT_CLICK_AIR` - Clic gauche dans l'air uniquement
+- `RIGHT_CLICK_BLOCK` - Clic droit sur un bloc uniquement
+- `LEFT_CLICK_BLOCK` - Clic gauche sur un bloc uniquement
 
 **Options de type :**
 - `full` - L'item doit correspondre exactement

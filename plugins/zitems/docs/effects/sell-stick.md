@@ -46,13 +46,13 @@ effects:
 
 ## Interaction Actions
 
-| Action | Description |
-|--------|-------------|
-| `LEFT_CLICK` | Left-click only |
-| `RIGHT_CLICK` | Right-click only |
-| `SHIFT_LEFT_CLICK` | Shift + Left-click only |
+| Action              | Description              |
+|---------------------|--------------------------|
+| `LEFT_CLICK`        | Left-click only          |
+| `RIGHT_CLICK`       | Right-click only         |
+| `SHIFT_LEFT_CLICK`  | Shift + Left-click only  |
 | `SHIFT_RIGHT_CLICK` | Shift + Right-click only |
-| `CLICK` | Any click type |
+| `CLICK`             | Any click type           |
 
 ## Supported Containers
 
