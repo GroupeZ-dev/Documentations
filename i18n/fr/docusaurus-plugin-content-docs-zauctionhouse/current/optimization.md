@@ -98,6 +98,7 @@ zAuctionHouse est activement utilisé sur certains des plus grands réseaux Mine
 3. **Sérialisation économe en mémoire** - Les objets sont sérialisés en utilisant des formats d'octets optimisés
 4. **Opérations thread-safe** - L'accès concurrent est géré efficacement sans verrous lorsque possible
 5. **Pagination** - Les grands ensembles de résultats sont paginés pour réduire la pression sur la mémoire
+6. **Résolution sélective des placeholders** - Les placeholders de lore des objets sont pré-détectés au chargement de la configuration. Au moment du rendu, seuls les placeholders réellement référencés dans le template de lore sont calculés. Par exemple, le lore par défaut de `expired-item` n'utilise que `%time-remaining%`, donc le plugin évite de calculer `%price%`, `%seller%`, `%status%` et tous les autres placeholders — économisant du CPU et de la mémoire par objet affiché
 
 ## Surveillance
 

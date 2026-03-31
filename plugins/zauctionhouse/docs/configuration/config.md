@@ -396,13 +396,24 @@ item-lore:
 | `%seller%` | Seller's name |
 | `%buyer%` | Buyer's name |
 | `%price%` | Formatted price |
+| `%price-price-raw%` | Raw price value |
+| `%price-price-with-decimal-format%` | Price with decimal formatting (e.g. 10 000) |
+| `%price-price-with-reduction%` | Price with reduction (e.g. 10.0k) |
 | `%time-remaining%` | Time until expiration |
+| `%formatted-expire-date%` | Formatted expiration date |
 | `%date%` | Transaction date |
 | `%status%` | Dynamic action message |
+| `%item_count%` | Total item count in the listing |
+| `%economy-name%` | Economy internal name |
+| `%economy-display-name%` | Economy display name |
 | `%items%` | Item display names |
 | `%type%` | Log entry type |
 | `%player%` | Player involved |
 | `%target%` | Target player (admin) |
+
+:::tip Performance
+Only the placeholders actually used in your lore templates are computed at render time. The plugin pre-detects which placeholders each lore section references when the configuration is loaded. If your `expired-item` lore only uses `%time-remaining%`, the plugin won't waste resources computing `%price%`, `%seller%`, etc.
+:::
 
 ## Time Format
 

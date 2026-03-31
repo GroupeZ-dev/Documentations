@@ -25,16 +25,24 @@ Used in `item-lore` section of `config.yml`:
 | `%seller%` | Name of the player who listed the item |
 | `%buyer%` | Name of the player who bought the item |
 | `%price%` | Formatted price of the item |
+| `%price-price-raw%` | Raw price value |
+| `%price-price-with-decimal-format%` | Price with decimal formatting (e.g. 10 000) |
+| `%price-price-with-reduction%` | Price with reduction (e.g. 10.0k) |
 | `%time-remaining%` | Time until the listing expires |
 | `%formatted-expire-date%` | Formatted expiration date |
 | `%date%` | Transaction date |
 | `%status%` | Dynamic action message (buy/retrieve) |
-| `%items%` | Item display names |
+| `%item_count%` | Total item count in the listing |
 | `%economy-name%` | Economy internal name |
 | `%economy-display-name%` | Economy display name |
+| `%items%` | Item display names |
 | `%type%` | Log entry type |
 | `%player%` | Player involved in the action |
 | `%target%` | Target player (admin operations) |
+
+:::tip Performance
+Only the placeholders actually used in your lore templates are computed at render time. The plugin pre-detects which placeholders each lore section references when the configuration is loaded.
+:::
 
 ### Inventory Placeholders
 

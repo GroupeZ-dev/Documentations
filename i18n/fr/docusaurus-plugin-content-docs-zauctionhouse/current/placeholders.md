@@ -25,16 +25,24 @@ Utilisés dans la section `item-lore` de `config.yml` :
 | `%seller%` | Nom du joueur qui a mis l'objet en vente |
 | `%buyer%` | Nom du joueur qui a acheté l'objet |
 | `%price%` | Prix formaté de l'objet |
+| `%price-price-raw%` | Valeur brute du prix |
+| `%price-price-with-decimal-format%` | Prix avec formatage décimal (ex : 10 000) |
+| `%price-price-with-reduction%` | Prix avec réduction (ex : 10.0k) |
 | `%time-remaining%` | Temps avant expiration de l'annonce |
 | `%formatted-expire-date%` | Date d'expiration formatée |
 | `%date%` | Date de la transaction |
 | `%status%` | Message d'action dynamique (acheter/récupérer) |
-| `%items%` | Noms d'affichage des objets |
+| `%item_count%` | Nombre total d'objets dans l'annonce |
 | `%economy-name%` | Nom interne de l'économie |
 | `%economy-display-name%` | Nom d'affichage de l'économie |
+| `%items%` | Noms d'affichage des objets |
 | `%type%` | Type d'entrée de log |
 | `%player%` | Joueur impliqué dans l'action |
 | `%target%` | Joueur cible (opérations admin) |
+
+:::tip Performance
+Seuls les placeholders réellement utilisés dans vos templates de lore sont calculés au moment du rendu. Le plugin pré-détecte les placeholders référencés par chaque section de lore au chargement de la configuration.
+:::
 
 ### Placeholders d'inventaire
 

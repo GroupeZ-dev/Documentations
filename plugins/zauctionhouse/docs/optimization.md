@@ -98,6 +98,7 @@ zAuctionHouse is actively used on some of the largest Minecraft networks, handli
 3. **Memory-efficient serialization** - Items are serialized using optimized byte formats
 4. **Thread-safe operations** - Concurrent access is handled efficiently without locks where possible
 5. **Pagination** - Large result sets are paginated to reduce memory pressure
+6. **Selective placeholder resolution** - Item lore placeholders are pre-detected at configuration load time. At render time, only the placeholders actually referenced in the lore template are computed. For example, the default `expired-item` lore only uses `%time-remaining%`, so the plugin skips computing `%price%`, `%seller%`, `%status%`, and all other placeholders — saving CPU and memory per item rendered
 
 ## Monitoring
 
