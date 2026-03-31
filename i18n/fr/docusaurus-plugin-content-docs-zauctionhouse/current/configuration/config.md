@@ -396,13 +396,24 @@ item-lore:
 | `%seller%` | Nom du vendeur |
 | `%buyer%` | Nom de l'acheteur |
 | `%price%` | Prix formaté |
+| `%price-price-raw%` | Valeur brute du prix |
+| `%price-price-with-decimal-format%` | Prix avec formatage décimal (ex : 10 000) |
+| `%price-price-with-reduction%` | Prix avec réduction (ex : 10.0k) |
 | `%time-remaining%` | Temps avant expiration |
+| `%formatted-expire-date%` | Date d'expiration formatée |
 | `%date%` | Date de la transaction |
 | `%status%` | Message d'action dynamique |
+| `%item_count%` | Nombre total d'objets dans l'annonce |
+| `%economy-name%` | Nom interne de l'économie |
+| `%economy-display-name%` | Nom d'affichage de l'économie |
 | `%items%` | Noms d'affichage des objets |
 | `%type%` | Type d'entrée de log |
 | `%player%` | Joueur impliqué |
 | `%target%` | Joueur cible (admin) |
+
+:::tip Performance
+Seuls les placeholders réellement utilisés dans vos templates de lore sont calculés au moment du rendu. Le plugin pré-détecte les placeholders référencés par chaque section de lore au chargement de la configuration. Si votre lore `expired-item` n'utilise que `%time-remaining%`, le plugin n'utilisera pas de ressources pour calculer `%price%`, `%seller%`, etc.
+:::
 
 ## Format de Temps
 

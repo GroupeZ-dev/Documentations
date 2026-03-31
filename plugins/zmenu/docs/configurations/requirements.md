@@ -167,16 +167,30 @@ requirements:
 
 #### Comparison Operators
 
-| Operator | Description | Example |
-|----------|-------------|---------|
-| `==` | Equal to (numeric) | `action: EQUAL_TO` |
-| `!=` | Not equal to (numeric) | `action: DIFFERENT` |
-| `>=` | Greater than or equal | `action: SUPERIOR_OR_EQUAL` |
+**Numeric:**
+
+| Alias | Description | Action |
+|-------|-------------|--------|
+| `==` | Equal to | `action: EQUAL_TO` |
 | `>` | Greater than | `action: SUPERIOR` |
-| `<=` | Less than or equal | `action: INFERIOR_OR_EQUAL` |
-| `<` | Less than | `action: INFERIOR` |
-| `equals_string` | Exact string match | `action: EQUALS_STRING` |
-| `equalsIgnoreCase` | Case-insensitive string match | `action: EQUALS_IGNORE_CASE` |
+| `>=` | Greater than or equal | `action: SUPERIOR_OR_EQUAL` |
+| `<` | Less than | `action: LOWER` |
+| `<=` | Less than or equal | `action: LOWER_OR_EQUAL` |
+
+**String:**
+
+| Alias | Description | Action |
+|-------|-------------|--------|
+| `s=` | Exact string match | `action: EQUALS_STRING` |
+| `s!=` | String not equal | `action: DIFFERENT_STRING` |
+| `s==` | Case-insensitive string match | `action: EQUALSIGNORECASE_STRING` |
+| `sc` | String contains | `action: CONTAINS_STRING` |
+
+**Boolean:**
+
+| Alias | Description | Action |
+|-------|-------------|--------|
+| `b=` | Compare with boolean | `action: BOOLEAN` |
 
 
 #### Math Expressions

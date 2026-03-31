@@ -167,16 +167,30 @@ requirements:
 
 #### Operateurs de comparaison
 
-| Operateur | Description | Exemple |
-|-----------|-------------|---------|
-| `==` | Egal a (numerique) | `action: EQUAL_TO` |
-| `!=` | Different de (numerique) | `action: DIFFERENT` |
-| `>=` | Superieur ou egal | `action: SUPERIOR_OR_EQUAL` |
+**Numerique :**
+
+| Alias | Description | Action |
+|-------|-------------|--------|
+| `==` | Egal a | `action: EQUAL_TO` |
 | `>` | Superieur | `action: SUPERIOR` |
-| `<=` | Inferieur ou egal | `action: INFERIOR_OR_EQUAL` |
-| `<` | Inferieur | `action: INFERIOR` |
-| `equals_string` | Correspondance exacte de texte | `action: EQUALS_STRING` |
-| `equalsIgnoreCase` | Correspondance de texte insensible a la casse | `action: EQUALS_IGNORE_CASE` |
+| `>=` | Superieur ou egal | `action: SUPERIOR_OR_EQUAL` |
+| `<` | Inferieur | `action: LOWER` |
+| `<=` | Inferieur ou egal | `action: LOWER_OR_EQUAL` |
+
+**Texte :**
+
+| Alias | Description | Action |
+|-------|-------------|--------|
+| `s=` | Correspondance exacte de texte | `action: EQUALS_STRING` |
+| `s!=` | Texte different | `action: DIFFERENT_STRING` |
+| `s==` | Correspondance de texte insensible a la casse | `action: EQUALSIGNORECASE_STRING` |
+| `sc` | Le texte contient | `action: CONTAINS_STRING` |
+
+**Booleen :**
+
+| Alias | Description | Action |
+|-------|-------------|--------|
+| `b=` | Comparer avec un booleen | `action: BOOLEAN` |
 
 
 #### Expressions mathematiques
