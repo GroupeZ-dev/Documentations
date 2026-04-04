@@ -193,6 +193,8 @@ These buttons open other inventories.
 | [`ZAUCTIONHOUSE_HISTORY_INVENTORY`](#zauctionhouse_history_inventory) | Opens sales history inventory | [Auction](./auction) |
 | [`ZAUCTIONHOUSE_CATEGORY`](#zauctionhouse_category) | Opens auction filtered by category | [Categories](./categories) |
 | [`ZAUCTIONHOUSE_CATEGORY_SWITCHER`](#zauctionhouse_category_switcher) | Cycles through categories with left/right click | [Auction](./auction) |
+| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Opens chat-based search input | [Auction](./auction) |
+| [`ZAUCTIONHOUSE_CLEAR_SEARCH`](#zauctionhouse_clear_search) | Clears active search filter | [Auction](./auction) |
 
 ---
 
@@ -437,6 +439,109 @@ category-switcher:
 :::tip
 Use `"main"` as a category ID to represent "All Items" (no filtering).
 :::
+
+---
+
+## Search Buttons
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Opens chat-based search input | [Auction](./auction) |
+| [`ZAUCTIONHOUSE_CLEAR_SEARCH`](#zauctionhouse_clear_search) | Clears active search filter | [Auction](./auction) |
+
+---
+
+### ZAUCTIONHOUSE_SEARCH
+
+Opens a chat-based search input. When clicked, the player's inventory closes and they can type a search query in chat. Supports advanced filter operators for targeted searches.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `item` | Item | Button appearance |
+
+**Placeholders:**
+- `%search_query%` - Current search query (or "None" if no search active)
+- `%search_active%` - Whether a search is active (`true`/`false`)
+
+**Search Operators:**
+
+| Operator | Description |
+|----------|-------------|
+| `~` | Contains (case-sensitive) |
+| `=` | Exact match (case-sensitive) |
+| `~=` | Contains (ignore case) |
+| `==` | Exact match (ignore case) |
+
+**Searchable Fields:** `name`, `material`, `lore`, `seller`
+
+**Example:**
+
+```yaml
+search:
+  type: ZAUCTIONHOUSE_SEARCH
+  slot: 47
+  is-permanent: true
+  item:
+    material: COMPASS
+    name: "#2CCED2<bold>sᴇᴀʀᴄʜ"
+    lore:
+      - ""
+      - "#92ffffCurrent search#8c8c8c: #2CCED2%search_query%"
+      - ""
+      - "#92ffffFilters#8c8c8c:"
+      - "#8c8c8c  name #76CDCD~ #8c8c8cvalue    #555555(contains)"
+      - "#8c8c8c  name #76CDCD= #8c8c8cvalue    #555555(exact)"
+      - "#8c8c8c  name #76CDCD~= #8c8c8cvalue   #555555(contains, ignore case)"
+      - "#8c8c8c  name #76CDCD== #8c8c8cvalue   #555555(exact, ignore case)"
+      - ""
+      - "#92ffffFields#8c8c8c: #76CDCDname#8c8c8c, #76CDCDmaterial#8c8c8c, #76CDCDlore#8c8c8c, #76CDCDseller"
+      - ""
+      - "#92ffffExamples#8c8c8c:"
+      - "#8c8c8c  seller #76CDCD= #8c8c8cNotch"
+      - "#8c8c8c  name #76CDCD~ #8c8c8cDiamond"
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto search"
+```
+
+:::tip
+Without an operator, the search performs a case-insensitive substring match on item name, material, lore, and seller name simultaneously.
+:::
+
+---
+
+### ZAUCTIONHOUSE_CLEAR_SEARCH
+
+Clears the active search filter. This button is only visible when the player has an active search query.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `item` | Item | Button appearance |
+
+**Placeholders:**
+- `%search_query%` - Current search query
+
+**Example:**
+
+```yaml
+clear-search:
+  type: ZAUCTIONHOUSE_CLEAR_SEARCH
+  slot: 48
+  is-permanent: true
+  item:
+    material: BARRIER
+    name: "#ff6b6b<bold>ᴄʟᴇᴀʀ sᴇᴀʀᴄʜ"
+    lore:
+      - ""
+      - "#92ffffSearching for#8c8c8c: #2CCED2%search_query%"
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto clear search"
+```
 
 ---
 

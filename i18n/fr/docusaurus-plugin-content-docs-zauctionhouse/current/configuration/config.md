@@ -444,6 +444,12 @@ action:
   # Actualiser l'inventaire après les actions
   update-inventory-on-action: true
 
+  # Réinitialiser le filtre de catégorie à la réouverture de l'hôtel des ventes
+  reset-category-on-open: true
+
+  # Réinitialiser le filtre de recherche à la réouverture de l'hôtel des ventes
+  reset-search-on-open: true
+
   # Retrait d'objets des annonces
   remove-listed-item:
     give-item: false           # Donner à l'inventaire ou objets expirés

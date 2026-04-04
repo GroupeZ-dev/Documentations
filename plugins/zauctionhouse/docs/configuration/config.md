@@ -444,6 +444,12 @@ action:
   # Auto-refresh inventory after actions
   update-inventory-on-action: true
 
+  # Reset category filter when reopening the auction house
+  reset-category-on-open: true
+
+  # Reset search filter when reopening the auction house
+  reset-search-on-open: true
+
   # Removing items from listings
   remove-listed-item:
     give-item: false           # Give to inventory or expired items
