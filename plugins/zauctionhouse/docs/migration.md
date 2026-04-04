@@ -1,6 +1,6 @@
 ---
 sidebar_position: 8
-title: Migration v3 to v4
+title: Migration
 description: How to migrate data from other auction plugins to zAuctionHouse V4
 ---
 
@@ -45,9 +45,7 @@ Both **zMenu** and **PlaceholderAPI** are mandatory for zAuctionHouse v4 to work
 
 The `confirm` argument is required to prevent accidental migrations.
 
-## Supported Sources
-
-### zAuctionHouse V3
+## zAuctionHouse V3
 
 Migrate from zAuctionHouse V3 to V4.
 
@@ -59,7 +57,7 @@ Migrate from zAuctionHouse V3 to V4.
 /ah admin migrate v3 confirm
 ```
 
-#### Data Migrated
+### Data Migrated
 
 | Data Type | Description |
 |-----------|-------------|
@@ -69,7 +67,7 @@ Migrate from zAuctionHouse V3 to V4.
 | **Transaction History** | Complete sales history |
 | **Player Data** | Seller information and statistics |
 
-#### How It Works
+### How It Works
 
 The migration system reads data from your V3 database and imports it into the V4 database structure. Both V3 SQLite and MySQL/MariaDB databases are supported, as well as JSON storage.
 
@@ -80,7 +78,7 @@ The migration system reads data from your V3 database and imports it into the V4
 5. Price and economy information are transferred
 6. Timestamps and expiration data are preserved
 
-#### Configuration
+### Configuration
 
 Configure the V3 migration source in `config.yml`:
 
@@ -112,13 +110,13 @@ migration:
 | `MARIADB` | MariaDB database server | Same as MySQL |
 | `JSON` | JSON file storage | `json-folder` |
 
-#### Prerequisites
+### Prerequisites
 
 - zAuctionHouse V3 data must be accessible (same database or file location)
 - zAuctionHouse V4 must be properly configured with storage
 - Both plugins should use the same storage type for best results
 
-#### Migration Steps
+### Migration Steps
 
 1. Install zAuctionHouse V4 alongside V3 (don't remove V3 yet)
 2. Configure V4's database connection in `config.yml`
@@ -132,7 +130,7 @@ migration:
 7. Verify the data by checking `/ah` and admin panels
 8. Once verified, you can remove zAuctionHouse V3
 
-## Configuration
+### Configuration
 
 :::danger Configuration Cannot Be Migrated
 The configuration system has been completely rewritten in v4. **You cannot migrate your v3 configuration** - you will need to reconfigure the plugin from scratch.
@@ -149,12 +147,70 @@ The default configuration is available in multiple languages:
 
 When you first install v4, the plugin will generate the configuration files in your server's default language. You can then customize them as needed.
 
-### Configuration Steps
+#### Configuration Steps
 
 1. **Backup your v3 configuration** - Keep your old `config.yml` as a reference
 2. **Install zAuctionHouse v4** - The plugin will generate new configuration files
 3. **Manually reconfigure** - Use your v3 config as reference to set up v4
 4. **Test your changes** - Verify everything works as expected
+
+## External Plugins
+
+zAuctionHouse V4 also supports migration from third-party auction plugins.
+
+### ZelAuction
+
+Migrate from ZelAuction to zAuctionHouse V4.
+
+**Source aliases:** `zelauction`, `zel`, `zelauctions`
+
+```bash
+/ah admin migrate zelauction confirm
+# or using aliases
+/ah admin migrate zel confirm
+```
+
+#### Data Migrated
+
+| Data Type | Description |
+|-----------|-------------|
+| **Active Listings** | All products currently on sale |
+| **Mailbox Items** | Purchased items awaiting claim (migrated as expired items) |
+| **Transaction History** | Complete buy/sell history |
+| **Player Data** | Seller and buyer information |
+
+#### How It Works
+
+The migration system reads data directly from the ZelAuction database by using its `database.yml` configuration file. Both SQLite and MySQL databases are supported.
+
+1. The migrator reads `plugins/ZelAuction/database.yml` to determine the database type and connection settings
+2. Products (listed items) are converted to V4 auction items with a default 48-hour expiration
+3. Mailbox items (purchased items awaiting claim) are imported as expired items so players can reclaim them
+4. Transactions are converted to V4 log entries
+5. Player UUIDs and names are preserved
+6. Item data is converted from legacy Base64 serialization to V4's GZIP-compressed format
+
+#### Prerequisites
+
+- The `plugins/ZelAuction/` folder must exist on the server with the `database.yml` configuration file
+- The ZelAuction database file (`.db` for SQLite) must be present in the ZelAuction folder
+- zAuctionHouse V4 must be properly configured with its own storage
+
+:::info No Configuration Needed
+Unlike the V3 migration, ZelAuction migration does not require any configuration in `config.yml`. The migrator reads all connection settings directly from ZelAuction's own `database.yml` file.
+:::
+
+#### Migration Steps
+
+1. Ensure the `plugins/ZelAuction/` folder is present on your server with the database
+2. Start the server with zAuctionHouse V4 installed
+3. Run the migration command:
+   ```bash
+   /ah admin migrate zelauction confirm
+   ```
+4. Wait for the migration to complete (the console will show progress)
+5. Verify the data by checking `/ah` and admin panels
+6. Once verified, you can remove ZelAuction
 
 ## Migration Tips
 
@@ -203,21 +259,7 @@ If you accidentally run the migration twice, duplicates may appear. To fix:
 
 ### Missing transaction history
 
-Transaction history migration depends on V3's logging configuration. If logging was disabled in V3, historical data may be limited.
-
-## Migration Checklist
-
-1. [ ] Ensure Java 21 is installed
-2. [ ] Verify server is running Minecraft 1.20+
-3. [ ] Install zMenu
-4. [ ] Install PlaceholderAPI
-5. [ ] Backup your v3 database
-6. [ ] Backup your v3 configuration (for reference)
-7. [ ] Install zAuctionHouse v4
-8. [ ] Configure the `migration` section in `config.yml`
-9. [ ] Run `/ah admin migrate zauctionhousev3 confirm` to migrate items
-10. [ ] Reconfigure the plugin using the new configuration files
-11. [ ] Test everything works correctly
+Transaction history migration depends on the source plugin's logging configuration. If logging was disabled, historical data may be limited.
 
 ## Future Migration Support
 

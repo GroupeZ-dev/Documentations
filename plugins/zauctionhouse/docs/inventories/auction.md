@@ -26,6 +26,8 @@ The auction inventory includes:
 - Expired items button
 - Purchased items button
 - Your items (selling) button
+- Search button
+- Clear search button
 - Pagination buttons
 - Sort button
 - Information button
@@ -149,6 +151,44 @@ items:
         material: LIGHT_BLUE_STAINED_GLASS_PANE
         name: "<white>"
 
+  search:
+    type: ZAUCTIONHOUSE_SEARCH
+    slot: 47
+    is-permanent: true
+    item:
+      material: COMPASS
+      name: "#2CCED2<bold>sᴇᴀʀᴄʜ"
+      lore:
+        - ""
+        - "#92ffffCurrent search#8c8c8c: #2CCED2%search_query%"
+        - ""
+        - "#92ffffFilters#8c8c8c:"
+        - "#8c8c8c  name #76CDCD~ #8c8c8cvalue    #555555(contains)"
+        - "#8c8c8c  name #76CDCD= #8c8c8cvalue    #555555(exact)"
+        - "#8c8c8c  name #76CDCD~= #8c8c8cvalue   #555555(contains, ignore case)"
+        - "#8c8c8c  name #76CDCD== #8c8c8cvalue   #555555(exact, ignore case)"
+        - ""
+        - "#92ffffFields#8c8c8c: #76CDCDname#8c8c8c, #76CDCDmaterial#8c8c8c, #76CDCDlore#8c8c8c, #76CDCDseller"
+        - ""
+        - "#92ffffExamples#8c8c8c:"
+        - "#8c8c8c  seller #76CDCD= #8c8c8cNotch"
+        - "#8c8c8c  name #76CDCD~ #8c8c8cDiamond"
+        - ""
+        - "#8c8c8c• #2CCED2Click #92ffffto search"
+
+  clear-search:
+    type: ZAUCTIONHOUSE_CLEAR_SEARCH
+    slot: 48
+    is-permanent: true
+    item:
+      material: BARRIER
+      name: "#ff6b6b<bold>ᴄʟᴇᴀʀ sᴇᴀʀᴄʜ"
+      lore:
+        - ""
+        - "#92ffffSearching for#8c8c8c: #2CCED2%search_query%"
+        - ""
+        - "#8c8c8c• #2CCED2Click #92ffffto clear search"
+
   informations:
     slot: 49
     is-permanent: true
@@ -206,6 +246,8 @@ items:
 | `selling-items` | [`ZAUCTIONHOUSE_SELLING_INVENTORY`](./buttons#zauctionhouse_selling_inventory) | Opens selling items |
 | `previous` | `PREVIOUS` | Previous page |
 | `next` | `NEXT` | Next page |
+| `search` | [`ZAUCTIONHOUSE_SEARCH`](./buttons#zauctionhouse_search) | Search items |
+| `clear-search` | [`ZAUCTIONHOUSE_CLEAR_SEARCH`](./buttons#zauctionhouse_clear_search) | Clear active search |
 | `informations` | (static) | Information display |
 | `change-sort` | [`ZAUCTIONHOUSE_CHANGE_SORT`](./buttons#zauctionhouse_change_sort) | Sort selector |
 
@@ -222,3 +264,5 @@ items:
 | `%purchased-items%` | Player's purchased item count |
 | `%selling-items%` | Player's selling item count |
 | `%s%` | Pluralization suffix |
+| `%search_query%` | Current search query |
+| `%search_active%` | Whether a search is active |

@@ -32,6 +32,7 @@ Vous pouvez personnaliser les alias dans `config.yml` sous `commands.main-comman
 | `/ah expired` | Voir vos objets expirés | `zauctionhouse.expired` |
 | `/ah purchased` | Voir les objets que vous avez achetés | `zauctionhouse.purchased` |
 | `/ah history` | Voir votre historique de ventes | `zauctionhouse.history` |
+| `/ah search <requête>` | Rechercher des objets dans l'hôtel des ventes | `zauctionhouse.use` |
 
 ### Détails de la commande Sell
 
@@ -56,6 +57,47 @@ Vous pouvez personnaliser les alias dans `config.yml` sous `commands.main-comman
 /ah sell 10000 64 vault
 ```
 
+### Détails de la commande Search
+
+```bash
+/ah search <requête>
+```
+
+Rechercher des objets dans l'hôtel des ventes. Sans opérateur, la requête effectue une recherche insensible à la casse sur le nom, le matériau, le lore et le vendeur.
+
+**Filtres avancés :**
+
+Utilisez le format `champ opérateur valeur` pour des recherches ciblées. Les espaces autour de l'opérateur sont supportés.
+
+| Opérateur | Description |
+|-----------|-------------|
+| `~` | Contient (sensible à la casse) |
+| `=` | Correspondance exacte (sensible à la casse) |
+| `~=` | Contient (insensible à la casse) |
+| `==` | Correspondance exacte (insensible à la casse) |
+
+| Champ | Description |
+|-------|-------------|
+| `name` | Nom affiché de l'objet |
+| `material` | Type de matériau de l'objet |
+| `lore` | Texte du lore de l'objet |
+| `seller` | Nom du joueur vendeur |
+
+**Exemples :**
+```bash
+# Recherche simple (correspond au nom, matériau, lore, vendeur)
+/ah search diamond
+
+# Trouver les objets vendus par un joueur spécifique
+/ah search seller = Notch
+
+# Trouver les objets contenant "Diamond" dans leur nom
+/ah search name ~ Diamond
+
+# Trouver les épées (insensible à la casse)
+/ah search material ~= sword
+```
+
 ### Mode vente d'inventaire
 
 Si `enable-sell-inventory` est défini sur `true` dans la config, exécuter `/ah sell` sans arguments ouvre une interface où les joueurs peuvent :
@@ -71,6 +113,7 @@ Si `enable-sell-inventory` est défini sur `true` dans la config, exécuter `/ah
 | `/ah admin` | Accéder aux outils admin | `zauctionhouse.admin` |
 | `/ah admin generate <quantité>` | Générer des objets factices pour les tests | `zauctionhouse.admin` |
 | `/ah admin open <type> <joueur>` | Voir les objets/historique d'un joueur | `zauctionhouse.admin` |
+| `/ah admin forceopen <joueur> <inventaire> [page]` | Ouvrir n'importe quel inventaire pour un joueur | `zauctionhouse.admin` |
 | `/ah admin add <joueur> <type>` | Ajouter des objets au compte d'un joueur | `zauctionhouse.admin.items` |
 | `/ah admin cache show <joueur>` | Afficher les données de cache d'un joueur | `zauctionhouse.admin` |
 | `/ah admin cache clear <joueur> [clé]` | Effacer le cache d'un joueur | `zauctionhouse.admin` |
@@ -88,6 +131,49 @@ Le paramètre `<type>` pour `/ah admin open` accepte :
 **Exemple :**
 ```bash
 /ah admin open selling Steve
+```
+
+### Commande Admin Force Open
+
+```bash
+/ah admin forceopen <joueur> <inventaire> [page]
+```
+
+Ouvre n'importe quel inventaire pour un joueur à une page spécifique. Utile pour le débogage ou la navigation directe vers un inventaire et une page précis.
+
+**Arguments :**
+- `<joueur>` - Nom du joueur cible (requis)
+- `<inventaire>` - Inventaire à ouvrir (requis). Accepte n'importe quel nom de fichier d'inventaire
+- `[page]` - Numéro de page (optionnel, par défaut 1)
+
+**Inventaires disponibles :**
+
+| Inventaire | Description |
+|------------|-------------|
+| `auction` | Liste principale de l'hôtel des ventes |
+| `admin-selling-items` | Vue admin des annonces actives du joueur |
+| `admin-expired-items` | Vue admin des objets expirés du joueur |
+| `admin-purchased-items` | Vue admin des objets achetés du joueur |
+| `admin-history-main` | Menu principal de l'historique admin |
+| `admin-logs` | Visualiseur des logs admin |
+| `admin-transactions` | Visualiseur des transactions admin |
+| `selling-items` | Objets en vente du joueur |
+| `expired-items` | Objets expirés du joueur |
+| `purchased-items` | Objets achetés du joueur |
+| `history` | Historique des ventes du joueur |
+| `sell-inventory` | Inventaire de préparation de vente |
+| `shulker-content` | Visualiseur du contenu de shulker |
+
+**Exemples :**
+```bash
+# Ouvrir la vue admin des annonces actives de Steve
+/ah admin forceopen Steve admin-selling-items
+
+# Ouvrir l'hôtel des ventes à la page 3
+/ah admin forceopen Steve auction 3
+
+# Ouvrir les logs admin à la page 2
+/ah admin forceopen Steve admin-logs 2
 ```
 
 ### Migration
@@ -220,6 +306,12 @@ commands:
     aliases:
       - page
       - p
+
+  search:
+    aliases:
+      - search
+      - s
+      - rechercher
 ```
 
 ## Multiplicateurs de prix

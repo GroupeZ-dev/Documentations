@@ -32,6 +32,7 @@ You can customize aliases in `config.yml` under `commands.main-command.aliases`.
 | `/ah expired` | View your expired items | `zauctionhouse.expired` |
 | `/ah purchased` | View items you've bought | `zauctionhouse.purchased` |
 | `/ah history` | View your sales history | `zauctionhouse.history` |
+| `/ah search <query>` | Search items in the auction house | `zauctionhouse.use` |
 
 ### Sell Command Details
 
@@ -56,6 +57,47 @@ You can customize aliases in `config.yml` under `commands.main-command.aliases`.
 /ah sell 10000 64 vault
 ```
 
+### Search Command Details
+
+```bash
+/ah search <query>
+```
+
+Search for items in the auction house. Without operators, the query performs a case-insensitive substring match on item name, material, lore, and seller.
+
+**Advanced Filters:**
+
+Use the format `field operator value` for targeted searches. Spaces around the operator are supported.
+
+| Operator | Description |
+|----------|-------------|
+| `~` | Contains (case-sensitive) |
+| `=` | Exact match (case-sensitive) |
+| `~=` | Contains (ignore case) |
+| `==` | Exact match (ignore case) |
+
+| Field | Description |
+|-------|-------------|
+| `name` | Item display name |
+| `material` | Item material type |
+| `lore` | Item lore text |
+| `seller` | Seller player name |
+
+**Examples:**
+```bash
+# Simple search (matches name, material, lore, seller)
+/ah search diamond
+
+# Find items sold by a specific player
+/ah search seller = Notch
+
+# Find items containing "Diamond" in their name
+/ah search name ~ Diamond
+
+# Find swords (case-insensitive)
+/ah search material ~= sword
+```
+
 ### Sell Inventory Mode
 
 If `enable-sell-inventory` is set to `true` in config, running `/ah sell` without arguments opens a GUI where players can:
@@ -71,6 +113,7 @@ If `enable-sell-inventory` is set to `true` in config, running `/ah sell` withou
 | `/ah admin` | Access admin tools | `zauctionhouse.admin` |
 | `/ah admin generate <amount>` | Generate fake items for testing | `zauctionhouse.admin` |
 | `/ah admin open <type> <player>` | View player's items/history | `zauctionhouse.admin` |
+| `/ah admin forceopen <player> <inventory> [page]` | Open any inventory for a player | `zauctionhouse.admin` |
 | `/ah admin add <player> <type>` | Add items to player's account | `zauctionhouse.admin.items` |
 | `/ah admin cache show <player>` | Show player's cache data | `zauctionhouse.admin` |
 | `/ah admin cache clear <player> [key]` | Clear player's cache | `zauctionhouse.admin` |
@@ -88,6 +131,49 @@ The `<type>` parameter for `/ah admin open` accepts:
 **Example:**
 ```bash
 /ah admin open selling Steve
+```
+
+### Admin Force Open Command
+
+```bash
+/ah admin forceopen <player> <inventory> [page]
+```
+
+Opens any inventory for a player at a specific page. Useful for debugging or navigating directly to a specific inventory and page.
+
+**Arguments:**
+- `<player>` - Target player name (required)
+- `<inventory>` - Inventory to open (required). Accepts any inventory file name
+- `[page]` - Page number to open at (optional, defaults to 1)
+
+**Available inventories:**
+
+| Inventory | Description |
+|-----------|-------------|
+| `auction` | Main auction house listing |
+| `admin-selling-items` | Admin view of player's active listings |
+| `admin-expired-items` | Admin view of player's expired items |
+| `admin-purchased-items` | Admin view of player's purchased items |
+| `admin-history-main` | Admin history main menu |
+| `admin-logs` | Admin logs viewer |
+| `admin-transactions` | Admin transactions viewer |
+| `selling-items` | Player's currently selling items |
+| `expired-items` | Player's expired items |
+| `purchased-items` | Player's purchased items |
+| `history` | Player's sales history |
+| `sell-inventory` | Sell preparation inventory |
+| `shulker-content` | Shulker box content viewer |
+
+**Examples:**
+```bash
+# Open admin view of Steve's active listings
+/ah admin forceopen Steve admin-selling-items
+
+# Open auction house at page 3
+/ah admin forceopen Steve auction 3
+
+# Open admin logs at page 2
+/ah admin forceopen Steve admin-logs 2
 ```
 
 ### Migration
@@ -220,6 +306,11 @@ commands:
     aliases:
       - page
       - p
+
+  search:
+    aliases:
+      - search
+      - s
 ```
 
 ## Price Multipliers

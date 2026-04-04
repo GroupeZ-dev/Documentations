@@ -25,9 +25,7 @@ zAuctionHouse V4 inclut un système de migration intégré qui vous permet d'imp
 
 L'argument `confirm` est requis pour éviter les migrations accidentelles.
 
-## Sources Supportées
-
-### zAuctionHouse V3
+## zAuctionHouse V3
 
 Migrer de zAuctionHouse V3 vers V4.
 
@@ -39,7 +37,7 @@ Migrer de zAuctionHouse V3 vers V4.
 /ah admin migrate v3 confirm
 ```
 
-#### Données Migrées
+### Données Migrées
 
 | Type de Données | Description |
 |-----------------|-------------|
@@ -49,7 +47,7 @@ Migrer de zAuctionHouse V3 vers V4.
 | **Historique des Transactions** | Historique complet des ventes |
 | **Données Joueur** | Informations et statistiques des vendeurs |
 
-#### Comment Ça Fonctionne
+### Comment Ça Fonctionne
 
 Le système de migration lit les données de votre base de données V3 et les importe dans la structure de base de données V4. Les bases de données V3 SQLite et MySQL/MariaDB sont supportées.
 
@@ -60,13 +58,13 @@ Le système de migration lit les données de votre base de données V3 et les im
 5. Les informations de prix et d'économie sont transférées
 6. Les horodatages et données d'expiration sont préservés
 
-#### Prérequis
+### Prérequis
 
 - Les données de zAuctionHouse V3 doivent être accessibles (même base de données ou emplacement de fichier)
 - zAuctionHouse V4 doit être correctement configuré avec le stockage
 - Les deux plugins devraient utiliser le même type de stockage pour de meilleurs résultats
 
-#### Étapes de Migration
+### Étapes de Migration
 
 1. Installez zAuctionHouse V4 à côté de V3 (ne supprimez pas encore V3)
 2. Configurez la connexion à la base de données de V4 dans `config.yml`
@@ -78,6 +76,64 @@ Le système de migration lit les données de votre base de données V3 et les im
 5. Attendez que la migration se termine (la console affichera la progression)
 6. Vérifiez les données en consultant `/ah` et les panneaux admin
 7. Une fois vérifié, vous pouvez supprimer zAuctionHouse V3
+
+## Plugins Externes
+
+zAuctionHouse V4 supporte également la migration depuis des plugins d'enchères tiers.
+
+### ZelAuction
+
+Migrer de ZelAuction vers zAuctionHouse V4.
+
+**Alias de source :** `zelauction`, `zel`, `zelauctions`
+
+```bash
+/ah admin migrate zelauction confirm
+# ou en utilisant les alias
+/ah admin migrate zel confirm
+```
+
+#### Données Migrées
+
+| Type de Données | Description |
+|-----------------|-------------|
+| **Annonces Actives** | Tous les produits actuellement en vente |
+| **Objets Boîte aux lettres** | Objets achetés en attente de réclamation (migrés comme objets expirés) |
+| **Historique des Transactions** | Historique complet des achats/ventes |
+| **Données Joueur** | Informations des vendeurs et acheteurs |
+
+#### Comment Ça Fonctionne
+
+Le système de migration lit les données directement depuis la base de données ZelAuction en utilisant son fichier de configuration `database.yml`. Les bases de données SQLite et MySQL sont supportées.
+
+1. Le migrateur lit `plugins/ZelAuction/database.yml` pour déterminer le type de base de données et les paramètres de connexion
+2. Les produits (objets en vente) sont convertis en objets d'enchères V4 avec une expiration par défaut de 48 heures
+3. Les objets de la boîte aux lettres (objets achetés en attente) sont importés comme objets expirés pour que les joueurs puissent les récupérer
+4. Les transactions sont converties en entrées de log V4
+5. Les UUIDs et noms des joueurs sont préservés
+6. Les données des objets sont converties de la sérialisation Base64 legacy vers le format compressé GZIP de V4
+
+#### Prérequis
+
+- Le dossier `plugins/ZelAuction/` doit exister sur le serveur avec le fichier de configuration `database.yml`
+- Le fichier de base de données ZelAuction (`.db` pour SQLite) doit être présent dans le dossier ZelAuction
+- zAuctionHouse V4 doit être correctement configuré avec son propre stockage
+
+:::info Aucune Configuration Nécessaire
+Contrairement à la migration V3, la migration ZelAuction ne nécessite aucune configuration dans `config.yml`. Le migrateur lit tous les paramètres de connexion directement depuis le fichier `database.yml` de ZelAuction.
+:::
+
+#### Étapes de Migration
+
+1. Assurez-vous que le dossier `plugins/ZelAuction/` est présent sur votre serveur avec la base de données
+2. Démarrez le serveur avec zAuctionHouse V4 installé
+3. Exécutez la commande de migration :
+   ```bash
+   /ah admin migrate zelauction confirm
+   ```
+4. Attendez que la migration se termine (la console affichera la progression)
+5. Vérifiez les données en consultant `/ah` et les panneaux admin
+6. Une fois vérifié, vous pouvez supprimer ZelAuction
 
 ## Conseils de Migration
 
@@ -126,7 +182,7 @@ Si vous exécutez accidentellement la migration deux fois, des objets en double 
 
 ### Historique des transactions manquant
 
-La migration de l'historique des transactions dépend de la configuration de journalisation de V3. Si la journalisation était désactivée dans V3, les données historiques peuvent être limitées.
+La migration de l'historique des transactions dépend de la configuration de journalisation du plugin source. Si la journalisation était désactivée, les données historiques peuvent être limitées.
 
 ## Support de Migration Futur
 
