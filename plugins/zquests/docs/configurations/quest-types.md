@@ -6,7 +6,7 @@ description: All available quest types in zQuests
 
 # Quest Types
 
-zQuests provides over 25 different quest types to track various player activities. This page documents all available quest types and their specific configuration options.
+zQuests provides over 35 different quest types to track various player activities. This page documents all available quest types and their specific configuration options.
 
 ## Block Quests
 
@@ -132,6 +132,52 @@ quests:
 
 ---
 
+### BREED
+
+Track when players breed animals.
+
+```yaml
+quests:
+  - type: BREED
+    name: "animal-breeder"
+    display-name: "Animal Breeder"
+    description: "Breed 20 cows"
+    thumbnail: WHEAT
+    goal: 20
+    actions:
+      - entity: COW
+      - entity: SHEEP
+      - entity: PIG
+```
+
+**Actions format:**
+- `entity` - [Bukkit EntityType](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html)
+
+---
+
+### MILK
+
+Track when players milk animals (cows, goats, or mooshrooms).
+
+```yaml
+quests:
+  - type: MILK
+    name: "milk-collector"
+    display-name: "Milk Collector"
+    description: "Milk 10 cows"
+    thumbnail: MILK_BUCKET
+    goal: 10
+    actions:
+      - entity: COW
+      - entity: GOAT
+      - entity: MOOSHROOM
+```
+
+**Actions format:**
+- `entity` - [Bukkit EntityType](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html) (only COW, GOAT, and MOOSHROOM are supported)
+
+---
+
 ## Gathering Quests
 
 ### FARMING
@@ -168,6 +214,29 @@ quests:
       - material: COD
       - material: SALMON
 ```
+
+---
+
+### BUCKET_FILL
+
+Track when players fill buckets (water, lava, milk, etc.).
+
+```yaml
+quests:
+  - type: BUCKET_FILL
+    name: "water-collector"
+    display-name: "Water Collector"
+    description: "Fill 10 water buckets"
+    thumbnail: WATER_BUCKET
+    goal: 10
+    actions:
+      - material: WATER_BUCKET
+      - material: LAVA_BUCKET
+```
+
+**Actions format:**
+- `material` - [Bukkit Material](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html) (the resulting bucket type, e.g., WATER_BUCKET, LAVA_BUCKET, POWDER_SNOW_BUCKET)
+- `tag` - [Bukkit Tag](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Tag.html)
 
 ---
 
@@ -647,6 +716,47 @@ quests:
 
 ---
 
+### PLAYER_KILL
+
+Track when players kill other players.
+
+```yaml
+quests:
+  - type: PLAYER_KILL
+    name: "pvp-warrior"
+    display-name: "PvP Warrior"
+    description: "Kill 10 players"
+    thumbnail: DIAMOND_SWORD
+    goal: 10
+```
+
+No actions required — all player kills are counted.
+
+---
+
+### ADVANCEMENT
+
+Track when players unlock specific Minecraft advancements.
+
+```yaml
+quests:
+  - type: ADVANCEMENT
+    name: "adventurer"
+    display-name: "Adventurer"
+    description: "Get the 'Stone Age' advancement"
+    thumbnail: CRAFTING_TABLE
+    goal: 1
+    actions:
+      - advancements:
+          - "minecraft:story/mine_stone"
+          - "minecraft:story/upgrade_tools"
+```
+
+**Actions format:**
+- `advancements` - List of [Minecraft advancement keys](https://minecraft.wiki/w/Advancement#List_of_advancements) (e.g., `minecraft:story/mine_stone`, `minecraft:nether/find_fortress`)
+
+---
+
 ## Quest Type Reference
 
 | Type | Tracks | Actions Required |
@@ -657,8 +767,11 @@ quests:
 | `ENTITY_DAMAGE` | Damage dealt | None |
 | `TAME` | Taming animals | `entity` |
 | `SHEAR` | Shearing entities | `entity` |
+| `BREED` | Breeding animals | `entity` |
+| `MILK` | Milking animals | `entity` |
 | `FARMING` | Harvesting crops | `material` |
 | `FISHING` | Catching fish | `material` |
+| `BUCKET_FILL` | Filling buckets | `material` |
 | `CRAFT` | Crafting items | `material` |
 | `SMELT` | Smelting items | `material` |
 | `SMITHING` | Using smithing table | `material` |
@@ -683,3 +796,5 @@ quests:
 | `ISLAND` | Island creation | None |
 | `HATCHING` | Throwing eggs | None |
 | `RESURRECT` | Using totems | None |
+| `PLAYER_KILL` | Killing players | None |
+| `ADVANCEMENT` | Unlocking advancements | `advancements` |
