@@ -62,7 +62,9 @@ economies:
     deposit-reason: "Sale of %items% (zAuctionHouse)"
 
     # Price formatting mode
-    # PRICE_WITH_DECIMAL_FORMAT, PRICE_WITHOUT_DECIMAL, PRICE_WITH_REDUCTION
+    # PRICE_WITH_DECIMAL_FORMAT : Uses the 'price-decimal-format' setting
+    # PRICE_WITHOUT_DECIMAL     : No decimal places, whole numbers only (e.g., 10000.50 -> 10000)
+    # PRICE_WITH_REDUCTION      : Uses the 'price-reductions' settings
     price-format: PRICE_WITH_DECIMAL_FORMAT
 
     # Price limits
@@ -158,6 +160,14 @@ default-economy:
 ```
 
 ## Price Formatting
+
+The `price-format` option controls how prices are displayed. Available modes:
+
+| Mode | Description | Example |
+|------|-------------|---------|
+| `PRICE_WITH_DECIMAL_FORMAT` | Uses the `price-decimal-format` pattern | `10000.5` -> `10,000.5` |
+| `PRICE_WITHOUT_DECIMAL` | Removes decimals, whole numbers only | `10000.5` -> `10000` |
+| `PRICE_WITH_REDUCTION` | Compact display with suffixes | `10000` -> `10.0K` |
 
 ### Decimal Format
 

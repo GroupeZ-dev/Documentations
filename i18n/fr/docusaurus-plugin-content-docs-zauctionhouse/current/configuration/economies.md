@@ -155,6 +155,9 @@ economies:
     must-be-online: true
 
     # Mode de formatage des prix
+    # PRICE_WITH_DECIMAL_FORMAT : Utilise le format 'price-decimal-format'
+    # PRICE_WITHOUT_DECIMAL     : Pas de décimales, nombres entiers uniquement (ex : 10000.50 -> 10000)
+    # PRICE_WITH_REDUCTION      : Utilise les réductions 'price-reductions'
     price-format: PRICE_WITH_REDUCTION
 
     # Limites de prix
@@ -205,6 +208,9 @@ economies:
     deposit-reason: "Sale of %items% (zAuctionHouse)"
 
     # Mode de formatage des prix
+    # PRICE_WITH_DECIMAL_FORMAT : Utilise le format 'price-decimal-format'
+    # PRICE_WITHOUT_DECIMAL     : Pas de décimales, nombres entiers uniquement (ex : 10000.50 -> 10000)
+    # PRICE_WITH_REDUCTION      : Utilise les réductions 'price-reductions'
     price-format: PRICE_WITH_REDUCTION
 
     # Limites de prix

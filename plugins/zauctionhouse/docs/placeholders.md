@@ -27,6 +27,7 @@ Used in `item-lore` section of `config.yml`:
 | `%price%` | Formatted price of the item |
 | `%price-price-raw%` | Raw price value |
 | `%price-price-with-decimal-format%` | Price with decimal formatting (e.g. 10 000) |
+| `%price-price-without-decimal%` | Price without decimals (e.g. 10000) |
 | `%price-price-with-reduction%` | Price with reduction (e.g. 10.0k) |
 | `%time-remaining%` | Time until the listing expires |
 | `%formatted-expire-date%` | Formatted expiration date |

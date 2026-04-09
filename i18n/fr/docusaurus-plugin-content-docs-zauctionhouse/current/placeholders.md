@@ -27,6 +27,7 @@ Utilisés dans la section `item-lore` de `config.yml` :
 | `%price%` | Prix formaté de l'objet |
 | `%price-price-raw%` | Valeur brute du prix |
 | `%price-price-with-decimal-format%` | Prix avec formatage décimal (ex : 10 000) |
+| `%price-price-without-decimal%` | Prix sans décimales (ex : 10000) |
 | `%price-price-with-reduction%` | Prix avec réduction (ex : 10.0k) |
 | `%time-remaining%` | Temps avant expiration de l'annonce |
 | `%formatted-expire-date%` | Date d'expiration formatée |
