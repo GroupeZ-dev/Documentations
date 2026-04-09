@@ -430,6 +430,70 @@ category-switcher:
 Utilisez `"main"` comme ID de catégorie pour représenter "Tous les objets" (sans filtrage).
 :::
 
+## Bouton Récupérer l'Argent
+
+Le bouton `ZAUCTIONHOUSE_CLAIM` affiche l'argent en attente du joueur provenant des ventes et permet de le récupérer en un clic. Il affiche les montants par économie grâce à des placeholders dynamiques et supporte un état de chargement.
+
+| Propriété | Type | Description |
+|-----------|------|-------------|
+| `slot` | Nombre | Position du bouton |
+| `loading-item` | Item | Affiché pendant le chargement des données |
+| `item` | Item | Apparence normale du bouton |
+
+**Placeholders :**
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%pending_total%` | Argent total en attente (formaté) |
+| `%pending_<nom_economie>%` | Argent en attente pour une économie spécifique (ex: `%pending_vault%`) |
+| `%has_pending%` | `true` ou `false` |
+
+:::info
+Le nom de l'économie correspond au champ `name` défini dans votre fichier `economies.yml`. Par exemple, si vous avez une économie avec `name: vault`, utilisez `%pending_vault%`.
+:::
+
+```yaml
+claim-money:
+  type: ZAUCTIONHOUSE_CLAIM
+  slot: 48
+  loading-item:
+    material: CLOCK
+    name: "#2CCED2<bold>ʀᴇᴄᴜᴘᴇʀᴇʀ"
+    lore:
+      - "#8c8c8c• #ff3535Chargement, veuillez patienter..."
+  item:
+    material: GOLD_INGOT
+    name: "#2CCED2<bold>ʀᴇᴄᴜᴘᴇʀᴇʀ"
+    lore:
+      - ""
+      - "#92ffffArgent en attente#8c8c8c: #2CCED2%pending_total%"
+      - ""
+      - "#8c8c8c• #2CCED2Cliquez #92ffffpour récupérer votre argent"
+```
+
+**Exemple multi-économie :**
+
+```yaml
+claim-money:
+  type: ZAUCTIONHOUSE_CLAIM
+  slot: 48
+  loading-item:
+    material: CLOCK
+    name: "#2CCED2<bold>ʀᴇᴄᴜᴘᴇʀᴇʀ"
+    lore:
+      - "#8c8c8c• #ff3535Chargement, veuillez patienter..."
+  item:
+    material: GOLD_INGOT
+    name: "#2CCED2<bold>ʀᴇᴄᴜᴘᴇʀᴇʀ"
+    lore:
+      - ""
+      - "#92ffffVault#8c8c8c: #2CCED2%pending_vault%"
+      - "#92ffffTokens#8c8c8c: #2CCED2%pending_tokens%"
+      - "#92ffffTotal#8c8c8c: #2CCED2%pending_total%"
+      - ""
+      - "#8c8c8c• #2CCED2Cliquez #92ffffpour récupérer votre argent"
+```
+
 ## Actions Personnalisées
 
 zAuctionHouse fournit des actions personnalisées :

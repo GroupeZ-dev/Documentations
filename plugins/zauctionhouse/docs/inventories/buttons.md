@@ -545,6 +545,84 @@ clear-search:
 
 ---
 
+## Claim Button
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| [`ZAUCTIONHOUSE_CLAIM`](#zauctionhouse_claim) | Displays pending money and allows claiming | [Auction](./auction) |
+
+---
+
+### ZAUCTIONHOUSE_CLAIM
+
+Displays the player's pending money from sales and allows them to claim it with a single click. Shows per-economy amounts using dynamic placeholders and supports a loading state while data is being fetched.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `loading-item` | Item | Shown while pending money data is loading |
+| `item` | Item | Normal button appearance with pending money placeholders |
+
+**Placeholders:**
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%pending_total%` | Total pending money across all economies (formatted) |
+| `%pending_<economy_name>%` | Pending money for a specific economy (e.g., `%pending_vault%`) |
+| `%has_pending%` | `true` or `false` |
+
+:::info
+The economy name corresponds to the `name` field defined in your `economies.yml` configuration. For example, if you have an economy with `name: vault`, use `%pending_vault%`.
+:::
+
+**Example:**
+
+```yaml
+claim-money:
+  type: ZAUCTIONHOUSE_CLAIM
+  slot: 48
+  loading-item:
+    material: CLOCK
+    name: "#2CCED2<bold>ᴄʟᴀɪᴍ ᴍᴏɴᴇʏ"
+    lore:
+      - "#8c8c8c• #ff3535Loading, please wait..."
+  item:
+    material: GOLD_INGOT
+    name: "#2CCED2<bold>ᴄʟᴀɪᴍ ᴍᴏɴᴇʏ"
+    lore:
+      - ""
+      - "#92ffffPending money#8c8c8c: #2CCED2%pending_total%"
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto claim your money"
+```
+
+**Multi-economy example:**
+
+```yaml
+claim-money:
+  type: ZAUCTIONHOUSE_CLAIM
+  slot: 48
+  loading-item:
+    material: CLOCK
+    name: "#2CCED2<bold>ᴄʟᴀɪᴍ ᴍᴏɴᴇʏ"
+    lore:
+      - "#8c8c8c• #ff3535Loading, please wait..."
+  item:
+    material: GOLD_INGOT
+    name: "#2CCED2<bold>ᴄʟᴀɪᴍ ᴍᴏɴᴇʏ"
+    lore:
+      - ""
+      - "#92ffffVault#8c8c8c: #2CCED2%pending_vault%"
+      - "#92ffffTokens#8c8c8c: #2CCED2%pending_tokens%"
+      - "#92ffffTotal#8c8c8c: #2CCED2%pending_total%"
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto claim your money"
+```
+
+---
+
 ## Sort Buttons
 
 | Type | Description | Used In |
