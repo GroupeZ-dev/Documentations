@@ -20,6 +20,7 @@ These buttons display and handle auction items.
 | [`ZAUCTIONHOUSE_EXPIRED_ITEMS`](#zauctionhouse_expired_items) | Displays player's expired items | [Expired Items](./expired-items) |
 | [`ZAUCTIONHOUSE_PURCHASED_ITEMS`](#zauctionhouse_purchased_items) | Displays player's purchased items | [Purchased Items](./purchased-items) |
 | [`ZAUCTIONHOUSE_SELLING_ITEMS`](#zauctionhouse_selling_items) | Displays player's items on sale | [Selling Items](./selling-items) |
+| [`ZAUCTIONHOUSE_COMBINED_ITEMS`](#zauctionhouse_combined_items) | Combines selling, expired, and purchased items in one view | [Combined Items](./combined-items) |
 | [`ZAUCTIONHOUSE_HISTORY_ITEMS`](#zauctionhouse_history_items) | Displays player's sales history | [History](./history) |
 
 ---
@@ -141,6 +142,49 @@ items:
     material: BARRIER
     name: '#ff0000&nNo items found'
 ```
+
+---
+
+### ZAUCTIONHOUSE_COMBINED_ITEMS
+
+Combines selling, expired, and purchased items into a single paginated view. Click action automatically adapts to the item's storage type.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slots` | List | Slots where items are displayed (e.g., `9-17`, `18-26`) |
+| `empty-slot` | Number | Slot for the "no items" placeholder (-1 to disable) |
+| `include-selling` | Boolean | Include items currently listed for sale (default: `true`) |
+| `include-expired` | Boolean | Include expired items (default: `true`) |
+| `include-purchased` | Boolean | Include purchased items (default: `true`) |
+| `item` | Item | Placeholder shown when no items exist |
+
+**Example:**
+
+```yaml
+items:
+  type: ZAUCTIONHOUSE_COMBINED_ITEMS
+  empty-slot: 22
+  include-selling: true
+  include-expired: true
+  include-purchased: true
+  slots:
+    - 9-17
+    - 18-26
+    - 27-35
+    - 36-44
+  item:
+    material: BARRIER
+    name: '#ff0000&nNo items found'
+```
+
+**Click behavior:**
+- **Selling items** (status `AVAILABLE`): Removes/cancels the listing
+- **Expired items** (status `REMOVED`): Claims the item back
+- **Purchased items** (status `PURCHASED`): Claims the purchased item
+
+Each item type automatically uses its corresponding lore from `config.yml` (`selling-item`, `expired-item`, `purchased-item`, `being-purchased-item`).
 
 ---
 

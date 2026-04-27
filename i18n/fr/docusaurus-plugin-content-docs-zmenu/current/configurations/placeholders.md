@@ -126,9 +126,9 @@ name: "&6%zmenu_global_placeholders_server-name%"
 
 | Placeholder | Description | Exemple de sortie |
 |-------------|-------------|-------------------|
-| `%zmenu_time_unix_timestamp%` | Timestamp Unix actuel | `1704067200` |
-| `%zmenu_time_next_day_unix_timestamp%` | Timestamp Unix de demain | `1704153600` |
-| `%zmenu_time_today_start_unix_timestamp%` | Timestamp du debut d'aujourd'hui | `1704067200` |
+| `%zmenu_time_unix_timestamp%` | Timestamp Unix actuel (en secondes) | `1704067200` |
+| `%zmenu_time_next_day_unix_timestamp%` | Timestamp Unix de demain (en secondes) | `1704153600` |
+| `%zmenu_time_today_start_unix_timestamp%` | Timestamp du debut d'aujourd'hui (en secondes) | `1704067200` |
 
 ### Placeholders de statistiques
 

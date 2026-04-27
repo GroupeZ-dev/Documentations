@@ -20,6 +20,7 @@ Ces boutons affichent et gèrent les objets de l'hôtel des ventes.
 | [`ZAUCTIONHOUSE_EXPIRED_ITEMS`](#zauctionhouse_expired_items) | Affiche les objets expirés du joueur | [Objets Expirés](./expired-items) |
 | [`ZAUCTIONHOUSE_PURCHASED_ITEMS`](#zauctionhouse_purchased_items) | Affiche les objets achetés du joueur | [Objets Achetés](./purchased-items) |
 | [`ZAUCTIONHOUSE_SELLING_ITEMS`](#zauctionhouse_selling_items) | Affiche les objets en vente du joueur | [Objets en Vente](./selling-items) |
+| [`ZAUCTIONHOUSE_COMBINED_ITEMS`](#zauctionhouse_combined_items) | Combine les objets en vente, expirés et achetés dans une seule vue | [Items Combinés](./combined-items) |
 | [`ZAUCTIONHOUSE_HISTORY_ITEMS`](#zauctionhouse_history_items) | Affiche l'historique des ventes du joueur | [Historique](./history) |
 
 ---
@@ -141,6 +142,49 @@ items:
     material: BARRIER
     name: '#ff0000&nNo items found'
 ```
+
+---
+
+### ZAUCTIONHOUSE_COMBINED_ITEMS
+
+Combine les objets en vente, expirés et achetés dans une seule vue paginée. L'action au clic s'adapte automatiquement au type de stockage de l'objet.
+
+**Configuration :**
+
+| Propriété | Type | Description |
+|-----------|------|-------------|
+| `slots` | Liste | Emplacements où les objets sont affichés (ex. `9-17`, `18-26`) |
+| `empty-slot` | Nombre | Emplacement pour le placeholder "aucun objet" (-1 pour désactiver) |
+| `include-selling` | Booléen | Inclure les objets actuellement en vente (défaut : `true`) |
+| `include-expired` | Booléen | Inclure les objets expirés (défaut : `true`) |
+| `include-purchased` | Booléen | Inclure les objets achetés (défaut : `true`) |
+| `item` | Item | Placeholder affiché quand aucun objet n'existe |
+
+**Exemple :**
+
+```yaml
+items:
+  type: ZAUCTIONHOUSE_COMBINED_ITEMS
+  empty-slot: 22
+  include-selling: true
+  include-expired: true
+  include-purchased: true
+  slots:
+    - 9-17
+    - 18-26
+    - 27-35
+    - 36-44
+  item:
+    material: BARRIER
+    name: '#ff0000&nAucun objet trouvé'
+```
+
+**Comportement au clic :**
+- **Objets en vente** (statut `AVAILABLE`) : Retire/annule la mise en vente
+- **Objets expirés** (statut `REMOVED`) : Récupère l'objet
+- **Objets achetés** (statut `PURCHASED`) : Récupère l'objet acheté
+
+Chaque type d'objet utilise automatiquement sa lore correspondante depuis `config.yml` (`selling-item`, `expired-item`, `purchased-item`, `being-purchased-item`).
 
 ---
 
