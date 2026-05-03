@@ -124,11 +124,11 @@ name: "&6%server-name%" # Replacing directly when zMenu load the inventory
 
 ### Time Placeholders
 
-| Placeholder                               | Description               | Example Output |
-|-------------------------------------------|---------------------------|----------------|
-| `%zmenu_time_unix_timestamp%`             | Current Unix timestamp    | `1704067200`   |
-| `%zmenu_time_next_day_unix_timestamp%`    | Tomorrow's Unix timestamp | `1704153600`   |
-| `%zmenu_time_today_start_unix_timestamp%` | Start of today timestamp  | `1704067200`   |
+| Placeholder                               | Description                              | Example Output |
+|-------------------------------------------|------------------------------------------|----------------|
+| `%zmenu_time_unix_timestamp%`             | Current Unix timestamp (in seconds)      | `1704067200`   |
+| `%zmenu_time_next_day_unix_timestamp%`    | Tomorrow's Unix timestamp (in seconds)   | `1704153600`   |
+| `%zmenu_time_today_start_unix_timestamp%` | Start of today timestamp (in seconds)    | `1704067200`   |
 
 ### Statistic Placeholders
 

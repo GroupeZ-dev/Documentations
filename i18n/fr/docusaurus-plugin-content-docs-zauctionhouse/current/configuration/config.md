@@ -56,7 +56,22 @@ Noms d'opérations disponibles pour le filtrage :
 #   "dd/MM/yyyy HH:mm:ss" -> "25/12/2024 14:30:45"
 #   "MM-dd-yyyy hh:mm a"  -> "12-25-2024 02:30 PM"
 date-format: dd/MM/yyyy HH:mm:ss
+
+# Fuseau horaire utilisé pour l'affichage des dates.
+# Définir à "auto" pour utiliser le fuseau horaire par défaut du serveur.
+# Exemples : "UTC", "Europe/Paris", "America/New_York", "Asia/Tokyo"
+timezone: auto
 ```
+
+| Valeur | Description |
+|--------|-------------|
+| `auto` | Utilise le fuseau horaire par défaut du serveur (par défaut) |
+| `UTC` | Temps Universel Coordonné |
+| `Europe/Paris` | Heure d'Europe Centrale (UTC+1/UTC+2) |
+| `America/New_York` | Heure de l'Est (UTC-5/UTC-4) |
+| `Asia/Tokyo` | Heure Standard du Japon (UTC+9) |
+
+Vous pouvez utiliser n'importe quel [identifiant Java TimeZone](https://docs.oracle.com/javase/8/docs/api/java/util/TimeZone.html) valide. Ce paramètre affecte tous les placeholders de date : `%date%`, `%formatted-expire-date%`, `%expires_at%`, etc.
 
 ## Configuration de la Base de Données
 

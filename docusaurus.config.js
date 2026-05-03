@@ -20,6 +20,28 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {
+        'data-cfasync': 'false',
+      },
+      innerHTML: `window.nitroAds=window.nitroAds||{createAd:function(){return new Promise(e=>{window.nitroAds.queue.push(["createAd",arguments,e])})},addUserToken:function(){window.nitroAds.queue.push(["addUserToken",arguments])},queue:[]};`,
+    },
+  ],
+
+  scripts: [
+    {
+      src: 'https://s.nitropay.com/ads-2396.js',
+      async: true,
+      'data-cfasync': 'false',
+    },
+  ],
+
+  clientModules: [
+    require.resolve('./src/clientModules/nitroAds.js'),
+  ],
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'fr'],

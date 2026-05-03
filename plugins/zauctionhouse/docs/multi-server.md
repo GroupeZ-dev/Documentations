@@ -146,6 +146,7 @@ Edit `plugins/zAuctionHouseRedis/config.yml` on each server:
 
 ```yaml
 redis-config:
+  mode: 'standalone'
   host: '192.168.10.10'
   port: 6379
   user: ''
@@ -159,6 +160,53 @@ redis-config:
     max-idle: 32
     min-idle: 16
 ```
+
+#### Redis Sentinel Mode
+
+For high-availability setups, zAuctionHouse Redis supports [Redis Sentinel](https://redis.io/docs/management/sentinel/). Sentinel provides automatic master discovery and failover, so if the master goes down, a replica is automatically promoted and the plugin reconnects transparently.
+
+To use Sentinel mode, set `mode` to `sentinel` and configure the `sentinel` section:
+
+```yaml
+redis-config:
+  mode: 'sentinel'
+
+  sentinel:
+    master-name: 'mymaster'
+    user: ''
+    password: ''
+    nodes:
+      - '192.168.10.10:26379'
+      - '192.168.10.11:26379'
+      - '192.168.10.12:26379'
+
+  user: ''
+  password: ''
+  channel-name: 'zauctionhouse'
+  database: 0
+  timeout: 2000
+  lock-ttl-seconds: 30
+  pool:
+    max-total: 64
+    max-idle: 32
+    min-idle: 16
+```
+
+| Field | Description |
+|-------|-------------|
+| `mode` | Connection mode: `standalone` (default) or `sentinel` |
+| `sentinel.master-name` | Name of the Sentinel master group (usually `mymaster`) |
+| `sentinel.user` | Username for Sentinel authentication (leave empty if none) |
+| `sentinel.password` | Password for Sentinel authentication (leave empty if none) |
+| `sentinel.nodes` | List of Sentinel nodes in `host:port` format |
+
+:::info
+The `user` and `password` fields at the root of `redis-config` are for the **Redis master** connection. The `sentinel.user` and `sentinel.password` are specifically for authenticating with the **Sentinel instances** themselves.
+:::
+
+:::tip
+Existing standalone configurations continue to work without any changes. If the `mode` field is absent, it defaults to `standalone`.
+:::
 
 ### Step 5: Restart Servers
 

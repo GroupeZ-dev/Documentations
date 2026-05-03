@@ -20,6 +20,7 @@ These buttons display and handle auction items.
 | [`ZAUCTIONHOUSE_EXPIRED_ITEMS`](#zauctionhouse_expired_items) | Displays player's expired items | [Expired Items](./expired-items) |
 | [`ZAUCTIONHOUSE_PURCHASED_ITEMS`](#zauctionhouse_purchased_items) | Displays player's purchased items | [Purchased Items](./purchased-items) |
 | [`ZAUCTIONHOUSE_SELLING_ITEMS`](#zauctionhouse_selling_items) | Displays player's items on sale | [Selling Items](./selling-items) |
+| [`ZAUCTIONHOUSE_COMBINED_ITEMS`](#zauctionhouse_combined_items) | Combines selling, expired, and purchased items in one view | [Combined Items](./combined-items) |
 | [`ZAUCTIONHOUSE_HISTORY_ITEMS`](#zauctionhouse_history_items) | Displays player's sales history | [History](./history) |
 
 ---
@@ -141,6 +142,49 @@ items:
     material: BARRIER
     name: '#ff0000&nNo items found'
 ```
+
+---
+
+### ZAUCTIONHOUSE_COMBINED_ITEMS
+
+Combines selling, expired, and purchased items into a single paginated view. Click action automatically adapts to the item's storage type.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slots` | List | Slots where items are displayed (e.g., `9-17`, `18-26`) |
+| `empty-slot` | Number | Slot for the "no items" placeholder (-1 to disable) |
+| `include-selling` | Boolean | Include items currently listed for sale (default: `true`) |
+| `include-expired` | Boolean | Include expired items (default: `true`) |
+| `include-purchased` | Boolean | Include purchased items (default: `true`) |
+| `item` | Item | Placeholder shown when no items exist |
+
+**Example:**
+
+```yaml
+items:
+  type: ZAUCTIONHOUSE_COMBINED_ITEMS
+  empty-slot: 22
+  include-selling: true
+  include-expired: true
+  include-purchased: true
+  slots:
+    - 9-17
+    - 18-26
+    - 27-35
+    - 36-44
+  item:
+    material: BARRIER
+    name: '#ff0000&nNo items found'
+```
+
+**Click behavior:**
+- **Selling items** (status `AVAILABLE`): Removes/cancels the listing
+- **Expired items** (status `REMOVED`): Claims the item back
+- **Purchased items** (status `PURCHASED`): Claims the purchased item
+
+Each item type automatically uses its corresponding lore from `config.yml` (`selling-item`, `expired-item`, `purchased-item`, `being-purchased-item`).
 
 ---
 
@@ -541,6 +585,84 @@ clear-search:
       - "#92ffffSearching for#8c8c8c: #2CCED2%search_query%"
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto clear search"
+```
+
+---
+
+## Claim Button
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| [`ZAUCTIONHOUSE_CLAIM`](#zauctionhouse_claim) | Displays pending money and allows claiming | [Auction](./auction) |
+
+---
+
+### ZAUCTIONHOUSE_CLAIM
+
+Displays the player's pending money from sales and allows them to claim it with a single click. Shows per-economy amounts using dynamic placeholders and supports a loading state while data is being fetched.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `loading-item` | Item | Shown while pending money data is loading |
+| `item` | Item | Normal button appearance with pending money placeholders |
+
+**Placeholders:**
+
+| Placeholder | Description |
+|-------------|-------------|
+| `%pending_total%` | Total pending money across all economies (formatted) |
+| `%pending_<economy_name>%` | Pending money for a specific economy (e.g., `%pending_vault%`) |
+| `%has_pending%` | `true` or `false` |
+
+:::info
+The economy name corresponds to the `name` field defined in your `economies.yml` configuration. For example, if you have an economy with `name: vault`, use `%pending_vault%`.
+:::
+
+**Example:**
+
+```yaml
+claim-money:
+  type: ZAUCTIONHOUSE_CLAIM
+  slot: 48
+  loading-item:
+    material: CLOCK
+    name: "#2CCED2<bold>ᴄʟᴀɪᴍ ᴍᴏɴᴇʏ"
+    lore:
+      - "#8c8c8c• #ff3535Loading, please wait..."
+  item:
+    material: GOLD_INGOT
+    name: "#2CCED2<bold>ᴄʟᴀɪᴍ ᴍᴏɴᴇʏ"
+    lore:
+      - ""
+      - "#92ffffPending money#8c8c8c: #2CCED2%pending_total%"
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto claim your money"
+```
+
+**Multi-economy example:**
+
+```yaml
+claim-money:
+  type: ZAUCTIONHOUSE_CLAIM
+  slot: 48
+  loading-item:
+    material: CLOCK
+    name: "#2CCED2<bold>ᴄʟᴀɪᴍ ᴍᴏɴᴇʏ"
+    lore:
+      - "#8c8c8c• #ff3535Loading, please wait..."
+  item:
+    material: GOLD_INGOT
+    name: "#2CCED2<bold>ᴄʟᴀɪᴍ ᴍᴏɴᴇʏ"
+    lore:
+      - ""
+      - "#92ffffVault#8c8c8c: #2CCED2%pending_vault%"
+      - "#92ffffTokens#8c8c8c: #2CCED2%pending_tokens%"
+      - "#92ffffTotal#8c8c8c: #2CCED2%pending_total%"
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto claim your money"
 ```
 
 ---
