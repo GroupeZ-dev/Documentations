@@ -146,6 +146,7 @@ Modifiez `plugins/zAuctionHouseRedis/config.yml` sur chaque serveur :
 
 ```yaml
 redis-config:
+  mode: 'standalone'
   host: '192.168.10.10'
   port: 6379
   user: ''
@@ -159,6 +160,53 @@ redis-config:
     max-idle: 32
     min-idle: 16
 ```
+
+#### Mode Redis Sentinel
+
+Pour les configurations haute disponibilité, zAuctionHouse Redis supporte [Redis Sentinel](https://redis.io/docs/management/sentinel/). Sentinel fournit la découverte automatique du master et le basculement automatique : si le master tombe, un réplica est automatiquement promu et le plugin se reconnecte de manière transparente.
+
+Pour utiliser le mode Sentinel, définissez `mode` sur `sentinel` et configurez la section `sentinel` :
+
+```yaml
+redis-config:
+  mode: 'sentinel'
+
+  sentinel:
+    master-name: 'mymaster'
+    user: ''
+    password: ''
+    nodes:
+      - '192.168.10.10:26379'
+      - '192.168.10.11:26379'
+      - '192.168.10.12:26379'
+
+  user: ''
+  password: ''
+  channel-name: 'zauctionhouse'
+  database: 0
+  timeout: 2000
+  lock-ttl-seconds: 30
+  pool:
+    max-total: 64
+    max-idle: 32
+    min-idle: 16
+```
+
+| Champ | Description |
+|-------|-------------|
+| `mode` | Mode de connexion : `standalone` (par défaut) ou `sentinel` |
+| `sentinel.master-name` | Nom du groupe master Sentinel (généralement `mymaster`) |
+| `sentinel.user` | Nom d'utilisateur pour l'authentification Sentinel (laisser vide si aucun) |
+| `sentinel.password` | Mot de passe pour l'authentification Sentinel (laisser vide si aucun) |
+| `sentinel.nodes` | Liste des noeuds Sentinel au format `host:port` |
+
+:::info
+Les champs `user` et `password` à la racine de `redis-config` sont pour la connexion au **master Redis**. Les champs `sentinel.user` et `sentinel.password` sont spécifiquement pour l'authentification auprès des **instances Sentinel** elles-mêmes.
+:::
+
+:::tip
+Les configurations standalone existantes continuent de fonctionner sans aucune modification. Si le champ `mode` est absent, il est par défaut `standalone`.
+:::
 
 ### Étape 5 : Redémarrer les Serveurs
 
