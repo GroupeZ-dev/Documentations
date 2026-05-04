@@ -474,6 +474,7 @@ action:
   # Removing expired items
   remove-expired-item:
     open-inventory: true
+    player-inventory-must-have-free-space: true
 
   # Purchasing items
   purchased-item:
@@ -497,6 +498,7 @@ action:
   # Removing selling items
   selling-item:
     open-inventory: true
+    player-inventory-must-have-free-space: true
 ```
 
 ## Auto-Claim Configuration

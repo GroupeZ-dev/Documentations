@@ -48,6 +48,18 @@ items:
     item:
       material: BARRIER
       name: '#ff0000&nNo items found'
+
+  remove-all:
+    type: ZAUCTIONHOUSE_REMOVE_ALL_PURCHASED
+    is-permanent: true
+    slot: 47
+    item:
+      material: CHEST
+      name: "#2CCED2<bold>Retrieve All"
+      lore:
+        - "#92ffffRetrieve all purchased items."
+        - ""
+        - "#8c8c8c• #2CCED2Click #92ffffto retrieve all"
 ```
 
 ## Buttons Used
@@ -55,6 +67,7 @@ items:
 | Button | Type | Description |
 |--------|------|-------------|
 | `items` | [`ZAUCTIONHOUSE_PURCHASED_ITEMS`](./buttons#zauctionhouse_purchased_items) | Displays purchased items |
+| `remove-all` | [`ZAUCTIONHOUSE_REMOVE_ALL_PURCHASED`](./buttons#zauctionhouse_remove_all_purchased) | Retrieves all purchased items at once |
 
 ## Patterns Used
 

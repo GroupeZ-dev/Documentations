@@ -47,6 +47,18 @@ items:
     item:
       material: BARRIER
       name: '#ff0000&nNo items found'
+
+  remove-all:
+    type: ZAUCTIONHOUSE_REMOVE_ALL_SELLING
+    is-permanent: true
+    slot: 47
+    item:
+      material: CHEST
+      name: "#2CCED2<bold>Tout Récupérer"
+      lore:
+        - "#92ffffRécupérer tous les objets en vente."
+        - ""
+        - "#8c8c8c• #2CCED2Cliquez #92ffffpour tout récupérer"
 ```
 
 ## Boutons utilises
@@ -54,6 +66,7 @@ items:
 | Bouton | Type | Description |
 |--------|------|-------------|
 | `items` | [`ZAUCTIONHOUSE_SELLING_ITEMS`](./buttons#zauctionhouse_selling_items) | Affiche les objets en vente |
+| `remove-all` | [`ZAUCTIONHOUSE_REMOVE_ALL_SELLING`](./buttons#zauctionhouse_remove_all_selling) | Récupère tous les objets en vente d'un coup |
 
 ## Motifs utilises
 

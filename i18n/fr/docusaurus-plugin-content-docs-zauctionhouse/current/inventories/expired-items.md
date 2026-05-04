@@ -47,6 +47,18 @@ items:
     item:
       material: BARRIER
       name: '#ff0000&nNo items found'
+
+  remove-all:
+    type: ZAUCTIONHOUSE_REMOVE_ALL_EXPIRED
+    is-permanent: true
+    slot: 47
+    item:
+      material: CHEST
+      name: "#2CCED2<bold>Tout Récupérer"
+      lore:
+        - "#92ffffRécupérer tous les objets expirés."
+        - ""
+        - "#8c8c8c• #2CCED2Cliquez #92ffffpour tout récupérer"
 ```
 
 ## Boutons Utilisés
@@ -54,6 +66,7 @@ items:
 | Bouton | Type | Description |
 |--------|------|-------------|
 | `items` | [`ZAUCTIONHOUSE_EXPIRED_ITEMS`](./buttons#zauctionhouse_expired_items) | Affiche les objets expirés |
+| `remove-all` | [`ZAUCTIONHOUSE_REMOVE_ALL_EXPIRED`](./buttons#zauctionhouse_remove_all_expired) | Récupère tous les objets expirés d'un coup |
 
 ## Patterns Utilisés
 

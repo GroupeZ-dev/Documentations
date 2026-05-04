@@ -474,6 +474,7 @@ action:
   # Retrait des objets expirés
   remove-expired-item:
     open-inventory: true
+    player-inventory-must-have-free-space: true
 
   # Achat d'objets
   purchased-item:
@@ -497,6 +498,7 @@ action:
   # Retrait des objets en vente
   selling-item:
     open-inventory: true
+    player-inventory-must-have-free-space: true
 ```
 
 ## Configuration Auto-Claim
