@@ -1,16 +1,16 @@
 ---
 sidebar_position: 11
-title: Shulker Content
-description: Shulker content preview inventory configuration
+title: Container Content
+description: Container content preview inventory configuration
 ---
 
-# Shulker Content Inventory
+# Container Content Inventory
 
-The shulker content inventory displays the contents of shulker boxes being sold, allowing buyers to preview what's inside before purchasing.
+The container content inventory displays the contents of container items being sold, allowing buyers to preview what's inside before purchasing. This works with vanilla shulker boxes and plugin-managed containers (AxShulkers, etc.).
 
 **File:** `plugins/zAuctionHouse/inventories/shulker-content.yml`
 
-**Access:** Click "View Shulker Content" button in purchase/remove confirmation
+**Access:** Click "View Content" button in purchase/remove confirmation
 
 <div style={{ display: 'flex', justifyContent: 'center' }}>
   <img src="https://img.groupez.dev/zauctionhouse/v4/shulker-preview.png" alt="Description" style={{ width: '600px', height: 'auto' }} />
@@ -19,10 +19,19 @@ The shulker content inventory displays the contents of shulker boxes being sold,
   <img src="https://img.groupez.dev/zauctionhouse/v4/shulker-box.gif" alt="Description" style={{ width: '420px', height: 'auto' }} />
 </div>
 
+## Supported Container Types
+
+| Container | Plugin Required | Description |
+|-----------|----------------|-------------|
+| Vanilla shulker boxes | None | Built-in Minecraft shulker boxes |
+| AxShulkers | [AxShulkers](https://www.spigotmc.org/resources/axshulkers.108977/) | Shulker boxes with externally stored contents |
+
+Additional container types can be added by external plugins via the `ItemContentProvider` API.
+
 ## Features
 
-- Preview all items inside shulker boxes
-- Navigate between multiple shulkers (bulk sales)
+- Preview all items inside container items (shulker boxes, AxShulkers, etc.)
+- Navigate between multiple containers (bulk sales)
 - View-only mode - items cannot be taken
 
 ## Default Configuration
@@ -85,10 +94,10 @@ items:
 
 | Button | Type | Description |
 |--------|------|-------------|
-| `content` | [`ZAUCTIONHOUSE_SHULKER_CONTENT`](./buttons#zauctionhouse_shulker_content) | Displays shulker contents |
-| `shulker-info` | [`ZAUCTIONHOUSE_SHULKER_INFO`](./buttons#zauctionhouse_shulker_info) | Shows shulker information |
-| `previous` | [`ZAUCTIONHOUSE_SHULKER_NAVIGATION`](./buttons#zauctionhouse_shulker_navigation) | Previous shulker |
-| `next` | [`ZAUCTIONHOUSE_SHULKER_NAVIGATION`](./buttons#zauctionhouse_shulker_navigation) | Next shulker |
+| `content` | [`ZAUCTIONHOUSE_SHULKER_CONTENT`](./buttons#zauctionhouse_shulker_content) | Displays container contents |
+| `shulker-info` | [`ZAUCTIONHOUSE_SHULKER_INFO`](./buttons#zauctionhouse_shulker_info) | Shows container information |
+| `previous` | [`ZAUCTIONHOUSE_SHULKER_NAVIGATION`](./buttons#zauctionhouse_shulker_navigation) | Previous container |
+| `next` | [`ZAUCTIONHOUSE_SHULKER_NAVIGATION`](./buttons#zauctionhouse_shulker_navigation) | Next container |
 
 ## Patterns Used
 
@@ -106,10 +115,10 @@ items:
 | `%shulker_current%` | Same as above (alternative format) |
 | `%shulker_total%` | Same as above (alternative format) |
 
-## Multiple Shulkers
+## Multiple Containers
 
-When a bulk sale contains multiple shulker boxes, players can navigate between them using the previous/next buttons.
+When a bulk sale contains multiple container items, players can navigate between them using the previous/next buttons.
 
-The navigation buttons are only active when there are multiple shulkers:
-- **Previous**: Disabled on first shulker
-- **Next**: Disabled on last shulker
+The navigation buttons are only active when there are multiple containers:
+- **Previous**: Disabled on first container
+- **Next**: Disabled on last container

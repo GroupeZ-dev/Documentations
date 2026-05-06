@@ -1089,20 +1089,32 @@ show:
 
 ---
 
-## Shulker Buttons
+## Container Content Buttons
+
+These buttons display the contents of container items (shulker boxes, AxShulkers, etc.). The system is extensible via the `ItemContentProvider` API, allowing plugins to register custom container types.
 
 | Type | Description | Used In |
 |------|-------------|---------|
-| [`ZAUCTIONHOUSE_SHULKER_OPEN`](#zauctionhouse_shulker_open) | Opens shulker content viewer | [Confirmations](./purchase-confirm) |
-| [`ZAUCTIONHOUSE_SHULKER_CONTENT`](#zauctionhouse_shulker_content) | Displays shulker contents | [Shulker Content](./shulker-content) |
-| [`ZAUCTIONHOUSE_SHULKER_INFO`](#zauctionhouse_shulker_info) | Shows shulker information | [Shulker Content](./shulker-content) |
-| [`ZAUCTIONHOUSE_SHULKER_NAVIGATION`](#zauctionhouse_shulker_navigation) | Navigates between shulkers | [Shulker Content](./shulker-content) |
+| [`ZAUCTIONHOUSE_SHULKER_OPEN`](#zauctionhouse_shulker_open) | Opens container content viewer | [Confirmations](./purchase-confirm) |
+| [`ZAUCTIONHOUSE_SHULKER_CONTENT`](#zauctionhouse_shulker_content) | Displays container contents | [Shulker Content](./shulker-content) |
+| [`ZAUCTIONHOUSE_SHULKER_INFO`](#zauctionhouse_shulker_info) | Shows container information | [Shulker Content](./shulker-content) |
+| [`ZAUCTIONHOUSE_SHULKER_NAVIGATION`](#zauctionhouse_shulker_navigation) | Navigates between containers | [Shulker Content](./shulker-content) |
+
+**Supported container types:**
+- **Vanilla shulker boxes** - built-in, no extra plugin required
+- **AxShulkers** - requires [AxShulkers](https://www.spigotmc.org/resources/axshulkers-open-shulker-boxes-anywhere.112178/) plugin
+
+External plugins can register additional container types via the API:
+```java
+AuctionPlugin api = getServer().getServicesManager().load(AuctionPlugin.class);
+api.getItemContentManager().registerProvider(new MyCustomContentProvider());
+```
 
 ---
 
 ### ZAUCTIONHOUSE_SHULKER_OPEN
 
-Opens the shulker content preview. Only visible when the item contains shulker boxes.
+Opens the container content preview. Only visible when the item contains recognized container items (shulker boxes, AxShulkers, etc.).
 
 **Configuration:**
 
@@ -1245,6 +1257,82 @@ item-content:
   type: ZAUCTIONHOUSE_ITEM_CONTENT
   slots:
     - 9-44
+```
+
+---
+
+## Remove All Buttons
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| [`ZAUCTIONHOUSE_REMOVE_ALL_EXPIRED`](#zauctionhouse_remove_all_expired) | Retrieves all expired items at once | [Expired Items](./expired-items) |
+| [`ZAUCTIONHOUSE_REMOVE_ALL_SELLING`](#zauctionhouse_remove_all_selling) | Retrieves all selling items at once | [Selling Items](./selling-items) |
+| [`ZAUCTIONHOUSE_REMOVE_ALL_PURCHASED`](#zauctionhouse_remove_all_purchased) | Retrieves all purchased items at once | [Purchased Items](./purchased-items) |
+
+---
+
+### ZAUCTIONHOUSE_REMOVE_ALL_EXPIRED
+
+Retrieves all expired items at once. Items are given one by one and the process stops when the player's inventory is full (if `player-inventory-must-have-free-space` is enabled under `remove-expired-item` in `config.yml`).
+
+**Example:**
+
+```yaml
+remove-all:
+  type: ZAUCTIONHOUSE_REMOVE_ALL_EXPIRED
+  is-permanent: true
+  slot: 47
+  item:
+    material: CHEST
+    name: "#2CCED2<bold>Retrieve All"
+    lore:
+      - "#92ffffRetrieve all expired items."
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto retrieve all"
+```
+
+---
+
+### ZAUCTIONHOUSE_REMOVE_ALL_SELLING
+
+Retrieves all selling items at once. Cancels listings and returns items to the player. Items currently being purchased by another player are skipped.
+
+**Example:**
+
+```yaml
+remove-all:
+  type: ZAUCTIONHOUSE_REMOVE_ALL_SELLING
+  is-permanent: true
+  slot: 47
+  item:
+    material: CHEST
+    name: "#2CCED2<bold>Retrieve All"
+    lore:
+      - "#92ffffRetrieve all selling items."
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto retrieve all"
+```
+
+---
+
+### ZAUCTIONHOUSE_REMOVE_ALL_PURCHASED
+
+Retrieves all purchased items at once. Items are given one by one and the process stops when the player's inventory is full (if `player-inventory-must-have-free-space` is enabled under `purchased-item` in `config.yml`).
+
+**Example:**
+
+```yaml
+remove-all:
+  type: ZAUCTIONHOUSE_REMOVE_ALL_PURCHASED
+  is-permanent: true
+  slot: 47
+  item:
+    material: CHEST
+    name: "#2CCED2<bold>Retrieve All"
+    lore:
+      - "#92ffffRetrieve all purchased items."
+      - ""
+      - "#8c8c8c• #2CCED2Click #92ffffto retrieve all"
 ```
 
 ---

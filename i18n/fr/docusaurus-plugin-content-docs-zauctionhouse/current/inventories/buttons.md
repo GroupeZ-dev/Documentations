@@ -1089,20 +1089,32 @@ show:
 
 ---
 
-## Boutons Shulker
+## Boutons de Contenu de Conteneurs
+
+Ces boutons affichent le contenu des objets conteneurs (boîtes de shulker, AxShulkers, etc.). Le système est extensible via l'API `ItemContentProvider`, permettant aux plugins d'enregistrer des types de conteneurs personnalisés.
 
 | Type | Description | Utilisé dans |
 |------|-------------|--------------|
-| [`ZAUCTIONHOUSE_SHULKER_OPEN`](#zauctionhouse_shulker_open) | Ouvre le visualiseur de contenu de shulker | [Confirmations](./purchase-confirm) |
-| [`ZAUCTIONHOUSE_SHULKER_CONTENT`](#zauctionhouse_shulker_content) | Affiche le contenu du shulker | [Contenu Shulker](./shulker-content) |
-| [`ZAUCTIONHOUSE_SHULKER_INFO`](#zauctionhouse_shulker_info) | Affiche les informations du shulker | [Contenu Shulker](./shulker-content) |
-| [`ZAUCTIONHOUSE_SHULKER_NAVIGATION`](#zauctionhouse_shulker_navigation) | Navigue entre les shulkers | [Contenu Shulker](./shulker-content) |
+| [`ZAUCTIONHOUSE_SHULKER_OPEN`](#zauctionhouse_shulker_open) | Ouvre le visualiseur de contenu du conteneur | [Confirmations](./purchase-confirm) |
+| [`ZAUCTIONHOUSE_SHULKER_CONTENT`](#zauctionhouse_shulker_content) | Affiche le contenu du conteneur | [Contenu Shulker](./shulker-content) |
+| [`ZAUCTIONHOUSE_SHULKER_INFO`](#zauctionhouse_shulker_info) | Affiche les informations du conteneur | [Contenu Shulker](./shulker-content) |
+| [`ZAUCTIONHOUSE_SHULKER_NAVIGATION`](#zauctionhouse_shulker_navigation) | Navigue entre les conteneurs | [Contenu Shulker](./shulker-content) |
+
+**Types de conteneurs supportés :**
+- **Boîtes de shulker vanilla** - intégré, aucun plugin supplémentaire requis
+- **AxShulkers** - nécessite le plugin [AxShulkers](https://www.spigotmc.org/resources/axshulkers-open-shulker-boxes-anywhere.112178/)
+
+Les plugins externes peuvent enregistrer des types de conteneurs supplémentaires via l'API :
+```java
+AuctionPlugin api = getServer().getServicesManager().load(AuctionPlugin.class);
+api.getItemContentManager().registerProvider(new MyCustomContentProvider());
+```
 
 ---
 
 ### ZAUCTIONHOUSE_SHULKER_OPEN
 
-Ouvre l'aperçu du contenu du shulker. Visible uniquement quand l'objet contient des boîtes de shulker.
+Ouvre l'aperçu du contenu du conteneur. Visible uniquement quand l'objet contient des objets conteneurs reconnus (boîtes de shulker, AxShulkers, etc.).
 
 **Configuration :**
 
@@ -1245,6 +1257,82 @@ item-content:
   type: ZAUCTIONHOUSE_ITEM_CONTENT
   slots:
     - 9-44
+```
+
+---
+
+## Boutons Récupérer Tout
+
+| Type | Description | Utilisé dans |
+|------|-------------|--------------|
+| [`ZAUCTIONHOUSE_REMOVE_ALL_EXPIRED`](#zauctionhouse_remove_all_expired) | Récupère tous les objets expirés d'un coup | [Objets Expirés](./expired-items) |
+| [`ZAUCTIONHOUSE_REMOVE_ALL_SELLING`](#zauctionhouse_remove_all_selling) | Récupère tous les objets en vente d'un coup | [Objets en Vente](./selling-items) |
+| [`ZAUCTIONHOUSE_REMOVE_ALL_PURCHASED`](#zauctionhouse_remove_all_purchased) | Récupère tous les objets achetés d'un coup | [Objets Achetés](./purchased-items) |
+
+---
+
+### ZAUCTIONHOUSE_REMOVE_ALL_EXPIRED
+
+Récupère tous les objets expirés d'un coup. Les objets sont donnés un par un et le processus s'arrête lorsque l'inventaire du joueur est plein (si `player-inventory-must-have-free-space` est activé sous `remove-expired-item` dans `config.yml`).
+
+**Exemple :**
+
+```yaml
+remove-all:
+  type: ZAUCTIONHOUSE_REMOVE_ALL_EXPIRED
+  is-permanent: true
+  slot: 47
+  item:
+    material: CHEST
+    name: "#2CCED2<bold>Tout Récupérer"
+    lore:
+      - "#92ffffRécupérer tous les objets expirés."
+      - ""
+      - "#8c8c8c• #2CCED2Cliquez #92ffffpour tout récupérer"
+```
+
+---
+
+### ZAUCTIONHOUSE_REMOVE_ALL_SELLING
+
+Récupère tous les objets en vente d'un coup. Annule les annonces et renvoie les objets au joueur. Les objets en cours d'achat par un autre joueur sont ignorés.
+
+**Exemple :**
+
+```yaml
+remove-all:
+  type: ZAUCTIONHOUSE_REMOVE_ALL_SELLING
+  is-permanent: true
+  slot: 47
+  item:
+    material: CHEST
+    name: "#2CCED2<bold>Tout Récupérer"
+    lore:
+      - "#92ffffRécupérer tous les objets en vente."
+      - ""
+      - "#8c8c8c• #2CCED2Cliquez #92ffffpour tout récupérer"
+```
+
+---
+
+### ZAUCTIONHOUSE_REMOVE_ALL_PURCHASED
+
+Récupère tous les objets achetés d'un coup. Les objets sont donnés un par un et le processus s'arrête lorsque l'inventaire du joueur est plein (si `player-inventory-must-have-free-space` est activé sous `purchased-item` dans `config.yml`).
+
+**Exemple :**
+
+```yaml
+remove-all:
+  type: ZAUCTIONHOUSE_REMOVE_ALL_PURCHASED
+  is-permanent: true
+  slot: 47
+  item:
+    material: CHEST
+    name: "#2CCED2<bold>Tout Récupérer"
+    lore:
+      - "#92ffffRécupérer tous les objets achetés."
+      - ""
+      - "#8c8c8c• #2CCED2Cliquez #92ffffpour tout récupérer"
 ```
 
 ---
