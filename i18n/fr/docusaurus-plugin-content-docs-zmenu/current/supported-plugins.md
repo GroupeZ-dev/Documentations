@@ -265,6 +265,33 @@ Integration avec le plugin Shopkeepers.
 
 ---
 
+## Compatibilite Bedrock
+
+### Geyser / Floodgate
+
+**Telechargement** : [GeyserMC](https://geysermc.org/)
+
+Geyser et Floodgate permettent aux joueurs Bedrock Edition de rejoindre les serveurs Java Edition. Lorsqu'ils sont detectes, zMenu active le systeme de formulaires Bedrock, qui fournit des formulaires natifs Bedrock au lieu d'inventaires a base de coffres.
+
+**Fonctionnalites activees :**
+- Formulaires Bedrock natifs (Simple, Modal, Custom)
+- Type d'action `bedrock` pour ouvrir les formulaires
+- Remplacement automatique d'inventaire pour les joueurs Bedrock
+- Commandes `/zm bedrock`
+- Permissions `zmenu.open.bedrock` et `zmenu.reload.bedrock`
+
+**Exemple :**
+```yaml
+# Dans une action de bouton
+actions:
+  - type: bedrock
+    bedrock: "feedback-form"
+```
+
+Voir [Formulaires Bedrock](./configurations/bedrock) pour la documentation complete.
+
+---
+
 ## Plugins de paquets
 
 ### PacketEvents
@@ -296,6 +323,7 @@ PacketEvents est requis pour le systeme de dialogues (Minecraft 1.20.5+).
 | BreweryX | Items personnalises | `BREWERYX:` | Items de brassage |
 | zHead | Tetes | `ZHEAD:` | Tetes personnalisees |
 | Jobs Reborn | Metiers | - | Exigences de metier |
+| Geyser/Floodgate | Bedrock | - | Formulaires Bedrock natifs |
 | PacketEvents | Paquets | - | Systeme de dialogues |
 
 ## Utilisation des materiaux personnalises

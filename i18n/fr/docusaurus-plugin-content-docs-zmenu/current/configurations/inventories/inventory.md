@@ -414,6 +414,32 @@ items:
       - type: close
 ```
 
+### inventory-replacement
+
+Rediriger automatiquement les joueurs Bedrock vers un formulaire Bedrock natif lorsqu'ils tentent d'ouvrir cet inventaire. Les joueurs Java verront l'inventaire classique normalement.
+
+:::warning Prerequis
+Cette fonctionnalite necessite **Geyser** ou **Floodgate** installe sur votre serveur.
+:::
+
+```yaml
+inventory-replacement:
+  name: "shop-form"
+  plugin: "zMenu"
+  pages:
+    - 1
+```
+
+| Option | Type | Defaut | Description |
+|--------|------|--------|-------------|
+| `name` | String | - | Le nom du fichier de formulaire Bedrock (sans `.yml`) |
+| `plugin` | String | `zMenu` | Le plugin proprietaire du formulaire Bedrock |
+| `pages` | Liste | vide | Rediriger uniquement sur ces pages (vide = toutes les pages) |
+
+Voir [Formulaires Bedrock](../bedrock) pour la documentation complete sur la creation de formulaires Bedrock.
+
+---
+
 ## Inventaires multi-pages
 
 zMenu cree automatiquement la pagination lorsque les boutons ont plusieurs emplacements ou pages definis :
