@@ -37,6 +37,8 @@ categories:
           - CROSSBOW
 ```
 
+Chaque catégorie peut aussi inclure des `banned-rules` optionnelles pour exclure des items spécifiques. Voir [Règles d'Exclusion (Banned Rules)](#règles-dexclusion-banned-rules) ci-dessous.
+
 ## Types de Règles
 
 ### Règle par Matériau
@@ -220,6 +222,92 @@ categories:
         mode: CONTAINS
         value: "Objet Rare"
 ```
+
+## Règles d'Exclusion (Banned Rules)
+
+Vous pouvez ajouter une liste `banned-rules` à n'importe quelle catégorie pour **exclure** des items spécifiques, même s'ils correspondent aux règles d'inclusion. C'est utile quand une règle large (comme un suffixe de matériau) inclut des items qui devraient appartenir à une autre catégorie — par exemple, des items custom identifiés par leur CustomModelData.
+
+Les banned rules utilisent les **mêmes types de règles** que les règles normales (material, material-suffix, tag, name, lore, custom-model-data, and/or, etc.).
+
+:::info Comment ça fonctionne
+1. L'item est d'abord vérifié contre les `banned-rules`
+2. Si **une seule** banned rule correspond, l'item est **exclu** de la catégorie
+3. Ce n'est qu'ensuite que les `rules` normales sont évaluées
+:::
+
+### Exemple : Exclure des items custom d'une catégorie
+
+Une houe en netherite apparaît normalement dans la catégorie "Outils". Mais une houe en netherite avec un CustomModelData de 300 (un item custom d'un resource pack) ne devrait pas y apparaître. Utilisez `banned-rules` pour l'exclure :
+
+```yaml
+tools:
+  display-name: "Outils"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_PICKAXE"
+        - "_AXE"
+        - "_SHOVEL"
+        - "_HOE"
+    - type: material
+      materials:
+        - SHEARS
+        - FLINT_AND_STEEL
+        - FISHING_ROD
+
+  # Les items correspondant à ces règles sont EXCLUS de la catégorie
+  banned-rules:
+    - type: custom-model-data
+      values:
+        - 300
+```
+
+### Exemple : Exclure des matériaux spécifiques
+
+```yaml
+weapons:
+  display-name: "Armes"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_SWORD"
+    - type: material
+      materials:
+        - BOW
+        - CROSSBOW
+        - TRIDENT
+
+  # Exclure les épées en bois de la catégorie armes
+  banned-rules:
+    - type: material
+      materials:
+        - WOODEN_SWORD
+```
+
+### Exemple : Exclure par nom
+
+```yaml
+armor:
+  display-name: "Armures"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_HELMET"
+        - "_CHESTPLATE"
+        - "_LEGGINGS"
+        - "_BOOTS"
+
+  # Exclure les items cosmétiques
+  banned-rules:
+    - type: name
+      mode: CONTAINS
+      values:
+        - "Cosmétique"
+```
+
+:::tip
+Les banned rules fonctionnent aussi sur la catégorie divers (fallback). Vous pouvez les utiliser pour empêcher certains items d'apparaître dans la catégorie divers.
+:::
 
 ## Exemple Complet de Catégories
 
