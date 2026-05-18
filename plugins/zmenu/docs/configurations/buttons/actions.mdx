@@ -782,6 +782,47 @@ Dialogs require **Paper 1.21.7+** installed on your server.
 
 See [Dialogues](../dialogues) for complete dialog configuration documentation.
 
+## Bedrock Action
+
+### bedrock
+
+Open a native Bedrock form for players connected via Geyser/Floodgate.
+
+:::warning Requirements
+Bedrock forms require **Geyser** or **Floodgate** installed on your server.
+:::
+
+```yaml
+- type: bedrock
+  bedrock: "simple-form"
+```
+
+**With arguments:**
+```yaml
+- type: bedrock
+  bedrock: "feedback-form"
+  arguments:
+    - "arg1"
+    - "arg2"
+```
+
+**From external plugin:**
+```yaml
+- type: bedrock
+  bedrock: "custom-form"
+  plugin: "MyPlugin"
+```
+
+**Options:**
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `bedrock` | String | Name of the Bedrock form file (without .yml) |
+| `plugin` | String | Plugin name if using external form |
+| `arguments` | List | Arguments to pass to the form |
+
+See [Bedrock Forms](../bedrock) for complete Bedrock form configuration documentation.
+
 ## Discord Actions
 
 ### discord

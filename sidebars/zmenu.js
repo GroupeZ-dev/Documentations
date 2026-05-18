@@ -64,6 +64,7 @@ const sidebars = {
         'configurations/patterns',
         'configurations/player-data',
         'configurations/dialogues',
+        'configurations/bedrock',
         'configurations/custom-commands',
         'configurations/config-yml',
       ],

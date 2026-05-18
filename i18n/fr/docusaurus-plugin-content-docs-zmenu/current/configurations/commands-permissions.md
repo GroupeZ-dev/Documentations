@@ -97,6 +97,13 @@ La commande principale est `/zm` (alias : `/zmenu`).
 | `/zm dialog open <dialogue>` | `zmenu.dialog` | Ouvrir un dialogue pour vous-meme |
 | `/zm dialog open <dialogue> <joueur>` | `zmenu.dialog` | Ouvrir un dialogue pour un joueur |
 
+### Commandes Bedrock
+
+| Commande | Permission | Description |
+|----------|-----------|-------------|
+| `/zm bedrock open <nom> [joueur] [afficher message]` | `zmenu.open.bedrock` | Ouvrir un formulaire Bedrock |
+| `/zm bedrock reload` | `zmenu.reload.bedrock` | Recharger tous les fichiers de formulaires Bedrock |
+
 ### Commandes utilitaires
 
 | Commande | Permission | Description |
@@ -140,6 +147,8 @@ La commande principale est `/zm` (alias : `/zmenu`).
 | `zmenu.dupe` | Tester le systeme anti-duplication | op |
 | `zmenu.documentation` | Voir la documentation | op |
 | `zmenu.dialog` | Ouvrir les dialogues | op |
+| `zmenu.open.bedrock` | Ouvrir les formulaires Bedrock | op |
+| `zmenu.reload.bedrock` | Recharger les fichiers de formulaires Bedrock | op |
 | `zmenu.dumplog` | Exporter les logs de debug | op |
 
 ## Permissions de commandes personnalisees

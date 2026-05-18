@@ -99,6 +99,13 @@ The main command is `/zm` (alias: `/zmenu`).
 | `/zm dialog open <dialog>`          | `zmenu.dialog` | Open a dialog for yourself |
 | `/zm dialog open <dialog> <player>` | `zmenu.dialog` | Open a dialog for a player |
 
+### Bedrock Commands
+
+| Command                                                     | Permission             | Description                    |
+|-------------------------------------------------------------|------------------------|--------------------------------|
+| `/zm bedrock open <name> [player] [display message]`        | `zmenu.open.bedrock`   | Open a Bedrock form            |
+| `/zm bedrock reload`                                        | `zmenu.reload.bedrock` | Reload all Bedrock form files  |
+
 ### Utility Commands
 
 | Command        | Permission      | Description                               |
@@ -142,6 +149,8 @@ The main command is `/zm` (alias: `/zmenu`).
 | `zmenu.dupe`          | Test anti-dupe system      | op      |
 | `zmenu.documentation` | View documentation         | op      |
 | `zmenu.dialog`        | Open dialogs               | op      |
+| `zmenu.open.bedrock`  | Open Bedrock forms         | op      |
+| `zmenu.reload.bedrock`| Reload Bedrock form files  | op      |
 | `zmenu.dumplog`       | Export debug logs          | op      |
 
 ## Custom Command Permissions

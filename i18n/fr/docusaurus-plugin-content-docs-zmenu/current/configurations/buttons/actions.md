@@ -720,6 +720,47 @@ click-requirement:
 | `currency-deposit` | Ajouter de l'argent |
 | `currency-withdraw` | Retirer de l'argent |
 
+## Action Bedrock
+
+### bedrock
+
+Ouvrir un formulaire Bedrock natif pour les joueurs connectes via Geyser/Floodgate.
+
+:::warning Prerequis
+Les formulaires Bedrock necessitent **Geyser** ou **Floodgate** installe sur votre serveur.
+:::
+
+```yaml
+- type: bedrock
+  bedrock: "simple-form"
+```
+
+**Avec des arguments :**
+```yaml
+- type: bedrock
+  bedrock: "feedback-form"
+  arguments:
+    - "arg1"
+    - "arg2"
+```
+
+**Depuis un plugin externe :**
+```yaml
+- type: bedrock
+  bedrock: "custom-form"
+  plugin: "MonPlugin"
+```
+
+**Options :**
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `bedrock` | String | Nom du fichier de formulaire Bedrock (sans .yml) |
+| `plugin` | String | Nom du plugin si utilisation d'un formulaire externe |
+| `arguments` | Liste | Arguments a passer au formulaire |
+
+Voir [Formulaires Bedrock](../bedrock) pour la documentation complete de configuration des formulaires Bedrock.
+
 ## Prochaines etapes
 
 - Apprenez les [Donnees joueur](../player-data) pour stocker des valeurs

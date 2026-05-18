@@ -59,6 +59,8 @@ category-id:
         - EMERALD
 ```
 
+Each category can also include optional `banned-rules` to exclude specific items. See [Banned Rules (Exclusion)](#banned-rules-exclusion) below.
+
 ## Default Categories
 
 ### Blocks Category
@@ -214,6 +216,92 @@ misc:
 
 Categories use the same rule system as the blacklist/whitelist configuration. For a complete list of all available rule types (material, material-suffix, material-prefix, name, lore, custom-model-data, tag, AND/OR combinations, and custom item plugins), see the [Rules documentation](./rules.md#rule-types-reference).
 
+## Banned Rules (Exclusion)
+
+You can add a `banned-rules` list to any category to **exclude** specific items, even if they match the inclusion rules. This is useful when a broad rule (like a material suffix) includes items that should belong to a different category — for example, custom items identified by their CustomModelData.
+
+Banned rules use the **same rule types** as regular rules (material, material-suffix, tag, name, lore, custom-model-data, and/or, etc.).
+
+:::info How it works
+1. The item is first checked against `banned-rules`
+2. If **any** banned rule matches, the item is **excluded** from the category
+3. Only then are the regular `rules` evaluated
+:::
+
+### Example: Exclude custom items from a category
+
+A netherite hoe normally appears in the "Tools" category. But a netherite hoe with CustomModelData 300 (a custom item from a resource pack) should not. Use `banned-rules` to exclude it:
+
+```yaml
+tools:
+  display-name: "#0c1719Tools"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_PICKAXE"
+        - "_AXE"
+        - "_SHOVEL"
+        - "_HOE"
+    - type: material
+      materials:
+        - SHEARS
+        - FLINT_AND_STEEL
+        - FISHING_ROD
+
+  # Items matching these rules are EXCLUDED from the category
+  banned-rules:
+    - type: custom-model-data
+      values:
+        - 300
+```
+
+### Example: Exclude specific materials
+
+```yaml
+weapons:
+  display-name: "#0c1719Weapons"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_SWORD"
+    - type: material
+      materials:
+        - BOW
+        - CROSSBOW
+        - TRIDENT
+
+  # Exclude wooden swords from the weapons category
+  banned-rules:
+    - type: material
+      materials:
+        - WOODEN_SWORD
+```
+
+### Example: Exclude by name
+
+```yaml
+armor:
+  display-name: "#0c1719Armor"
+  rules:
+    - type: material-suffix
+      suffixes:
+        - "_HELMET"
+        - "_CHESTPLATE"
+        - "_LEGGINGS"
+        - "_BOOTS"
+
+  # Exclude cosmetic items
+  banned-rules:
+    - type: name
+      mode: CONTAINS
+      values:
+        - "Cosmetic"
+```
+
+:::tip
+Banned rules also work on the miscellaneous (fallback) category. You can use them to prevent certain items from appearing in the misc category.
+:::
+
 ## Adding Custom Categories
 
 1. Add the category in `categories.yml`:
@@ -345,6 +433,11 @@ tools:
         - SHEARS
         - FLINT_AND_STEEL
         - FISHING_ROD
+  # Exclude custom items with specific CustomModelData
+  banned-rules:
+    - type: custom-model-data
+      values:
+        - 300
 
 consumables:
   display-name: "#0c1719Consumables"
