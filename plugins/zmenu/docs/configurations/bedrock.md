@@ -37,6 +37,8 @@ zMenu supports three Bedrock form types:
 
 A simple form displays a list of buttons the player can click. Each button can have an optional image.
 
+![Simple Form](/img/bedrock-3.png)
+
 ### Configuration
 
 ```yaml
@@ -94,6 +96,8 @@ The placeholder `%content%` is available in click actions and contains the form'
 
 A modal form is a simple confirmation dialog with a title, content, and exactly **2 buttons**.
 
+![Modal Form](/img/bedrock-2.png)
+
 ### Configuration
 
 ```yaml
@@ -140,6 +144,8 @@ The placeholder `%content%` is available in click actions and contains the form'
 ## Custom Form
 
 A custom form allows you to create a form with various input fields. The player fills in the form and submits it. The values of each input are available as placeholders using the button key name (`%key%`).
+
+![Custom Form](/img/bedrock-1.png)
 
 ### Configuration
 

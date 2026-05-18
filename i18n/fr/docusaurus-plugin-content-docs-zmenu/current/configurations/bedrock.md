@@ -37,6 +37,8 @@ zMenu supporte trois types de formulaires Bedrock :
 
 Un formulaire simple affiche une liste de boutons sur lesquels le joueur peut cliquer. Chaque bouton peut avoir une image optionnelle.
 
+![Formulaire Simple](/img/bedrock-3.png)
+
 ### Configuration
 
 ```yaml
@@ -94,6 +96,8 @@ Le placeholder `%content%` est disponible dans les actions de clic et contient l
 
 Un formulaire modal est un simple dialogue de confirmation avec un titre, un contenu et exactement **2 boutons**.
 
+![Formulaire Modal](/img/bedrock-2.png)
+
 ### Configuration
 
 ```yaml
@@ -140,6 +144,8 @@ Le placeholder `%content%` est disponible dans les actions de clic et contient l
 ## Formulaire Custom
 
 Un formulaire custom vous permet de creer un formulaire avec differents champs de saisie. Le joueur remplit le formulaire et le soumet. Les valeurs de chaque champ sont disponibles comme placeholders en utilisant le nom de cle du bouton (`%cle%`).
+
+![Formulaire Custom](/img/bedrock-1.png)
 
 ### Configuration
 
