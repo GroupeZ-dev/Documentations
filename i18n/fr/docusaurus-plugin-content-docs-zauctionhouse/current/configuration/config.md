@@ -523,6 +523,67 @@ sales-notification:
   delay-ticks: 60
 ```
 
+## Diffusion (Broadcast)
+
+Envoie des messages à tous les joueurs en ligne lorsqu'un objet est mis en vente ou acheté. Les joueurs peuvent désactiver individuellement ces messages avec `/ah option`.
+
+```yaml
+broadcast:
+  sell:
+    # Si vrai, un message est envoyé à tous les joueurs en ligne lorsqu'un objet est mis en vente
+    enable: false
+
+    # Si vrai, le vendeur ne verra pas le message de diffusion
+    exclude-seller: true
+
+  purchase:
+    # Si vrai, un message est envoyé à tous les joueurs en ligne lorsqu'un objet est acheté
+    enable: false
+
+    # Si vrai, l'acheteur ne verra pas le message de diffusion
+    exclude-buyer: true
+
+  # Messages personnalisés par catégorie (format MiniMessage).
+  # Si un objet appartient à une catégorie listée ici, le message personnalisé
+  # est utilisé à la place du message par défaut dans messages.yml.
+  # La clé de catégorie doit correspondre à un ID défini dans categories.yml.
+  # Placeholders disponibles : %seller%, %buyer%, %items%, %price%, %category%
+  category-messages:
+    sell: {}
+    purchase: {}
+```
+
+### Messages personnalisés par catégorie
+
+Vous pouvez définir des messages de diffusion personnalisés pour des catégories spécifiques. Lorsqu'un objet appartient à une catégorie configurée, le message personnalisé est utilisé à la place du message par défaut de `messages.yml`.
+
+```yaml
+broadcast:
+  category-messages:
+    sell:
+      weapons: "<red><bold>ARME</bold></red> <white>%seller% <yellow>a mis en vente %items% <yellow>pour <gold>%price%<yellow> !"
+      armor: "<blue><bold>ARMURE</bold></blue> <white>%seller% <yellow>a mis en vente %items% <yellow>pour <gold>%price%<yellow> !"
+      enchanted-books: "<light_purple><bold>ENCHANT</bold></light_purple> <white>%seller% <yellow>a mis en vente %items% <yellow>pour <gold>%price%<yellow> !"
+    purchase:
+      weapons: "<red><bold>ARME</bold></red> <white>%buyer% <yellow>a acheté %items% <yellow>de <white>%seller% <yellow>pour <gold>%price%<yellow> !"
+      armor: "<blue><bold>ARMURE</bold></blue> <white>%buyer% <yellow>a acheté %items% <yellow>de <white>%seller% <yellow>pour <gold>%price%<yellow> !"
+      enchanted-books: "<light_purple><bold>ENCHANT</bold></light_purple> <white>%buyer% <yellow>a acheté %items% <yellow>de <white>%seller% <yellow>pour <gold>%price%<yellow> !"
+```
+
+:::info
+Les clés de catégorie doivent correspondre aux ID définis dans `categories.yml` (ex : `weapons`, `armor`, `blocks`, `enchanted-books`, `misc`).
+:::
+
+### Placeholders de diffusion
+
+| Placeholder | Description | Disponible dans |
+|-------------|-------------|-----------------|
+| `%seller%` | Nom du vendeur | Vente & Achat |
+| `%buyer%` | Nom de l'acheteur | Achat uniquement |
+| `%items%` | Nom de l'objet | Vente & Achat |
+| `%price%` | Prix formaté | Vente & Achat |
+| `%category%` | Nom de la catégorie | Vente & Achat |
+
 ## Configuration du Tri
 
 ```yaml

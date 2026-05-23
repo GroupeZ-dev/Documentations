@@ -33,6 +33,8 @@ Vous pouvez personnaliser les alias dans `config.yml` sous `commands.main-comman
 | `/ah purchased` | Voir les objets que vous avez achetés | `zauctionhouse.purchased` |
 | `/ah history` | Voir votre historique de ventes | `zauctionhouse.history` |
 | `/ah search <requête>` | Rechercher des objets dans l'hôtel des ventes | `zauctionhouse.use` |
+| `/ah option` | Ouvrir l'interface des options | `zauctionhouse.option` |
+| `/ah option <option> [valeur]` | Basculer ou définir une option joueur | `zauctionhouse.option` |
 
 ### Détails de la commande Sell
 
@@ -119,6 +121,9 @@ Si `enable-sell-inventory` est défini sur `true` dans la config, exécuter `/ah
 | `/ah admin cache clear <joueur> [clé]` | Effacer le cache d'un joueur | `zauctionhouse.admin` |
 | `/ah admin cache set <joueur> <clé> <valeur>` | Définir une valeur de cache | `zauctionhouse.admin` |
 | `/ah admin migrate <source> confirm` | Migrer des données d'autres plugins | `zauctionhouse.admin` |
+| `/ah admin option set <joueur> <option> <valeur>` | Définir une option pour un joueur | `zauctionhouse.admin` |
+| `/ah admin option list <joueur>` | Lister les options d'un joueur | `zauctionhouse.admin` |
+| `/ah admin option reset <joueur>` | Réinitialiser les options d'un joueur | `zauctionhouse.admin` |
 
 ### Types d'ouverture admin
 
@@ -203,6 +208,7 @@ Sauvegardez toujours vos données avant de migrer ! La migration ne peut pas êt
 | `zauctionhouse.expired` | Voir vos objets expirés | true |
 | `zauctionhouse.purchased` | Voir les objets achetés | true |
 | `zauctionhouse.history` | Voir l'historique des ventes | true |
+| `zauctionhouse.option` | Accéder à l'interface des options | true |
 | `zauctionhouse.reload` | Recharger les configurations | op |
 | `zauctionhouse.admin` | Accéder aux fonctionnalités admin | op |
 | `zauctionhouse.admin.items` | Ajouter/retirer des objets en tant qu'admin | op |

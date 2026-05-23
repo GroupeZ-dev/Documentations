@@ -523,6 +523,67 @@ sales-notification:
   delay-ticks: 60
 ```
 
+## Broadcast
+
+Send messages to all online players when items are listed or purchased. Players can individually opt out using `/ah option`.
+
+```yaml
+broadcast:
+  sell:
+    # If true, a message is sent to all online players when an item is listed
+    enable: false
+
+    # If true, the seller will not see the broadcast message
+    exclude-seller: true
+
+  purchase:
+    # If true, a message is sent to all online players when an item is purchased
+    enable: false
+
+    # If true, the buyer will not see the broadcast message
+    exclude-buyer: true
+
+  # Per-category message overrides (MiniMessage format).
+  # If an item belongs to a category listed here, the custom message is used
+  # instead of the default broadcast message from messages.yml.
+  # The category key must match a category ID defined in categories.yml.
+  # Available placeholders: %seller%, %buyer%, %items%, %price%, %category%
+  category-messages:
+    sell: {}
+    purchase: {}
+```
+
+### Category Message Overrides
+
+You can define custom broadcast messages for specific categories. When an item belongs to a configured category, the custom message is used instead of the default one from `messages.yml`.
+
+```yaml
+broadcast:
+  category-messages:
+    sell:
+      weapons: "<red><bold>WEAPON</bold></red> <white>%seller% <yellow>listed %items% <yellow>for <gold>%price%<yellow>!"
+      armor: "<blue><bold>ARMOR</bold></blue> <white>%seller% <yellow>listed %items% <yellow>for <gold>%price%<yellow>!"
+      enchanted-books: "<light_purple><bold>ENCHANT</bold></light_purple> <white>%seller% <yellow>listed %items% <yellow>for <gold>%price%<yellow>!"
+    purchase:
+      weapons: "<red><bold>WEAPON</bold></red> <white>%buyer% <yellow>purchased %items% <yellow>from <white>%seller% <yellow>for <gold>%price%<yellow>!"
+      armor: "<blue><bold>ARMOR</bold></blue> <white>%buyer% <yellow>purchased %items% <yellow>from <white>%seller% <yellow>for <gold>%price%<yellow>!"
+      enchanted-books: "<light_purple><bold>ENCHANT</bold></light_purple> <white>%buyer% <yellow>purchased %items% <yellow>from <white>%seller% <yellow>for <gold>%price%<yellow>!"
+```
+
+:::info
+Category keys must match the IDs defined in `categories.yml` (e.g., `weapons`, `armor`, `blocks`, `enchanted-books`, `misc`).
+:::
+
+### Broadcast Placeholders
+
+| Placeholder | Description | Available In |
+|-------------|-------------|--------------|
+| `%seller%` | Name of the seller | Sell & Purchase |
+| `%buyer%` | Name of the buyer | Purchase only |
+| `%items%` | Item display name | Sell & Purchase |
+| `%price%` | Formatted price | Sell & Purchase |
+| `%category%` | Category name | Sell & Purchase |
+
 ## Sorting Configuration
 
 ```yaml

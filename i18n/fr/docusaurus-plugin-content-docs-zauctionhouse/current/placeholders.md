@@ -158,6 +158,7 @@ Tous les placeholders PlaceholderAPI utilisent le préfixe `zauctionhouse_` :
 | `%zauctionhouse_pending_money_raw%` | Argent en attente total (nombre brut) |
 | `%zauctionhouse_pending_money_<économie>%` | Argent en attente pour une économie spécifique (ex : `%zauctionhouse_pending_money_coins%`) |
 | `%zauctionhouse_has_pending_money%` | `true` ou `false` selon si le joueur a de l'argent en attente |
+| `%zauctionhouse_option_<option>%` | Valeur d'une option joueur (`true`/`false`), ex : `%zauctionhouse_option_broadcast_sell%` |
 
 ## Placeholders Webhook Discord
 

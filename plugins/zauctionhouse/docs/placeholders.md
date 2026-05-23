@@ -158,6 +158,7 @@ All PlaceholderAPI placeholders use the prefix `zauctionhouse_`:
 | `%zauctionhouse_pending_money_raw%` | Total pending money (raw number) |
 | `%zauctionhouse_pending_money_<economy>%` | Pending money for a specific economy (e.g., `%zauctionhouse_pending_money_coins%`) |
 | `%zauctionhouse_has_pending_money%` | `true` or `false` whether the player has pending money |
+| `%zauctionhouse_option_<option>%` | Player option value (`true`/`false`), e.g., `%zauctionhouse_option_broadcast_sell%` |
 
 ## Discord Webhook Placeholders
 
