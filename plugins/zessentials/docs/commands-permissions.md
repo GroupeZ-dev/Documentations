@@ -63,6 +63,7 @@ Commands for teleporting players to locations, other players, or random coordina
 | `/top` | - | `essentials.top` | Teleport to the highest block at your position |
 | `/bottom` | - | `essentials.bottom` | Teleport to the lowest block at your position |
 | `/worldtp` | `wtp` | `essentials.tp.world` | Teleport to another world |
+| `/tptoggle` | - | `essentials.tptoggle` | Toggle receiving teleport requests |
 
 ---
 
@@ -368,7 +369,7 @@ General administration and utility commands.
 | `/god` | - | `essentials.god` | Toggle god mode (invincibility) |
 | `/vanish` | `v` | `essentials.vanish` | Toggle vanish mode (invisibility) |
 | `/heal` | - | `essentials.heal` | Heal a player to full health |
-| `/lightning` | `strike` | `essentials.lighting` | Strike lightning at a location |
+| `/lightning` | `strike` | `essentials.lightning` | Strike lightning at a player |
 | `/fly` | - | `essentials.fly` | Toggle flight mode |
 | `/speed` | - | `essentials.speed` | Change movement speed |
 | `/walkspeed` | `wspeed` | `essentials.walk.speed` | Change walk speed |
@@ -418,6 +419,9 @@ General administration and utility commands.
 | `/step` | - | `essentials.step` | Show step commands |
 | `/suicide` | - | `essentials.suicide` | Kill yourself |
 | `/kittycannon` | - | `essentials.kitty.cannon` | Launch exploding kittens |
+| `/itemframe` | `iframe` | `essentials.itemframe` | Toggle item frame visibility |
+| `/deathmessage` | `dm`, `deathmsg` | `essentials.deathmessage` | Toggle death message visibility |
+| `/home-list` | - | `essentials.home.list` | View a player's home list (admin) |
 
 ### Cooldown Subcommands
 

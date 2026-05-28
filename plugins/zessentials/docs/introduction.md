@@ -26,6 +26,7 @@ Every feature is an independent module that can be enabled or disabled individua
 - **Mailbox** - Offline item delivery system
 - **Voting** - Vote tracking and vote party system
 - **WorldEdit** - Built-in building tools
+- **Death Message** - Customizable death messages per cause
 - **Discord** - Webhook notifications and account linking
 - **AFK** - Away From Keyboard detection
 
@@ -47,13 +48,14 @@ Every feature is an independent module that can be enabled or disabled individua
 
 ### Rich Integrations
 - [zMenu](https://modrinth.com/plugin/zmenu) - Fully customizable GUI interfaces
-- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) - 76+ custom placeholders
+- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) - 150+ custom placeholders
 - [Vault](https://www.spigotmc.org/resources/vault.34315/) - Economy backend
 - [WorldGuard](https://enginehub.org/worldguard) - Region protection
 - [SuperiorSkyblock2](https://www.spigotmc.org/resources/superiorskyblock2.87411/) - Island permissions
 - [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) - Packet manipulation
 - [NuVotifier](https://www.spigotmc.org/resources/nuvotifier.13449/) - Vote reception
 - [BlockTracker](https://github.com/Krakenied/BlockTracker) - Block change tracking
+- [MythicMobs](https://www.spigotmc.org/resources/mythicmobs.5702/) - Custom mob death messages
 
 ### Developer API
 - Clean, modular API with 242 interface files

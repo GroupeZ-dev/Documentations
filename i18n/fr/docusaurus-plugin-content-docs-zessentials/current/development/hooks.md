@@ -149,6 +149,19 @@ command-placeholder:
 
 ---
 
+## MythicMobs
+
+S'integre avec [MythicMobs](https://www.spigotmc.org/resources/mythicmobs.5702/) pour afficher les noms personnalises des mobs dans les messages de mort. Lorsqu'un joueur est tue par une creature MythicMobs, le module Death Message peut afficher le nom d'affichage configure du mob au lieu du type d'entite vanilla.
+
+- **Chargement automatique** : Oui, si MythicMobs est present sur le serveur
+- **Prerequis** : Le module Death Message doit etre active avec `death-message-type: CUSTOM`
+- **Methodes** :
+  - `isMythicMob()` -- verifie si une entite est une creature MythicMobs
+  - `getMythicMobName()` -- recupere le nom d'affichage de la creature MythicMobs
+- **Aucune configuration supplementaire requise**
+
+---
+
 ## AxVaults
 
 Fournit la migration de donnees depuis [AxVaults](https://www.spigotmc.org/resources/axvaults.103560/) vers le systeme de coffres de zEssentials. Ce n'est pas une integration en temps d'execution mais un outil de migration ponctuel.

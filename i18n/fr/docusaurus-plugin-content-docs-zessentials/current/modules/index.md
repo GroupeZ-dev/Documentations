@@ -12,13 +12,14 @@ zEssentials repose sur une **architecture modulaire** dans laquelle chaque fonct
 
 ## Modules Disponibles
 
-Le tableau suivant liste les 22 modules inclus dans zEssentials :
+Le tableau suivant liste les 23 modules inclus dans zEssentials :
 
 | Module | Fichier de Configuration | Description |
 |--------|--------------------------|-------------|
 | [AFK](./afk) | `modules/afk/config.yml` | Detection d'inactivite (Away From Keyboard) et systeme d'expulsion automatique |
 | [AutoMessage](./automessage) | `modules/automessage/config.yml` | Messages de diffusion automatiques a intervalles configurables |
 | [Chat](./chat) | `modules/chat/config.yml` | Formatage du chat, canaux et outils de moderation |
+| [Death Message](./death-message) | `modules/death_message/config.yml` | Messages de mort personnalisables avec configuration par cause |
 | [Discord](./discord) | `modules/discord/config.yml` | Integration Discord pour la communication serveur-Discord |
 | [Economy](./economy) | `modules/economy/config.yml` | Systeme economique multi-devises avec integration Vault |
 | [Hologram](./hologram) | `modules/hologram/config.yml` | Affichages holographiques de texte dans le monde du jeu |

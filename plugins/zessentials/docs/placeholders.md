@@ -61,6 +61,9 @@ Additional status and detail placeholders for zEssentials users. Replace `{index
 | `%zessentials_user_home_{index}_{w/x/y/z}%` | Returns the home location info by index | String |
 | `%zessentials_user_vote_offline%` | Returns the number of offline votes | Integer |
 | `%zessentials_user_pm_recipient%` | Returns the name of the last private message recipient | String |
+| `%zessentials_user_is_pay_disabled%` | Returns true if the player has disabled payments (paytoggle) | Boolean |
+| `%zessentials_user_pay_status%` | Returns the configured placeholder text for pay status | String |
+| `%zessentials_user_is_tptoggle_disabled%` | Returns true if the player has disabled teleport requests | Boolean |
 
 ---
 
@@ -388,6 +391,41 @@ General server-related placeholders.
 | `%zessentials_server_world_weather_{world}%` | Weather of a specific world | String |
 
 **Example:** `%zessentials_random_number_1_100%` returns a random number between 1 and 100.
+
+---
+
+## Player List
+
+Retrieve information about online players by index. Players are sorted alphabetically by name (case-insensitive) and vanished players are excluded from the list. Replace `{index}` with the player position (1-based).
+
+| Placeholder | Description | Return Type |
+|-------------|-------------|-------------|
+| `%zessentials_playerlist_count%` | Number of visible online players (excludes vanished) | Integer |
+| `%zessentials_playerlist_{index}_name%` | Player name at the given index | String |
+| `%zessentials_playerlist_{index}_uuid%` | Player UUID at the given index | String |
+| `%zessentials_playerlist_{index}_ping%` | Player ping in milliseconds | Integer |
+| `%zessentials_playerlist_{index}_colored_ping%` | Player ping with color based on quality | String |
+| `%zessentials_playerlist_{index}_level%` | Player experience level | Integer |
+| `%zessentials_playerlist_{index}_health%` | Player current health | Decimal |
+| `%zessentials_playerlist_{index}_max_health%` | Player max health | Decimal |
+| `%zessentials_playerlist_{index}_food_level%` | Player food level | Integer |
+| `%zessentials_playerlist_{index}_gamemode%` | Player game mode | String |
+| `%zessentials_playerlist_{index}_world%` | Player world name | String |
+| `%zessentials_playerlist_{index}_x%` | Player X coordinate | Integer |
+| `%zessentials_playerlist_{index}_y%` | Player Y coordinate | Integer |
+| `%zessentials_playerlist_{index}_z%` | Player Z coordinate | Integer |
+| `%zessentials_playerlist_{index}_displayname%` | Player display name | String |
+| `%zessentials_playerlist_{index}_is_flying%` | Returns true if the player is flying | Boolean |
+| `%zessentials_playerlist_{index}_is_op%` | Returns true if the player is operator | Boolean |
+| `%zessentials_playerlist_{index}_is_sneaking%` | Returns true if the player is sneaking | Boolean |
+| `%zessentials_playerlist_{index}_is_afk%` | Returns true if the player is AFK | Boolean |
+
+**Example:** Display the first 3 online players in a hologram:
+```
+%zessentials_playerlist_1_name% - %zessentials_playerlist_1_ping%ms
+%zessentials_playerlist_2_name% - %zessentials_playerlist_2_ping%ms
+%zessentials_playerlist_3_name% - %zessentials_playerlist_3_ping%ms
+```
 
 ---
 
