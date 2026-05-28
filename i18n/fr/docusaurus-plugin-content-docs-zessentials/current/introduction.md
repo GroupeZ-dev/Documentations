@@ -26,6 +26,7 @@ Chaque fonctionnalité est un module indépendant qui peut être activé ou dés
 - **Mailbox** - Système de livraison d'objets hors ligne
 - **Voting** - Suivi des votes et système de vote party
 - **WorldEdit** - Outils de construction intégrés
+- **Death Message** - Messages de mort personnalisables par cause
 - **Discord** - Notifications webhook et liaison de comptes
 - **AFK** - Détection d'absence
 
@@ -47,13 +48,14 @@ Chaque fonctionnalité est un module indépendant qui peut être activé ou dés
 
 ### Intégrations Riches
 - [zMenu](https://modrinth.com/plugin/zmenu) - Interfaces GUI entièrement personnalisables
-- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) - 76+ placeholders personnalisés
+- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) - 150+ placeholders personnalisés
 - [Vault](https://www.spigotmc.org/resources/vault.34315/) - Backend économique
 - [WorldGuard](https://enginehub.org/worldguard) - Protection de régions
 - [SuperiorSkyblock2](https://www.spigotmc.org/resources/superiorskyblock2.87411/) - Permissions d'îles
 - [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) - Manipulation de paquets
 - [NuVotifier](https://www.spigotmc.org/resources/nuvotifier.13449/) - Réception de votes
 - [BlockTracker](https://github.com/Krakenied/BlockTracker) - Suivi des modifications de blocs
+- [MythicMobs](https://www.spigotmc.org/resources/mythicmobs.5702/) - Messages de mort des mobs personnalises
 
 ### API Développeur
 - API propre et modulaire avec 242 fichiers d'interface

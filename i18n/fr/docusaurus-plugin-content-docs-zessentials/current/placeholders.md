@@ -61,6 +61,9 @@ Placeholders supplémentaires de statut et d'informations pour les utilisateurs 
 | `%zessentials_user_home_{index}_{w/x/y/z}%` | Retourne les informations de localisation de la résidence par index | String |
 | `%zessentials_user_vote_offline%` | Retourne le nombre de votes hors ligne | Integer |
 | `%zessentials_user_pm_recipient%` | Retourne le nom du dernier destinataire de message privé | String |
+| `%zessentials_user_is_pay_disabled%` | Retourne true si le joueur a désactivé les paiements (paytoggle) | Boolean |
+| `%zessentials_user_pay_status%` | Retourne le texte de placeholder configuré pour le statut de paiement | String |
+| `%zessentials_user_is_tptoggle_disabled%` | Retourne true si le joueur a désactivé les demandes de téléportation | Boolean |
 
 ---
 
@@ -388,6 +391,41 @@ Placeholders généraux liés au serveur.
 | `%zessentials_server_world_weather_{world}%` | Météo d'un monde spécifique | String |
 
 **Exemple :** `%zessentials_random_number_1_100%` retourne un nombre aléatoire entre 1 et 100.
+
+---
+
+## Liste des Joueurs
+
+Récupérez des informations sur les joueurs en ligne par index. Les joueurs sont triés alphabétiquement par nom (insensible à la casse) et les joueurs en vanish sont exclus de la liste. Remplacez `{index}` par la position du joueur (commençant à 1).
+
+| Placeholder | Description | Type de Retour |
+|-------------|-------------|----------------|
+| `%zessentials_playerlist_count%` | Nombre de joueurs en ligne visibles (exclut les vanish) | Integer |
+| `%zessentials_playerlist_{index}_name%` | Nom du joueur à l'index donné | String |
+| `%zessentials_playerlist_{index}_uuid%` | UUID du joueur à l'index donné | String |
+| `%zessentials_playerlist_{index}_ping%` | Ping du joueur en millisecondes | Integer |
+| `%zessentials_playerlist_{index}_colored_ping%` | Ping du joueur avec couleur basée sur la qualité | String |
+| `%zessentials_playerlist_{index}_level%` | Niveau d'expérience du joueur | Integer |
+| `%zessentials_playerlist_{index}_health%` | Santé actuelle du joueur | Decimal |
+| `%zessentials_playerlist_{index}_max_health%` | Santé maximale du joueur | Decimal |
+| `%zessentials_playerlist_{index}_food_level%` | Niveau de nourriture du joueur | Integer |
+| `%zessentials_playerlist_{index}_gamemode%` | Mode de jeu du joueur | String |
+| `%zessentials_playerlist_{index}_world%` | Nom du monde du joueur | String |
+| `%zessentials_playerlist_{index}_x%` | Coordonnée X du joueur | Integer |
+| `%zessentials_playerlist_{index}_y%` | Coordonnée Y du joueur | Integer |
+| `%zessentials_playerlist_{index}_z%` | Coordonnée Z du joueur | Integer |
+| `%zessentials_playerlist_{index}_displayname%` | Nom d'affichage du joueur | String |
+| `%zessentials_playerlist_{index}_is_flying%` | Retourne true si le joueur est en vol | Boolean |
+| `%zessentials_playerlist_{index}_is_op%` | Retourne true si le joueur est opérateur | Boolean |
+| `%zessentials_playerlist_{index}_is_sneaking%` | Retourne true si le joueur est accroupi | Boolean |
+| `%zessentials_playerlist_{index}_is_afk%` | Retourne true si le joueur est AFK | Boolean |
+
+**Exemple :** Afficher les 3 premiers joueurs en ligne dans un hologramme :
+```
+%zessentials_playerlist_1_name% - %zessentials_playerlist_1_ping%ms
+%zessentials_playerlist_2_name% - %zessentials_playerlist_2_ping%ms
+%zessentials_playerlist_3_name% - %zessentials_playerlist_3_ping%ms
+```
 
 ---
 

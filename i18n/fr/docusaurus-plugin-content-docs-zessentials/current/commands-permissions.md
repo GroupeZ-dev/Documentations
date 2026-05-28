@@ -63,6 +63,7 @@ Commandes pour téléporter les joueurs vers des emplacements, d'autres joueurs 
 | `/top` | - | `essentials.top` | Se téléporter au bloc le plus haut à votre position |
 | `/bottom` | - | `essentials.bottom` | Se téléporter au bloc le plus bas à votre position |
 | `/worldtp` | `wtp` | `essentials.tp.world` | Se téléporter dans un autre monde |
+| `/tptoggle` | - | `essentials.tptoggle` | Activer/désactiver la réception des demandes de téléportation |
 
 ---
 
@@ -368,7 +369,7 @@ Commandes générales d'administration et utilitaires.
 | `/god` | - | `essentials.god` | Activer/désactiver le mode dieu (invincibilité) |
 | `/vanish` | `v` | `essentials.vanish` | Activer/désactiver le mode vanish (invisibilité) |
 | `/heal` | - | `essentials.heal` | Soigner un joueur complètement |
-| `/lightning` | `strike` | `essentials.lighting` | Faire tomber la foudre à un emplacement |
+| `/lightning` | `strike` | `essentials.lightning` | Faire tomber la foudre sur un joueur |
 | `/fly` | - | `essentials.fly` | Activer/désactiver le mode vol |
 | `/speed` | - | `essentials.speed` | Modifier la vitesse de déplacement |
 | `/walkspeed` | `wspeed` | `essentials.walk.speed` | Modifier la vitesse de marche |
@@ -418,6 +419,9 @@ Commandes générales d'administration et utilitaires.
 | `/step` | - | `essentials.step` | Afficher les commandes de step |
 | `/suicide` | - | `essentials.suicide` | Se suicider |
 | `/kittycannon` | - | `essentials.kitty.cannon` | Lancer des chatons explosifs |
+| `/itemframe` | `iframe` | `essentials.itemframe` | Basculer la visibilité d'un cadre d'objet |
+| `/deathmessage` | `dm`, `deathmsg` | `essentials.deathmessage` | Activer/désactiver la visibilité des messages de mort |
+| `/home-list` | - | `essentials.home.list` | Voir la liste des résidences d'un joueur (admin) |
 
 ### Sous-commandes de Temps de Recharge
 
