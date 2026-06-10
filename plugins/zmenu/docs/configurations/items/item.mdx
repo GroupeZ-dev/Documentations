@@ -123,24 +123,36 @@ The display name of the item.
 
 ### translated-name
 
+Provides per-language translations of the item name. Each entry maps a `locale` to a `name`, and the plugin uses the one matching the player's client language. If no locale matches, the default `name` value is used instead.
+
 <Tabs>
     <TabItem value="translatedName" label="translatedName">
         ```yaml
         item:
           material: DIAMOND_SWORD
-          translatedName: "item.minecraft.diamond_sword"
+          name: "&b&lShiny Diamond"
+          translatedName:
+            - locale: fr-fr
+              name: "Nom en français"
+            - locale: it-it
+              name: "Nome in italiano"
         ```
     </TabItem>
     <TabItem value="translated-name" label="translated-name">
         ```yaml
         item:
           material: DIAMOND_SWORD
-          translated-name: "item.minecraft.diamond_sword"
+          name: "&b&lShiny Diamond"
+          translated-name:
+            - locale: fr-fr
+              name: "Nom en français"
+            - locale: it-it
+              name: "Nome in italiano"
         ```
     </TabItem>
 </Tabs>
 
-This displays the item name in the player's client language.
+The name is displayed in the player's client language. Players whose locale is not listed fall back to the default `name`.
 
 ---
 
@@ -213,24 +225,42 @@ Define how the lore should interact with existing item lore. This is especially 
 
 ### translated-lore
 
+Provides per-language translations of the item lore. Each entry maps a `locale` to a `lore` list, and the plugin uses the one matching the player's client language. If no locale matches, the default `lore` value is used instead.
+
 <Tabs>
     <TabItem value="translatedLore" label="translatedLore">
         ```yaml
         item:
           material: DIAMOND_SWORD
+          lore:
+            - "&7A powerful weapon"
           translatedLore:
-            - "item.minecraft.diamond_sword.desc"
+            - locale: fr-fr
+              lore:
+                - "Lore en français"
+            - locale: it-it
+              lore:
+                - "Lore in italiano"
         ```
     </TabItem>
     <TabItem value="translated-lore" label="translated-lore">
         ```yaml
         item:
           material: DIAMOND_SWORD
+          lore:
+            - "&7A powerful weapon"
           translated-lore:
-            - "item.minecraft.diamond_sword.desc"
+            - locale: fr-fr
+              lore:
+                - "Lore en français"
+            - locale: it-it
+              lore:
+                - "Lore in italiano"
         ```
     </TabItem>
 </Tabs>
+
+The lore is displayed in the player's client language. Players whose locale is not listed fall back to the default `lore`.
 
 ---
 

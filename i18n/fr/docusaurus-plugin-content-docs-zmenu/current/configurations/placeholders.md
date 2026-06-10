@@ -130,6 +130,35 @@ name: "&6%zmenu_global_placeholders_server-name%"
 | `%zmenu_time_next_day_unix_timestamp%` | Timestamp Unix de demain (en secondes) | `1704153600` |
 | `%zmenu_time_today_start_unix_timestamp%` | Timestamp du debut d'aujourd'hui (en secondes) | `1704067200` |
 
+### Placeholders d'inventaire joueur
+
+Ces placeholders sont particulierement utiles lorsque l'inventaire du bas est masque avec `clear-inventory: true`, permettant de verifier l'espace disponible avant de donner des items (par exemple dans les menus de shop).
+
+| Placeholder | Description | Exemple de sortie |
+|-------------|-------------|-------------------|
+| `%zmenu_player_empty_slots%` | Nombre de slots libres dans l'inventaire du joueur | `12` |
+| `%zmenu_player_item_count_<MATERIAL>%` | Quantite totale d'un item specifique dans l'inventaire | `64` |
+
+**Exemples :**
+```yaml
+# Afficher les slots libres dans le lore
+lore:
+  - "&7Slots libres : &a%zmenu_player_empty_slots%"
+  - "&7Diamants : &b%zmenu_player_item_count_DIAMOND%"
+
+# Empecher l'achat quand l'inventaire est plein
+click-requirement:
+  requirements:
+    - type: placeholder
+      value: "%zmenu_player_empty_slots%"
+      action: SUPERIOR_OR_EQUAL
+      number: 1
+      deny:
+        - type: message
+          messages:
+            - "&cVotre inventaire est plein !"
+```
+
 ### Placeholders de statistiques
 
 | Placeholder | Description | Exemple de sortie |
@@ -295,6 +324,8 @@ Si les placeholders ne fonctionnent pas :
 | Argument | `%zmenu_argument_<cle>%` | Argument de commande |
 | Global | `%zmenu_global_placeholders_<cle>%` | Valeur globale |
 | Temps | `%zmenu_time_unix_timestamp%` | Temps Unix |
+| Inventaire | `%zmenu_player_empty_slots%` | Slots libres |
+| Inventaire | `%zmenu_player_item_count_<MAT>%` | Quantite d'item |
 | Stats | `%zmenu_statistic_hours_played%` | Heures jouees |
 
 ## Prochaines etapes
