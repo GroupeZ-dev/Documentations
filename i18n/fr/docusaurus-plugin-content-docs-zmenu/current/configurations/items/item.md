@@ -65,6 +65,27 @@ item:
 
 ---
 
+### translated-name
+
+Fournit des traductions du nom de l'item par langue. Chaque entree associe un `locale` a un `name`, et le plugin utilise celle qui correspond a la langue du client du joueur. Si aucun locale ne correspond, la valeur `name` par defaut est utilisee a la place.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  name: "&b&lDiamant Brillant"
+  translated-name:
+    - locale: fr-fr
+      name: "Nom en francais"
+    - locale: it-it
+      name: "Nome in italiano"
+```
+
+Le nom est affiche dans la langue du client du joueur. Les joueurs dont le locale n'est pas liste utilisent le `name` par defaut.
+
+**Alias :** `translated-name`, `translatedName`
+
+---
+
 ### lore
 
 Les lignes de description affichees sous le nom de l'item.
@@ -133,6 +154,30 @@ item:
     - ""
   lore-type: PREPEND
 ```
+
+---
+
+### translated-lore
+
+Fournit des traductions du lore de l'item par langue. Chaque entree associe un `locale` a une liste `lore`, et le plugin utilise celle qui correspond a la langue du client du joueur. Si aucun locale ne correspond, la valeur `lore` par defaut est utilisee a la place.
+
+```yaml
+item:
+  material: DIAMOND_SWORD
+  lore:
+    - "&7Une arme puissante"
+  translated-lore:
+    - locale: fr-fr
+      lore:
+        - "Lore en francais"
+    - locale: it-it
+      lore:
+        - "Lore in italiano"
+```
+
+Le lore est affiche dans la langue du client du joueur. Les joueurs dont le locale n'est pas liste utilisent le `lore` par defaut.
+
+**Alias :** `translated-lore`, `translatedLore`
 
 ---
 

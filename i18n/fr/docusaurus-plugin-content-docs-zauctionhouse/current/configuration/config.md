@@ -71,7 +71,7 @@ timezone: auto
 | `America/New_York` | Heure de l'Est (UTC-5/UTC-4) |
 | `Asia/Tokyo` | Heure Standard du Japon (UTC+9) |
 
-Vous pouvez utiliser n'importe quel [identifiant Java TimeZone](https://docs.oracle.com/javase/8/docs/api/java/util/TimeZone.html) valide. Ce paramètre affecte tous les placeholders de date : `%date%`, `%formatted-expire-date%`, `%expires_at%`, etc.
+Vous pouvez utiliser n'importe quel [identifiant Java TimeZone](https://docs.oracle.com/javase/8/docs/api/java/util/TimeZone.html) valide. Ce paramètre affecte tous les placeholders de date formatés par le serveur : `%date%`, `%formatted-expire-date%`, etc. (Le placeholder de webhook Discord `%expires_at%` n'est **pas** affecté, car il utilise désormais un horodatage dynamique Discord rendu dans le fuseau horaire local de chaque utilisateur.)
 
 ## Configuration de la Base de Données
 

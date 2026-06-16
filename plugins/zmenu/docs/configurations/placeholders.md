@@ -130,6 +130,38 @@ name: "&6%server-name%" # Replacing directly when zMenu load the inventory
 | `%zmenu_time_next_day_unix_timestamp%`    | Tomorrow's Unix timestamp (in seconds)   | `1704153600`   |
 | `%zmenu_time_today_start_unix_timestamp%` | Start of today timestamp (in seconds)    | `1704067200`   |
 
+### Player Inventory Placeholders
+
+These placeholders are especially useful when the bottom inventory is hidden with `clear-inventory: true`, allowing you to check inventory space before giving items (e.g., in shop menus).
+
+| Placeholder                              | Description                                      | Example Output |
+|------------------------------------------|--------------------------------------------------|----------------|
+| `%zmenu_player_empty_slots%`             | Number of free slots in the player's inventory   | `12`           |
+| `%zmenu_player_item_count_<MATERIAL>%`   | Total amount of a specific item in the inventory | `64`           |
+
+**Examples:**
+```yaml
+# Display free slots in lore
+lore:
+  - "&7Free slots: &a%zmenu_player_empty_slots%"
+  - "&7Diamonds: &b%zmenu_player_item_count_DIAMOND%"
+
+# Prevent purchase when inventory is full
+click-requirement:
+   requirement:
+      clicks:
+         - ALL
+      requirements:
+       - type: placeholder
+         placeholder: "%zmenu_player_empty_slots%"
+         action: SUPERIOR_OR_EQUAL
+         value: 1
+         deny:
+           - type: message
+             messages:
+              - "&cYour inventory is full!"
+```
+
 ### Statistic Placeholders
 
 | Placeholder                      | Description            | Example Output |
@@ -298,6 +330,8 @@ If placeholders aren't working:
 | Argument | `%zmenu_argument_<key>%`            | Command argument     |
 | Global   | `%zmenu_global_placeholders_<key>%` | Global value         |
 | Time     | `%zmenu_time_unix_timestamp%`       | Unix time            |
+| Inventory| `%zmenu_player_empty_slots%`        | Free slots           |
+| Inventory| `%zmenu_player_item_count_<MAT>%`   | Item count           |
 | Stats    | `%zmenu_statistic_hours_played%`    | Hours played         |
 
 ## Next Steps

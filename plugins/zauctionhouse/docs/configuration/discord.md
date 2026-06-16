@@ -53,6 +53,51 @@ extract-dominant-color: false
 default-color: "#5865F2"
 ```
 
+## Custom Item Images
+
+By default the embed image is built from the material-based `item-image-url` pattern, so every item of the same material shares the same picture. This is a problem for custom items (ItemsAdder, Oraxen, Nexo, MMOItems…) whose underlying material is generic (e.g. `PAPER`).
+
+The `custom-images` section lets you override `%item_image_url%` for specific items. Each entry pairs a **rule** (how to recognize the item, using the exact same format as `categories.yml` / `rules.yml`) with an **image** URL. The **first matching rule wins**, so put the most specific rules first. Items that match no rule fall back to the `item-image-url` pattern.
+
+```yaml
+custom-images:
+  - rule:
+      type: oraxen
+      items:
+        - ruby_sword
+    image: "https://example.com/images/ruby_sword.png"
+  - rule:
+      type: material
+      materials:
+        - DIAMOND_SWORD
+    image: "https://example.com/images/diamond_sword.png"
+  - rule:
+      type: custom-model-data
+      values:
+        - 10001
+    image: "https://example.com/images/legendary.png"
+```
+
+Common rule types:
+
+| Type | Fields | Example |
+|------|--------|---------|
+| `material` | `materials: [...]` | `materials: [DIAMOND_SWORD, NETHERITE_SWORD]` |
+| `name` | `mode: CONTAINS\|EQUALS`, `values: [...]` | `mode: CONTAINS` / `values: ["Excalibur"]` |
+| `lore` | `mode: CONTAINS\|EQUALS`, `values: [...]` | `mode: CONTAINS` / `values: ["Legendary"]` |
+| `custom-model-data` | `values: [...]` or `ranges: [{min, max}]` | `values: [10001]` |
+| `oraxen` / `nexo` | `items: [...]` | `items: [ruby_sword]` |
+| `itemsadder` | `items: [...]` | `items: ["mynamespace:ruby_sword"]` |
+| `mmoitems` | `items: [...]` | `items: ["SWORD:EXCALIBUR"]` |
+
+:::tip
+`%item_image_url%` is used by both the `thumbnail` (small, top-right) and `image` (large, bottom) embed fields. To show the custom image as the large bottom image, set `image.url: "%item_image_url%"`.
+:::
+
+:::note
+When `extract-dominant-color` is enabled, the extracted color is cached per **image URL** for custom images (instead of per material), so two custom items sharing the same material but different images no longer collide on the same color.
+:::
+
 ## Webhook Configuration
 
 ### Sell Webhook
@@ -172,7 +217,7 @@ Sent when a player purchases an item:
 | `%item_enchantments%` | List of enchantments |
 | `%item_custom_model_data%` | CustomModelData value |
 | `%item_dominant_color%` | Extracted dominant color |
-| `%item_image_url%` | Full URL to item image |
+| `%item_image_url%` | Full URL to item image (uses the `custom-images` override when the item matches a rule) |
 
 ### Player Placeholders
 
@@ -197,7 +242,7 @@ Sent when a player purchases an item:
 | Placeholder | Description |
 |-------------|-------------|
 | `%created_at%` | When listing was created |
-| `%expires_at%` | When listing expires |
+| `%expires_at%` | When the listing expires — output as a Discord [dynamic timestamp](https://discord.com/developers/docs/reference#message-formatting-timestamp-styles) (`<t:unix_seconds:f>`), rendered in each viewer's local timezone |
 | `%remaining_time%` | Time until expiration |
 | `%timestamp%` | Current timestamp |
 

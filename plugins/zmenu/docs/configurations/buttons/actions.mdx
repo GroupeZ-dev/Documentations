@@ -1001,6 +1001,130 @@ Interact with Shopkeepers plugin.
   name: "shop_name"
 ```
 
+## Item Actions
+
+These actions give or take items directly from the menu or the player's inventory. They are perfect for shops, kits or reward systems.
+
+### set_item
+
+Place an item in one or several slots, either in the menu or in the player's inventory.
+
+<Tabs>
+    <TabItem value="set_item" label="set_item">
+
+        ```yaml
+        - type: set_item
+          slot: 13              # or slots: [13, 14, 15]
+          in-player-inventory: false  # false = menu (default), true = player inventory
+          dupe-protection: true       # default: true
+          item:
+            material: DIAMOND
+            name: "&bReward"
+        ```
+
+    </TabItem>
+    <TabItem value="set-item" label="set-item (Alias)">
+
+        ```yaml
+        - type: set-item
+          slot: 13
+          item:
+            material: DIAMOND
+            name: "&bReward"
+        ```
+
+    </TabItem>
+</Tabs>
+
+**Options:**
+
+| Option                | Type            | Default | Description                                                        |
+|-----------------------|-----------------|---------|--------------------------------------------------------------------|
+| `slot`                | Integer         | -       | The slot to set (use `slots` for several slots)                    |
+| `slots`               | List            | -       | The list of slots to set                                           |
+| `in-player-inventory` | Boolean         | `false` | Place the item in the player's inventory instead of the menu       |
+| `dupe-protection`     | Boolean         | `true`  | Protect the placed item against duplication                        |
+| `item`                | Item            | -       | The item to place (can also be defined inline at the action level) |
+
+Available aliases: `set_item`, `set-item`.
+
+---
+
+### take_item
+
+Remove a number of matching items from the player's inventory.
+
+<Tabs>
+    <TabItem value="take_item" label="take_item">
+
+        ```yaml
+        - type: take_item
+          amount: 1
+          verification: SIMILAR  # SIMILAR (default) or MODELID
+          use-cache: false       # default: false
+          item:
+            material: DIAMOND
+        ```
+
+    </TabItem>
+    <TabItem value="take-item" label="take-item (Alias)">
+
+        ```yaml
+        - type: take-item
+          amount: 5
+          item:
+            material: DIAMOND
+        ```
+
+    </TabItem>
+</Tabs>
+
+**Options:**
+
+| Option         | Type    | Default   | Description                                                            |
+|----------------|---------|-----------|------------------------------------------------------------------------|
+| `amount`       | Integer | `1`       | Number of items to remove from the player                              |
+| `verification` | String  | `SIMILAR` | How items are matched: `SIMILAR` or `MODELID` (custom model data)      |
+| `use-cache`    | Boolean | `false`   | Use the cached item stack when building the target item                |
+| `item`         | Item    | -         | The item to match and remove (can also be defined inline)              |
+
+Available aliases: `take_item`, `take-item`.
+
+---
+
+### refresh_slot
+
+Refresh only the given slot(s) without redrawing the whole inventory.
+
+<Tabs>
+    <TabItem value="refresh_slot" label="refresh_slot">
+
+        ```yaml
+        - type: refresh_slot
+          slots: [13, 14, 15]
+          in-player-inventory: false  # default: false
+        ```
+
+    </TabItem>
+    <TabItem value="refresh-slot" label="refresh-slot (Alias)">
+
+        ```yaml
+        - type: refresh-slot
+          slots: [13]
+        ```
+
+    </TabItem>
+</Tabs>
+
+**Options:**
+
+| Option                | Type    | Default | Description                                             |
+|-----------------------|---------|---------|---------------------------------------------------------|
+| `slots`               | List    | -       | The list of slots to refresh                            |
+| `in-player-inventory` | Boolean | `false` | Refresh slots in the player's inventory instead of menu |
+
+Available aliases: `refresh_slot`, `refresh-slot`.
+
 ## Complete Examples
 
 ### Purchase with Feedback
@@ -1187,6 +1311,9 @@ click-requirement:
 | `discord_component` | Send Discord message with buttons |
 | `luckperm-set` | Modify LuckPerms permissions |
 | `shopkeeper` | Interact with Shopkeepers plugin |
+| `set_item` | Place an item in menu/player slot(s) |
+| `take_item` | Remove matching items from the player |
+| `refresh_slot` | Refresh specific slot(s) only |
 
 ## Next Steps
 

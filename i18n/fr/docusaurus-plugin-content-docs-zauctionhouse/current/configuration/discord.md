@@ -53,6 +53,51 @@ extract-dominant-color: false
 default-color: "#5865F2"
 ```
 
+## Images Personnalisées par Objet
+
+Par défaut, l'image de l'embed est construite à partir du pattern `item-image-url` basé sur le matériau : tous les objets d'un même matériau partagent donc la même image. C'est un problème pour les objets custom (ItemsAdder, Oraxen, Nexo, MMOItems…) dont le matériau sous-jacent est générique (ex. `PAPER`).
+
+La section `custom-images` permet de remplacer `%item_image_url%` pour des objets spécifiques. Chaque entrée associe une **rule** (comment reconnaître l'objet, en utilisant exactement le même format que `categories.yml` / `rules.yml`) à une **image** (URL). La **première règle qui correspond gagne**, placez donc les règles les plus précises en premier. Les objets qui ne correspondent à aucune règle utilisent le pattern `item-image-url`.
+
+```yaml
+custom-images:
+  - rule:
+      type: oraxen
+      items:
+        - ruby_sword
+    image: "https://example.com/images/ruby_sword.png"
+  - rule:
+      type: material
+      materials:
+        - DIAMOND_SWORD
+    image: "https://example.com/images/diamond_sword.png"
+  - rule:
+      type: custom-model-data
+      values:
+        - 10001
+    image: "https://example.com/images/legendary.png"
+```
+
+Types de règles courants :
+
+| Type | Champs | Exemple |
+|------|--------|---------|
+| `material` | `materials: [...]` | `materials: [DIAMOND_SWORD, NETHERITE_SWORD]` |
+| `name` | `mode: CONTAINS\|EQUALS`, `values: [...]` | `mode: CONTAINS` / `values: ["Excalibur"]` |
+| `lore` | `mode: CONTAINS\|EQUALS`, `values: [...]` | `mode: CONTAINS` / `values: ["Légendaire"]` |
+| `custom-model-data` | `values: [...]` ou `ranges: [{min, max}]` | `values: [10001]` |
+| `oraxen` / `nexo` | `items: [...]` | `items: [ruby_sword]` |
+| `itemsadder` | `items: [...]` | `items: ["mynamespace:ruby_sword"]` |
+| `mmoitems` | `items: [...]` | `items: ["SWORD:EXCALIBUR"]` |
+
+:::tip
+`%item_image_url%` est utilisé à la fois par les champs `thumbnail` (petite image, en haut à droite) et `image` (grande image, en bas) de l'embed. Pour afficher l'image personnalisée en grande image du bas, définissez `image.url: "%item_image_url%"`.
+:::
+
+:::note
+Quand `extract-dominant-color` est activé, la couleur extraite est mise en cache par **URL d'image** pour les images personnalisées (au lieu d'être mise en cache par matériau), afin que deux objets custom partageant le même matériau mais avec des images différentes n'entrent plus en collision sur la même couleur.
+:::
+
 ## Configuration des Webhooks
 
 ### Webhook de Vente
@@ -172,7 +217,7 @@ Envoyé lorsqu'un joueur achète un objet :
 | `%item_enchantments%` | Liste des enchantements |
 | `%item_custom_model_data%` | Valeur CustomModelData |
 | `%item_dominant_color%` | Couleur dominante extraite |
-| `%item_image_url%` | URL complète de l'image de l'objet |
+| `%item_image_url%` | URL complète de l'image de l'objet (utilise l'override `custom-images` si l'objet correspond à une règle) |
 
 ### Placeholders de Joueur
 
@@ -197,7 +242,7 @@ Envoyé lorsqu'un joueur achète un objet :
 | Placeholder | Description |
 |-------------|-------------|
 | `%created_at%` | Date de création de l'annonce |
-| `%expires_at%` | Date d'expiration de l'annonce |
+| `%expires_at%` | Date d'expiration de l'annonce — affichée comme un [horodatage dynamique Discord](https://discord.com/developers/docs/reference#message-formatting-timestamp-styles) (`<t:secondes_unix:f>`), rendu dans le fuseau horaire local de chaque utilisateur |
 | `%remaining_time%` | Temps restant avant expiration |
 | `%timestamp%` | Horodatage actuel |
 
