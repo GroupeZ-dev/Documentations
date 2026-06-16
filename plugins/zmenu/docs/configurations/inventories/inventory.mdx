@@ -157,6 +157,55 @@ items:
 
 ---
 
+### rename-requirements (Anvil)
+
+When you use `type: ANVIL`, the inventory becomes a **text input**: the player can type text in the anvil rename field. Each time the text changes, zMenu runs the requirements defined under `rename-requirements`, giving you live validation of what the player is typing.
+
+The anvil has 3 slots: the two input slots (`0` and `1`) and the output/result slot (`2`).
+
+```yaml
+name: "&8Type something"
+type: ANVIL
+
+rename-requirements:
+  requirements:
+    - type: placeholder
+      placeholder: "%new_text%"
+      action: CONTAINS_STRING
+      value: "admin"
+      deny:
+        - type: message
+          messages:
+            - "&cYou cannot use that word!"
+
+items:
+  input:
+    slot: 0
+    item:
+      material: PAPER
+      name: "Type here"
+  result:
+    slot: 2
+    item:
+      material: NETHER_STAR
+      name: "&aYou typed: &f%new_text%"
+```
+
+**Placeholders available inside `rename-requirements`:**
+
+| Placeholder  | Description                                                              |
+|--------------|--------------------------------------------------------------------------|
+| `%type%`     | The kind of change: `ADDED`, `REMOVED`, `CLEARED`, `REPLACED` or `EQUAL` |
+| `%old_text%` | The text before the change                                               |
+| `%new_text%` | The current text in the rename field                                     |
+| `%char%`     | The character that was added or removed (only for `ADDED` / `REMOVED`)   |
+
+:::info
+The result item placed in slot `2` is sent directly to the player and is updated on every keystroke, which lets you build a live preview of what the player is typing.
+:::
+
+---
+
 ### enable
 
 Enable or disable this inventory. Disabled inventories cannot be opened.

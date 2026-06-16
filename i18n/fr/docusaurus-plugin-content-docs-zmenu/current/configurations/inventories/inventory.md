@@ -83,6 +83,55 @@ size: 54
 
 ---
 
+### rename-requirements (Anvil)
+
+Lorsque vous utilisez `type: ANVIL`, l'inventaire devient une **saisie de texte** : le joueur peut taper du texte dans le champ de renommage de l'enclume. A chaque modification du texte, zMenu execute les requirements definis sous `rename-requirements`, ce qui permet de valider en direct ce que le joueur tape.
+
+L'enclume possede 3 slots : les deux slots d'entree (`0` et `1`) et le slot de resultat (`2`).
+
+```yaml
+name: "&8Tapez quelque chose"
+type: ANVIL
+
+rename-requirements:
+  requirements:
+    - type: placeholder
+      placeholder: "%new_text%"
+      action: CONTAINS_STRING
+      value: "admin"
+      deny:
+        - type: message
+          messages:
+            - "&cVous ne pouvez pas utiliser ce mot !"
+
+items:
+  input:
+    slot: 0
+    item:
+      material: PAPER
+      name: "Tapez ici"
+  result:
+    slot: 2
+    item:
+      material: NETHER_STAR
+      name: "&aVous avez tape : &f%new_text%"
+```
+
+**Placeholders disponibles dans `rename-requirements` :**
+
+| Placeholder  | Description                                                                  |
+|--------------|------------------------------------------------------------------------------|
+| `%type%`     | Le type de changement : `ADDED`, `REMOVED`, `CLEARED`, `REPLACED` ou `EQUAL` |
+| `%old_text%` | Le texte avant le changement                                                 |
+| `%new_text%` | Le texte actuel dans le champ de renommage                                   |
+| `%char%`     | Le caractere ajoute ou retire (uniquement pour `ADDED` / `REMOVED`)          |
+
+:::info
+L'item de resultat place dans le slot `2` est envoye directement au joueur et mis a jour a chaque frappe, ce qui permet de construire un apercu en direct de ce que le joueur tape.
+:::
+
+---
+
 ### enable
 
 Activer ou desactiver cet inventaire. Les inventaires desactives ne peuvent pas etre ouverts.

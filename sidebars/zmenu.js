@@ -60,6 +60,7 @@ const sidebars = {
           ],
         },
         'configurations/requirements',
+        'configurations/item-rules',
         'configurations/global-placeholders',
         'configurations/patterns',
         'configurations/player-data',

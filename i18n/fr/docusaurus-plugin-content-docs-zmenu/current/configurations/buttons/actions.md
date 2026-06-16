@@ -543,6 +543,83 @@ Interagir avec le plugin Shopkeepers.
   name: "nom_boutique"
 ```
 
+## Actions d'item
+
+Ces actions donnent ou retirent des items directement dans le menu ou dans l'inventaire du joueur. Parfaites pour les boutiques, les kits ou les systemes de recompenses.
+
+### set_item
+
+Place un item dans un ou plusieurs slots, dans le menu ou dans l'inventaire du joueur.
+
+```yaml
+- type: set_item
+  slot: 13              # ou slots: [13, 14, 15]
+  in-player-inventory: false  # false = menu (defaut), true = inventaire du joueur
+  dupe-protection: true       # defaut : true
+  item:
+    material: DIAMOND
+    name: "&bRecompense"
+```
+
+**Options :**
+
+| Option                | Type    | Defaut  | Description                                                       |
+|-----------------------|---------|---------|-------------------------------------------------------------------|
+| `slot`                | Entier  | -       | Le slot a remplir (utilisez `slots` pour plusieurs slots)         |
+| `slots`               | Liste   | -       | La liste des slots a remplir                                      |
+| `in-player-inventory` | Booleen | `false` | Place l'item dans l'inventaire du joueur au lieu du menu          |
+| `dupe-protection`     | Booleen | `true`  | Protege l'item place contre la duplication                        |
+| `item`                | Item    | -       | L'item a placer (peut aussi etre defini directement dans l'action) |
+
+Alias disponibles : `set_item`, `set-item`.
+
+---
+
+### take_item
+
+Retire un certain nombre d'items correspondants de l'inventaire du joueur.
+
+```yaml
+- type: take_item
+  amount: 1
+  verification: SIMILAR  # SIMILAR (defaut) ou MODELID
+  use-cache: false       # defaut : false
+  item:
+    material: DIAMOND
+```
+
+**Options :**
+
+| Option         | Type    | Defaut    | Description                                                         |
+|----------------|---------|-----------|---------------------------------------------------------------------|
+| `amount`       | Entier  | `1`       | Nombre d'items a retirer au joueur                                  |
+| `verification` | String  | `SIMILAR` | Methode de comparaison : `SIMILAR` ou `MODELID` (custom model data) |
+| `use-cache`    | Booleen | `false`   | Utilise l'item en cache lors de la construction de l'item cible     |
+| `item`         | Item    | -         | L'item a comparer et a retirer (peut aussi etre defini directement) |
+
+Alias disponibles : `take_item`, `take-item`.
+
+---
+
+### refresh_slot
+
+Rafraichit uniquement le ou les slots indiques, sans redessiner tout l'inventaire.
+
+```yaml
+- type: refresh_slot
+  slots: [13, 14, 15]
+  in-player-inventory: false  # defaut : false
+```
+
+**Options :**
+
+| Option                | Type    | Defaut  | Description                                                  |
+|-----------------------|---------|---------|--------------------------------------------------------------|
+| `slots`               | Liste   | -       | La liste des slots a rafraichir                              |
+| `in-player-inventory` | Booleen | `false` | Rafraichit les slots de l'inventaire du joueur au lieu du menu |
+
+Alias disponibles : `refresh_slot`, `refresh-slot`.
+
 ## Exemples complets
 
 ### Achat avec retour
@@ -719,6 +796,9 @@ click-requirement:
 | `data` | Modifier les donnees joueur |
 | `currency-deposit` | Ajouter de l'argent |
 | `currency-withdraw` | Retirer de l'argent |
+| `set_item` | Placer un item dans des slots du menu/joueur |
+| `take_item` | Retirer des items correspondants au joueur |
+| `refresh_slot` | Rafraichir uniquement certains slots |
 
 ## Action Bedrock
 

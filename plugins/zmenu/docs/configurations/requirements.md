@@ -276,6 +276,41 @@ requirements:
 
 ---
 
+### check-inventory
+
+Checks the item placed in a specific slot of the menu (or of the player's inventory). Unlike `item`, which scans the whole inventory, this requirement targets a single slot. It is mainly used together with the `item_drag` button to validate what a player dropped into a slot.
+
+```yaml
+requirements:
+  - type: check-inventory
+    slot: 13
+    item:
+      material: DIAMOND
+    type: full                 # Item comparison type (default: full)
+    require-player-item: false # Require the slot to actually contain a player item
+    is-player-inventory: false # Check a slot of the player's inventory instead of the menu
+    success:
+      - type: message
+        messages:
+          - "&aCorrect item!"
+    deny:
+      - type: message
+        messages:
+          - "&cWrong item!"
+```
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `slot` | Number | The slot to check (required) |
+| `item` | Item | The item to compare against |
+| `type` | String | Item comparison type (e.g. `full`, `similar`, `modelid`). Default: `full` |
+| `require-player-item` | Boolean | If `true`, the slot must contain an item put there by the player (default: `false`) |
+| `is-player-inventory` | Boolean | If `true`, checks a slot in the player's inventory instead of the menu (default: `false`) |
+| `success` | List | Actions executed when the slot matches the item |
+| `deny` | List | Actions executed when the slot does not match |
+
+---
+
 ### luckperm
 
 Checks if the player belongs to a specific LuckPerms group. Requires [LuckPerms](https://luckperms.net/).

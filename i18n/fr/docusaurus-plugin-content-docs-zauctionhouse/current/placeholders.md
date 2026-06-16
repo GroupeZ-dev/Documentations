@@ -201,7 +201,7 @@ Utilisés dans la configuration webhook de `discord.yml` :
 | Placeholder | Description |
 |-------------|-------------|
 | `%created_at%` | Quand l'annonce a été créée |
-| `%expires_at%` | Quand l'annonce expire |
+| `%expires_at%` | Date d'expiration de l'annonce — affichée comme un [horodatage dynamique Discord](https://discord.com/developers/docs/reference#message-formatting-timestamp-styles) (`<t:secondes_unix:f>`), rendu dans le fuseau horaire local de chaque utilisateur |
 | `%remaining_time%` | Temps avant expiration |
 | `%timestamp%` | Horodatage actuel |
 

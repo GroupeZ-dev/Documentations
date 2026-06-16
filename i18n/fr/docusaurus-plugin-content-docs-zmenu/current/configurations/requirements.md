@@ -276,6 +276,41 @@ requirements:
 
 ---
 
+### check-inventory
+
+Verifie l'item place dans un slot precis du menu (ou de l'inventaire du joueur). Contrairement a `item`, qui parcourt tout l'inventaire, ce requirement cible un seul slot. Il est principalement utilise avec le bouton `item_drag` pour valider ce que le joueur a depose dans un slot.
+
+```yaml
+requirements:
+  - type: check-inventory
+    slot: 13
+    item:
+      material: DIAMOND
+    type: full                 # Type de comparaison de l'item (defaut : full)
+    require-player-item: false # Exige que le slot contienne reellement un item du joueur
+    is-player-inventory: false # Verifie un slot de l'inventaire du joueur au lieu du menu
+    success:
+      - type: message
+        messages:
+          - "&aBon item !"
+    deny:
+      - type: message
+        messages:
+          - "&cMauvais item !"
+```
+
+| Cle | Type | Description |
+|-----|------|-------------|
+| `slot` | Number | Le slot a verifier (requis) |
+| `item` | Item | L'item a comparer |
+| `type` | String | Type de comparaison de l'item (ex. `full`, `similar`, `modelid`). Defaut : `full` |
+| `require-player-item` | Booleen | Si `true`, le slot doit contenir un item place par le joueur (defaut : `false`) |
+| `is-player-inventory` | Booleen | Si `true`, verifie un slot de l'inventaire du joueur au lieu du menu (defaut : `false`) |
+| `success` | Liste | Actions executees quand le slot correspond a l'item |
+| `deny` | Liste | Actions executees quand le slot ne correspond pas |
+
+---
+
 ### luckperm
 
 Verifie si le joueur appartient a un groupe LuckPerms specifique. Necessite [LuckPerms](https://luckperms.net/).

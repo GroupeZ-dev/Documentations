@@ -201,7 +201,7 @@ Used in `discord.yml` webhook configuration:
 | Placeholder | Description |
 |-------------|-------------|
 | `%created_at%` | When listing was created |
-| `%expires_at%` | When listing expires |
+| `%expires_at%` | When the listing expires — output as a Discord [dynamic timestamp](https://discord.com/developers/docs/reference#message-formatting-timestamp-styles) (`<t:unix_seconds:f>`), rendered in each viewer's local timezone |
 | `%remaining_time%` | Time until expiration |
 | `%timestamp%` | Current timestamp |
 

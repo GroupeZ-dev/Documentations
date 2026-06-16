@@ -199,6 +199,22 @@ item:
 
 ---
 
+### Denizen
+
+**Download**: [SpigotMC](https://www.spigotmc.org/resources/denizen.21039/)
+
+Denizen integration is available through the [item rules system](./configurations/item-rules). You can match Denizen items by their script name using the `denizen` rule type (for example with the `item_drag` button).
+
+**Usage:**
+```yaml
+rule:
+  type: denizen
+  items:
+    - "my_denizen_item"
+```
+
+---
+
 ## Head Plugins
 
 ### zHead
@@ -321,6 +337,7 @@ PacketEvents is required for the Dialog system (Minecraft 1.20.5+).
 | MythicMobs | Custom Items | `MYTHICMOBS:` | MythicMobs items |
 | ExecutableItems | Custom Items | `EXECUTABLE_ITEM:` | EI items |
 | BreweryX | Custom Items | `BREWERYX:` | Brewing items |
+| Denizen | Item Rules | - | `denizen` item rule |
 | zHead | Heads | `ZHEAD:` | Custom heads |
 | Jobs Reborn | Jobs | - | Job requirements |
 | Geyser/Floodgate | Bedrock | - | Native Bedrock forms |
