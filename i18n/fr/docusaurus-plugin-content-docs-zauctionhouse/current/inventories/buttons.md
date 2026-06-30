@@ -504,10 +504,11 @@ Ouvre une saisie de recherche par chat. Lorsque le joueur clique, son inventaire
 | Propriété | Type | Description |
 |-----------|------|-------------|
 | `slot` | Nombre | Position du bouton |
+| `none-value` | Texte | Texte affiché dans `%search_query%` quand aucune recherche n'est active. Par défaut `None` ; traduit selon la langue (FR `Aucune`, ES `Ninguna`, IT `Nessuna`, TH `ไม่มี`). |
 | `item` | Item | Apparence du bouton |
 
 **Placeholders :**
-- `%search_query%` - Requête de recherche actuelle (ou "None" si aucune recherche active)
+- `%search_query%` - Requête de recherche actuelle (ou la valeur `none-value` configurable, par défaut `None` / traduite, quand aucune recherche n'est active)
 - `%search_active%` - Indique si une recherche est active (`true`/`false`)
 
 **Opérateurs de recherche :**
@@ -528,6 +529,8 @@ search:
   type: ZAUCTIONHOUSE_SEARCH
   slot: 47
   is-permanent: true
+  # Valeur affichée dans %search_query% lorsqu'aucune recherche n'est active.
+  none-value: "Aucune"
   item:
     material: COMPASS
     name: "#2CCED2<bold>sᴇᴀʀᴄʜ"
