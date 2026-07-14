@@ -12,6 +12,20 @@ Starting from Minecraft 1.20.5, items use a new component system. zMenu provides
 Components require Minecraft 1.20.5 or higher. Some components are only available in newer versions, indicated by a badge next to each component name.
 :::
 
+:::tip Placeholders in components
+Component field values may contain placeholders. Any value that contains a `%` is resolved per viewer when the item is built (local placeholders first, then PlaceholderAPI). This works for colors, enums, numbers and strings — for example `dyed-color: "%my_color_placeholder%"`.
+:::
+
+:::tip Color formats
+Every color field (`dyed-color`, `map-color`, `firework-explosion` `colors`/`fade_colors`, `custom-model-data` `colors`, `potion-contents` `custom-color`, collar colors, ...) accepts all of these formats:
+
+- Hex string — `"#FFAA00"` (RRGGBB) or `"#80FFAA00"` (AARRGGBB)
+- Integer — `16755200` (RGB or ARGB, decimal)
+- Comma string — `"255,128,0"` or `"255,128,0,128"` (RGB[A], with or without spaces, values clamped 0–255)
+- List of floats — `[1.0, 0.5, 0.0]` (RGB[A], 0.0–1.0)
+- List of ints — `[255, 128, 0]` (RGB[A], 0–255)
+:::
+
 ## Basic Structure
 
 ```yaml
@@ -209,6 +223,46 @@ components:
       amount: 5
     - material: GOLD_INGOT
       amount: 20
+```
+
+---
+
+## can-break <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.20.5+</span>
+
+Restricts which blocks the item is allowed to break in Adventure mode.
+
+**Minecraft Wiki:** [can_break](https://minecraft.wiki/w/Data_component_format#can_break)
+
+| Key      | Type | Description                                              |
+|----------|------|----------------------------------------------------------|
+| `blocks` | List | Block types (or tags) the item may break (e.g. `minecraft:stone`) |
+
+```yaml
+components:
+  can-break:
+    blocks:
+      - minecraft:stone
+      - minecraft:dirt
+```
+
+---
+
+## can-place-on <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.20.5+</span>
+
+Restricts which blocks the item is allowed to be placed on in Adventure mode.
+
+**Minecraft Wiki:** [can_place_on](https://minecraft.wiki/w/Data_component_format#can_place_on)
+
+| Key      | Type | Description                                                |
+|----------|------|------------------------------------------------------------|
+| `blocks` | List | Block types (or tags) the item may be placed on (e.g. `minecraft:grass_block`) |
+
+```yaml
+components:
+  can-place-on:
+    blocks:
+      - minecraft:grass_block
+      - minecraft:stone
 ```
 
 ---
@@ -516,7 +570,7 @@ components:
 
 ---
 
-### custom_name <span class="badge badge--danger">Paper only</span>
+### custom-name <span class="badge badge--danger">Paper only</span>
 
 Sets the custom name of the item.
 
@@ -529,7 +583,7 @@ components:
 
 ---
 
-### intangible_projectile <span class="badge badge--danger">Paper only</span>
+### intangible-projectile <span class="badge badge--danger">Paper only</span>
 
 Makes projectiles fired from this item intangible (pass through blocks).
 
@@ -537,12 +591,12 @@ Makes projectiles fired from this item intangible (pass through blocks).
 
 ```yaml
 components:
-  intangible_projectile: true
+  intangible-projectile: true
 ```
 
 ---
 
-### map_decorations <span class="badge badge--danger">Paper only</span>
+### map-decorations <span class="badge badge--danger">Paper only</span>
 
 Adds map decorations to filled maps.
 
@@ -557,7 +611,7 @@ Adds map decorations to filled maps.
 
 ```yaml
 components:
-  map_decorations:
+  map-decorations:
     - type: red_marker
       x: 100
       z: -50
@@ -570,7 +624,7 @@ components:
 
 ---
 
-### note_block_sound <span class="badge badge--danger">Paper only</span>
+### note-block-sound <span class="badge badge--danger">Paper only</span>
 
 Sets the sound played when a note block item is placed.
 
@@ -578,12 +632,12 @@ Sets the sound played when a note block item is placed.
 
 ```yaml
 components:
-  note_block_sound: "minecraft:block.note_block.bell"
+  note-block-sound: "minecraft:block.note_block.bell"
 ```
 
 ---
 
-### pot_decorations <span class="badge badge--danger">Paper only</span>
+### pot-decorations <span class="badge badge--danger">Paper only</span>
 
 Adds decorations to decorated pots.
 Requires the item to be a pottery shard or brick. Each decoration is represented by a string ID corresponding to a specific pattern or design.
@@ -592,7 +646,7 @@ Requires the item to be a pottery shard or brick. Each decoration is represented
 
 ```yaml
 components:
-  pot_decorations:
+  pot-decorations:
     - "skull_pottery_sherd"
     - "heart_pottery_sherd"
     - "blade_pottery_sherd"
@@ -1441,7 +1495,7 @@ components:
 
 ---
 
-### death_protection <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.2+</span>
+### death-protection <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.2+</span>
 
 Configures death protection for items (similar to a Totem of Undying).
 
@@ -1453,7 +1507,7 @@ Configures death protection for items (similar to a Totem of Undying).
 
 ```yaml
 components:
-  death_protection:
+  death-protection:
     death_effects:
       - type: APPLY_EFFECTS
         probability: 1.0
@@ -1522,7 +1576,7 @@ components:
 
 ---
 
-### provides_banner_patterns <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.5+</span>
+### provides-banner-patterns <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.5+</span>
 
 Configures banner pattern providing behavior for items.
 
@@ -1530,12 +1584,12 @@ Configures banner pattern providing behavior for items.
 
 ```yaml
 components:
-  provides_banner_patterns: "minecraft:flower_banner_pattern"
+  provides-banner-patterns: "minecraft:flower_banner_pattern"
 ```
 
 ---
 
-### provides_trim_material <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.5+</span>
+### provides-trim-material <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">1.21.5+</span>
 
 Configures trim material providing behavior for items.
 
@@ -1543,7 +1597,7 @@ Configures trim material providing behavior for items.
 
 ```yaml
 components:
-  provides_trim_material: "minecraft:gold"
+  provides-trim-material: "minecraft:gold"
 ```
 
 ---
@@ -1818,29 +1872,42 @@ components:
 
 ---
 
-### tropical_fish/base_color
+### tropical-fish/base-color
 
 Configures tropical fish base color.
 
 ```yaml
 components:
-  tropical_fish/base_color: "ORANGE"
+  tropical-fish/base-color: "ORANGE"
 ```
 
 **Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
 
 ---
 
-### tropical_fish/pattern_color
+### tropical-fish/pattern-color
 
 Configures tropical fish pattern color.
 
 ```yaml
 components:
-  tropical_fish/pattern_color: "BLUE"
+  tropical-fish/pattern-color: "BLUE"
 ```
 
 **Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
+
+---
+
+### tropical-fish/pattern <span class="badge badge--danger">1.20.5+</span>
+
+Configures the tropical fish pattern.
+
+```yaml
+components:
+  tropical-fish/pattern: "SUNSTREAK"
+```
+
+**Available Patterns:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/TropicalFish.Pattern.html)
 
 ---
 
@@ -1880,6 +1947,19 @@ components:
 ```
 
 **Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
+
+---
+
+### wolf/sound-variant <span class="badge badge--danger">1.20.5+</span>
+
+Configures the wolf sound variant.
+
+```yaml
+components:
+  wolf/sound-variant: "classic"
+```
+
+**Available Sound Variants:** can be found [here](https://jd.papermc.io/paper/1.21.11/org/bukkit/entity/Wolf.SoundVariant.html).
 
 ---
 
