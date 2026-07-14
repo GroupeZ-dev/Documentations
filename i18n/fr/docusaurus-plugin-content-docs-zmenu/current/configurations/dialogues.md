@@ -1,20 +1,20 @@
 ---
 sidebar_position: 8
 title: Dialogues
-description: Create interactive dialog popups with forms, confirmations, and multi-action buttons
+description: Creer des popups de dialogue interactives avec des formulaires, des confirmations et des boutons multi-actions
 ---
 
 # Dialogues
 
-Dialogues are interactive popup windows that appear on screen, allowing players to interact with forms, confirmations, and action buttons. They provide a modern UI experience beyond traditional inventory menus.
+Les dialogues sont des fenetres popup interactives qui apparaissent a l'ecran, permettant aux joueurs d'interagir avec des formulaires, des confirmations et des boutons d'action. Ils offrent une experience d'interface moderne allant au-dela des menus d'inventaire traditionnels.
 
-:::warning Requirements
-Dialogues require **Paper 1.21.7+**.
+:::warning Prerequis
+Les dialogues necessitent **Paper 1.21.7+**.
 :::
 
-## File Location
+## Emplacement des fichiers
 
-Dialogues are stored in the `plugins/zMenu/dialogs/` folder. Each YAML file represents one dialogue.
+Les dialogues sont stockes dans le dossier `plugins/zMenu/dialogs/`. Chaque fichier YAML represente un dialogue.
 
 ```
 plugins/zMenu/dialogs/
@@ -24,18 +24,18 @@ plugins/zMenu/dialogs/
 └── feedback-form.yml
 ```
 
-## Dialog Types
+## Types de dialogues
 
-zMenu supports four dialog types:
+zMenu supporte quatre types de dialogues :
 
 | Type | Description |
 |------|-------------|
-| `notice` | Simple informational dialog with a body and optional inputs |
-| `confirmation` | Yes/No confirmation dialog |
-| `multi_action` | Multiple action buttons in a grid layout |
-| `server_links` | Display server links as clickable buttons |
+| `notice` | Dialogue informatif simple avec un corps et des saisies optionnelles |
+| `confirmation` | Dialogue de confirmation Oui/Non |
+| `multi_action` | Plusieurs boutons d'action disposes en grille |
+| `server_links` | Affiche les liens du serveur sous forme de boutons cliquables |
 
-## Basic Structure
+## Structure de base
 
 ```yaml
 name: "&6&lDialog Title"
@@ -47,17 +47,17 @@ pause: false
 after_action: CLOSE
 
 body:
-  # Body content sections...
+  # Sections du contenu du corps...
 
 inputs:
-  # Input fields...
+  # Champs de saisie...
 ```
 
-## Configuration Options
+## Options de configuration
 
 ### name
 
-The internal name of the dialog, displayed with color formatting.
+Le nom interne du dialogue, affiche avec la mise en forme des couleurs.
 
 ```yaml
 name: "&6&lWelcome Dialog"
@@ -65,7 +65,7 @@ name: "&6&lWelcome Dialog"
 
 ### external_title
 
-The window title shown in the dialog header.
+Le titre de la fenetre affiche dans l'en-tete du dialogue.
 
 ```yaml
 external_title: "Server Information"
@@ -73,7 +73,7 @@ external_title: "Server Information"
 
 ### type
 
-The dialog type. See [Dialog Types](#dialog-types) for details.
+Le type de dialogue. Voir [Types de dialogues](#types-de-dialogues) pour plus de details.
 
 ```yaml
 type: notice
@@ -81,7 +81,7 @@ type: notice
 
 ### can-close-with-escape
 
-Allow players to close the dialog by pressing Escape.
+Permet aux joueurs de fermer le dialogue en appuyant sur Echap.
 
 ```yaml
 can-close-with-escape: true
@@ -89,7 +89,7 @@ can-close-with-escape: true
 
 ### pause
 
-Pause the game while the dialog is open (singleplayer-like behavior).
+Met le jeu en pause pendant que le dialogue est ouvert (comportement de type solo).
 
 ```yaml
 pause: false
@@ -97,13 +97,13 @@ pause: false
 
 ### after_action
 
-What happens after an action is performed.
+Ce qui se passe apres qu'une action est effectuee.
 
-| Value | Description |
+| Valeur | Description |
 |-------|-------------|
-| `CLOSE` | Close the dialog |
-| `PAUSE` | Keep dialog open |
-| `NONE` | Do nothing |
+| `CLOSE` | Ferme le dialogue |
+| `PAUSE` | Garde le dialogue ouvert |
+| `NONE` | Ne fait rien |
 
 ```yaml
 after_action: CLOSE
@@ -111,13 +111,13 @@ after_action: CLOSE
 
 ---
 
-## Body Content
+## Contenu du corps
 
-The `body` section defines what content appears in the dialog. You can combine multiple content types.
+La section `body` definit le contenu qui apparait dans le dialogue. Vous pouvez combiner plusieurs types de contenu.
 
 ### plain_message
 
-Display text messages.
+Affiche des messages texte.
 
 ```yaml
 body:
@@ -133,7 +133,7 @@ body:
 
 ### item
 
-Display an item with optional tooltip.
+Affiche un item avec une infobulle optionnelle.
 
 ```yaml
 body:
@@ -152,13 +152,13 @@ body:
 
 ---
 
-## Input Fields
+## Champs de saisie
 
-Dialogues can include interactive input fields in the `inputs` section.
+Les dialogues peuvent inclure des champs de saisie interactifs dans la section `inputs`.
 
 ### dialog_text
 
-A text input field.
+Un champ de saisie de texte.
 
 ```yaml
 inputs:
@@ -171,18 +171,18 @@ inputs:
       max-lines: 4
 ```
 
-**Options:**
+**Options :**
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `label` | String | Label displayed above the input |
-| `width` | Integer | Width of the input field |
-| `max-length` | Integer | Maximum character count |
-| `multiline.max-lines` | Integer | Number of lines for multiline input |
+| `label` | String | Label affiche au-dessus de la saisie |
+| `width` | Integer | Largeur du champ de saisie |
+| `max-length` | Integer | Nombre maximum de caracteres |
+| `multiline.max-lines` | Integer | Nombre de lignes pour la saisie multiligne |
 
 ### dialog_boolean
 
-A Yes/No toggle.
+Un interrupteur Oui/Non.
 
 ```yaml
 inputs:
@@ -195,7 +195,7 @@ inputs:
 
 ### dialog_single_option
 
-A single selection from multiple options.
+Une selection unique parmi plusieurs options.
 
 ```yaml
 inputs:
@@ -216,7 +216,7 @@ inputs:
 
 ### dialog_number_range
 
-A numeric slider.
+Un curseur numerique.
 
 ```yaml
 inputs:
@@ -230,22 +230,22 @@ inputs:
 
 ---
 
-## Dynamic Buttons
+## Boutons dynamiques
 
-Dynamic buttons generate several body sections or inputs from a single template, repeated over a numeric range. They are useful when the number of elements depends on data (a placeholder) or when you would otherwise copy/paste the same block many times.
+Les boutons dynamiques generent plusieurs sections de corps ou saisies a partir d'un seul modele, repete sur une plage numerique. Ils sont utiles lorsque le nombre d'elements depend de donnees (un placeholder) ou lorsque vous devriez autrement copier/coller le meme bloc de nombreuses fois.
 
-Both dynamic types share these options:
+Les deux types dynamiques partagent ces options :
 
 | Option  | Type    | Description                                   |
 |---------|---------|-----------------------------------------------|
-| `start` | Integer | First index, inclusive. Placeholder-aware.    |
-| `end`   | Integer | Last index, inclusive. Placeholder-aware.     |
+| `start` | Integer | Premier index, inclus. Compatible placeholders. |
+| `end`   | Integer | Dernier index, inclus. Compatible placeholders.  |
 
-Inside the repeated template, the `%index%` placeholder is replaced with the current iteration number.
+A l'interieur du modele repete, le placeholder `%index%` est remplace par le numero de l'iteration en cours.
 
 ### dialog-dynamic-body-button
 
-Placed in the `body:` section. Repeats a `body:` element (e.g. `dialog_plain_message`, `dialog_item`).
+Place dans la section `body:`. Repete un element `body:` (par ex. `dialog_plain_message`, `dialog_item`).
 
 ```yaml
 body:
@@ -262,11 +262,11 @@ body:
 
 ### dialog-dynamic-input-button
 
-Placed in the `inputs:` section. Repeats an `input:` element (e.g. `dialog_text`, `dialog_boolean`). Each generated input is keyed `<button-name>_<index>`, so its submitted value is available as the placeholder `%<button-name>_<index>%`.
+Place dans la section `inputs:`. Repete un element `input:` (par ex. `dialog_text`, `dialog_boolean`). Chaque saisie generee a pour cle `<button-name>_<index>`, de sorte que sa valeur soumise est disponible via le placeholder `%<button-name>_<index>%`.
 
 ```yaml
 inputs:
-  # If the player types "Hello" in the first field, %my_input_1% will be "Hello"
+  # Si le joueur tape "Hello" dans le premier champ, %my_input_1% vaudra "Hello"
   my_input:
     type: dialog-dynamic-input-button
     start: 1
@@ -278,13 +278,13 @@ inputs:
       max-length: 50
 ```
 
-See the bundled `dialogs/dynamic-dialog-example.yml` for a complete example.
+Consultez le fichier `dialogs/dynamic-dialog-example.yml` fourni pour un exemple complet.
 
 ---
 
-## Notice Dialog
+## Dialogue Notice
 
-A simple informational dialog with optional inputs.
+Un dialogue informatif simple avec des saisies optionnelles.
 
 ```yaml
 name: "&6&lServer Rules"
@@ -316,9 +316,9 @@ inputs:
 
 ---
 
-## Confirmation Dialog
+## Dialogue Confirmation
 
-A dialog with Yes and No buttons.
+Un dialogue avec des boutons Oui et Non.
 
 ```yaml
 name: "&c&lConfirm Purchase"
@@ -364,22 +364,22 @@ no-actions:
           - "&7Purchase cancelled."
 ```
 
-### Confirmation Options
+### Options de confirmation
 
 | Option | Description |
 |--------|-------------|
-| `yes-text` | Text on the Yes button |
-| `yes-tooltip` | Tooltip when hovering Yes |
-| `yes-width` | Width of Yes button |
-| `no-text` | Text on the No button |
-| `no-tooltip` | Tooltip when hovering No |
-| `no-width` | Width of No button |
+| `yes-text` | Texte du bouton Oui |
+| `yes-tooltip` | Infobulle au survol du bouton Oui |
+| `yes-width` | Largeur du bouton Oui |
+| `no-text` | Texte du bouton Non |
+| `no-tooltip` | Infobulle au survol du bouton Non |
+| `no-width` | Largeur du bouton Non |
 
 ---
 
-## Multi-Action Dialog
+## Dialogue Multi-Action
 
-A dialog with multiple action buttons in a grid.
+Un dialogue avec plusieurs boutons d'action disposes en grille.
 
 ```yaml
 name: "&6&lTeleport Menu"
@@ -450,22 +450,22 @@ multi-actions:
               - "home"
 ```
 
-### Multi-Action Options
+### Options Multi-Action
 
 | Option | Description |
 |--------|-------------|
-| `number-of-columns` | Number of buttons per row |
-| `multi-actions` | Map of action buttons |
-| `text` | Button text |
-| `tooltip` | Button tooltip |
-| `width` | Button width |
-| `actions` | Actions executed on click |
+| `number-of-columns` | Nombre de boutons par ligne |
+| `multi-actions` | Map des boutons d'action |
+| `text` | Texte du bouton |
+| `tooltip` | Infobulle du bouton |
+| `width` | Largeur du bouton |
+| `actions` | Actions executees au clic |
 
 ---
 
-## Server Links Dialog
+## Dialogue Server Links
 
-Display server links as clickable buttons.
+Affiche les liens du serveur sous forme de boutons cliquables.
 
 ```yaml
 name: "&6&lServer Links"
@@ -490,30 +490,30 @@ server-links:
 
 ---
 
-## Action Button Options
+## Options des boutons d'action
 
-Action buttons — the Yes/No buttons of a `confirmation`, a `notice` button, each entry of a `multi_action`, and the `server_links` exit button — share a common set of options.
+Les boutons d'action — les boutons Oui/Non d'une `confirmation`, un bouton de `notice`, chaque entree d'un `multi_action`, et le bouton de sortie de `server_links` — partagent un ensemble commun d'options.
 
 ### type
 
-The kind of action performed when the button is clicked.
+Le type d'action effectuee lorsque le bouton est clique.
 
-| Value          | Description                                                                   |
+| Valeur          | Description                                                                   |
 |----------------|-------------------------------------------------------------------------------|
-| `custom-click` | *(default)* Runs the zMenu `actions:` defined on the button.                  |
-| `static`       | Runs a native client action (see `static-type` below), without a server round-trip. |
+| `custom-click` | *(par defaut)* Execute les `actions:` zMenu definies sur le bouton.           |
+| `static`       | Execute une action native du client (voir `static-type` ci-dessous), sans aller-retour serveur. |
 
 ### static-type
 
-Only used when `type: static`. The native client action to perform.
+Utilise uniquement lorsque `type: static`. L'action native du client a effectuer.
 
-| `static-type`       | Required field | Description                          |
+| `static-type`       | Champ requis | Description                          |
 |---------------------|----------------|--------------------------------------|
-| `OPEN_URL`          | `url`          | Open a URL in the player's browser   |
-| `OPEN_FILE`         | `file`         | Open a local file                    |
-| `RUN_COMMAND`       | `command`      | Run a command as the player          |
-| `SUGGEST_COMMAND`   | `command`      | Pre-fill the chat box with a command |
-| `COPY_TO_CLIPBOARD` | `text`         | Copy text to the clipboard           |
+| `OPEN_URL`          | `url`          | Ouvre une URL dans le navigateur du joueur |
+| `OPEN_FILE`         | `file`         | Ouvre un fichier local               |
+| `RUN_COMMAND`       | `command`      | Execute une commande en tant que joueur |
+| `SUGGEST_COMMAND`   | `command`      | Pre-remplit la zone de chat avec une commande |
+| `COPY_TO_CLIPBOARD` | `text`         | Copie du texte dans le presse-papiers |
 
 ```yaml
 multi-actions:
@@ -526,7 +526,7 @@ multi-actions:
 
 ### usage-limit
 
-Maximum number of times the button can be activated (default: unlimited).
+Nombre maximum de fois que le bouton peut etre active (par defaut : illimite).
 
 ```yaml
 usage-limit: 1
@@ -534,10 +534,10 @@ usage-limit: 1
 
 ### duration-limit
 
-A cooldown between activations. Either a plain number (seconds) or a section with a time unit:
+Un temps de recharge entre les activations. Soit un simple nombre (secondes), soit une section avec une unite de temps :
 
 ```yaml
-duration-limit: 5          # 5 seconds
+duration-limit: 5          # 5 secondes
 ```
 
 ```yaml
@@ -548,19 +548,19 @@ duration-limit:
 
 ### enable-placeholders
 
-Enable placeholder parsing for the button. Accepts a boolean, or a section to toggle it per key.
+Active l'interpretation des placeholders pour le bouton. Accepte un booleen, ou une section pour l'activer par cle.
 
-:::info Backward compatibility
-The nested form (`<key>.label`, `<key>.tooltip`, `<key>.width`, `<key>.actions`, `<key>.type`) is the new canonical layout, but the old flat keys (`yes-text`, `notice.text`, `multi-actions.<key>.text`, ...) still work, so existing dialog files do not need to be rewritten.
+:::info Compatibilite ascendante
+La forme imbriquee (`<key>.label`, `<key>.tooltip`, `<key>.width`, `<key>.actions`, `<key>.type`) est la nouvelle disposition canonique, mais les anciennes cles plates (`yes-text`, `notice.text`, `multi-actions.<key>.text`, ...) fonctionnent toujours, de sorte que les fichiers de dialogue existants n'ont pas besoin d'etre reecrits.
 :::
 
 ---
 
-## Opening Dialogs
+## Ouvrir des dialogues
 
-### From Button Actions
+### Depuis les actions de bouton
 
-Use the `dialog` action type in inventory buttons:
+Utilisez le type d'action `dialog` dans les boutons d'inventaire :
 
 ```yaml
 items:
@@ -574,9 +574,9 @@ items:
         dialog: "welcome"
 ```
 
-### With Arguments
+### Avec des arguments
 
-Pass arguments to the dialog:
+Passez des arguments au dialogue :
 
 ```yaml
 actions:
@@ -587,9 +587,9 @@ actions:
       - "500"
 ```
 
-### From External Plugin
+### Depuis un plugin externe
 
-Open a dialog from another plugin:
+Ouvrez un dialogue depuis un autre plugin :
 
 ```yaml
 actions:
@@ -600,9 +600,9 @@ actions:
 
 ---
 
-## Complete Examples
+## Exemples complets
 
-### Feedback Form
+### Formulaire de retour
 
 ```yaml
 name: "&6&lFeedback Form"
@@ -654,7 +654,7 @@ inputs:
     text-false: "&7No thanks"
 ```
 
-### Kit Selection
+### Selection de kit
 
 ```yaml
 name: "&6&lSelect Your Kit"
@@ -719,17 +719,17 @@ multi-actions:
 
 ---
 
-## Best Practices
+## Bonnes pratiques
 
-1. **Keep dialogs focused** - One purpose per dialog
-2. **Use clear labels** - Make inputs easy to understand
-3. **Provide tooltips** - Help players understand button actions
-4. **Test on target version** - Ensure Paper 1.21.4+ and PacketEvents are installed
-5. **Handle all outcomes** - Define actions for all possible choices
-6. **Use appropriate types** - Choose the right dialog type for your use case
+1. **Gardez les dialogues cibles** - Un seul objectif par dialogue
+2. **Utilisez des labels clairs** - Rendez les saisies faciles a comprendre
+3. **Fournissez des infobulles** - Aidez les joueurs a comprendre les actions des boutons
+4. **Testez sur la version cible** - Assurez-vous que Paper 1.21.4+ et PacketEvents sont installes
+5. **Gerez tous les cas** - Definissez des actions pour tous les choix possibles
+6. **Utilisez les types appropries** - Choisissez le bon type de dialogue pour votre cas d'usage
 
-## Next Steps
+## Prochaines etapes
 
-- Learn about [Actions](./buttons/actions) for dialog button behaviors
-- Configure [Requirements](./buttons/button#requirements) for conditional dialog access
-- See [Inventories](./inventories/inventory) for traditional menu alternatives
+- Decouvrez les [Actions](./buttons/actions) pour les comportements des boutons de dialogue
+- Configurez les [Exigences](./buttons/button#requirements) pour l'acces conditionnel aux dialogues
+- Consultez les [Inventaires](./inventories/inventory) pour les alternatives de menu traditionnelles

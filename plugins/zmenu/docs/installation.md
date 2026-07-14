@@ -14,12 +14,20 @@ Before installing zMenu, make sure your server meets the following requirements:
 
 | Requirement | Version |
 |-------------|---------|
-| Minecraft | 1.19 to 1.21+ |
+| Minecraft | 1.19 to 1.21+ (Paper 26+ supported) |
 | Java | **Java 21** (required) |
-| Server Software | Spigot, Paper, Purpur, Pufferfish, or Folia |
+| Server Software | **Paper**, Purpur, Pufferfish, or Folia |
+
+:::warning Paper is now required
+zMenu is a **Paper-only** plugin — it ships a `paper-plugin.yml` and **will not load on Spigot**. Run it on Paper, a Paper fork (Purpur / Pufferfish) or Folia.
+:::
 
 :::tip Recommended Setup
 For the best experience, we recommend using **Paper** or **Purpur**. This enables MiniMessage formatting support and provides better performance.
+:::
+
+:::info First start needs internet
+On first load zMenu downloads a few runtime libraries (the MariaDB driver and Reflections) through Paper's library loader. On a restricted network you can point it at a mirror with the `PAPER_DEFAULT_CENTRAL_REPOSITORY` environment variable or the `-Dorg.bukkit.plugin.java.LibraryLoader.centralURL` JVM flag.
 :::
 
 ## Download

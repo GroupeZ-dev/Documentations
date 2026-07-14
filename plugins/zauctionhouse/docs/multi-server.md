@@ -241,6 +241,14 @@ To verify the addon is working:
 - Check console for any error messages
 - Ensure all servers can connect to Redis
 
+### Duplicated or reappearing items
+
+If a sold item reappears in the seller's items, a purchased item is missing after switching servers, or an item becomes impossible to buy:
+
+- Make sure **every** server runs the **same up-to-date version** of both zAuctionHouse and the zAuctionHouse Redis addon. Older versions had cross-server synchronization bugs (ghost listings, missing purchased items, stale purchase locks) that are fixed in newer releases
+- The main plugin **and** the Redis addon must be updated together on all servers
+- Ensure all servers share the same MySQL/MariaDB database
+
 ### High latency
 
 - Consider using a Redis server in the same datacenter as your game servers

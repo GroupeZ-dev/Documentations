@@ -504,10 +504,11 @@ Opens a chat-based search input. When clicked, the player's inventory closes and
 | Property | Type | Description |
 |----------|------|-------------|
 | `slot` | Number | Button position |
+| `none-value` | String | Text shown in `%search_query%` when no search is active. Defaults to `None`; ships localized per language (FR `Aucune`, ES `Ninguna`, IT `Nessuna`, TH `ไม่มี`). |
 | `item` | Item | Button appearance |
 
 **Placeholders:**
-- `%search_query%` - Current search query (or "None" if no search active)
+- `%search_query%` - Current search query (or the configurable `none-value`, default `None` / localized, when no search is active)
 - `%search_active%` - Whether a search is active (`true`/`false`)
 
 **Search Operators:**
@@ -528,6 +529,8 @@ search:
   type: ZAUCTIONHOUSE_SEARCH
   slot: 47
   is-permanent: true
+  # Value shown in %search_query% when no search is active.
+  none-value: "None"
   item:
     material: COMPASS
     name: "#2CCED2<bold>sᴇᴀʀᴄʜ"

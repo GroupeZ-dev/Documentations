@@ -12,6 +12,20 @@ A partir de Minecraft 1.20.5, les items utilisent un nouveau systeme de composan
 Les composants necessitent Minecraft 1.20.5 ou superieur. Certains composants ne sont disponibles que dans les versions plus recentes, indiques par un badge a cote du nom de chaque composant.
 :::
 
+:::tip Placeholders dans les composants
+Les valeurs des champs de composant peuvent contenir des placeholders. Toute valeur qui contient un `%` est resolue par joueur lors de la construction de l'item (placeholders locaux d'abord, puis PlaceholderAPI). Cela fonctionne pour les couleurs, les enums, les nombres et les chaines — par exemple `dyed-color: "%my_color_placeholder%"`.
+:::
+
+:::tip Formats de couleur
+Chaque champ de couleur (`dyed-color`, `map-color`, `firework-explosion` `colors`/`fade_colors`, `custom-model-data` `colors`, `potion-contents` `custom-color`, couleurs de collier, ...) accepte tous ces formats:
+
+- Chaine hex — `"#FFAA00"` (RRGGBB) ou `"#80FFAA00"` (AARRGGBB)
+- Entier — `16755200` (RGB ou ARGB, decimal)
+- Chaine avec virgules — `"255,128,0"` ou `"255,128,0,128"` (RGB[A], avec ou sans espaces, valeurs limitees a 0–255)
+- Liste de flottants — `[1.0, 0.5, 0.0]` (RGB[A], 0.0–1.0)
+- Liste d'entiers — `[255, 128, 0]` (RGB[A], 0–255)
+:::
+
 ## Structure de base
 
 ```yaml
@@ -222,6 +236,46 @@ components:
       amount: 5
     - material: GOLD_INGOT
       amount: 20
+```
+
+---
+
+## can-break <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">1.20.5+</span>
+
+Restreint les blocs que l'item est autorise a casser en mode Aventure.
+
+**Minecraft Wiki:** [can_break](https://minecraft.wiki/w/Data_component_format#can_break)
+
+| Cle | Type | Description |
+|-----|------|-------------|
+| `blocks` | List | Types de blocs (ou tags) que l'item peut casser (ex: `minecraft:stone`) |
+
+```yaml
+components:
+  can-break:
+    blocks:
+      - minecraft:stone
+      - minecraft:dirt
+```
+
+---
+
+## can-place-on <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">1.20.5+</span>
+
+Restreint les blocs sur lesquels l'item est autorise a etre place en mode Aventure.
+
+**Minecraft Wiki:** [can_place_on](https://minecraft.wiki/w/Data_component_format#can_place_on)
+
+| Cle | Type | Description |
+|-----|------|-------------|
+| `blocks` | List | Types de blocs (ou tags) sur lesquels l'item peut etre place (ex: `minecraft:grass_block`) |
+
+```yaml
+components:
+  can-place-on:
+    blocks:
+      - minecraft:grass_block
+      - minecraft:stone
 ```
 
 ---
@@ -1337,6 +1391,32 @@ components:
       - raw: "Chapitre 2\n\nLa silhouette mysterieuse apparut..."
       - raw: "Fin"
 ```
+
+---
+
+### tropical-fish/pattern <span class="badge badge--danger">1.20.5+</span>
+
+Configure le motif du poisson tropical.
+
+```yaml
+components:
+  tropical-fish/pattern: "SUNSTREAK"
+```
+
+**Motifs disponibles:** voir [ici](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/TropicalFish.Pattern.html)
+
+---
+
+### wolf/sound-variant <span class="badge badge--danger">1.20.5+</span>
+
+Configure la variante de son du loup.
+
+```yaml
+components:
+  wolf/sound-variant: "classic"
+```
+
+**Variantes de son disponibles:** voir [ici](https://jd.papermc.io/paper/1.21.11/org/bukkit/entity/Wolf.SoundVariant.html).
 
 ---
 

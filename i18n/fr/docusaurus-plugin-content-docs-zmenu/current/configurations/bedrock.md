@@ -220,7 +220,7 @@ Un label texte en lecture seule. Ne produit aucune valeur.
 
 #### bedrock_text
 
-Un champ de saisie de texte libre.
+Un champ de saisie de texte libre. Accepte egalement l'alias `bedrock_text_input`.
 
 | Option | Type | Requis | Description |
 |--------|------|--------|-------------|
@@ -278,6 +278,73 @@ Dans un formulaire custom, chaque valeur de saisie est disponible comme placehol
 ### Actions du formulaire custom
 
 Contrairement aux formulaires simple et modal ou chaque bouton a son propre `click-requirement`, les formulaires custom utilisent une section `actions` partagee au niveau racine. Ces actions sont executees quand le joueur soumet le formulaire, avec toutes les valeurs de saisie disponibles comme placeholders.
+
+---
+
+## Boutons dynamiques
+
+Les boutons dynamiques generent plusieurs saisies ou boutons a partir d'un seul modele, repete sur une plage numerique — pratique quand le nombre depend de donnees ou devrait autrement etre copie/colle.
+
+Les deux types dynamiques partagent ces options :
+
+| Option  | Type    | Description                                |
+|---------|---------|--------------------------------------------|
+| `start` | Integer | Premier index, inclus. Compatible placeholders. |
+| `end`   | Integer | Dernier index, inclus. Compatible placeholders.  |
+
+A l'interieur du modele repete, le placeholder `%index%` est remplace par le numero d'iteration courant.
+
+### bedrock-dynamic-input-button
+
+Pour les formulaires **custom**. Repete un element `input:` (`bedrock_label`, `bedrock_text`, `bedrock_toggle`, `bedrock_slider`, `bedrock_dropdown`). La valeur de chaque saisie generee est disponible via le placeholder `%<button-name>_<index>%`.
+
+```yaml
+type: custom
+name: "&6Dynamic Bedrock Example"
+
+buttons:
+  # If the player types "Value A" in the first box, %dynamic_input_1% will be "Value A"
+  dynamic_input:
+    type: bedrock-dynamic-input-button
+    start: 1
+    end: 2
+    input:
+      type: bedrock_text
+      text: "&6Enter your name #%index%:"
+
+actions:
+  1:
+    success:
+      - type: message
+        messages:
+          - "&eInput 1: &f%dynamic_input_1%"
+          - "&eInput 2: &f%dynamic_input_2%"
+```
+
+### bedrock-dynamic-button
+
+Pour les formulaires **simple**. Repete un `button:` cliquable (`bedrock_modal_button`), chacun avec ses propres actions.
+
+```yaml
+type: simple
+name: "&6Dynamic Bedrock Simple Example"
+content: "&7Each button shows its unique index."
+
+buttons:
+  dynamic_buttons:
+    type: bedrock-dynamic-button
+    start: 1
+    end: 5
+    button:
+      type: bedrock_modal_button
+      text: "&bClick Me! &e(Button #%index%)"
+      actions:
+        - type: MESSAGE
+          messages:
+            - "&aYou clicked dynamic button &6#%index%&a!"
+```
+
+Consultez les fichiers `bedrock/dynamic-bedrock-example.yml` et `bedrock/dynamic-simple-bedrock-example.yml` fournis pour des exemples complets.
 
 ---
 

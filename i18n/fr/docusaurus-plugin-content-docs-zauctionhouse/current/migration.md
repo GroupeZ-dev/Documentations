@@ -135,6 +135,62 @@ Contrairement à la migration V3, la migration ZelAuction ne nécessite aucune c
 5. Vérifiez les données en consultant `/ah` et les panneaux admin
 6. Une fois vérifié, vous pouvez supprimer ZelAuction
 
+### DonutAuction
+
+Migrer de DonutAuction (par EliVB) vers zAuctionHouse V4.
+
+**Alias de source :** `donutauction`, `donut`, `donutsmp`, `da`
+
+```bash
+/ah admin migrate donutauction confirm
+# ou en utilisant les alias
+/ah admin migrate donut confirm
+```
+
+#### Données Migrées
+
+| Type de Données | Description |
+|-----------------|-------------|
+| **Annonces Actives** | Enchères non expirées, importées comme objets en vente |
+| **Enchères Expirées** | Enchères dépassées, importées comme objets expirés récupérables |
+| **Données Joueur** | Vendeurs (UUID et nom) dérivés des enchères |
+
+#### Comment Ça Fonctionne
+
+DonutAuction stocke tout dans un seul fichier YAML Bukkit à `plugins/DonutAuction/ah.data`, donc aucune configuration de base de données n'est nécessaire - le migrateur lit ce fichier directement.
+
+1. Le migrateur lit `plugins/DonutAuction/ah.data` et analyse ses entrées d'enchères
+2. Chaque vendeur est inséré/mis à jour dans la table des joueurs V4 (clé étrangère requise) avant ses objets
+3. Les enchères dont l'expiration est encore future sont importées comme objets **en vente**
+4. Les enchères déjà expirées sont importées comme objets **expirés** pour que le vendeur puisse les récupérer
+5. Les données des objets (ItemStacks Bukkit en Base64 de DonutAuction) sont converties au format V4 via une liste blanche de classes renforcée qui protège contre les fichiers de données malveillants
+6. Tous les objets importés utilisent l'économie `vault` (DonutAuction ne supporte que Vault)
+
+:::info Aucune Configuration Nécessaire
+Comme la migration ZelAuction, la migration DonutAuction ne nécessite aucune configuration dans `config.yml`. Le migrateur lit tout depuis `plugins/DonutAuction/ah.data`.
+:::
+
+:::note Ce Qui N'est Pas Migré
+Les `pendingPayments` (argent de vente non réclamé, pas des objets) et les achats déjà livrés sont volontairement ignorés - DonutAuction livre les objets achetés directement dans l'inventaire de l'acheteur, il n'y a donc rien à importer pour ceux-ci.
+:::
+
+#### Prérequis
+
+- Le dossier `plugins/DonutAuction/` doit exister avec le fichier `ah.data`
+- zAuctionHouse V4 doit être correctement configuré avec son propre stockage
+
+#### Étapes de Migration
+
+1. Assurez-vous que `plugins/DonutAuction/ah.data` est présent sur votre serveur
+2. Démarrez le serveur avec zAuctionHouse V4 installé
+3. Exécutez la commande de migration :
+   ```bash
+   /ah admin migrate donutauction confirm
+   ```
+4. Attendez que la migration se termine (la console affichera la progression)
+5. Vérifiez les données en consultant `/ah` et les panneaux admin
+6. Une fois vérifié, vous pouvez supprimer DonutAuction
+
 ## Conseils de Migration
 
 ### Grandes Bases de Données

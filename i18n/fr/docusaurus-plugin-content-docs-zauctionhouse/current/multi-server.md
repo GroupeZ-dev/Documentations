@@ -241,6 +241,14 @@ Pour vérifier que l'addon fonctionne :
 - Consultez la console pour les messages d'erreur
 - Assurez-vous que tous les serveurs peuvent se connecter à Redis
 
+### Objets dupliqués ou qui réapparaissent
+
+Si un objet vendu réapparaît dans les objets du vendeur, si un objet acheté est manquant après un changement de serveur, ou si un objet devient impossible à acheter :
+
+- Assurez-vous que **chaque** serveur utilise la **même version à jour** de zAuctionHouse et de l'addon zAuctionHouse Redis. Les anciennes versions présentaient des bugs de synchronisation inter-serveurs (annonces fantômes, objets achetés manquants, verrous d'achat bloqués) corrigés dans les versions récentes
+- Le plugin principal **et** l'addon Redis doivent être mis à jour ensemble sur tous les serveurs
+- Assurez-vous que tous les serveurs partagent la même base de données MySQL/MariaDB
+
 ### Haute latence
 
 - Envisagez d'utiliser un serveur Redis dans le même datacenter que vos serveurs de jeu
