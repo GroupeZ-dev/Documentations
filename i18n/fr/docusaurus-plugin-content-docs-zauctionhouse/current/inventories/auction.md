@@ -157,6 +157,10 @@ items:
     is-permanent: true
     # Valeur affichée dans %search_query% lorsqu'aucune recherche n'est active.
     none-value: "Aucune"
+    # Valeur affichée dans %search_active% lorsqu'une recherche est active.
+    active-value: "true"
+    # Valeur affichée dans %search_active% lorsqu'aucune recherche n'est active.
+    inactive-value: "false"
     item:
       material: COMPASS
       name: "#2CCED2<bold>sᴇᴀʀᴄʜ"
