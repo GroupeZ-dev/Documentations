@@ -29,6 +29,8 @@ const sidebars = {
           items: [
             'configurations/items/item',
             'configurations/items/components',
+            'configurations/items/custom-items',
+            'configurations/items/mechanics',
           ],
         },
         {

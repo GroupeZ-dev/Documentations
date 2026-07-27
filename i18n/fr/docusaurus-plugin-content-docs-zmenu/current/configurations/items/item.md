@@ -628,5 +628,6 @@ item:
 ## Prochaines etapes
 
 - Apprenez a utiliser les items dans les [Boutons](../buttons/button)
+- Definissez des items autonomes que les joueurs peuvent tenir avec [Items personnalises](./custom-items)
 - Ajoutez des [Actions](../buttons/actions) pour rendre les items interactifs
 - Creez des [Patterns](../patterns) pour des modeles d'items reutilisables
