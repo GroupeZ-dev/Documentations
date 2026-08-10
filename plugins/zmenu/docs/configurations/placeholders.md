@@ -130,6 +130,76 @@ name: "&6%server-name%" # Replacing directly when zMenu load the inventory
 | `%zmenu_time_next_day_unix_timestamp%`    | Tomorrow's Unix timestamp (in seconds)   | `1704153600`   |
 | `%zmenu_time_today_start_unix_timestamp%` | Start of today timestamp (in seconds)    | `1704067200`   |
 
+### Item Inspection Placeholders
+
+Inspect properties of any item in the menu or the player's inventory.
+
+**Syntax:** `%zmenu_item_<source>:<slot>_<property>%`
+
+**Sources:**
+
+| Source | Description |
+|--------|-------------|
+| `inventory` | A slot in the currently open zMenu inventory |
+| `player` | A slot in the player's inventory (0–35) |
+| `armor` | A player's armor slot (`helmet`, `chestplate`, `leggings`, `boots`) |
+
+**Available properties:**
+
+| Property | Description |
+|----------|-------------|
+| `is_player_item` | `true` if the item was placed there by the player |
+| `is_zmenu_item` | `true` if the item belongs to the zMenu interface |
+| `material` | Material name (e.g. `DIAMOND`) |
+| `amount` | Stack size |
+| `dura` | Current durability |
+| `max_dura` | Maximum durability |
+| `name` | Display name |
+| `lore` | Full lore (joined) |
+| `custommodeldata` | Custom model data value |
+| `enchantments` | Comma-separated list of enchantments |
+| `flags` | Comma-separated item flags |
+| `unbreakable` | `true` if unbreakable |
+| `potion_type` | Potion type name |
+| `potion_extended` | `true` if extended |
+| `potion_upgraded` | `true` if upgraded |
+| `custom_potion_effects` | Custom potion effect list |
+| `banner_patterns` | Banner pattern list |
+| `firework_power` | Firework power |
+| `firework_effects` | Firework effect list |
+| `skull_owner` | Player head owner name |
+| `leather_color` | Leather armour dye colour |
+| `book_title` | Book title |
+| `book_author` | Book author |
+| `book_pages` | Book page count |
+| `stored_enchantments` | Enchantments stored in a book |
+| `armor_trim` | Armour trim material/pattern |
+
+**Examples:**
+```yaml
+lore:
+  - "&7Slot 13 material: %zmenu_item_inventory:13_material%"
+  - "&7Helmet: %zmenu_item_armor:helmet_material%"
+  - "&7Player slot 0 amount: %zmenu_item_player:0_amount%"
+
+# Check if a drag slot has the right item
+click-requirement:
+  check:
+    clicks:
+      - ALL
+    requirements:
+      - type: placeholder
+        placeholder: "%zmenu_item_inventory:13_material%"
+        action: EQUALS_STRING
+        value: "DIAMOND"
+        deny:
+          - type: message
+            messages:
+              - "&cPlace a diamond in the slot!"
+```
+
+---
+
 ### Player Inventory Placeholders
 
 These placeholders are especially useful when the bottom inventory is hidden with `clear-inventory: true`, allowing you to check inventory space before giving items (e.g., in shop menus).

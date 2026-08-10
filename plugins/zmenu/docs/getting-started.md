@@ -101,11 +101,14 @@ This creates a simple 27-slot inventory with a diamond in the center that sends 
 ## Supported Minecraft Versions
 
 zMenu supports Minecraft versions **1.19 to 1.21+** and works with:
-- Spigot
-- Paper (recommended)
+- Paper (required)
 - Purpur
 - Pufferfish
 - Folia
+
+:::warning Paper Required
+As of version **1.1.1.6**, zMenu is **Paper-only**. The Spigot `plugin.yml` has been removed in favour of `paper-plugin.yml`. zMenu no longer runs on Spigot — you must use Paper or a Paper fork (Purpur, Pufferfish) or Folia.
+:::
 
 ## Next Steps
 

@@ -74,6 +74,21 @@ The title displayed at the top of the inventory.
 
 **Aliases:** `name` and `title` are interchangeable. You can use either one to define the inventory title.
 
+**Per-language translations:**
+
+Use `translated-name` (or `translatedName`) to supply a different title for each client locale. Falls back to `name` when no matching locale is found.
+
+```yaml
+name: "&6My Inventory"
+translated-name:
+  - locale: fr-fr
+    name: "&6Mon Inventaire"
+  - locale: it-it
+    name: "&6Il Mio Inventario"
+  - locale: de-de
+    name: "&6Mein Inventar"
+```
+
 **Features:**
 - Supports color codes (`&6`, `&#FF5500`)
 - Supports MiniMessage (if enabled)

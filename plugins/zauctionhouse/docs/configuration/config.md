@@ -236,6 +236,17 @@ number-sell-multiplication:
 - `/ah sell 2.5M` = 2,500,000
 - `/ah sell 1B` = 1,000,000,000
 
+## Decimal Prices
+
+Control whether players can list items for a price that contains decimals (e.g. `10.5`):
+
+```yaml
+# Set to false to force whole-number prices only.
+allow-decimal-prices: true
+```
+
+When set to `false`, any listing whose final price has a fractional part is rejected on every sell path (the `/ah sell` command and the sell inventory), and the player is shown the `price-decimal-not-allowed` message. Price shortcuts that resolve to a whole number are still allowed (e.g. `2.5K` = `2500`). Default: `true`.
+
 ## Expiration Settings
 
 All times are in **seconds**.

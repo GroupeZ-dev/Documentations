@@ -505,11 +505,13 @@ Ouvre une saisie de recherche par chat. Lorsque le joueur clique, son inventaire
 |-----------|------|-------------|
 | `slot` | Nombre | Position du bouton |
 | `none-value` | Texte | Texte affiché dans `%search_query%` quand aucune recherche n'est active. Par défaut `None` ; traduit selon la langue (FR `Aucune`, ES `Ninguna`, IT `Nessuna`, TH `ไม่มี`). |
+| `active-value` | Texte | Texte affiché dans `%search_active%` quand une recherche **est** active. Par défaut `true`. |
+| `inactive-value` | Texte | Texte affiché dans `%search_active%` quand aucune recherche n'est active. Par défaut `false`. |
 | `item` | Item | Apparence du bouton |
 
 **Placeholders :**
 - `%search_query%` - Requête de recherche actuelle (ou la valeur `none-value` configurable, par défaut `None` / traduite, quand aucune recherche n'est active)
-- `%search_active%` - Indique si une recherche est active (`true`/`false`)
+- `%search_active%` - Indique si une recherche est active (les valeurs `active-value` / `inactive-value` configurables, par défaut `true` / `false`)
 
 **Opérateurs de recherche :**
 
@@ -531,6 +533,10 @@ search:
   is-permanent: true
   # Valeur affichée dans %search_query% lorsqu'aucune recherche n'est active.
   none-value: "Aucune"
+  # Valeur affichée dans %search_active% lorsqu'une recherche est active.
+  active-value: "true"
+  # Valeur affichée dans %search_active% lorsqu'aucune recherche n'est active.
+  inactive-value: "false"
   item:
     material: COMPASS
     name: "#2CCED2<bold>sᴇᴀʀᴄʜ"

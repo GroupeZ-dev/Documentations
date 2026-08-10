@@ -23,21 +23,24 @@ The main command is `/zm` (alias: `/zmenu`).
 | `/zm`                                                      | `zmenu.use`           | Display the help menu                      |
 | `/zm version`                                              | `zmenu.version`       | Display plugin version information         |
 | `/zm list`                                                 | `zmenu.list`          | List all loaded inventories                |
+| `/zm inventories`                                          | `zmenu.inventories`   | List all loaded inventories (alias)        |
 | `/zm documentation`                                        | `zmenu.documentation` | View documentation links                   |
+| `/zm description`                                          | `zmenu.description`   | Display plugin description                 |
 | `/zm addons`                                               | `zmenu.addons`        | List official addons                       |
 | `/zm contributors`                                         | `zmenu.contributors`  | Show plugin contributors                   |
+| `/zm website`                                              | `zmenu.website`       | Open the plugin website link               |
 | `/zm create <file name> <inventory size> <inventory name>` | `zmenu.create`        | Create a new inventory file                |
 | `/zm editor`                                               | `zmenu.editor`        | Send a link to the online inventory editor |
 
 
 ### Inventory Commands
 
-| Command                                           | Permission   | Description                              |
-|---------------------------------------------------|--------------|------------------------------------------|
-| `/zm open <inventory>`                            | `zmenu.open` | Open an inventory for yourself           |
-| `/zm open <inventory> <player>`                   | `zmenu.open` | Open an inventory for another player     |
-| `/zm open <inventory> <player> <args...>`         | `zmenu.open` | Open inventory with arguments            |
-| `/zm openMainMenu [<player>] [<display message>]` | `zmenu.open` | Open the main menu with optional message |
+| Command                                           | Permission              | Description                              |
+|---------------------------------------------------|-------------------------|------------------------------------------|
+| `/zm open <inventory>`                            | `zmenu.open`            | Open an inventory for yourself           |
+| `/zm open <inventory> <player>`                   | `zmenu.open`            | Open an inventory for another player     |
+| `/zm open <inventory> <player> <args...>`         | `zmenu.open`            | Open inventory with arguments            |
+| `/zm openMainMenu [<player>] [<display message>]` | `zmenu.open.main.menu`  | Open the main menu with optional message |
 
 **Examples:**
 ```
@@ -48,14 +51,15 @@ The main command is `/zm` (alias: `/zmenu`).
 
 ### Reload Commands
 
-| Command                       | Permission     | Description                         |
-|-------------------------------|----------------|-------------------------------------|
-| `/zm reload`                  | `zmenu.reload` | Reload all configurations           |
-| `/zm reload config`           | `zmenu.reload` | Reload config.yml and messages only |
-| `/zm reload inventory`        | `zmenu.reload` | Reload all inventories              |
-| `/zm reload inventory <name>` | `zmenu.reload` | Reload a specific inventory         |
-| `/zm reload command`          | `zmenu.reload` | Reload all commands                 |
-| `/zm reload command <name>`   | `zmenu.reload` | Reload a specific command           |
+| Command                       | Permission              | Description                         |
+|-------------------------------|-------------------------|-------------------------------------|
+| `/zm reload`                  | `zmenu.reload`          | Reload all configurations           |
+| `/zm reload config`           | `zmenu.reload`          | Reload config.yml and messages only |
+| `/zm reload inventory`        | `zmenu.reload`          | Reload all inventories              |
+| `/zm reload inventory <name>` | `zmenu.reload`          | Reload a specific inventory         |
+| `/zm reload command`          | `zmenu.reload`          | Reload all commands                 |
+| `/zm reload command <name>`   | `zmenu.reload`          | Reload a specific command           |
+| `/zm reload dialog`           | `zmenu.reload.dialog`   | Reload all dialog files             |
 
 **Examples:**
 ```
@@ -74,30 +78,36 @@ The main command is `/zm` (alias: `/zmenu`).
 
 ### Player Data Commands
 
-| Command                                  | Permission      | Description                 |
-|------------------------------------------|-----------------|-----------------------------|
-| `/zm players add <player> <key> <value>` | `zmenu.players` | Add value to player data    |
-| `/zm players set <player> <key> <value>` | `zmenu.players` | Set player data value       |
-| `/zm players get <player> <key>`         | `zmenu.players` | Get player data value       |
-| `/zm players remove <player> <key>`      | `zmenu.players` | Remove player data key      |
-| `/zm players removeall <key>`            | `zmenu.players` | Remove key from all players |
-| `/zm players keys <player>`              | `zmenu.players` | List all keys for a player  |
-| `/zm players convert`                    | `zmenu.players` | Convert JSON data to SQL    |
+| Command                                        | Permission                    | Description                            |
+|------------------------------------------------|-------------------------------|----------------------------------------|
+| `/zm players add <player> <key> <value>`       | `zmenu.players.add`           | Add a number to a player data value    |
+| `/zm players set <player> <key> <value>`       | `zmenu.players.set`           | Set a player data value                |
+| `/zm players get <player> <key>`               | `zmenu.players.get`           | Get a player data value                |
+| `/zm players subtract <player> <key> <number>` | `zmenu.players.subtract`      | Subtract a number from a player data value |
+| `/zm players remove <player> <key>`            | `zmenu.players.remove`        | Remove a player data key               |
+| `/zm players removeall <key>`                  | `zmenu.players.remove.all`    | Remove key from all players            |
+| `/zm players clearplayer <player>`             | `zmenu.players.clear.player`  | Clear all data for one player          |
+| `/zm players clearall`                         | `zmenu.players.clear.all`     | Clear all data for all players         |
+| `/zm players keys <player>`                    | `zmenu.players.keys`          | List all keys for a player             |
+| `/zm players convert`                          | `zmenu.players.convert`       | Convert JSON data to SQL               |
 
 **Examples:**
 ```
 /zm players set Notch coins 100
 /zm players add Notch coins 50
+/zm players subtract Notch coins 10
 /zm players get Notch coins
 /zm players keys Notch
+/zm players clearplayer Notch
 ```
 
 ### Dialog Commands
 
-| Command                             | Permission     | Description                |
-|-------------------------------------|----------------|----------------------------|
-| `/zm dialog open <dialog>`          | `zmenu.dialog` | Open a dialog for yourself |
-| `/zm dialog open <dialog> <player>` | `zmenu.dialog` | Open a dialog for a player |
+| Command                                        | Permission                  | Description                              |
+|------------------------------------------------|-----------------------------|------------------------------------------|
+| `/zm dialog open <dialog>`                     | `zmenu.dialog`              | Open a dialog for yourself               |
+| `/zm dialog open <dialog> <player>`            | `zmenu.dialog`              | Open a dialog for a player               |
+| `/zm dialog open config <dialog>`              | `zmenu.open.dialog.config`  | Open a dialog in config/debug mode       |
 
 ### Bedrock Commands
 
@@ -105,6 +115,27 @@ The main command is `/zm` (alias: `/zmenu`).
 |-------------------------------------------------------------|------------------------|--------------------------------|
 | `/zm bedrock open <name> [player] [display message]`        | `zmenu.open.bedrock`   | Open a Bedrock form            |
 | `/zm bedrock reload`                                        | `zmenu.reload.bedrock` | Reload all Bedrock form files  |
+
+### Live Sync Commands
+
+These commands connect your server to the [Minecraft Inventory Builder](https://minecraft-inventory-builder.com) website for instant hot-reload of inventories.
+
+| Command              | Permission           | Description                                                  |
+|----------------------|----------------------|--------------------------------------------------------------|
+| `/zm login`          | `zmenu.login`        | Start device-authorization flow to link server to the website |
+| `/zm login <token>`  | `zmenu.login`        | Link server using a token (legacy)                           |
+| `/zm connect`        | `zmenu.connect`      | Open the live sync WebSocket connection                      |
+| `/zm disconnect`     | `zmenu.disconnect`   | Close the live sync connection                               |
+| `/zm unlink`         | `zmenu.unlink`       | Force-detach server from the website and clear credentials   |
+| `/zm download <url> [force]` | `zmenu.download` | Download an inventory from a URL (requires `enable-download-command: true` in config) |
+
+**Live sync workflow:**
+```
+/zm login          # Approve the code shown on the website
+/zm connect        # Open the WebSocket link
+# Now "Sync to Server" on the web builder reloads inventory live
+/zm disconnect     # Close the connection when done
+```
 
 ### Utility Commands
 
@@ -118,14 +149,19 @@ The main command is `/zm` (alias: `/zmenu`).
 
 ### Core Permissions
 
-| Permission          | Description                        | Default |
-|---------------------|------------------------------------|---------|
-| `zmenu.use`         | Access to basic commands           | true    |
-| `zmenu.open`        | Open inventories                   | op      |
-| `zmenu.open.bypass` | Bypass inventory open requirements | op      |
-| `zmenu.reload`      | Reload configurations              | op      |
-| `zmenu.create`      | Create new inventories             | op      |
-| `zmenu.editor`      | Access inventory editor            | op      |
+| Permission              | Description                        | Default |
+|-------------------------|------------------------------------|---------|
+| `zmenu.use`             | Access to basic commands           | true    |
+| `zmenu.open`            | Open inventories                   | op      |
+| `zmenu.open.main.menu`  | Open the main menu                 | op      |
+| `zmenu.open.bypass`     | Bypass inventory open requirements | op      |
+| `zmenu.reload`          | Reload configurations              | op      |
+| `zmenu.reload.dialog`   | Reload dialog files                | op      |
+| `zmenu.create`          | Create new inventories             | op      |
+| `zmenu.editor`          | Access inventory editor            | op      |
+| `zmenu.inventories`     | List all loaded inventories        | op      |
+| `zmenu.description`     | View plugin description            | op      |
+| `zmenu.website`         | Open the plugin website link       | op      |
 
 ### Item Permissions
 
@@ -137,9 +173,44 @@ The main command is `/zm` (alias: `/zmenu`).
 
 ### Player Data Permissions
 
-| Permission      | Description        | Default |
-|-----------------|--------------------|---------|
-| `zmenu.players` | Manage player data | op      |
+Each player data sub-command has its own permission node (split in 1.1.1.6):
+
+| Permission                   | Description                        | Default |
+|------------------------------|------------------------------------|---------|
+| `zmenu.players.add`          | Add to player data value           | op      |
+| `zmenu.players.set`          | Set player data value              | op      |
+| `zmenu.players.get`          | Get player data value              | op      |
+| `zmenu.players.subtract`     | Subtract from player data value    | op      |
+| `zmenu.players.remove`       | Remove a player data key           | op      |
+| `zmenu.players.remove.all`   | Remove a key from all players      | op      |
+| `zmenu.players.clear.player` | Clear all data for one player      | op      |
+| `zmenu.players.clear.all`    | Clear all data for all players     | op      |
+| `zmenu.players.keys`         | List all keys for a player         | op      |
+| `zmenu.players.convert`      | Convert JSON data to SQL           | op      |
+
+### Dialog Permissions
+
+| Permission                  | Description                              | Default |
+|-----------------------------|------------------------------------------|---------|
+| `zmenu.dialog`              | Open dialogs                             | op      |
+| `zmenu.open.dialog.config`  | Open dialog in config/debug mode         | op      |
+
+### Bedrock Permissions
+
+| Permission              | Description               | Default |
+|-------------------------|---------------------------|---------|
+| `zmenu.open.bedrock`    | Open Bedrock forms        | op      |
+| `zmenu.reload.bedrock`  | Reload Bedrock form files | op      |
+
+### Live Sync Permissions
+
+| Permission          | Description                                  | Default |
+|---------------------|----------------------------------------------|---------|
+| `zmenu.login`       | Link server to the Inventory Builder website | op      |
+| `zmenu.connect`     | Open live sync WebSocket connection          | op      |
+| `zmenu.disconnect`  | Close live sync connection                   | op      |
+| `zmenu.unlink`      | Force-detach server from website             | op      |
+| `zmenu.download`    | Download inventory from a URL                | op      |
 
 ### Utility Permissions
 
@@ -148,9 +219,6 @@ The main command is `/zm` (alias: `/zmenu`).
 | `zmenu.convert`       | Convert from other plugins | op      |
 | `zmenu.dupe`          | Test anti-dupe system      | op      |
 | `zmenu.documentation` | View documentation         | op      |
-| `zmenu.dialog`        | Open dialogs               | op      |
-| `zmenu.open.bedrock`  | Open Bedrock forms         | op      |
-| `zmenu.reload.bedrock`| Reload Bedrock form files  | op      |
 | `zmenu.dumplog`       | Export debug logs          | op      |
 
 ## Custom Command Permissions

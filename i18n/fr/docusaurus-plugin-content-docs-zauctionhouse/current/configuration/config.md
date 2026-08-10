@@ -236,6 +236,17 @@ number-sell-multiplication:
 - `/ah sell 2.5M` = 2 500 000
 - `/ah sell 1B` = 1 000 000 000
 
+## Prix Décimaux
+
+Contrôlez si les joueurs peuvent mettre en vente un objet à un prix contenant des décimales (par ex. `10.5`) :
+
+```yaml
+# Mettez false pour forcer uniquement les nombres entiers.
+allow-decimal-prices: true
+```
+
+Lorsque ce paramètre est sur `false`, toute mise en vente dont le prix final possède une partie décimale est refusée sur tous les chemins de vente (la commande `/ah sell` et l'inventaire de vente), et le joueur reçoit le message `price-decimal-not-allowed`. Les raccourcis de prix qui donnent un nombre entier restent autorisés (par ex. `2.5K` = `2500`). Par défaut : `true`.
+
 ## Paramètres d'Expiration
 
 Tous les temps sont en **secondes**.

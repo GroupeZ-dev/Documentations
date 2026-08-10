@@ -655,6 +655,21 @@ Accepted aliases: `plugin-name`, `pluginName`, `plugin`.
 
 ---
 
+## Synchronizing from the Inventory Builder
+
+Managed button patterns created in the Inventory Builder can be downloaded as YAML or applied directly
+to a linked server. The server writes them to `plugins/<plugin-name>/patterns/<file-name>.yml`, verifies
+the downloaded hash, and hot-reloads the pattern.
+
+When an inventory uses one or more managed button patterns, the sync confirmation also lets you install
+those dependencies before the inventory itself is downloaded and reloaded. This prevents the inventory
+from being reloaded while one of its pattern files is missing or outdated.
+
+Only saved pattern revisions are synchronized. Link the server with the website commands before using
+this action in the builder.
+
+---
+
 ## Reloading
 
 ```

@@ -505,11 +505,13 @@ Opens a chat-based search input. When clicked, the player's inventory closes and
 |----------|------|-------------|
 | `slot` | Number | Button position |
 | `none-value` | String | Text shown in `%search_query%` when no search is active. Defaults to `None`; ships localized per language (FR `Aucune`, ES `Ninguna`, IT `Nessuna`, TH `ไม่มี`). |
+| `active-value` | String | Text shown in `%search_active%` when a search **is** active. Defaults to `true`. |
+| `inactive-value` | String | Text shown in `%search_active%` when no search is active. Defaults to `false`. |
 | `item` | Item | Button appearance |
 
 **Placeholders:**
 - `%search_query%` - Current search query (or the configurable `none-value`, default `None` / localized, when no search is active)
-- `%search_active%` - Whether a search is active (`true`/`false`)
+- `%search_active%` - Whether a search is active (the configurable `active-value` / `inactive-value`, default `true` / `false`)
 
 **Search Operators:**
 
@@ -531,6 +533,10 @@ search:
   is-permanent: true
   # Value shown in %search_query% when no search is active.
   none-value: "None"
+  # Value shown in %search_active% when a search is active.
+  active-value: "true"
+  # Value shown in %search_active% when no search is active.
+  inactive-value: "false"
   item:
     material: COMPASS
     name: "#2CCED2<bold>sᴇᴀʀᴄʜ"
