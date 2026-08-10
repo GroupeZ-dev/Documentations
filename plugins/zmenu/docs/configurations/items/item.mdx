@@ -284,6 +284,25 @@ item:
 
 ---
 
+### amount-type
+
+Control how the `amount` value is applied when the item is built.
+
+| Value | Description |
+|-------|-------------|
+| `SET` | Set the amount to exactly the given value (default) |
+| `ADD` | Add the given value to the item's current amount |
+| `REMOVE` | Subtract the given value from the item's current amount |
+
+```yaml
+item:
+  material: DIAMOND
+  amount: 5
+  amount-type: ADD
+```
+
+---
+
 ### durability
 
 Set the durability/damage value for tools and armor.
@@ -292,6 +311,18 @@ Set the durability/damage value for tools and armor.
 item:
   material: DIAMOND_SWORD
   durability: 100  # 100 durability used
+```
+
+---
+
+### data
+
+Legacy material data value (pre-1.13 sub-type IDs). In modern Minecraft this is rarely used, but it can still be set for compatibility.
+
+```yaml
+item:
+  material: WOOL
+  data: 14  # Red wool in pre-1.13
 ```
 
 ---
@@ -649,6 +680,98 @@ Get head textures from sites like [minecraft-heads.com](https://minecraft-heads.
 
 ---
 
+### color
+
+Set the dye color for leather armor pieces or tipped-arrow/splash-potion items. Accepts an RGB or ARGB value as comma-separated integers.
+
+```yaml
+# Leather armor dyed cyan
+item:
+  material: LEATHER_CHESTPLATE
+  color: "0,170,170"         # R,G,B
+
+# ARGB format (alpha channel first)
+item:
+  material: LEATHER_HELMET
+  color: "255,255,0,0"       # A,R,G,B
+```
+
+---
+
+### potion
+
+Turn the item into a potion (or splash / lingering potion). Requires the material to be a potion type (`POTION`, `SPLASH_POTION`, `LINGERING_POTION`, or `TIPPED_ARROW`).
+
+```yaml
+item:
+  material: SPLASH_POTION
+  potion: STRENGTH
+  level: 2
+  splash: true
+  extended: false
+```
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `potion` | String | — | Potion type (e.g. `SPEED`, `STRENGTH`, `HEALING`). See the [Bukkit PotionType docs](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionType.html) |
+| `level` | Integer | `1` | Effect amplifier (1 = level I, 2 = level II, …) |
+| `splash` | Boolean | `false` | Make a splash potion |
+| `extended` | Boolean | `false` | Extended duration potion |
+| `arrow` | Boolean | `false` | Tipped arrow instead of a drinkable potion |
+| `color` | String | — | Custom potion particle color in `R,G,B` format |
+
+---
+
+### banner
+
+Display a banner with custom patterns. Requires the material to be a banner type (e.g. `WHITE_BANNER`, `RED_BANNER`).
+
+```yaml
+item:
+  material: WHITE_BANNER
+  banner: WHITE         # Base color (DyeColor)
+  patterns:
+    - "RED:STRIPE_TOP"    # color:pattern
+    - "BLUE:CROSS"
+```
+
+The `banner` key sets the **base color** (`DyeColor`). Each entry in `patterns` is formatted as `COLOR:PATTERN_TYPE`.
+
+Available pattern types: [PatternType Javadoc](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/block/banner/PatternType.html)
+Available dye colors: [DyeColor Javadoc](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/DyeColor.html)
+
+---
+
+### firework
+
+Define a firework rocket or firework star item.
+
+```yaml
+item:
+  material: FIREWORK_ROCKET
+  firework:
+    star: false
+    flicker: true
+    trail: true
+    type: BALL_LARGE      # FireworkEffect.Type
+    colors:
+      - "255,0,0"         # Red (R,G,B or A,R,G,B)
+      - "0,255,0"         # Green
+    fadeColors:
+      - "0,0,255"         # Blue fade
+```
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `star` | Boolean | `false` | Firework star (display-only shape) |
+| `flicker` | Boolean | `false` | Twinkle / flicker effect |
+| `trail` | Boolean | `false` | Trail of particles |
+| `type` | String | `BALL` | Shape: `BALL`, `BALL_LARGE`, `STAR`, `CREEPER`, `BURST` |
+| `colors` | List | — | Launch colors in `R,G,B` or `A,R,G,B` format |
+| `fadeColors` | List | — | Fade-to colors in `R,G,B` or `A,R,G,B` format |
+
+---
+
 ### target
 
 Set the target player for placeholders in the item name and lore.
@@ -959,6 +1082,21 @@ item:
 | `HIDE_SHULKER_COLOR`               | Hide shulker color               |
 
 </details>
+
+---
+
+### skip-first-cache
+
+Prevent the item from being pre-built and cached on inventory load. Useful when the item depends on a player context that is not available at load time.
+
+```yaml
+item:
+  material: PLAYER_HEAD
+  player-head: "%player%"
+  skip-first-cache: true
+```
+
+This is mainly relevant when using materials or placeholders that require a live player to resolve correctly.
 
 ---
 

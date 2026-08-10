@@ -96,6 +96,7 @@ items:
 | `JUMP`               | Jumps to a specific page                               |
 | `MAIN_MENU`          | Opens the main menu                                    |
 | `SWITCH`             | Displays different items based on conditions           |
+| `ITEM_DRAG`          | Drag-and-drop slot with item rule validation           |
 | `PAGINATION`         | Display paginated content (zMenu+ only)                |
 | `DYNAMIC_PAGINATION` | Dynamic pagination with variable content (zMenu+ only) |
 | `INPUT`              | Input button for player input (zMenu+ only)            |
@@ -152,9 +153,19 @@ items:
   button:
     slot: 0
     sound: UI_BUTTON_CLICK
+    sound-category: MASTER   # optional, default: MASTER
+    pitch: 1.5               # optional, default: 1.0
+    volume: 0.8              # optional, default: 1.0
     item:
       material: DIAMOND
 ```
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `sound` | String | — | XSound name (e.g. `UI_BUTTON_CLICK`, `ENTITY_PLAYER_LEVELUP`) |
+| `sound-category` | String | `MASTER` | Sound channel: `MASTER`, `MUSIC`, `RECORD`, `WEATHER`, `BLOCK`, `HOSTILE`, `NEUTRAL`, `PLAYER`, `AMBIENT`, `VOICE` |
+| `pitch` | Float | `1.0` | Playback pitch (0.5 = lower, 2.0 = higher) |
+| `volume` | Float | `1.0` | Playback volume (0.0 = silent, 1.0 = full) |
 
 For more control, use the sound action instead:
 
@@ -511,6 +522,34 @@ Check a placeholder value to determine if the button should be displayed.
 
 ---
 
+### placeholders
+
+A list of placeholder-based visibility conditions. Each entry behaves like the `placeholder`/`action`/`value` shorthand but lets you apply **multiple** placeholder checks at once — the button is hidden if any check fails.
+
+```yaml
+items:
+  combined-check:
+    slot: 0
+    placeholders:
+      - placeholder: "%player_level%"
+        action: SUPERIOR_OR_EQUAL
+        value: "10"
+      - placeholder: "%vault_eco_balance%"
+        action: SUPERIOR_OR_EQUAL
+        value: "500"
+    item:
+      material: DIAMOND
+      name: "&a&lLevel 10+ with $500+"
+```
+
+Each list entry supports the same fields as the inline `placeholder` / `action` / `value` / `target` / `math` shorthand.
+
+:::tip
+Use `placeholders` when you need to gate a button on several independent placeholder conditions without writing a full `view-requirement` block.
+:::
+
+---
+
 ### commands
 
 :::tip Recommendation
@@ -719,6 +758,32 @@ items:
       name: "&b&lVIP Reward"
 ```
 
+And click-specific console commands:
+
+```yaml
+items:
+  multi-action:
+    slot: 0
+    console-right-commands:
+      - "give %player% gold_ingot 1"
+    console-left-commands:
+      - "give %player% iron_ingot 1"
+    item:
+      material: CHEST
+      name: "&eDifferent rewards per click"
+      lore:
+        - "&7Left-click: iron ingot"
+        - "&7Right-click: gold ingot"
+```
+
+| Key | Aliases | Description |
+|-----|---------|-------------|
+| `console-commands` | `consoleCommands` | Executed on any click |
+| `console-right-commands` | `consoleRightCommands` | Executed on right-click only |
+| `console-left-commands` | `consoleLeftCommands` | Executed on left-click only |
+| `console-permission` | `consolePermission` | Permission required for `console-permission-commands` |
+| `console-permission-commands` | `consolePermissionCommands` | Executed only if player has `console-permission` |
+
 ---
 
 ### error-item
@@ -734,11 +799,12 @@ items:
   purchase-button:
     slot: 0
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          value: 1000
+      purchase:
+        requirements:
+          - type: placeholder
+            placeholder: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            value: 1000
     item:
       material: DIAMOND
       name: "&b&lPurchase - $1000"
@@ -792,6 +858,114 @@ When `player-inventory` is `true`, the item will be placed directly in the playe
 
 ---
 
+### refresh-requirements
+
+Requirements checked on every automatic update cycle. If the `requirements` are not met, the button will not be re-rendered on that tick. Use `enable-requirements` to gate whether the cycle even runs for this button.
+
+```yaml
+items:
+  dynamic-button:
+    slot: 0
+    update: true
+    refresh-requirements:
+      # Must pass for the button to refresh at all
+      enable-requirements:
+        - type: permission
+          permission: "vip.access"
+      # Must pass for the item to actually re-render
+      requirements:
+        - type: placeholder
+          placeholder: "%player_level%"
+          action: SUPERIOR_OR_EQUAL
+          value: 5
+      update-interval: 500    # Refresh interval in ms (default: 500)
+      task: false             # Run refresh as an async task (default: false)
+      refresh-lore: false     # Refresh only the lore (default: false)
+      refresh-name: false     # Refresh only the name (default: false)
+      refresh-button: false   # Refresh the whole button (default: false)
+    item:
+      material: DIAMOND
+      name: "&aLevel %player_level%"
+```
+
+**Options:**
+
+| Key | Aliases | Type | Default | Description |
+|-----|---------|------|---------|-------------|
+| `requirements` | `requirement` | List | — | Conditions that must pass for the button to re-render |
+| `enable-requirements` | `enable_requirements` | List | — | Conditions that must pass for the refresh cycle to run at all |
+| `update-interval` | `updateInterval` | Integer | `500` | Refresh interval in milliseconds |
+| `task` | — | Boolean | `false` | Whether to run the refresh as an async task |
+| `refresh-lore` | `refreshLore` | Boolean | `false` | Refresh only the lore on each cycle |
+| `refresh-name` | `refreshName` | Boolean | `false` | Refresh only the display name on each cycle |
+| `refresh-button` | `refreshButton` | Boolean | `false` | Refresh the full button on each cycle |
+
+Available aliases: `refresh-requirements`, `refresh_requirements`.
+
+---
+
+### open-async
+
+When `true`, any inventory opened by clicking this button is scheduled asynchronously. Useful if the inventory open involves slow operations.
+
+```yaml
+items:
+  async-open:
+    slot: 0
+    open-async: true
+    type: INVENTORY
+    inventory: slow_menu
+    item:
+      material: COMPASS
+```
+
+---
+
+### refresh-on-drag
+
+When `true`, this button refreshes whenever an item is dragged into or out of it. Primarily used alongside `ITEM_DRAG` buttons.
+
+```yaml
+items:
+  drag-slot:
+    slot: 13
+    type: ITEM_DRAG
+    refresh-on-drag: true
+    item:
+      material: AIR
+```
+
+---
+
+### datas
+
+Define player-data operations at the button level. These run in the same way as a `data` action but are declared directly on the button rather than inside an action list.
+
+```yaml
+items:
+  counter:
+    slot: 0
+    datas:
+      - key: "clicks"
+        action: ADD
+        value: "1"
+        math: false     # Enable math expressions in value (default: false)
+        seconds: 0      # If > 0, data expires after this many seconds (default: 0)
+    item:
+      material: PAPER
+      name: "&eClicks: %zmenu_player_value_clicks%"
+```
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `key` | String | — | The player data key to modify |
+| `action` | String | `SET` | Operation: `SET`, `ADD`, `SUBTRACT`, `MULTIPLY`, `DIVIDE`, `REMOVE` |
+| `value` | String | — | The value to apply (supports placeholders) |
+| `math` | Boolean | `false` | Evaluate math expressions in `value` before applying |
+| `seconds` | Long | — | If set, the value expires after this many seconds |
+
+---
+
 ## Requirements
 
 ### view-requirement
@@ -837,86 +1011,96 @@ If requirements aren't met, the button won't be displayed.
 
 Control whether the button can be clicked. The button is still visible, but clicking may be denied.
 
+:::caution Named groups required
+`click-requirement` uses **named groups**. Every entry directly under `click-requirement` is a group name (e.g. `default`, `purchase`). The keys `requirements`, `success`, and `clicks` must be nested **inside** that named group — placing them directly under `click-requirement` will not work.
+:::
+
 <Tabs>
     <TabItem value="click-requirement" label="click-requirement">
         ```yaml
-        # YAML example for click-requirement
         items:
           purchase-button:
             slot: 0
             click-requirement:
-              requirements:
-                - type: placeholder
-                  placeholder: "%vault_eco_balance%"
-                  action: SUPERIOR_OR_EQUAL
-                  value: 100
-              deny:
-                - type: message
-                  messages:
-                    - "&cYou need $100 to purchase this!"
-                - type: sound
-                  sound: ENTITY_VILLAGER_NO
-              success:
-                - type: message
-                  messages:
-                    - "&aPurchase successful!"
-                - type: console-command
-                  commands:
-                    - "eco take %player% 100"
+              default:
+                clicks:
+                  - ALL
+                requirements:
+                  - type: placeholder
+                    placeholder: "%vault_eco_balance%"
+                    action: SUPERIOR_OR_EQUAL
+                    value: 100
+                    deny:
+                      - type: message
+                        messages:
+                          - "&cYou need $100 to purchase this!"
+                      - type: sound
+                        sound: ENTITY_VILLAGER_NO
+                success:
+                  - type: message
+                    messages:
+                      - "&aPurchase successful!"
+                  - type: console-command
+                    commands:
+                      - "eco take %player% 100"
         ```
     </TabItem>
     <TabItem value="click_requirement" label="click_requirement (Alias)">
         ```yaml
-        # YAML example for click_requirement
         items:
           purchase-button:
             slot: 0
             click_requirement:
-              requirements:
-                - type: placeholder
-                  placeholder: "%vault_eco_balance%"
-                  action: SUPERIOR_OR_EQUAL
-                  value: 100
-              deny:
-                - type: message
-                  messages:
-                    - "&cYou need $100 to purchase this!"
-                - type: sound
-                  sound: ENTITY_VILLAGER_NO
-              success:
-                - type: message
-                  messages:
-                    - "&aPurchase successful!"
-                - type: console-command
-                  commands:
-                    - "eco take %player% 100"
+              default:
+                clicks:
+                  - ALL
+                requirements:
+                  - type: placeholder
+                    placeholder: "%vault_eco_balance%"
+                    action: SUPERIOR_OR_EQUAL
+                    value: 100
+                    deny:
+                      - type: message
+                        messages:
+                          - "&cYou need $100 to purchase this!"
+                      - type: sound
+                        sound: ENTITY_VILLAGER_NO
+                success:
+                  - type: message
+                    messages:
+                      - "&aPurchase successful!"
+                  - type: console-command
+                    commands:
+                      - "eco take %player% 100"
         ```
     </TabItem>
     <TabItem value="click-requirements" label="click-requirements (Alias)">
         ```yaml
-        # YAML example for click-requirements
         items:
           purchase-button:
             slot: 0
             click-requirements:
-              requirements:
-                - type: placeholder
-                  placeholder: "%vault_eco_balance%"
-                  action: SUPERIOR_OR_EQUAL
-                  value: 100
-              deny:
-                - type: message
-                  messages:
-                    - "&cYou need $100 to purchase this!"
-                - type: sound
-                  sound: ENTITY_VILLAGER_NO
-              success:
-                - type: message
-                  messages:
-                    - "&aPurchase successful!"
-                - type: console-command
-                  commands:
-                    - "eco take %player% 100"
+              default:
+                clicks:
+                  - ALL
+                requirements:
+                  - type: placeholder
+                    placeholder: "%vault_eco_balance%"
+                    action: SUPERIOR_OR_EQUAL
+                    value: 100
+                    deny:
+                      - type: message
+                        messages:
+                          - "&cYou need $100 to purchase this!"
+                      - type: sound
+                        sound: ENTITY_VILLAGER_NO
+                success:
+                  - type: message
+                    messages:
+                      - "&aPurchase successful!"
+                  - type: console-command
+                    commands:
+                      - "eco take %player% 100"
         ```
     </TabItem>
 </Tabs>
@@ -931,10 +1115,12 @@ For a complete guide on all requirement types, configuration options, and advanc
 | `placeholder` | Compare a placeholder value |
 | `money` | Check player's balance |
 | `item` | Check if player has items |
+| `check-inventory` | Check a specific slot in the menu or player inventory |
+| `item-rule` | Check if a slot's item satisfies an item rule |
 | `job` | Check Jobs Reborn level |
 | `luckperm` | Check LuckPerms group |
 | `regex` | Match text against a pattern |
-| `player-name` | Check player's name |
+| `playername` | Check player's name |
 | `cuboid` | Check if player is in a zone |
 | `and` | All sub-requirements must pass (zMenu+) |
 | `or` | Minimum sub-requirements must pass (zMenu+) |
@@ -1047,29 +1233,32 @@ items:
       glow: true
 
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          value: 500
-          deny:
-            - type: message
-              messages:
-                - "&cYou need $500 to buy this!"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: console-command
-          commands:
-            - "eco take %player% 500"
-            - "give %player% diamond_sword{Enchantments:[{id:sharpness,lvl:5}]} 1"
-        - type: message
-          messages:
-            - "&aPurchase successful!"
-            - "&7You bought a &6Diamond Sword&7!"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
-        - type: close
+      purchase:
+        clicks:
+          - ALL
+        requirements:
+          - type: placeholder
+            placeholder: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            value: 500
+            deny:
+              - type: message
+                messages:
+                  - "&cYou need $500 to buy this!"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
+        success:
+          - type: console-command
+            commands:
+              - "eco take %player% 500"
+              - "give %player% diamond_sword{Enchantments:[{id:sharpness,lvl:5}]} 1"
+          - type: message
+            messages:
+              - "&aPurchase successful!"
+              - "&7You bought a &6Diamond Sword&7!"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
+          - type: close
 ```
 
 ## stop-on-empty

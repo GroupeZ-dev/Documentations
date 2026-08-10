@@ -350,7 +350,7 @@ yes-actions:
       - type: console-command
         commands:
           - "give %player% diamond_sword 1"
-      - type: currency-withdraw
+      - type: withdraw
         amount: 500
       - type: message
         messages:

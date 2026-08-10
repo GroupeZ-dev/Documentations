@@ -107,24 +107,25 @@ items:
       lore:
         - "&7Click to claim your daily reward!"
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%dailyreward_claimed%"
-          action: EQUALS_STRING
-          value: "false"
-          deny:
-            - type: message
-              messages:
-                - "&cYou already claimed today's reward!"
-      success:
-        - type: console-command
-          commands:
-            - "dailyreward claim %player%"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
-        - type: message
-          messages:
-            - "&aReward claimed!"
+      claim:
+        requirements:
+          - type: placeholder
+            placeholder: "%dailyreward_claimed%"
+            action: EQUALS_STRING
+            value: "false"
+            deny:
+              - type: message
+                messages:
+                  - "&cYou already claimed today's reward!"
+        success:
+          - type: console-command
+            commands:
+              - "dailyreward claim %player%"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
+          - type: message
+            messages:
+              - "&aReward claimed!"
 ```
 
 ## Properties

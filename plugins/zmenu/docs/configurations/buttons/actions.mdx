@@ -114,7 +114,7 @@ Send a message to a specific player.
 
 ```yaml
 - type: message-to
-  player: "Notch"
+  target-player: "Notch"
   messages:
     - "&aHello from %player%!"
 ```
@@ -147,10 +147,10 @@ Display an action bar message.
         ```
 
     </TabItem>
-    <TabItem value="action_bar" label="actionbar (Alias)">
+    <TabItem value="actionbar" label="actionbar (Alias)">
 
         ```yaml
-        - type: action_bar
+        - type: actionbar
           message: "&aWelcome to the shop!"
         ```
 
@@ -176,7 +176,11 @@ Display a title and subtitle.
 
 ### change-title
 
-Change the inventory title (requires PacketEvents plugin).
+Change the inventory title.
+
+:::warning Requires PacketEvents
+This action is only available when the [PacketEvents](https://github.com/retrooper/packetevents) plugin is installed on your server. Without it, the action is simply not registered and will silently do nothing.
+:::
 
 <Tabs>
     <TabItem value="change-title" label="change-title">
@@ -203,8 +207,6 @@ Change the inventory title (requires PacketEvents plugin).
 |------------------|--------|----------|------------------------------------|
 | `inventory-name` | String | Yes      | The new inventory title to display |
 
-**Note:** This action requires the [PacketEvents](https://github.com/retrooper/packetevents) plugin to be installed on your server.
-
 Available aliases: `change-title`, `change-title-name`.
 
 ---
@@ -218,9 +220,11 @@ Display a toast notification (achievement popup).
 
         ```yaml
         - type: "toast"
-          icon: DIAMOND
+          material: DIAMOND       # Material for the toast icon (default: PAPER)
           message: "&aAchievement Unlocked!"
-          frame: TASK  # TASK, GOAL, or CHALLENGE
+          toast-type: CHALLENGE   # TASK, GOAL, or CHALLENGE (default: CHALLENGE)
+          model-id: "0"          # Optional: custom model data
+          glowing: false         # Optional: glowing effect (default: false)
         ```
 
     </TabItem>
@@ -228,13 +232,23 @@ Display a toast notification (achievement popup).
 
         ```yaml
         - type: "send toast"
-          icon: DIAMOND
+          material: DIAMOND
           message: "&aAchievement Unlocked!"
-          frame: TASK  # TASK, GOAL, or CHALLENGE
+          toast-type: CHALLENGE   # TASK, GOAL, or CHALLENGE (default: CHALLENGE)
         ```
 
     </TabItem>
 </Tabs>
+
+**Options:**
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `material` | String | `PAPER` | Material for the toast icon |
+| `message` | String | `Default message` | The toast notification text |
+| `toast-type` | String | `CHALLENGE` | Toast frame style: `TASK`, `GOAL`, or `CHALLENGE` |
+| `model-id` | String | `0` | Custom model data for the icon item |
+| `glowing` | Boolean | `false` | Whether the icon item has a glowing effect |
 
 ## Sound Actions
 
@@ -274,7 +288,7 @@ Play a sound to all online players.
     <TabItem value="broadcast_sound" label="broadcast_sound">
 
         ```yaml
-        - type: broadcast-sound
+        - type: broadcast_sound
           sound: ENTITY_ENDER_DRAGON_DEATH
           pitch: 1.0
           volume: 1.0
@@ -636,6 +650,16 @@ Modify player data values.
   math: true        # Optional: enable math expressions
 ```
 
+**Options:**
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `action` | String | The operation to perform (see table below) |
+| `key` | String | The player data key to operate on |
+| `value` | String | The value to use (supports placeholders) |
+| `math` | Boolean | Enable math expression evaluation in `value` (default: `false`) |
+| `seconds` | Long | If set, store the value for only this many seconds before it expires |
+
 **Actions:**
 
 | Action | Description | Example |
@@ -656,6 +680,15 @@ Modify player data values.
   math: true
 ```
 
+**Temporary data (expires after N seconds):**
+```yaml
+- type: data
+  action: SET
+  key: "cooldown"
+  value: "1"
+  seconds: 86400   # Expires after 24 hours
+```
+
 ## Economy Actions
 
 ### deposit
@@ -666,7 +699,7 @@ Add money to player's balance.
     <TabItem value="deposit" label="deposit">
 
         ```yaml
-        - type: withdraw
+        - type: deposit
           currency: "vault"  # Optional: specify currency plugin
           #economy:   # When a economy plugin allows multiple currencies, you can specify which one to use.
           amount: 50
@@ -835,9 +868,9 @@ Send a message to a Discord webhook.
         ```yaml
         - type: discord
           webhook: "https://discord.com/api/webhooks/..."
-          content: "%player% made a purchase!"
+          message: "%player% made a purchase!"
           username: "Shop Bot"          # Optional
-          avatar_url: "https://..."     # Optional
+          avatar: "https://..."         # Optional
           embeds:
             - title: "New Purchase"
               description: "%player% bought an item"
@@ -869,23 +902,22 @@ Send a message to a Discord webhook.
         ```yaml
         - type: "send discord"
           webhook: "https://discord.com/api/webhooks/..."
-          content: "%player% made a purchase!"
+          message: "%player% made a purchase!"
           username: "Shop Bot"          # Optional
-          avatar_url: "https://..."     # Optional
+          avatar: "https://..."         # Optional
         ```
 
         **Options:**
 
-        | Option       | Type    | Required | Description                             |
-        |--------------|---------|----------|-----------------------------------------|
-        | `webhook`    | String  | Yes      | Webhook URL for the Discord server.     |
-        | `content`    | String  | Yes      | Message text or content to send.        |
-        | `username`   | String  | No       | Optional name displayed for the sender. |
-        | `avatar_url` | URL     | No       | Optional avatar for the sender.         |
+        | Option     | Type   | Required | Description                             |
+        |------------|--------|----------|-----------------------------------------|
+        | `webhook`  | String | Yes      | Webhook URL for the Discord server.     |
+        | `message`  | String | No       | Plain text message to send.             |
+        | `username` | String | No       | Override the webhook's display name.    |
+        | `avatar`   | URL    | No       | Override the webhook's avatar URL.      |
+        | `embeds`   | List   | No       | Discord embed objects.                  |
 
-        **Note:** Supports webhook-based interactions with Discord.
-
-        Available aliases: `discord`, `send-discord`, `discord webhook`, `discordwebhook`.
+        Available aliases: `discord`, `send discord`, `discord webhook`, `discordwebhook`.
 
     </TabItem>
 </Tabs>
@@ -902,10 +934,10 @@ Send a Discord message with buttons/components.
         ```yaml
         - type: discord_component
           webhook: "https://discord.com/api/webhooks/..."
-          embeds:
-          - title: "New Purchase"
-          description: "%player% bought an item"
-          color: "#00FF00"
+          component:
+            - title: "New Purchase"
+              description: "%player% bought an item"
+              color: "#00FF00"
         ```
 
     </TabItem>
@@ -914,10 +946,10 @@ Send a Discord message with buttons/components.
         ```yaml
         - type: "discord component"
           webhook: "https://discord.com/api/webhooks/..."
-          embeds:
-          - title: "New Purchase"
-          description: "%player% bought an item"
-          color: "#00FF00"
+          component:
+            - title: "New Purchase"
+              description: "%player% bought an item"
+              color: "#00FF00"
         ```
 
         Available aliases: `discord_component`, `discord component`, `discord webhook component`, `discordwebhookcomponent`.
@@ -929,24 +961,17 @@ Send a Discord message with buttons/components.
 
 ### luckperm-set
 
-Modify LuckPerms permissions/groups.
+Modify LuckPerms permissions.
 
 <Tabs>
-    <TabItem value="luckperm-set" label="luckperm-set">
-
-        ```yaml
-        - type: luckperm-set
-          group: "vip"
-          duration: 2592000  # Seconds (30 days)
-        ```
-
-    </TabItem>
-    <TabItem value="permission-set" label="permission-set (Alias)">
+    <TabItem value="permission-set" label="permission-set">
 
         ```yaml
         - type: permission-set
-          group: "vip"
-          duration: 2592000  # Seconds (30 days)
+          permission: "server.vip"
+          value: true         # Grant (true) or revoke (false), default: true
+          expiration: -1      # Seconds until expiry; -1 = permanent
+          time-unit: SECONDS  # Optional: SECONDS, MINUTES, HOURS, DAYS
         ```
 
     </TabItem>
@@ -954,8 +979,8 @@ Modify LuckPerms permissions/groups.
 
         ```yaml
         - type: "permission set"
-          group: "vip"
-          duration: 2592000  # Seconds (30 days)
+          permission: "server.vip"
+          value: true
         ```
 
     </TabItem>
@@ -963,8 +988,8 @@ Modify LuckPerms permissions/groups.
 
         ```yaml
         - type: "set permission"
-          group: "vip"
-          duration: 2592000  # Seconds (30 days)
+          permission: "server.vip"
+          value: false  # Revoke the permission
         ```
 
     </TabItem>
@@ -972,23 +997,24 @@ Modify LuckPerms permissions/groups.
 
         ```yaml
         - type: set-permission
-          group: "vip"
-          duration: 2592000  # Seconds (30 days)
+          permission: "server.vip"
+          value: true
+          expiration: 2592000  # 30 days in seconds
         ```
 
     </TabItem>
 </Tabs>
 
-        **Options:**
+**Options:**
 
-        | Option     | Type    | Required | Description                       |
-        |------------|---------|----------|-----------------------------------|
-        | `group`    | String  | Yes      | Name of the permission group.     |
-        | `duration` | Integer | No       | Duration in seconds (default: permanent). |
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `permission` | String | — | The LuckPerms permission node to grant or revoke |
+| `value` | Boolean | `true` | `true` to grant, `false` to revoke |
+| `expiration` | Long | `-1` | Duration before the permission expires; `-1` = permanent |
+| `time-unit` | String | `SECONDS` | Unit for `expiration`: `SECONDS`, `MINUTES`, `HOURS`, `DAYS` |
 
-        **Note:** Used to modify LuckPerms permissions or groups for players.
-
-        Available aliases: `luckperm-set`, `permission-set`, `permission set`, `set permission`, `set-permission`.
+Available aliases: `permission-set`, `permission set`, `set permission`, `set-permission`.
 
 ---
 
@@ -1092,6 +1118,79 @@ Available aliases: `take_item`, `take-item`.
 
 ---
 
+### item_give
+
+Give an item directly to the player's inventory. If the inventory is full, leftover items are dropped at the player's location.
+
+```yaml
+- type: item_give
+  item:
+    material: DIAMOND
+    name: "&bFree Diamond"
+    amount: 1
+```
+
+**Options:**
+
+| Option | Type | Required | Description                                     |
+|--------|------|----------|-------------------------------------------------|
+| `item` | Item | Yes      | The item to give (supports all item configuration options) |
+
+Available aliases: `item_give`, `item-give`.
+
+---
+
+### item_edit
+
+Replace or modify an item at a specific slot in the player's inventory.
+
+```yaml
+- type: item_edit
+  slot: "5"
+  item:
+    material: DIAMOND_SWORD
+    name: "&6Upgraded Sword"
+```
+
+**Options:**
+
+| Option | Type   | Required | Description                               |
+|--------|--------|----------|-------------------------------------------|
+| `slot` | String | Yes      | The inventory slot to edit                |
+| `item` | Item   | Yes      | The replacement item                      |
+
+Available aliases: `item_edit`, `item-edit`.
+
+---
+
+### reset-pagination
+
+Reset the pagination state for one or more pagination context IDs, or for all contexts.
+
+```yaml
+# Reset specific context(s)
+- type: reset-pagination
+  type: context
+  context-id: "my_list"        # single context
+  # context-ids: ["list1", "list2"]  # or multiple
+
+# Reset all contexts for this player
+- type: reset-pagination
+  type: all
+```
+
+**Options:**
+
+| Option        | Type   | Default     | Description                                                    |
+|---------------|--------|-------------|----------------------------------------------------------------|
+| `type`        | String | `context`   | Reset mode: `context` (specific IDs) or `all` (every context) |
+| `context-id`  | String | —           | Single pagination context ID to reset (`type: context` only)  |
+| `context-ids` | List   | —           | Multiple pagination context IDs to reset                      |
+
+Available aliases: `reset-pagination`.
+
+---
+
 ### refresh_slot
 
 Refresh only the given slot(s) without redrawing the whole inventory.
@@ -1139,29 +1238,30 @@ items:
       lore:
         - "&7Price: &a$500"
     click-requirement:
-      requirements:
-        - type: placeholder
-          placeholder: "%vault_eco_balance%"
-          action: SUPERIOR_OR_EQUAL
-          value: 500
-          deny:
-            - type: message
-              messages:
-                - "&cYou need $500!"
-            - type: sound
-              sound: ENTITY_VILLAGER_NO
-      success:
-        - type: currency-withdraw
-          amount: 500
-        - type: console-command
-          commands:
-            - "give %player% diamond_sword 1"
-        - type: message
-          messages:
-            - "&aPurchase successful!"
-        - type: sound
-          sound: ENTITY_PLAYER_LEVELUP
-        - type: close
+      purchase:
+        requirements:
+          - type: placeholder
+            placeholder: "%vault_eco_balance%"
+            action: SUPERIOR_OR_EQUAL
+            value: 500
+            deny:
+              - type: message
+                messages:
+                  - "&cYou need $500!"
+              - type: sound
+                sound: ENTITY_VILLAGER_NO
+        success:
+          - type: withdraw
+            amount: 500
+          - type: console-command
+            commands:
+              - "give %player% diamond_sword 1"
+          - type: message
+            messages:
+              - "&aPurchase successful!"
+          - type: sound
+            sound: ENTITY_PLAYER_LEVELUP
+          - type: close
 ```
 
 ### Toggle Setting with Data
@@ -1218,7 +1318,7 @@ items:
       - type: console-command
         commands:
           - "give %player% diamond 5"
-      - type: currency-deposit
+      - type: deposit
         amount: 1000
       - type: data
         action: SET
@@ -1255,17 +1355,18 @@ Actions can also be used in `deny` and `success` blocks of requirements:
 
 ```yaml
 click-requirement:
-  requirements:
-    - type: permission
-      permission: "server.vip"
-      deny:
-        - type: message
-          messages:
-            - "&cYou need VIP!"
-  success:
-    - type: message
-      messages:
-        - "&aAccess granted!"
+  vip-check:
+    requirements:
+      - type: permission
+        permission: "server.vip"
+        deny:
+          - type: message
+            messages:
+              - "&cYou need VIP!"
+    success:
+      - type: message
+        messages:
+          - "&aAccess granted!"
 ```
 
 ## Quick Reference Table
@@ -1301,7 +1402,7 @@ click-requirement:
 | `data` | Modify player data |
 | `deposit` | Add money |
 | `withdraw` | Remove money |
-| `broadcast-sound` | Play sound to all players |
+| `broadcast_sound` | Play sound to all players |
 | `message-to` | Send message to specific player |
 | `change-title` | Change the inventory title |
 | `refresh-inventory` | Refresh entire inventory |
@@ -1309,11 +1410,14 @@ click-requirement:
 | `dialog` | Open dialog popup |
 | `discord` | Send a message to Discord |
 | `discord_component` | Send Discord message with buttons |
-| `luckperm-set` | Modify LuckPerms permissions |
+| `permission-set` | Modify LuckPerms permissions |
 | `shopkeeper` | Interact with Shopkeepers plugin |
 | `set_item` | Place an item in menu/player slot(s) |
 | `take_item` | Remove matching items from the player |
 | `refresh_slot` | Refresh specific slot(s) only |
+| `item_give` | Give an item to the player's inventory |
+| `item_edit` | Replace item at a specific slot |
+| `reset-pagination` | Reset pagination context(s) for the player |
 
 ## Next Steps
 
