@@ -13,6 +13,7 @@ Requirements are conditions that must be met before a button is displayed, click
 A requirement checks a condition (permission, placeholder value, item in inventory, etc.). Based on the result:
 - If **all** requirements are met, the `success` actions are executed
 - If **any** requirement fails, the `deny` actions of that requirement are executed
+
 ```yaml
 click-requirement:
   vip-requirement:
@@ -21,7 +22,6 @@ click-requirement:
     requirements:
       - type: permission
         permission: "server.vip"
-```
         deny:
           - type: message
             messages:
@@ -79,7 +79,7 @@ items:
               - type: sound
                 sound: ENTITY_VILLAGER_NO
         success:
-          - type: currency-withdraw
+          - type: withdraw
             amount: 100
           - type: message
             messages:
@@ -172,6 +172,7 @@ requirements:
 | Alias | Description | Action |
 |-------|-------------|--------|
 | `==` | Equal to | `action: EQUAL_TO` |
+| `!=` | Not equal to | `action: DIFFERENT` |
 | `>` | Greater than | `action: SUPERIOR` |
 | `>=` | Greater than or equal | `action: SUPERIOR_OR_EQUAL` |
 | `<` | Less than | `action: LOWER` |
@@ -239,7 +240,7 @@ requirements:
 ```
 
 :::warning
-This requirement only checks the balance. To actually withdraw money on success, use the `currency-withdraw` action in the `success` block.
+This requirement only checks the balance. To actually withdraw money on success, use the `withdraw` action in the `success` block.
 :::
 
 ---
@@ -306,6 +307,7 @@ requirements:
 | `type` | String | Item comparison type (e.g. `full`, `similar`, `modelid`). Default: `full` |
 | `require-player-item` | Boolean | If `true`, the slot must contain an item put there by the player (default: `false`) |
 | `is-player-inventory` | Boolean | If `true`, checks a slot in the player's inventory instead of the menu (default: `false`) |
+| `in-spigot-inventory` | Boolean | Alias for `is-player-inventory` (default: `false`) |
 | `success` | List | Actions executed when the slot matches the item |
 | `deny` | List | Actions executed when the slot does not match |
 
@@ -399,19 +401,23 @@ items:
 
 ---
 
-### player-name
+### playername
 
 Checks the player's name.
 
+:::caution Type key spelling
+The registered type key is `playername` (no hyphen). Using `type: player-name` will **not** work.
+:::
+
 ```yaml
 requirements:
-  - type: player-name
+  - type: playername
     player-name: "Notch"
 ```
 
 | Key | Type | Description |
 |-----|------|-------------|
-| `player-name` | String | The player name to check (also supports `playerName` or `playername`) |
+| `player-name` | String | The player name to check (also accepts `playerName` or `playername` as field aliases) |
 
 ---
 
@@ -442,6 +448,32 @@ requirements:
       - "world,-50,40,-50,50,100,50"
       - "world_nether,10,30,10,50,80,50"
 ```
+
+---
+
+### item-rule
+
+Checks whether the item in a given slot satisfies an [item rule](./item-rules). This bridges the requirements system with the rule system used by the `item_drag` button.
+
+```yaml
+requirements:
+  - type: item-rule
+    slot: 13
+    rule:
+      type: material
+      materials:
+        - DIAMOND
+        - EMERALD
+    deny:
+      - type: message
+        messages:
+          - "&cOnly diamonds or emeralds are accepted here!"
+```
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `slot` | Number | The inventory slot to inspect |
+| `rule` | Object | The item rule to evaluate (see [Item Rules](./item-rules) for all rule types) |
 
 ---
 
@@ -608,17 +640,17 @@ click-requirement:
           - type: message
             messages:
               - "&cYou need $500!"
-  success:
-    - type: currency-withdraw
-      amount: 500
-    - type: console-command
-      commands:
-        - "give %player% diamond_sword 1"
-    - type: message
-      messages:
-        - "&aPurchase successful!"
-    - type: sound
-      sound: ENTITY_PLAYER_LEVELUP
+    success:
+      - type: withdraw
+        amount: 500
+      - type: console-command
+        commands:
+          - "give %player% diamond_sword 1"
+      - type: message
+        messages:
+          - "&aPurchase successful!"
+      - type: sound
+        sound: ENTITY_PLAYER_LEVELUP
 ```
 
 All [action types](./buttons/actions) can be used in both `deny` and `success` blocks.
@@ -785,20 +817,26 @@ click-requirement:
             messages:
               - "&cYou need $100!"
     success:
-      - type: currency-withdraw
+      - type: withdraw
         amount: 100
       - type: message
         messages:
           - "&aPurchased!"
 ```
 
-| Key | Description |
-|-----|-------------|
-| `clicks` | List of click types this group responds to |
-| `requirements` | The conditions to check |
-| `success` | Actions if all requirements pass |
+| Key | Aliases | Type | Description |
+|-----|---------|------|-------------|
+| `clicks` | — | List | Click types this group responds to |
+| `requirements` | `requirement` | List | The conditions to check |
+| `success` | — | List | Actions executed when the minimum number of requirements pass |
+| `deny` | — | List | Actions executed when the minimum number is NOT reached (group-level fallback) |
+| `minimum-requirement` | `minimumRequirement` | Integer | Minimum number of requirements that must pass (default: all) |
 
 **Available click types:** `ALL`, `LEFT`, `RIGHT`, `SHIFT_LEFT`, `SHIFT_RIGHT`, `MIDDLE`, `DROP`, `CONTROL_DROP`
+
+:::tip minimum-requirement
+Set `minimum-requirement: 1` if you want the success block to fire when **at least one** requirement passes rather than requiring all of them.
+:::
 
 **Example with different actions per click:**
 
@@ -817,7 +855,7 @@ click-requirement:
             messages:
               - "&cYou need $100!"
     success:
-      - type: currency-withdraw
+      - type: withdraw
         amount: 100
       - type: console-command
         commands:
@@ -835,7 +873,7 @@ click-requirement:
             messages:
               - "&cYou need $6400!"
     success:
-      - type: currency-withdraw
+      - type: withdraw
         amount: 6400
       - type: console-command
         commands:
@@ -884,7 +922,7 @@ items:
               - type: sound
                 sound: ENTITY_VILLAGER_NO
       success:
-        - type: currency-withdraw
+        - type: withdraw
           amount: 500
         - type: console-command
           commands:

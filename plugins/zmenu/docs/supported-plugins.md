@@ -42,8 +42,8 @@ item:
 Vault provides a unified economy API that zMenu uses for currency-based actions.
 
 **Features enabled:**
-- `currency-deposit` action
-- `currency-withdraw` action
+- `deposit` action
+- `withdraw` action
 - Economy placeholders
 
 ---
@@ -55,8 +55,8 @@ Vault provides a unified economy API that zMenu uses for currency-based actions.
 ExcellentEconomy provides a multi-currency economy system with custom currencies support.
 
 **Features enabled:**
-- `currency-deposit` action
-- `currency-withdraw` action
+- `deposit` action
+- `withdraw` action
 - Multi-currency support via `economy` parameter
 
 ---
@@ -130,8 +130,12 @@ HeadDatabase provides thousands of custom player head textures.
 **Usage:**
 ```yaml
 item:
-  material: HEAD_DATABASE:12345
+  material: hdb:12345
 ```
+
+:::caution Correct prefix
+The material prefix is `hdb:` (case-insensitive). The previously documented `HEAD_DATABASE:` prefix is **incorrect** and will not resolve.
+:::
 
 ---
 
@@ -158,7 +162,81 @@ MythicMobs integration for custom items.
 **Usage:**
 ```yaml
 item:
-  material: MYTHICMOBS:item_id
+  material: mythicmobs:item_id
+```
+
+---
+
+### MMOItems
+
+MMOItems integration for RPG items.
+
+**Usage:**
+```yaml
+item:
+  material: mmoitems:<type>:<item_id>
+```
+
+---
+
+### Nexo
+
+Nexo integration for custom items (successor to Oraxen).
+
+**Usage:**
+```yaml
+item:
+  material: nexo:<item_name>
+```
+
+---
+
+### CraftEngine
+
+CraftEngine integration for custom items.
+
+**Usage:**
+```yaml
+item:
+  material: craftengine:<item_id>
+```
+
+---
+
+### Nova
+
+Nova integration for custom items.
+
+**Usage:**
+```yaml
+item:
+  material: nova:<item_or_block_name>
+```
+
+---
+
+### NextGens
+
+NextGens generator integration.
+
+**Usage:**
+```yaml
+item:
+  material: nextgens_generators:<generator_id>
+```
+
+---
+
+### zItems
+
+**Download**: [SpigotMC](https://www.spigotmc.org/resources/zitems.118638/)
+
+zItems integration by the same developer as zMenu.
+
+**Usage:**
+```yaml
+item:
+  material: zitems:<item_id>
 ```
 
 ---
@@ -172,8 +250,12 @@ ExecutableItems support for special items.
 **Usage:**
 ```yaml
 item:
-  material: EXECUTABLE_ITEM:item_id
+  material: ei:item_id
 ```
+
+:::caution Correct prefix
+The material prefix is `ei:` (case-insensitive). The previously documented `EXECUTABLE_ITEM:` prefix is **incorrect** and will not resolve.
+:::
 
 ---
 
@@ -182,6 +264,12 @@ item:
 **Download**: [SpigotMC](https://www.spigotmc.org/resources/executableblocks.96914/)
 
 ExecutableBlocks support for special blocks as items.
+
+**Usage:**
+```yaml
+item:
+  material: eb:block_id
+```
 
 ---
 
@@ -226,8 +314,12 @@ Another head texture plugin by the same developer.
 **Usage:**
 ```yaml
 item:
-  material: ZHEAD:category:head_name
+  material: zhd:category:head_name
 ```
+
+:::caution Correct prefix
+The material prefix is `zhd:` (case-insensitive). The previously documented `ZHEAD:` prefix is **incorrect** and will not resolve.
+:::
 
 ---
 
@@ -237,11 +329,25 @@ item:
 
 HMCCosmetics integration for cosmetic items.
 
+**Usage:**
+```yaml
+item:
+  material: hmc_cosmetics:<type>
+  # or for a specific player's cosmetic:
+  material: hmc_cosmetics:<type>-<player>
+```
+
 ---
 
 ### MagicCosmetics
 
 MagicCosmetics integration for cosmetic items.
+
+**Usage:**
+```yaml
+item:
+  material: magic_cosmetics:<cosmetic_id>
+```
 
 ---
 
@@ -322,6 +428,33 @@ PacketEvents is required for the Dialog system (Minecraft 1.20.5+).
 
 ---
 
+## Built-in Material Loaders
+
+These loaders are built into zMenu and do not require any external plugin.
+
+### armor
+
+Returns the item the player currently has equipped in the specified armor slot.
+
+```yaml
+item:
+  material: armor:HEAD       # Helmet
+  # material: armor:CHEST    # Chestplate
+  # material: armor:LEGS     # Leggings
+  # material: armor:FEET     # Boots
+```
+
+### base64
+
+Deserialises a Base64-encoded `ItemStack` (Bukkit serialisation format).
+
+```yaml
+item:
+  material: base64:<base64_encoded_itemstack>
+```
+
+---
+
 ## Supported Plugin Summary Table
 
 | Plugin | Category | Material Prefix | Feature |
@@ -330,18 +463,29 @@ PacketEvents is required for the Dialog system (Minecraft 1.20.5+).
 | Vault | Economy | - | Currency actions |
 | ExcellentEconomy | Economy | - | Multi-currency actions |
 | LuckPerms | Permissions | - | Group requirements |
-| ItemsAdder | Custom Items | `ITEMSADDER:` | Custom items/textures |
-| Oraxen | Custom Items | `ORAXEN:` | Custom items/models |
-| HeadDatabase | Heads | `HEAD_DATABASE:` | Custom heads |
-| Slimefun | Custom Items | `SLIMEFUN:` | Slimefun items |
-| MythicMobs | Custom Items | `MYTHICMOBS:` | MythicMobs items |
-| ExecutableItems | Custom Items | `EXECUTABLE_ITEM:` | EI items |
-| BreweryX | Custom Items | `BREWERYX:` | Brewing items |
+| ItemsAdder | Custom Items | `itemsadder:` | Custom items/textures |
+| Oraxen | Custom Items | `oraxen:` | Custom items/models |
+| Nexo | Custom Items | `nexo:` | Custom items/models |
+| CraftEngine | Custom Items | `craftengine:` | Custom items |
+| HeadDatabase | Heads | `hdb:` | Custom heads |
+| Slimefun | Custom Items | `slimefun:` | Slimefun items |
+| MythicMobs | Custom Items | `mythicmobs:` | MythicMobs items |
+| MMOItems | Custom Items | `mmoitems:` | RPG items |
+| ExecutableItems | Custom Items | `ei:` | EI items |
+| ExecutableBlocks | Custom Items | `eb:` | EB items |
+| BreweryX | Custom Items | `breweryx:` | Brewing items |
 | Denizen | Item Rules | - | `denizen` item rule |
-| zHead | Heads | `ZHEAD:` | Custom heads |
+| zHead | Heads | `zhd:` | Custom heads |
+| zItems | Custom Items | `zitems:` | Custom items |
+| Nova | Custom Items | `nova:` | Nova items |
+| NextGens | Custom Items | `nextgens_generators:` | Generator items |
+| HMCCosmetics | Cosmetics | `hmc_cosmetics:` | Cosmetic items |
+| MagicCosmetics | Cosmetics | `magic_cosmetics:` | Cosmetic items |
 | Jobs Reborn | Jobs | - | Job requirements |
 | Geyser/Floodgate | Bedrock | - | Native Bedrock forms |
-| PacketEvents | Packets | - | Dialog system |
+| PacketEvents | Packets | - | Dialog system / click limiter |
+| *(built-in)* | Material | `armor:` | Player's equipped item |
+| *(built-in)* | Material | `base64:` | Base64-encoded ItemStack |
 
 ## Using Custom Materials
 
@@ -357,23 +501,41 @@ item:
 ```yaml
 # ItemsAdder
 item:
-  material: ITEMSADDER:my_namespace:ruby
+  material: itemsadder:my_namespace:ruby
 
-# Oraxen
+# Oraxen / Nexo
 item:
-  material: ORAXEN:emerald_sword
+  material: oraxen:emerald_sword
+  # material: nexo:emerald_sword
 
 # HeadDatabase
 item:
-  material: HEAD_DATABASE:1234
+  material: hdb:1234
 
 # Slimefun
 item:
-  material: SLIMEFUN:ELECTRIC_MOTOR
+  material: slimefun:ELECTRIC_MOTOR
 
 # MythicMobs
 item:
-  material: MYTHICMOBS:SkeletonKingSword
+  material: mythicmobs:SkeletonKingSword
+
+# MMOItems
+item:
+  material: mmoitems:SWORD:LEGENDARY_BLADE
+
+# ExecutableItems / ExecutableBlocks
+item:
+  material: ei:my_custom_item
+  # material: eb:my_custom_block
+
+# zItems
+item:
+  material: zitems:my_item_id
+
+# Player's equipped item (built-in)
+item:
+  material: armor:HEAD
 ```
 
 ## Plugin Detection
