@@ -341,7 +341,21 @@ plugins/zMenu/patterns/
     └── toggle.yml      # Modele de bouton bascule
 ```
 
-## Recharger les patterns
+## Synchronisation depuis l'Inventory Builder
+
+Les patterns de bouton geres dans l'Inventory Builder peuvent etre telecharges au format YAML ou
+appliques directement sur un serveur lie. Le serveur les enregistre dans
+`plugins/<plugin-name>/patterns/<file-name>.yml`, verifie le hash telecharge, puis recharge le pattern a
+chaud.
+
+Lorsqu'un inventaire utilise des patterns de bouton geres, la confirmation de synchronisation permet
+aussi d'installer ces dependances avant de telecharger et recharger l'inventaire. Cela evite de recharger
+un inventaire alors qu'un de ses fichiers de pattern est absent ou obsolete.
+
+Seule la derniere revision sauvegardee est synchronisee. Le serveur doit d'abord etre lie au site avec
+les commandes website de zMenu.
+
+## Recharger les patterns manuellement
 
 ```
 /zm reload
