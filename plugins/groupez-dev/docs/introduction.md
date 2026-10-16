@@ -1,11 +1,13 @@
+---
+sidebar_position: 0
+title: Introduction
+---
+
 # groupez.dev
 
-Welcome to the groupez.dev documentation.
+[groupez.dev](https://groupez.dev) is the GroupeZ marketplace for Minecraft plugins: free and premium resources, versions, reviews and author pages.
 
-## TODO
+## Sections
 
-- [ ] Add project description
-- [ ] Add installation guide
-- [ ] Add configuration documentation
-- [ ] Add usage guide
-- [ ] Add API documentation
+- [API](./api/introduction.md) — the public JSON API used by plugins, the Discord bot and payment providers, documented for both the current platform (v2) and the legacy one (v1).
+- [MCP server](./mcp.md) — connect an AI assistant (Claude, ChatGPT, Cursor, VS Code…) to search the marketplace and read resource pages.
