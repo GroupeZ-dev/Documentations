@@ -2,6 +2,7 @@
 const sidebars = {
   groupezDevSidebar: [
     'introduction',
+    'mcp',
     {
       type: 'category',
       label: 'API',
