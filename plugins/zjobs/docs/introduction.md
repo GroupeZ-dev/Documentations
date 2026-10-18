@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Introduction
 description: A powerful jobs plugin for Minecraft 1.21+
 ---

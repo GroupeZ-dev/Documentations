@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Actions & Rewards
 description: Configure job actions and rewards in zJobs
 ---

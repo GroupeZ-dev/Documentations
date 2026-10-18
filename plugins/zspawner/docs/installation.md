@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installation
 description: How to install and configure zSpawner on your Minecraft server
 ---
@@ -32,9 +31,15 @@ Before installing, ensure your server meets these requirements:
 | Pufferfish | Supported |
 | Folia | Supported |
 
-:::tip Recommended
+<CalloutContainer type="info">
+
+<CalloutTitle>Recommended</CalloutTitle>
+
+<CalloutDescription>
 **Paper** is the recommended server platform. It offers the best performance and compatibility with zSpawner.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Installation Steps
 
@@ -138,9 +143,13 @@ database-configuration:
   debug: false
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Make sure to change the default database credentials before deploying to production.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## First Configuration
 

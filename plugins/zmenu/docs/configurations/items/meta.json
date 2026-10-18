@@ -1,0 +1,10 @@
+{
+  "title": "Items",
+  "defaultOpen": false,
+  "pages": [
+    "item",
+    "components",
+    "custom-items",
+    "mechanics"
+  ]
+}

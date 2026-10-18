@@ -1,0 +1,18 @@
+{
+  "title": "zEssentials",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "installation",
+    "commands-permissions",
+    "placeholders",
+    "database",
+    "converters",
+    "configuration",
+    "modules",
+    "development",
+    "modules/death-message",
+    "..."
+  ]
+}

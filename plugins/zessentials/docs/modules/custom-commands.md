@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3.5
 title: Custom Commands Module
 description: Create your own commands to display links, information, titles or run zMenu actions
 ---
@@ -177,9 +176,13 @@ messages:
   - "<click:open_url:'https://store.example.com'><hover:show_text:'&fOpen the store'><secondary>store.example.com</secondary></hover></click>"
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 You can also use `<click:run_command:'/...'>` or `<click:suggest_command:'/...'>` to make a line run or suggest another command.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -208,13 +211,21 @@ Common actions are `sound`, `message`, `player_command`, `console_command` and `
 4. When a player runs the command, the permission and the cooldown are checked, the content is displayed, then the actions are run.
 5. On `/zessentials reload` (alias `/ess rl`), the custom commands are unregistered then registered again from the configuration: new commands are added, modified ones are updated and removed ones disappear, without any duplicate. The command list of online players is refreshed, so tab completion is immediately up to date.
 
-:::info
-Custom commands are not configurable in `commands.yml`: everything is defined in `modules/customcommands/config.yml`.
-:::
+<CalloutContainer type="info">
 
-:::note
+<CalloutDescription>
+Custom commands are not configurable in `commands.yml`: everything is defined in `modules/customcommands/config.yml`.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Only zEssentials commands are protected. If a custom command has the same name as a command of another plugin, rename it or use an alias to avoid conflicts.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 12
 title: Patterns
 description: Reusable pattern templates for zAuctionHouse inventories
 ---
@@ -226,6 +225,10 @@ patterns:
   - 'my-custom-pattern'
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Pattern names must be unique across all pattern files.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

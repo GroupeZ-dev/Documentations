@@ -1,5 +1,4 @@
 ---
-sidebar_position: 11
 title: Config.yml
 description: Main configuration file reference
 ---
@@ -413,9 +412,15 @@ Allows buttons to execute commands with OP-level permissions.
 enable-player-commands-as-op-action: false
 ```
 
-:::danger Security Warning
+<CalloutContainer type="error">
+
+<CalloutTitle>Security Warning</CalloutTitle>
+
+<CalloutDescription>
 Only enable this if you fully understand the security implications. Misuse can give players elevated permissions.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -507,9 +512,13 @@ Caches PlaceholderAPI results to reduce parsing overhead.
 enable-cache-placeholder-api: false
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Enabling this means placeholders won't update instantly. Use with caution.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -662,9 +671,13 @@ generate-default-file: true
 
 #### hot-reload
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The hot reload has its own page with every detail: [Hot Reload](../hot-reload).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Watches the `inventories/` folder (and all its subfolders) and applies your changes without any command:
 
@@ -848,9 +861,13 @@ Or reload everything:
 /zm reload
 ```
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Database configuration changes require a server restart to take effect.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Best Practices
 

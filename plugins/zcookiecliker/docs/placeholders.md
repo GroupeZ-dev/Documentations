@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Placeholders
 description: PlaceholderAPI placeholders available in zCookieClicker
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Economy Module
 description: Multi-currency economy system with Vault integration
 ---
@@ -164,9 +163,13 @@ Each entry in the `economies` list supports the following properties:
 | `min-confirm-inventory` | Double | `1000` | Minimum payment amount required to trigger the confirmation GUI. Payments below this amount process immediately |
 | `price-format` | String | `PRICE_WITH_REDUCTION` | Per-economy price formatting override. Same options as the global `price-format` |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Only **one** economy should have `vault: true`. This economy is registered with the Vault API and will be used by any third-party plugin that queries Vault for economy data.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Number Format Multipliers
 
@@ -225,9 +228,13 @@ Transaction reasons are logged with each economy operation and can be used for a
 | `command-reset-reason` | String | `Admin reset` | Reason logged for `/eco reset` |
 | `command-set-reason` | String | `Admin set` | Reason logged for `/eco set` |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Transaction reasons appear in Vault API callbacks and can be picked up by logging plugins that monitor economy transactions.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -288,9 +295,13 @@ Transaction reasons appear in Vault API callbacks and can be picked up by loggin
 | `%zessentials_economy_baltop_amount_{economy}_{position}%` | Raw balance amount at the given position |
 | `%zessentials_economy_baltop_formatted_amount_{economy}_{position}%` | Formatted balance amount at the given position |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Replace `{economy}` with the actual economy name (e.g., `money`, `coins`) and `{position}` with the rank number starting from 1. Using an invalid economy name will return an empty value.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 **Example:** Display the top 3 players in the `money` economy:
 ```

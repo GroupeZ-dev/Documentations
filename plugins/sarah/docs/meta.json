@@ -1,0 +1,12 @@
+{
+  "title": "Sarah",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "installation",
+    "(getting-started)",
+    "(usage)",
+    "..."
+  ]
+}

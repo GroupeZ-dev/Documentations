@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Introduction
 description: Introduction to zSpawner - A comprehensive spawner management plugin for Minecraft servers
 ---

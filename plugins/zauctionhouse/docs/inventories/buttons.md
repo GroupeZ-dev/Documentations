@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Buttons
 description: All available button types for zAuctionHouse inventories
 ---
@@ -480,9 +479,13 @@ category-switcher:
       - "&7Right-click &8» &fPrevious"
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Use `"main"` as a category ID to represent "All Items" (no filtering).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -559,9 +562,13 @@ search:
       - "#8c8c8c• #2CCED2Click #92ffffto search"
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Without an operator, the search performs a case-insensitive substring match on item name, material, lore, and seller name simultaneously.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -626,9 +633,13 @@ Displays the player's pending money from sales and allows them to claim it with 
 | `%pending_<economy_name>%` | Pending money for a specific economy (e.g., `%pending_vault%`) |
 | `%has_pending%` | `true` or `false` |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The economy name corresponds to the `name` field defined in your `economies.yml` configuration. For example, if you have an economy with `name: vault`, use `%pending_vault%`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 **Example:**
 

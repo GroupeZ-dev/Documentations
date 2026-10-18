@@ -1,13 +1,18 @@
 ---
-sidebar_position: 2
 title: Licence
 ---
 
 # Licence
 
-:::warning Legacy platform
+<CalloutContainer type="warning">
+
+<CalloutTitle>Legacy platform</CalloutTitle>
+
+<CalloutDescription>
 This page documents the **legacy v1 platform** (Laravel 8). It is kept for reference and for plugins built against it. The current platform answers the same URI differently: see the [v2 licence page](../v2/licence.md).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The licence endpoint is what premium GroupeZ plugins called at start-up to ask whether they were allowed to run. On v1 a licence was bound to three things:
 
@@ -53,9 +58,15 @@ Checks that a licence key exists, has not expired, belongs to the calling plugin
 
 #### Responses
 
-:::warning Errors are `200`
+<CalloutContainer type="warning">
+
+<CalloutTitle>Errors are `200`</CalloutTitle>
+
+<CalloutDescription>
 Every outcome the controller produces, success or failure, is returned with HTTP status **200**. The controller returns a `json_encode()` string instead of a JSON response, so the `Content-Type` is Laravel's default for a string response (`text/html; charset=UTF-8`), not `application/json`. Clients must parse the body and check `status`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The checks run in the order below. The first one that fails decides the answer.
 

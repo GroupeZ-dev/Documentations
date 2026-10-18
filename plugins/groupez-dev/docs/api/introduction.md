@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: API
 ---
 
@@ -20,9 +19,15 @@ The platform has been rebuilt, so two implementations of this API are documented
 | [v2](./v2/overview.md) | Current groupez.dev (Laravel 13) | **Current** — online since October 2026 |
 | [v1](./v1/overview.md) | Legacy groupez.dev (Laravel 8) | Legacy — kept for reference |
 
-:::info Same URIs, different platforms
+<CalloutContainer type="info">
+
+<CalloutTitle>Same URIs, different platforms</CalloutTitle>
+
+<CalloutDescription>
 The v2 platform keeps the exact `/api/v1/...` URIs, status codes and JSON keys of the legacy platform so that plugins already deployed on Minecraft servers keep working. "v1" and "v2" here refer to the **platform**, not to the URI prefix. Responses from the v2 platform carry an `X-GroupeZ-Api-Version` header.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Endpoint groups
 

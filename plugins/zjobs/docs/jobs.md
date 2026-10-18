@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Job Configuration
 description: How to create and configure jobs in zJobs
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: API
 description: Developer documentation for the zQuests API
 ---

@@ -1,0 +1,13 @@
+{
+  "title": "zCookieCliker",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "installation",
+    "commands-permissions",
+    "placeholders",
+    "configuration",
+    "..."
+  ]
+}

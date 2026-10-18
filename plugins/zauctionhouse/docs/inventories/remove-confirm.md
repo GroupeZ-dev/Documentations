@@ -1,5 +1,4 @@
 ---
-sidebar_position: 10
 title: Remove Confirm
 description: Remove listing confirmation inventory configuration
 ---

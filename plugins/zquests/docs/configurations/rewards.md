@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Rewards
 description: Configure rewards for quest completion in zQuests
 ---

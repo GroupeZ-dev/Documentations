@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Metadata Overview
 description: Configure special item properties with metadata
 ---

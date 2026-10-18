@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Supported Plugins
 description: List of all plugins officially supported by zMenu
 ---
@@ -133,9 +132,15 @@ item:
   material: hdb:12345
 ```
 
-:::caution Correct prefix
+<CalloutContainer type="warning">
+
+<CalloutTitle>Correct prefix</CalloutTitle>
+
+<CalloutDescription>
 The material prefix is `hdb:` (case-insensitive). The previously documented `HEAD_DATABASE:` prefix is **incorrect** and will not resolve.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -253,9 +258,15 @@ item:
   material: ei:item_id
 ```
 
-:::caution Correct prefix
+<CalloutContainer type="warning">
+
+<CalloutTitle>Correct prefix</CalloutTitle>
+
+<CalloutDescription>
 The material prefix is `ei:` (case-insensitive). The previously documented `EXECUTABLE_ITEM:` prefix is **incorrect** and will not resolve.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -317,9 +328,15 @@ item:
   material: zhd:category:head_name
 ```
 
-:::caution Correct prefix
+<CalloutContainer type="warning">
+
+<CalloutTitle>Correct prefix</CalloutTitle>
+
+<CalloutDescription>
 The material prefix is `zhd:` (case-insensitive). The previously documented `ZHEAD:` prefix is **incorrect** and will not resolve.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

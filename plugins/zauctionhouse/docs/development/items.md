@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Items
 description: Working with Item and AuctionItem interfaces in zAuctionHouse
 ---

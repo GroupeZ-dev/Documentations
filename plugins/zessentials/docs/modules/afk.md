@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: AFK Module
 description: Away From Keyboard detection and kick system
 ---
@@ -84,17 +83,29 @@ The `permissions` list defines AFK behavior for different player groups. Each en
 | `permissions[].message-on-start-afk` | String | - | Message sent to the player when they enter AFK status. Supports the `%duration%` placeholder |
 | `permissions[].message-on-end-afk` | String | - | Message sent to the player when they return from AFK. Supports the `%duration%` placeholder |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The `%duration%` placeholder in `message-on-start-afk` and `message-on-end-afk` is replaced with the human-readable time the player spent AFK.
-:::
+</CalloutDescription>
 
-:::info
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If a permission entry does not define `message-on-start-afk` or `message-on-end-afk` (like the admin entry above), no message will be sent for that transition. The player will still be tracked and kicked if `kick` is `true`.
-:::
+</CalloutDescription>
 
-:::warning
+</CalloutContainer>
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Ensure that each player matches **at most one** permission entry. If a player has multiple matching permissions, only the first match by priority is used. Assign permissions carefully in your permission plugin to avoid unexpected behavior.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Economies
 description: Configure economy systems in zShop
 ---
@@ -65,9 +64,15 @@ economies:
 
 The `%s%` placeholder adds "s" for plural (e.g., "1 diamond", "5 diamonds").
 
-:::tip Custom Items
+<CalloutContainer type="info">
+
+<CalloutTitle>Custom Items</CalloutTitle>
+
+<CalloutDescription>
 You can use any item configuration supported by zMenu, including custom model data, NBT, etc.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Experience
 

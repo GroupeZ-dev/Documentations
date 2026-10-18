@@ -1,5 +1,4 @@
 ---
-sidebar_position: 9
 title: Bedrock Forms
 description: Create native Bedrock Edition forms for players connecting via Geyser/Floodgate
 ---
@@ -8,9 +7,15 @@ description: Create native Bedrock Edition forms for players connecting via Geys
 
 Bedrock Forms allow you to display native Bedrock Edition UI forms to players connecting through Geyser/Floodgate. Instead of seeing a chest-based inventory, Bedrock players get a native form experience adapted to their platform.
 
-:::warning Requirements
+<CalloutContainer type="warning">
+
+<CalloutTitle>Requirements</CalloutTitle>
+
+<CalloutDescription>
 Bedrock Forms require **Geyser** or **Floodgate** to be installed on your server. zMenu uses the [Floodgate API](https://wiki.geysermc.org/floodgate/) to detect Bedrock players and send forms.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## File Location
 
@@ -133,9 +138,13 @@ buttons:
 | `text` | String | Yes | The button label |
 | `click-requirement` | Section | No | Requirements and actions executed when clicked |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 A modal form must have exactly 2 buttons. If fewer than 2 are defined, the form will fail to load. If more than 2 are defined, only the first two will be used.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The placeholder `%content%` is available in click actions and contains the form's content text.
 
@@ -495,9 +504,13 @@ The `<name>` argument accepts the format `pluginName:formName` or just `formName
 /zm bedrock open simple-form Notch false
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Bedrock forms can only be opened for Bedrock players (connected via Geyser/Floodgate). Attempting to open a form for a Java player will display an error message.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

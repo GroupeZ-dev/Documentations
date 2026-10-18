@@ -1,13 +1,18 @@
 ---
-sidebar_position: 5
 title: Gifts & payments
 ---
 
 # Gifts & payments
 
-:::warning Legacy platform
+<CalloutContainer type="warning">
+
+<CalloutTitle>Legacy platform</CalloutTitle>
+
+<CalloutDescription>
 This page documents the **legacy v1 platform** of groupez.dev (the former Laravel 8 site). It is kept for reference and for plugins that were built against it. The current platform answers the same URIs with different payloads: see [Gifts & payments (v2)](../v2/gifts-payments.md).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Two read-only endpoints exposed a discount code and a purchase. Both were **public and unauthenticated**, and both returned the **raw database row**.
 
@@ -195,6 +200,12 @@ curl -s https://groupez.dev/api/v1/payment/pi_3Abc... \
 - `stripe_id` is not unique and the lookup takes the first match: `GET /api/v1/payment/empty` returned the first payment whose provider id was still the placeholder `"empty"` (an unfinished PayPal checkout or an invoice).
 - Field ordering above follows the table's physical column order after the legacy migrations (`gift_id`, `type` and `content_id` were added later; `plugin_id` and `spigot` were dropped). It is indicative, not a contract.
 
-:::warning Not compatible with v2
+<CalloutContainer type="warning">
+
+<CalloutTitle>Not compatible with v2</CalloutTitle>
+
+<CalloutDescription>
 v2 keeps the URI `/api/v1/payment/{...}` but looks the payment up by its new ULID `uid` and returns only `uid`, `status` (lower-case), `amount_cents` and `currency`. A call with a Stripe/PayPal id returns `404` on the current platform. See [v2](../v2/gifts-payments.md#get-apiv1paymentpayment).
-:::
+</CalloutDescription>
+
+</CalloutContainer>

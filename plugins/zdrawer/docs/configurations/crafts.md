@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Custom Crafts
 description: Configure custom crafting recipes
 ---

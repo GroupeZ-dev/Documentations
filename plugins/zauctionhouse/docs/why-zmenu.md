@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Why do I need zMenu?
 description: Understanding why zAuctionHouse requires zMenu for inventory management
 ---

@@ -1,0 +1,16 @@
+{
+  "title": "CurrenciesAPI",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "[Introduction](/currenciesapi/introduction)",
+    "!introduction",
+    "[Installation](/currenciesapi/installation)",
+    "!installation",
+    "[Usage Guide](/currenciesapi/usage)",
+    "!usage",
+    "[Currencies Reference](/currenciesapi/currencies)",
+    "!currencies",
+    "..."
+  ]
+}

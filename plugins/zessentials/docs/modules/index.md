@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Modules Overview
 description: Overview of all zEssentials modules
 ---
@@ -57,9 +56,13 @@ To re-enable a module, set it back to `true`:
 enable: true
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 After changing the `enable` value in any module's configuration file, you must **restart the server** for the change to take effect. A simple configuration reload is not sufficient to fully enable or disable a module.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -77,9 +80,13 @@ For example, the Economy module configuration is located at:
 plugins/zEssentials/modules/economy/config.yml
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 All modules follow the same general structure: an `enable` toggle at the top followed by module-specific options. Refer to each module's dedicated documentation page for a complete breakdown of its configuration options, commands, permissions, and placeholders.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -94,6 +101,10 @@ Most modules operate independently, but some modules interact with each other:
 - The **Custom Commands** module uses **zMenu** to run the `actions` of each command.
 - The **Mailbox** text mails respect the **Sanction** mutes and the `/ignore` list.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Disabling a module that another module depends on may cause the dependent feature to silently degrade. For example, disabling the Economy module will prevent the WorldEdit module from charging players, and operations may fail or become free depending on the implementation.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

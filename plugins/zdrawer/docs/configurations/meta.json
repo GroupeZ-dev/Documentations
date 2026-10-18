@@ -1,0 +1,10 @@
+{
+  "title": "Configuration",
+  "defaultOpen": false,
+  "pagesIndex": "config",
+  "pages": [
+    "drawers",
+    "upgrades",
+    "crafts"
+  ]
+}

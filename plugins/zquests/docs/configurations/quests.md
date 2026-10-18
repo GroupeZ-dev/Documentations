@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Quest Configuration
 description: Learn how to configure quests in zQuests
 ---
@@ -61,9 +60,15 @@ A unique identifier for the quest. This value is used internally to track player
 name: "stone-breaker-1"
 ```
 
-:::warning Important
+<CalloutContainer type="warning">
+
+<CalloutTitle>Important</CalloutTitle>
+
+<CalloutDescription>
 The quest name must be **unique** across all quest files. Changing this value after players have started the quest will reset their progress!
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

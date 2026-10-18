@@ -1,11 +1,8 @@
 ---
-sidebar_position: 1
 title: Item Configuration
 description: Complete reference for item configuration in zMenu
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 # Item Configuration
 
@@ -85,28 +82,28 @@ material: "oraxen:amethyst_sword"
 
 The display name of the item.
 
-<Tabs>
-    <TabItem value="name" label="name">
+<Tabs items={["name","display-name","display_name"]}>
+    <Tab value="name">
         ```yaml
         item:
         material: DIAMOND
         name: "&b&lShiny Diamond"
         ```
-    </TabItem>
-    <TabItem value="display-name" label="display-name">
+    </Tab>
+    <Tab value="display-name">
         ```yaml
         item:
         material: DIAMOND
         display-name: "&b&lShiny Diamond"
         ```
-    </TabItem>
-    <TabItem value="display_name" label="display_name">
+    </Tab>
+    <Tab value="display_name">
         ```yaml
         item:
         material: DIAMOND
         display_name: "&b&lShiny Diamond"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Aliases:**
@@ -125,8 +122,8 @@ The display name of the item.
 
 Provides per-language translations of the item name. Each entry maps a `locale` to a `name`, and the plugin uses the one matching the player's client language. If no locale matches, the default `name` value is used instead.
 
-<Tabs>
-    <TabItem value="translatedName" label="translatedName">
+<Tabs items={["translatedName","translated-name"]}>
+    <Tab value="translatedName">
         ```yaml
         item:
           material: DIAMOND_SWORD
@@ -137,8 +134,8 @@ Provides per-language translations of the item name. Each entry maps a `locale` 
             - locale: it-it
               name: "Nome in italiano"
         ```
-    </TabItem>
-    <TabItem value="translated-name" label="translated-name">
+    </Tab>
+    <Tab value="translated-name">
         ```yaml
         item:
           material: DIAMOND_SWORD
@@ -149,7 +146,7 @@ Provides per-language translations of the item name. Each entry maps a `locale` 
             - locale: it-it
               name: "Nome in italiano"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 The name is displayed in the player's client language. Players whose locale is not listed fall back to the default `name`.
@@ -181,8 +178,8 @@ Each list item is a new line. Empty strings (`""`) create blank lines.
 
 Define how the lore should interact with existing item lore. This is especially useful when using material loaders (ItemsAdder, Oraxen, etc.) where the loaded item already has lore.
 
-<Tabs>
-    <TabItem value="replace" label="REPLACE (default)">
+<Tabs items={["REPLACE (default)","APPEND","PREPEND"]}>
+    <Tab value="REPLACE (default)">
         ```yaml
         item:
           material: "oraxen:custom_item"
@@ -190,8 +187,8 @@ Define how the lore should interact with existing item lore. This is especially 
             - "&7This replaces all existing lore"
           lore-type: REPLACE
         ```
-    </TabItem>
-    <TabItem value="append" label="APPEND">
+    </Tab>
+    <Tab value="APPEND">
         ```yaml
         item:
           material: "itemsadder:namespace:item"
@@ -200,8 +197,8 @@ Define how the lore should interact with existing item lore. This is especially 
             - "&eClick to use!"
           lore-type: APPEND
         ```
-    </TabItem>
-    <TabItem value="prepend" label="PREPEND">
+    </Tab>
+    <Tab value="PREPEND">
         ```yaml
         item:
           material: "zitems:legendary_sword"
@@ -210,7 +207,7 @@ Define how the lore should interact with existing item lore. This is especially 
             - ""
           lore-type: PREPEND
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Available Types:**
@@ -227,8 +224,8 @@ Define how the lore should interact with existing item lore. This is especially 
 
 Provides per-language translations of the item lore. Each entry maps a `locale` to a `lore` list, and the plugin uses the one matching the player's client language. If no locale matches, the default `lore` value is used instead.
 
-<Tabs>
-    <TabItem value="translatedLore" label="translatedLore">
+<Tabs items={["translatedLore","translated-lore"]}>
+    <Tab value="translatedLore">
         ```yaml
         item:
           material: DIAMOND_SWORD
@@ -242,8 +239,8 @@ Provides per-language translations of the item lore. Each entry maps a `locale` 
               lore:
                 - "Lore in italiano"
         ```
-    </TabItem>
-    <TabItem value="translated-lore" label="translated-lore">
+    </Tab>
+    <Tab value="translated-lore">
         ```yaml
         item:
           material: DIAMOND_SWORD
@@ -257,7 +254,7 @@ Provides per-language translations of the item lore. Each entry maps a `locale` 
               lore:
                 - "Lore in italiano"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 The lore is displayed in the player's client language. Players whose locale is not listed fall back to the default `lore`.
@@ -525,70 +522,70 @@ item:
 
 ### model-id
 
-<Tabs>
-    <TabItem value="model-id" label="model-id">
+<Tabs items={["model-id","modelID","modelId","customModelId","customModelData","model_data","custom-model-id","custom-model-data","model-data"]}>
+    <Tab value="model-id">
         ```yaml
         item:
           material: DIAMOND
           model-id: 12345
         ```
-    </TabItem>
-    <TabItem value="modelID" label="modelID">
+    </Tab>
+    <Tab value="modelID">
         ```yaml
         item:
           material: DIAMOND
           modelID: 12345
         ```
-    </TabItem>
-    <TabItem value="modelId" label="modelId">
+    </Tab>
+    <Tab value="modelId">
         ```yaml
         item:
           material: DIAMOND
           modelId: 12345
         ```
-    </TabItem>
-    <TabItem value="customModelId" label="customModelId">
+    </Tab>
+    <Tab value="customModelId">
         ```yaml
         item:
           material: DIAMOND
           customModelId: 12345
         ```
-    </TabItem>
-    <TabItem value="customModelData" label="customModelData">
+    </Tab>
+    <Tab value="customModelData">
         ```yaml
         item:
           material: DIAMOND
           customModelData: 12345
         ```
-    </TabItem>
-    <TabItem value="model_data" label="model_data">
+    </Tab>
+    <Tab value="model_data">
         ```yaml
         item:
           material: DIAMOND
           model_data: 12345
         ```
-    </TabItem>
-    <TabItem value="custom-model-id" label="custom-model-id">
+    </Tab>
+    <Tab value="custom-model-id">
         ```yaml
         item:
           material: DIAMOND
           custom-model-id: 12345
         ```
-    </TabItem>
-    <TabItem value="custom-model-data" label="custom-model-data">
+    </Tab>
+    <Tab value="custom-model-data">
         ```yaml
         item:
           material: DIAMOND
           custom-model-data: 12345
         ```
-    </TabItem>
-    <TabItem value="model-data" label="model-data">
+    </Tab>
+    <Tab value="model-data">
         ```yaml
         item:
           material: DIAMOND
           model-data: 12345
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 This allows resource packs to display custom models for items.
@@ -659,9 +656,13 @@ item:
   player-head: "Notch"
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 You don't need to specify `material: PLAYER_HEAD` when using `player-head`. The plugin handles this automatically.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -744,7 +745,25 @@ Available dye colors: [DyeColor Javadoc](https://hub.spigotmc.org/javadocs/bukki
 
 ### firework
 
-Define a firework rocket or firework star item.
+Configure a firework star or rocket with a single explosion effect. Put `firework` directly inside the button's `item` section.
+
+**Colored firework star:** use both `material: FIREWORK_STAR` and `star: true`. The `star` option selects the item kind; `type: STAR` only selects the explosion shape.
+
+```yaml
+item:
+  material: FIREWORK_STAR
+  firework:
+    star: true
+    flicker: false
+    trail: false
+    type: BALL
+    colors:
+      - "255,255,255,255" # A,R,G,B: opaque white
+    fadeColors:
+      - "255,255,255,255"
+```
+
+**Firework rocket:** set `star: false`. This example uses red and green initial colors, a blue fade, a large ball, a trail and a twinkle effect.
 
 ```yaml
 item:
@@ -753,22 +772,34 @@ item:
     star: false
     flicker: true
     trail: true
-    type: BALL_LARGE      # FireworkEffect.Type
+    type: BALL_LARGE
     colors:
-      - "255,0,0"         # Red (R,G,B or A,R,G,B)
-      - "0,255,0"         # Green
+      - "255,255,0,0" # A,R,G,B: opaque red
+      - "255,0,255,0" # A,R,G,B: opaque green
     fadeColors:
-      - "0,0,255"         # Blue fade
+      - "255,0,0,255" # A,R,G,B: opaque blue
 ```
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| `star` | Boolean | `false` | Firework star (display-only shape) |
+| `star` | Boolean | `false` | `true` creates a `FIREWORK_STAR`; `false` creates a `FIREWORK_ROCKET` |
 | `flicker` | Boolean | `false` | Twinkle / flicker effect |
 | `trail` | Boolean | `false` | Trail of particles |
-| `type` | String | `BALL` | Shape: `BALL`, `BALL_LARGE`, `STAR`, `CREEPER`, `BURST` |
-| `colors` | List | — | Launch colors in `R,G,B` or `A,R,G,B` format |
-| `fadeColors` | List | — | Fade-to colors in `R,G,B` or `A,R,G,B` format |
+| `type` | String | `BALL` | Explosion shape: `BALL`, `BALL_LARGE`, `STAR`, `CREEPER`, `BURST` (uppercase) |
+| `colors` | List of strings | Required | Initial colors; provide at least one color |
+| `fadeColors` | List of strings | `[]` | Optional fade-to colors; use this exact camelCase key |
+
+**Color format:** each list entry is a quoted, comma-separated string: `"R,G,B"` or `"A,R,G,B"`, with integers from `0` to `255` and no spaces. In the four-value format, alpha comes **first**: `"255,255,0,0"` is opaque red. `"255,0,0"` also works as RGB red. Color names such as `RED`, hex strings, and YAML arrays such as `[255,0,0]` are not supported in this `firework` section.
+
+Do not nest the effect under `effects` or use `fade_colors` or `power` here: the loader reads the properties directly under `firework`. The separate [`components.fireworks` configuration](./components#fireworks) has its own format.
+
+**Check an existing item:**
+
+1. Hold the desired star or rocket and run `/zm save firework_example YML` to request a readable export.
+2. Open `plugins/zMenu/save_items.yml` and find `items.firework_example`.
+3. Copy that item's properties into your menu button's `item` section, without the saved `items` wrapper.
+
+The generated format can vary between plugin versions (for example, `firework` or `components`); keep its keys and structure intact. On versions where `/zm save <name>` already exports readable YAML, the extra `YML` argument is unnecessary; current versions default to Base64 when it is omitted.
 
 ---
 
@@ -858,8 +889,8 @@ item:
 
 ### enchantments
 
-<Tabs>
-    <TabItem value="enchantments" label="enchantments">
+<Tabs items={["enchantments","enchants"]}>
+    <Tab value="enchantments">
         ```yaml
         item:
           material: DIAMOND_SWORD
@@ -867,8 +898,8 @@ item:
             - SHARPNESS,5
             - UNBREAKING,3
         ```
-    </TabItem>
-    <TabItem value="enchants" label="enchants">
+    </Tab>
+    <Tab value="enchants">
         ```yaml
         item:
           material: DIAMOND_SWORD
@@ -876,7 +907,7 @@ item:
             - SHARPNESS,5
             - UNBREAKING,3
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 You can use either `enchantments` or `enchants` to add enchantments to your item.

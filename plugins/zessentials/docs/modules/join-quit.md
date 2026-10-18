@@ -1,5 +1,4 @@
 ---
-sidebar_position: 9
 title: JoinQuit Module
 description: Customizable join, quit, and first-join messages with MOTD support
 ---
@@ -42,9 +41,13 @@ join-motd-ticks: 20
 | `allow-join-motd` | Boolean | `false` | When `true`, all players receive a MOTD message each time they join the server |
 | `join-motd-ticks` | Integer | `20` | Delay in ticks before the join MOTD is displayed to the player. `20` ticks = 1 second |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The actual message content (join messages, quit messages, first-join broadcasts, and MOTD lines) is configured in the `messages.yml` file, not in this module configuration. This config file only controls the behavior and toggles for each feature.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -71,9 +74,13 @@ The following placeholders can be used in join, quit, and first-join messages co
 | `%totalUser%` | The total number of unique players who have joined the server |
 | `%totalUserFormat%` | The total number of unique players formatted with number separators (e.g., `1,234`) |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 These placeholders are specific to the JoinQuit module messages. You can also use any PlaceholderAPI placeholder in your messages if PlaceholderAPI is installed.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -84,9 +91,13 @@ These placeholders are specific to the JoinQuit module messages. You can also us
 | `essentials.silentjoin` | Allows the player to join without triggering a join message. Only effective when `allow-silent-join-quit` is `true` |
 | `essentials.silentquit` | Allows the player to leave without triggering a quit message. Only effective when `allow-silent-join-quit` is `true` |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 The `essentials.silentjoin` and `essentials.silentquit` permissions have no effect unless `allow-silent-join-quit` is set to `true` in the module configuration.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

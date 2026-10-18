@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installing zMenu
 description: How to download, install, and configure zMenu on your Minecraft server
 ---
@@ -18,23 +17,47 @@ Before installing zMenu, make sure your server meets the following requirements:
 | Java | **Java 21** (required) |
 | Server Software | **Paper**, Purpur, Pufferfish, or Folia |
 
-:::warning Paper is required
+<CalloutContainer type="warning">
+
+<CalloutTitle>Paper is required</CalloutTitle>
+
+<CalloutDescription>
 zMenu is a **Paper-only** plugin — it ships a `paper-plugin.yml`, which only Paper reads. Run it on Paper, a Paper fork (Purpur / Pufferfish) or Folia.
 
 On Spigot the plugin still loads and enables, but **nothing works**: no menu, no command, no API. It only prints a warning in the console, and sends the same warning on join to players holding `zmenu.paper.warning` (operators by default), telling you to install Paper.
-:::
+</CalloutDescription>
 
-:::tip Recommended Setup
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Recommended Setup</CalloutTitle>
+
+<CalloutDescription>
 For the best experience, we recommend using **Paper** or **Purpur**. This enables MiniMessage formatting support and provides better performance.
-:::
+</CalloutDescription>
 
-:::tip Migrating from DeluxeMenus?
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Migrating from DeluxeMenus?</CalloutTitle>
+
+<CalloutDescription>
 Keep your menus: once zMenu is installed, run `/zm convert deluxemenus` to convert every DeluxeMenus menu into a zMenu inventory. See [Migrate from DeluxeMenus](./convert-deluxemenus).
-:::
+</CalloutDescription>
 
-:::info First start needs internet
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>First start needs internet</CalloutTitle>
+
+<CalloutDescription>
 On first load zMenu downloads a few runtime libraries (the MariaDB driver and Reflections) through Paper's library loader. On a restricted network you can point it at a mirror with the `PAPER_DEFAULT_CENTRAL_REPOSITORY` environment variable or the `-Dorg.bukkit.plugin.java.LibraryLoader.centralURL` JVM flag.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Download
 
@@ -43,9 +66,15 @@ You can download zMenu from the following sources:
 - **Modrinth** (Primary): [https://modrinth.com/plugin/zmenu](https://modrinth.com/plugin/zmenu)
 - **SpigotMC**: [https://www.spigotmc.org/resources/zmenu.110402/](https://www.spigotmc.org/resources/zmenu.110402/)
 
-:::info Development Builds
+<CalloutContainer type="info">
+
+<CalloutTitle>Development Builds</CalloutTitle>
+
+<CalloutDescription>
 Get the latest development versions in the `#builds` channel on [Discord](https://discord.groupez.dev).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Installation Steps
 
@@ -195,9 +224,15 @@ To update zMenu:
 4. Start your server
 5. Run `/zm reload` if configurations haven't changed
 
-:::warning Backup First
+<CalloutContainer type="warning">
+
+<CalloutTitle>Backup First</CalloutTitle>
+
+<CalloutDescription>
 Always backup your `plugins/zMenu/` folder before updating, especially if you've customized configurations.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Next Steps
 

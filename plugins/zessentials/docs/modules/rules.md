@@ -1,5 +1,4 @@
 ---
-sidebar_position: 13
 title: Rules Module
 description: Server rules display system
 ---
@@ -28,14 +27,24 @@ rule-type: INVENTORY  # INVENTORY or MESSAGE
 | `enable` | Boolean | `true` | Enable or disable the Rules module |
 | `rule-type` | String | `INVENTORY` | How rules are displayed to the player. Accepts `INVENTORY` or `MESSAGE` |
 
-:::info Display Modes
+<CalloutContainer type="info">
+
+<CalloutTitle>Display Modes</CalloutTitle>
+
+<CalloutDescription>
 - **`INVENTORY`** -- Rules are displayed through a zMenu inventory interface. This provides a rich, interactive GUI where players can browse rules in a paginated menu.
 - **`MESSAGE`** -- Rules are sent directly as chat messages. This is simpler and works without zMenu, but offers less visual formatting.
-:::
+</CalloutDescription>
 
-:::tip
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The actual rules text and formatting are configured in `messages.yml`, not in this configuration file. This module only controls whether the rules system is enabled and which display mode to use.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -60,9 +69,13 @@ For the full command list, see [Commands & Permissions](../commands-permissions)
 
 ## Configuration in messages.yml
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 To edit the actual rules content displayed to players, modify the rules section in your `messages.yml` file. The Rules module reads the message entries from there and presents them using the chosen `rule-type` format.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

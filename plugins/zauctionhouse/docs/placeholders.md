@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Placeholders
 description: All placeholders available in zAuctionHouse V4
 ---
@@ -41,9 +40,15 @@ Used in `item-lore` section of `config.yml`:
 | `%player%` | Player involved in the action |
 | `%target%` | Target player (admin operations) |
 
-:::tip Performance
+<CalloutContainer type="info">
+
+<CalloutTitle>Performance</CalloutTitle>
+
+<CalloutDescription>
 Only the placeholders actually used in your lore templates are computed at render time. The plugin pre-detects which placeholders each lore section references when the configuration is loaded.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Inventory Placeholders
 

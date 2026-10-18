@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Main Configuration
 description: Main configuration options for zAuctionHouse V4
 ---
@@ -101,9 +100,13 @@ database-configuration:
 | `MYSQL` | MySQL database server | Multi-server, large auction houses |
 | `MARIADB` | MariaDB database server | Multi-server, large auction houses |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 For multi-server synchronization, use MySQL/MariaDB with the Redis addon.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Message Colors
 
@@ -125,9 +128,13 @@ Use these in any message: `<primary>Welcome <secondary>to the auction house!`
 
 ## Command Configuration
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 A server restart is required after changing command settings!
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 commands:
@@ -437,9 +444,15 @@ item-lore:
 | `%player%` | Player involved |
 | `%target%` | Target player (admin) |
 
-:::tip Performance
+<CalloutContainer type="info">
+
+<CalloutTitle>Performance</CalloutTitle>
+
+<CalloutDescription>
 Only the placeholders actually used in your lore templates are computed at render time. The plugin pre-detects which placeholders each lore section references when the configuration is loaded. If your `expired-item` lore only uses `%time-remaining%`, the plugin won't waste resources computing `%price%`, `%seller%`, etc.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Time Format
 
@@ -581,9 +594,13 @@ broadcast:
       enchanted-books: "<light_purple><bold>ENCHANT</bold></light_purple> <white>%buyer% <yellow>purchased %items% <yellow>from <white>%seller% <yellow>for <gold>%price%<yellow>!"
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Category keys must match the IDs defined in `categories.yml` (e.g., `weapons`, `armor`, `blocks`, `enchanted-books`, `misc`).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Broadcast Placeholders
 

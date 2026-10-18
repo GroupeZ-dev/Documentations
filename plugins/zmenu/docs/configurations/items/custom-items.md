@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Custom Items
 description: Define standalone custom items in the items folder and give them to players
 ---
@@ -124,9 +123,13 @@ Custom items are stamped with a hidden id, which lets zMenu manage the copies al
 - **Item still exists** → it is rebuilt from the current configuration, so edits to the name, lore, enchantments, etc. are applied to existing copies automatically (unless `skip-item-update: true`).
 - **Item id no longer exists** (you deleted it from the files) → the hidden tags are stripped and the item is left in the inventory as a plain item.
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Edit an item, run `/zmenu reload`, and online players see the updated version without having to be given a new one.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Owner & placeholders
 

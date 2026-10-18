@@ -1,5 +1,4 @@
 ---
-sidebar_position: 9
 title: XP Boost
 description: Multiply XP drops from mining
 ---

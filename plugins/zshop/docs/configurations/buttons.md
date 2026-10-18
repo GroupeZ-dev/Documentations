@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Button Types
 description: All zShop button types for inventory configuration
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: History
 description: Sales history inventory configuration
 ---

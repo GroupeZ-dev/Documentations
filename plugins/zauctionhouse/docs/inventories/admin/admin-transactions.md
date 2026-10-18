@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: Admin Transactions
 description: Admin transactions inventory configuration
 ---

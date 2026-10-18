@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Sell Stick
 description: Sell container contents by clicking
 ---

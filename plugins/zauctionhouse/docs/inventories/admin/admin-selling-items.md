@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Admin Selling Items
 description: Admin selling items inventory configuration
 ---

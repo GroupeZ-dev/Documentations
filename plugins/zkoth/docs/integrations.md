@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: Integrations
 description: Team and scoreboard plugin integrations
 ---

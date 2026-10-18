@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Global Placeholders
 description: Define values that can be used across all inventories
 ---

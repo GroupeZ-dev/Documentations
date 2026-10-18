@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Admin History Main
 description: Admin history main hub inventory configuration
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Vein Mining
 description: Mine entire ore veins at once
 ---

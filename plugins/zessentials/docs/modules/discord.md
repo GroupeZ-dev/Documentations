@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Discord Module
 description: Discord webhook notifications and account linking
 ---
@@ -178,9 +177,13 @@ The following placeholders can be used in webhook message fields and embed field
 | `%discord-name%` | The linked Discord account username (link log webhooks only) |
 | `%discord-id%` | The linked Discord account ID (link log webhooks only) |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 For the `avatar` and `icon-url` fields, services like `https://mc-heads.net/avatar/%uuid%` and `https://mc-heads.net/head/%uuid%` provide Minecraft skin renders based on the player UUID.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -216,9 +219,13 @@ To create a Discord webhook:
 5. Configure the webhook name and avatar (optional), then click **Copy Webhook URL**.
 6. Paste the webhook URL into the corresponding `webhook` field in the configuration.
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Keep your webhook URLs private. Anyone with a webhook URL can send messages to that Discord channel. If a webhook URL is compromised, delete it in Discord and create a new one.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -241,9 +248,13 @@ The account linking system connects a player's Minecraft account with their Disc
 
 Players can unlink their account at any time by running `/unlink` on the Minecraft server. The unlink event is logged if `log-unlink-message` is enabled.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 For full details on setting up the Discord bot, including database configuration, bot commands, and the complete linking flow diagram, see the [Discord Bot](../development/discord-bot) page.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

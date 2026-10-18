@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Events
 description: Custom events fired by zEssentials for developers
 ---
@@ -90,9 +89,13 @@ if (provider != null) {
 }
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 zEssentials requires Paper 1.20.6+ (Mojang mappings). On Spigot the plugin stays inactive and the API is **not** available.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

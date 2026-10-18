@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: Patterns
 ---
 
@@ -601,9 +600,13 @@ items:
   # ...
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Like `patterns`, the `action-patterns` list only accepts **strings**. Objects are not supported.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Example
 

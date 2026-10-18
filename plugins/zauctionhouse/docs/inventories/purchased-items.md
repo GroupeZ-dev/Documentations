@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: Purchased Items
 description: Purchased items inventory configuration
 ---

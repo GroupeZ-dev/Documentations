@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: JUMP Button
 description: Button that jumps to a specific page
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 17
 title: Steps Module
 description: Step-based progression tracking system
 ---
@@ -40,17 +39,29 @@ steps:
 |--------|------|---------|-------------|
 | `steps[].name` | String | - | The unique identifier for this step. Used by commands and the API to reference the step |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Steps are a lightweight progression system. Each step is a named entry that can be created and finished via the API or commands. When a step is created for a player, it begins tracking playtime. When the step is finished, the elapsed playtime between creation and completion is recorded.
-:::
+</CalloutDescription>
 
-:::tip
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Steps can store custom JSON data, allowing you to attach arbitrary metadata to each step instance. This is useful for storing contextual information such as coordinates, item data, or completion conditions alongside the step record.
-:::
+</CalloutDescription>
 
-:::note
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The step names defined in the configuration act as the available step templates. You must define a step here before it can be created for a player through commands or the API.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -80,9 +91,13 @@ For the full command list, see [Commands & Permissions](../commands-permissions)
 | `StepCreateEvent` | Fired when a new step is created for a player. Can be used to trigger actions at the start of a progression stage |
 | `StepFinishEvent` | Fired when a step is marked as finished for a player. Can be used to grant rewards or advance to the next stage |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 You can listen to `StepCreateEvent` and `StepFinishEvent` in your own plugins or addons to build custom progression logic, such as automatically creating the next step when the current one is finished.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

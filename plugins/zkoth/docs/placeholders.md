@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Placeholders
 description: Available placeholders in zKoth
 ---

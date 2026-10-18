@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Selling Items
 description: Your selling items inventory configuration
 ---

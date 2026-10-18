@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Informations
 description: Essential information about configuring zMenu
 ---
@@ -161,9 +160,13 @@ After making changes, reload your configurations:
 /zm reload command [name]     # Reload specific command
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Use `/zm reload inventory <name>` when testing changes to a specific inventory - it's faster than reloading everything.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Common Mistakes
 

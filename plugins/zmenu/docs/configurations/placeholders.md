@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Placeholders
 description: All available placeholders in zMenu
 ---
@@ -337,9 +336,13 @@ zMenu's own placeholders (command arguments, `%page%`, `%player%`, Bedrock form 
 
 An unknown modifier, a missing argument or a numeric modifier applied to a non-numeric value gives an empty result. The previous prefixes (`%upper_key%`, `%lower_key%`, `%capitalize_key%`, `%add_one_key%`, `%remove_one_key%`) still work.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Modifiers apply to zMenu's own placeholders, not to PlaceholderAPI placeholders. For PlaceholderAPI, use the formatting options of the expansion.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Placeholder Caching
 
@@ -353,9 +356,13 @@ enable-cache-placeholder-api: true
 cache-placeholder-api: 20
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Caching means placeholders won't update instantly. Only enable this if you have performance issues and understand the implications.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Nested Placeholders
 

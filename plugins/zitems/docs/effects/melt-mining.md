@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: Melt Mining
 description: Automatically smelt mined blocks
 ---
@@ -51,9 +50,15 @@ The effect uses vanilla furnace recipes to determine outputs:
 | Wet Sponge | Wet Sponge | Sponge |
 | Kelp | Kelp | Dried Kelp |
 
-:::info Fortune Compatibility
+<CalloutContainer type="info">
+
+<CalloutTitle>Fortune Compatibility</CalloutTitle>
+
+<CalloutDescription>
 The effect works with Fortune enchantment. If Fortune gives you 3 raw iron, you get 3 iron ingots.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Visual Effect
 

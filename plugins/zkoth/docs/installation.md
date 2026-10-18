@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installation
 description: How to install and configure zKoth
 ---
@@ -158,9 +157,15 @@ To update zKoth:
 5. Start your server
 6. Run `/zkoth reload` if needed
 
-:::warning Backup First
+<CalloutContainer type="warning">
+
+<CalloutTitle>Backup First</CalloutTitle>
+
+<CalloutDescription>
 Always backup your `plugins/zKoth/` folder before updating. KOTH configurations may need adjustments for new versions.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Troubleshooting
 

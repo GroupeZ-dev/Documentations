@@ -1,5 +1,4 @@
 ---
-sidebar_position: 18
 title: Teleportation Module
 description: Complete teleportation system with TPA, RTP, delays, and safety features
 ---
@@ -108,9 +107,13 @@ rtp-world-overrides:
 | `teleport-delay-permissions[].delay` | Integer | - | The delay in seconds to use for players with this permission |
 | `teleport-delay-bypass` | Boolean | `false` | If `true`, players with the `essentials.teleport.bypass` permission skip the teleport delay |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If a player has several permissions from `teleport-delay-permissions`, the **lowest** delay is used. Players without any matching permission use `teleport-delay`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Teleport Sounds
 
@@ -125,9 +128,13 @@ If a player has several permissions from `teleport-delay-permissions`, the **low
 | `complete-sound.volume` | Decimal | `1.0` | Sound volume |
 | `complete-sound.pitch` | Decimal | `1.0` | Sound pitch |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Sounds are resolved through the zMenu XSound API, so they work on every supported Minecraft version. If the name is not a known vanilla sound, it is played as a custom sound (for example a resource pack sound such as `myserver:teleport`).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### TPA (Teleport Ask) Options
 
@@ -137,9 +144,13 @@ Sounds are resolved through the zMenu XSound API, so they work on every supporte
 | `open-confirm-inventory-for-tpa` | Boolean | `false` | If `true`, opens a zMenu confirmation inventory for the sender before a `/tpa` request is sent |
 | `open-confirm-inventory-for-tpa-here` | Boolean | `false` | If `true`, opens a zMenu confirmation inventory for the sender before a `/tpahere` request is sent |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 When the confirmation inventory options are enabled, the player running `/tpa` or `/tpahere` gets a GUI prompt to confirm the request before it is sent to the target.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Random Teleportation (RTP) Options
 
@@ -160,9 +171,13 @@ When the confirmation inventory options are enabled, the player running `/tpa` o
 |--------|------|---------|-------------|
 | `blacklist-biomes` | List of Strings | *(see above)* | A list of biome identifiers where random teleportation will not place players. If a selected location falls within a blacklisted biome, the plugin retries up to `max-rtp-attempts` |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 If too many biomes are blacklisted and the RTP area is small, the plugin may exhaust all attempts without finding a valid location. Increase `max-rtp-attempts` or expand the RTP radius if players frequently fail to find a location.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Teleport Protection
 
@@ -173,9 +188,13 @@ If too many biomes are blacklisted and the RTP area is small, the plugin may exh
 | `teleport-protections[].permission` | String | - | The permission node the player must have for this protection override to apply |
 | `teleport-protections[].delay` | Integer | - | The protection duration in milliseconds for players with this permission |
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Teleport protection prevents players from taking damage immediately after teleporting. This is especially useful for RTP where players may land in hostile environments. The value is in **milliseconds** (e.g., `1000` = 1 second, `3000` = 3 seconds). As for the delay, if a player matches several entries, the lowest value is used.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### RTP Queue
 
@@ -191,9 +210,13 @@ Teleport protection prevents players from taking damage immediately after telepo
 | `enable-first-join-rtp` | Boolean | `false` | If `true`, new players are automatically randomly teleported when they first join the server |
 | `first-join-rtp-world` | String | `"world"` | The world in which the first-join random teleport takes place. Must be defined in `rtp-worlds`. Leave empty to use the player's spawn world |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 First join RTP is useful for survival servers that want to spread players out across the map from the start, rather than having everyone spawn at the same location.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### World Overrides
 
@@ -203,9 +226,13 @@ First join RTP is useful for survival servers that want to spread players out ac
 | `rtp-world-overrides[].from` | String | - | The world where the player is currently located |
 | `rtp-world-overrides[].to` | String | - | The target world where the player will be randomly teleported |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 World overrides are useful for preventing RTP in dimensions like the Nether or The End, redirecting those requests back to the overworld instead.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -241,9 +268,13 @@ A player can receive several teleport requests at the same time:
 - `/tpaheretoggle` disables only incoming `/tpahere` requests. Staff with `essentials.tpa.here.toggle.other` can use `/tpaheretoggle <player>`.
 - A player who has been ignored with `/ignore` cannot send `/tpa` or `/tpahere` requests to the player ignoring them. See [Messages Module](./messages#ignore-system).
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 `/tptoggle` and the ignore commands belong to the [Messages Module](./messages): this module must be enabled for them to work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Teleport Messages
 
@@ -289,9 +320,13 @@ For the full command list, see [Commands & Permissions](../commands-permissions)
 | `essentials.teleport.protection.vip` | Grants VIP teleport protection (2000ms in default config) |
 | `essentials.teleport.protection.staff` | Grants staff teleport protection (3000ms in default config) |
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The delay and protection permission nodes and their associated values are fully configurable. The permissions listed above are from the default configuration and can be changed to match your server's permission structure.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

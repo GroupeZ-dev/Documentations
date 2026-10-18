@@ -1,0 +1,18 @@
+{
+  "title": "zJobs",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "[Introduction](/zjobs/introduction)",
+    "!introduction",
+    "[Installation](/zjobs/installation)",
+    "!installation",
+    "[Job Configuration](/zjobs/jobs)",
+    "!jobs",
+    "[Actions & Rewards](/zjobs/actions)",
+    "!actions",
+    "[Commands & Permissions](/zjobs/commands-permissions)",
+    "!commands-permissions",
+    "..."
+  ]
+}

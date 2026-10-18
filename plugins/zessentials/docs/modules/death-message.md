@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Death Message Module
 description: Customizable death messages with support for player kills, mobs, MythicMobs, and per-cause configuration
 ---

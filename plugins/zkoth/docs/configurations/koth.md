@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: KOTH Configuration
 description: Configure individual KOTH events
 ---
@@ -73,9 +72,13 @@ maxLocation:
   z: 210
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Use `/zkoth move <name>` to change the location instead of editing manually.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Message Settings
 

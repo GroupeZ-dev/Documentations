@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: Item Rules
 description: Flexible item-matching system used to validate items dropped into a menu
 ---
@@ -62,9 +61,13 @@ items:
 | `error-item` | Item   | Item flashed when a refused item is dropped (`duration`, `use_cache`) |
 | `rule`       | Rule   | The rule the dropped item must match to be accepted                |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 `check-item` / `check_item` and `error-item` / `error_item` are interchangeable (both spellings work).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Rule types
 

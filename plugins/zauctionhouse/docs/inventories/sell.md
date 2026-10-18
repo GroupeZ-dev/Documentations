@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Sell
 description: Sell inventory configuration for listing items
 ---

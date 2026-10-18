@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Farming Hoe
 description: Harvest, till, and plant crops in an area
 ---

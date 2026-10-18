@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: MenuItemStack
 description: Creating and manipulating dynamic items with MenuItemStack
 ---

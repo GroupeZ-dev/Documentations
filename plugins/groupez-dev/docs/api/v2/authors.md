@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Authors
 ---
 
@@ -7,9 +6,15 @@ title: Authors
 
 A single endpoint returns the public identity of a seller (an author of resources): their id, their Discord identifier and their display name. Plugins use it to show who wrote a resource or to mention the seller in a Discord channel.
 
-:::info Frozen contract
+<CalloutContainer type="info">
+
+<CalloutTitle>Frozen contract</CalloutTitle>
+
+<CalloutDescription>
 This payload is a compatibility contract with plugins already deployed on Minecraft servers. It has exactly three keys, in this order, and will not gain new ones. The richer author data shown on the website (slug, avatar, bio, role) is **not** exposed here.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Common behaviour
 
@@ -104,10 +109,16 @@ curl -s https://groupez.dev/api/v1/author/42 \
 - **Neutral 404.** The `404` body is always `{"message": "Not found."}`. It never names the internal model, so existence is the only thing a caller learns.
 - **Non-numeric ids.** `{user}` has no pattern constraint, so any single segment reaches the lookup. A value that matches no id answers `404`. Mixed values such as `42abc` are compared by the database (MySQL in production), which may coerce them to a number. This case is not covered by tests, so always send a plain integer.
 
-:::note Differences from the legacy platform
+<CalloutContainer type="info">
+
+<CalloutTitle>Differences from the legacy platform</CalloutTitle>
+
+<CalloutDescription>
 - Legacy `discord` was not this string in practice: once the Discord column was moved to its own table on the legacy platform, the endpoint returned a whole Discord account object (or `null`). See [v1 Authors](../v1/authors.md).
 - Legacy responses were sent with a `text/html` content type. The current platform answers `application/json`.
 - Legacy 404s exposed the internal model name. The current platform answers `{"message": "Not found."}`.
 - The rate limit went from 60 to 120 requests per minute.
 - The route name changed from `api.v1.authorshow` to `api.v1.authors.show`. The URI did not change.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

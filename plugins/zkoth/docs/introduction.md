@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Introduction
 description: Overview of zKoth - King of the Hill plugin for Minecraft
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Main Configuration
 description: zDrawer config.yml settings
 ---
