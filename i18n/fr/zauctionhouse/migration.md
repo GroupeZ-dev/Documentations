@@ -1,0 +1,285 @@
+---
+title: Migration
+description: Migrer les données d'autres plugins d'enchères vers zAuctionHouse V4
+---
+
+# Migration
+
+zAuctionHouse V4 inclut un système de migration intégré qui vous permet d'importer des données depuis d'autres plugins d'enchères. Cela assure une transition fluide sans perdre les annonces existantes, les objets expirés ou l'historique des transactions.
+
+<CalloutContainer type="warning">
+
+<CalloutTitle>Avant de Commencer</CalloutTitle>
+
+<CalloutDescription>
+1. **Sauvegardez votre base de données** avant d'exécuter toute migration.
+2. **Arrêtez le serveur** ou assurez-vous qu'aucun joueur n'est en ligne pendant la migration pour éviter les conflits de données.
+3. Vérifiez que les fichiers de données ou la base de données du plugin source sont accessibles.
+4. Exécutez la commande de migration depuis la console du serveur pour de meilleurs résultats.
+</CalloutDescription>
+
+</CalloutContainer>
+
+## Commande de Migration
+
+```bash
+/ah admin migrate <source> confirm
+```
+
+**Permission :** `zauctionhouse.admin`
+
+L'argument `confirm` est requis pour éviter les migrations accidentelles.
+
+## zAuctionHouse V3
+
+Migrer de zAuctionHouse V3 vers V4.
+
+**Alias de source :** `zauctionhousev3`, `zah`, `zahv3`, `v3`
+
+```bash
+/ah admin migrate zauctionhousev3 confirm
+# ou en utilisant les alias
+/ah admin migrate v3 confirm
+```
+
+### Données Migrées
+
+| Type de Données | Description |
+|-----------------|-------------|
+| **Annonces Actives** | Tous les objets actuellement en vente |
+| **Objets Expirés** | Objets qui ont expiré et attendent d'être récupérés |
+| **Objets Achetés** | Objets achetés par les joueurs en attente de réclamation |
+| **Historique des Transactions** | Historique complet des ventes |
+| **Données Joueur** | Informations et statistiques des vendeurs |
+
+### Comment Ça Fonctionne
+
+Le système de migration lit les données de votre base de données V3 et les importe dans la structure de base de données V4. Les bases de données V3 SQLite et MySQL/MariaDB sont supportées.
+
+1. Le migrateur se connecte à votre base de données V3
+2. Tous les objets d'enchères sont lus et convertis au format V4
+3. Les données NBT des objets sont préservées, incluant les objets personnalisés d'autres plugins
+4. Les UUIDs et noms des joueurs sont maintenus
+5. Les informations de prix et d'économie sont transférées
+6. Les horodatages et données d'expiration sont préservés
+
+### Prérequis
+
+- Les données de zAuctionHouse V3 doivent être accessibles (même base de données ou emplacement de fichier)
+- zAuctionHouse V4 doit être correctement configuré avec le stockage
+- Les deux plugins devraient utiliser le même type de stockage pour de meilleurs résultats
+
+### Étapes de Migration
+
+1. Installez zAuctionHouse V4 à côté de V3 (ne supprimez pas encore V3)
+2. Configurez la connexion à la base de données de V4 dans `config.yml`
+3. Démarrez le serveur et vérifiez que V4 se charge correctement
+4. Exécutez la commande de migration :
+   ```bash
+   /ah admin migrate zauctionhousev3 confirm
+   ```
+5. Attendez que la migration se termine (la console affichera la progression)
+6. Vérifiez les données en consultant `/ah` et les panneaux admin
+7. Une fois vérifié, vous pouvez supprimer zAuctionHouse V3
+
+## Plugins Externes
+
+zAuctionHouse V4 supporte également la migration depuis des plugins d'enchères tiers.
+
+### ZelAuction
+
+Migrer de ZelAuction vers zAuctionHouse V4.
+
+**Alias de source :** `zelauction`, `zel`, `zelauctions`
+
+```bash
+/ah admin migrate zelauction confirm
+# ou en utilisant les alias
+/ah admin migrate zel confirm
+```
+
+#### Données Migrées
+
+| Type de Données | Description |
+|-----------------|-------------|
+| **Annonces Actives** | Tous les produits actuellement en vente |
+| **Objets Boîte aux lettres** | Objets achetés en attente de réclamation (migrés comme objets expirés) |
+| **Historique des Transactions** | Historique complet des achats/ventes |
+| **Données Joueur** | Informations des vendeurs et acheteurs |
+
+#### Comment Ça Fonctionne
+
+Le système de migration lit les données directement depuis la base de données ZelAuction en utilisant son fichier de configuration `database.yml`. Les bases de données SQLite et MySQL sont supportées.
+
+1. Le migrateur lit `plugins/ZelAuction/database.yml` pour déterminer le type de base de données et les paramètres de connexion
+2. Les produits (objets en vente) sont convertis en objets d'enchères V4 avec une expiration par défaut de 48 heures
+3. Les objets de la boîte aux lettres (objets achetés en attente) sont importés comme objets expirés pour que les joueurs puissent les récupérer
+4. Les transactions sont converties en entrées de log V4
+5. Les UUIDs et noms des joueurs sont préservés
+6. Les données des objets sont converties de la sérialisation Base64 legacy vers le format compressé GZIP de V4
+
+#### Prérequis
+
+- Le dossier `plugins/ZelAuction/` doit exister sur le serveur avec le fichier de configuration `database.yml`
+- Le fichier de base de données ZelAuction (`.db` pour SQLite) doit être présent dans le dossier ZelAuction
+- zAuctionHouse V4 doit être correctement configuré avec son propre stockage
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Aucune Configuration Nécessaire</CalloutTitle>
+
+<CalloutDescription>
+Contrairement à la migration V3, la migration ZelAuction ne nécessite aucune configuration dans `config.yml`. Le migrateur lit tous les paramètres de connexion directement depuis le fichier `database.yml` de ZelAuction.
+</CalloutDescription>
+
+</CalloutContainer>
+
+#### Étapes de Migration
+
+1. Assurez-vous que le dossier `plugins/ZelAuction/` est présent sur votre serveur avec la base de données
+2. Démarrez le serveur avec zAuctionHouse V4 installé
+3. Exécutez la commande de migration :
+   ```bash
+   /ah admin migrate zelauction confirm
+   ```
+4. Attendez que la migration se termine (la console affichera la progression)
+5. Vérifiez les données en consultant `/ah` et les panneaux admin
+6. Une fois vérifié, vous pouvez supprimer ZelAuction
+
+### DonutAuction
+
+Migrer de DonutAuction (par EliVB) vers zAuctionHouse V4.
+
+**Alias de source :** `donutauction`, `donut`, `donutsmp`, `da`
+
+```bash
+/ah admin migrate donutauction confirm
+# ou en utilisant les alias
+/ah admin migrate donut confirm
+```
+
+#### Données Migrées
+
+| Type de Données | Description |
+|-----------------|-------------|
+| **Annonces Actives** | Enchères non expirées, importées comme objets en vente |
+| **Enchères Expirées** | Enchères dépassées, importées comme objets expirés récupérables |
+| **Données Joueur** | Vendeurs (UUID et nom) dérivés des enchères |
+
+#### Comment Ça Fonctionne
+
+DonutAuction stocke tout dans un seul fichier YAML Bukkit à `plugins/DonutAuction/ah.data`, donc aucune configuration de base de données n'est nécessaire - le migrateur lit ce fichier directement.
+
+1. Le migrateur lit `plugins/DonutAuction/ah.data` et analyse ses entrées d'enchères
+2. Chaque vendeur est inséré/mis à jour dans la table des joueurs V4 (clé étrangère requise) avant ses objets
+3. Les enchères dont l'expiration est encore future sont importées comme objets **en vente**
+4. Les enchères déjà expirées sont importées comme objets **expirés** pour que le vendeur puisse les récupérer
+5. Les données des objets (ItemStacks Bukkit en Base64 de DonutAuction) sont converties au format V4 via une liste blanche de classes renforcée qui protège contre les fichiers de données malveillants
+6. Tous les objets importés utilisent l'économie `vault` (DonutAuction ne supporte que Vault)
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Aucune Configuration Nécessaire</CalloutTitle>
+
+<CalloutDescription>
+Comme la migration ZelAuction, la migration DonutAuction ne nécessite aucune configuration dans `config.yml`. Le migrateur lit tout depuis `plugins/DonutAuction/ah.data`.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Ce Qui N'est Pas Migré</CalloutTitle>
+
+<CalloutDescription>
+Les `pendingPayments` (argent de vente non réclamé, pas des objets) et les achats déjà livrés sont volontairement ignorés - DonutAuction livre les objets achetés directement dans l'inventaire de l'acheteur, il n'y a donc rien à importer pour ceux-ci.
+</CalloutDescription>
+
+</CalloutContainer>
+
+#### Prérequis
+
+- Le dossier `plugins/DonutAuction/` doit exister avec le fichier `ah.data`
+- zAuctionHouse V4 doit être correctement configuré avec son propre stockage
+
+#### Étapes de Migration
+
+1. Assurez-vous que `plugins/DonutAuction/ah.data` est présent sur votre serveur
+2. Démarrez le serveur avec zAuctionHouse V4 installé
+3. Exécutez la commande de migration :
+   ```bash
+   /ah admin migrate donutauction confirm
+   ```
+4. Attendez que la migration se termine (la console affichera la progression)
+5. Vérifiez les données en consultant `/ah` et les panneaux admin
+6. Une fois vérifié, vous pouvez supprimer DonutAuction
+
+## Conseils de Migration
+
+### Grandes Bases de Données
+
+Pour les serveurs avec des milliers d'annonces, la migration peut prendre plusieurs minutes. La console affichera des mises à jour de progression. N'interrompez pas le processus.
+
+### Types de Stockage Différents
+
+Si vous migrez de SQLite vers MySQL (ou vice versa), la migration gère automatiquement la conversion. Cependant, assurez-vous que votre base de données cible est correctement configurée avant de commencer.
+
+### Compatibilité des Objets
+
+zAuctionHouse V4 utilise une sérialisation d'objets moderne qui préserve toutes les données des objets incluant :
+
+- Custom model data
+- Tags NBT d'autres plugins (MMOItems, ItemsAdder, Oraxen, etc.)
+- Enchantements et attributs
+- Lore et noms d'affichage
+- Métadonnées de plugins personnalisés
+
+### Données d'Économie
+
+Si vous utilisez plusieurs économies, assurez-vous qu'elles sont configurées dans V4 avant la migration. Le migrateur tentera de mapper automatiquement les types d'économie.
+
+## Dépannage
+
+### La migration ne démarre pas
+
+- Vérifiez que vous avez la permission `zauctionhouse.admin`
+- Assurez-vous d'avoir inclus `confirm` dans la commande
+- Consultez la console pour les messages d'erreur
+
+### Les objets n'apparaissent pas après la migration
+
+- Vérifiez que la migration s'est terminée avec succès (consultez la console)
+- Videz le cache : `/ah admin cache clear <joueur>`
+- Redémarrez le serveur
+
+### Objets en double
+
+Si vous exécutez accidentellement la migration deux fois, des objets en double peuvent apparaître. Pour corriger :
+1. Arrêtez le serveur
+2. Restaurez votre sauvegarde de base de données
+3. Exécutez la migration une fois de plus
+
+### Historique des transactions manquant
+
+La migration de l'historique des transactions dépend de la configuration de journalisation du plugin source. Si la journalisation était désactivée, les données historiques peuvent être limitées.
+
+## Support de Migration Futur
+
+Des sources de migration supplémentaires peuvent être ajoutées dans les futures mises à jour. Si vous avez besoin d'un support de migration pour un plugin d'enchères spécifique, veuillez le demander sur notre [serveur Discord](https://discord.groupez.dev) ou [GitHub](https://github.com/Maxlego08/zAuctionHouseV4/issues).
+
+### Fréquemment Demandés
+
+Les plugins suivants sont envisagés pour un futur support de migration :
+
+- AuctionHouse par klgr2001
+- CrazyAuctions
+- AuctionMaster
+- PlayerAuctions
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+Le support de migration dépend du format et de la structure des données du plugin source. Certains plugins peuvent ne pas être réalisables à supporter.
+</CalloutDescription>
+
+</CalloutContainer>

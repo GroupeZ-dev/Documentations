@@ -1,13 +1,18 @@
 ---
-sidebar_position: 3
 title: Resources
 ---
 
 # Resources
 
-:::warning Legacy platform
+<CalloutContainer type="warning">
+
+<CalloutTitle>Legacy platform</CalloutTitle>
+
+<CalloutDescription>
 This page documents the **legacy v1 platform** of groupez.dev (Laravel 8). It is kept for reference and for plugins that were built against it. groupez.dev now runs on v2, which serves the same URIs with a cleaned-up payload: see the [v2 resources page](../v2/resources.md).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The resource endpoints expose the catalogue: a paginated listing, a single resource, its versions and its current version number. A fifth endpoint, `GET /resource/user`, sits under the same prefix but lists **user names**, not resources.
 
@@ -21,9 +26,15 @@ The resource endpoints expose the catalogue: a paginated listing, a single resou
 | CORS | `api/*` open to every origin and every method (`fruitcake/laravel-cors`). |
 | Version header | None. v1 does not send `X-GroupeZ-Api-Version`. |
 
-:::warning Which IP the limiter sees
+<CalloutContainer type="warning">
+
+<CalloutTitle>Which IP the limiter sees</CalloutTitle>
+
+<CalloutDescription>
 In the v1 `api` middleware group, `throttle:api` runs **before** `TrustCloudflare` (the group is `throttle:api`, `SubstituteBindings`, `TrustCloudflare`, and no trusted proxy is configured for the global `TrustProxies`). When the limiter computes its key, `CF-Connecting-IP` has not been applied yet, so the key is the address PHP sees as `REMOTE_ADDR`. Behind Cloudflare that is a Cloudflare edge address, shared by many callers, unless the web server rewrites `REMOTE_ADDR` itself. This is derived from the code; the production web server configuration was not checked.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Responses are JSON strings served as `text/html`
 
@@ -36,9 +47,15 @@ Every controller on this page builds its body with `json_encode(...)` and return
 
 v1 has no API resource classes and the `Plugin` and `Version` models declare no `$hidden` attributes. The JSON is the Eloquent model serialised as is, so **every column of the row** is exposed, including internal ones (`description`, `file`, `is_display`, `deleted`, `is_pending`, `is_unique`, ...).
 
-:::note Column list derived from migrations
+<CalloutContainer type="info">
+
+<CalloutTitle>Column list derived from migrations</CalloutTitle>
+
+<CalloutDescription>
 The key lists on this page are reconstructed from the v1 migrations (`database/migrations/2020_11_28_*` to `2021_07_16_*`) in the order MySQL would hold the columns after those migrations ran. If the production schema was altered by hand, the actual key set or order may differ. Numeric types also depend on the PDO driver: some numeric values may arrive as strings (see the notes of each endpoint).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Visibility
 
@@ -73,9 +90,15 @@ Without it, an HTML error page. The `X-RateLimit-Limit`, `X-RateLimit-Remaining`
 Inside the `/resource` group, the literal routes (`user`, `search`, `versions/...`, `version/...`) are declared before `/resource/{resource}`, so they are reached correctly.
 
 
-:::note Loosely compared ids
+<CalloutContainer type="info">
+
+<CalloutTitle>Loosely compared ids</CalloutTitle>
+
+<CalloutDescription>
 `findOrFail()` and the implicit binding pass the raw segment to `WHERE id = ?` as a string. MySQL compares it to the integer column numerically, so a segment such as `42abc` may resolve plugin `42` instead of answering `404`. Derived from the code, not tested.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Endpoints
 
@@ -87,9 +110,15 @@ Returns one page of the catalogue, as a serialised Laravel paginator.
 | --- | --- | --- |
 | `api.v1.resourcesearch` | None | `throttle:api` (60/min) |
 
-:::note Route names
+<CalloutContainer type="info">
+
+<CalloutTitle>Route names</CalloutTitle>
+
+<CalloutDescription>
 The v1 resource routes are named without a dot between the group and the route (`api.v1.resourcesearch`, `api.v1.resourceshow`, ...) because the group was declared with `->name('resource')` instead of `->name('resource.')`. v2 fixed this (`api.v1.resources.search`). Route names only matter inside the Laravel application, not to API callers.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 #### Path parameters
 

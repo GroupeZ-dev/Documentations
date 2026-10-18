@@ -1,0 +1,20 @@
+{
+  "title": "zAuctionHouse",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "installation",
+    "why-zmenu",
+    "commands-permissions",
+    "placeholders",
+    "multi-server",
+    "optimization",
+    "migration",
+    "configuration",
+    "inventories",
+    "development",
+    "inventories/combined-items",
+    "..."
+  ]
+}

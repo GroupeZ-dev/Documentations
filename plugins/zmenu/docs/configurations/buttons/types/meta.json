@@ -1,0 +1,18 @@
+{
+  "title": "Button Types",
+  "defaultOpen": false,
+  "pages": [
+    "none",
+    "inventory",
+    "back",
+    "next",
+    "previous",
+    "home",
+    "jump",
+    "mainmenu",
+    "switch",
+    "pagination",
+    "dynamic-pagination",
+    "input"
+  ]
+}

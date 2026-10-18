@@ -1,13 +1,18 @@
 ---
-sidebar_position: 4
 title: Authors
 ---
 
 # Authors (legacy v1)
 
-:::warning Legacy platform
+<CalloutContainer type="warning">
+
+<CalloutTitle>Legacy platform</CalloutTitle>
+
+<CalloutDescription>
 This page documents the **legacy v1 platform** of groupez.dev (Laravel 8), which has been replaced. It is kept for reference and for plugins built against it. For the current behaviour, see [Authors (v2)](../v2/authors.md).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 A single endpoint returns a seller (an author of resources) by user id: their id, their Discord information and their name.
 
@@ -87,9 +92,15 @@ Author with a linked Discord account (placeholder values; keys in the column ord
 | `discord.discord_id` | string | The Discord user id (snowflake). This is the value plugins need to mention the seller. |
 | `name` | string | The user's name. |
 
-:::warning Data exposure on the legacy endpoint
+<CalloutContainer type="warning">
+
+<CalloutTitle>Data exposure on the legacy endpoint</CalloutTitle>
+
+<CalloutDescription>
 Because the full `discord_users` row was serialized, this public, unauthenticated endpoint returned the linked Discord account's **OAuth `access_token` and `refresh_token`** and the Discord **email**. This is one of the reasons the v2 platform reduces `discord` to the snowflake string. Do not rely on, store or log these fields.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 **404 Not Found**: no user has this id. The `ModelNotFoundException` thrown by `findOrFail` goes through the default Laravel 8 exception handler (no customisation):
 
@@ -130,6 +141,12 @@ curl -s https://groupez.dev/api/v1/author/42 \
 - **No account status filter.** Banned or unverified users are returned like any other.
 - **Which IP the limiter saw.** In the `api` middleware group, `throttle:api` is listed **before** `TrustCloudflare`, and the global `TrustProxies` middleware declares no trusted proxy. The limiter therefore keyed on `$request->ip()` before the `CF-Connecting-IP` header was trusted. If the legacy site sat behind Cloudflare, that IP was a Cloudflare edge address, so unrelated callers could share one 60/min bucket. How production was actually fronted is not visible in the code. The API routes carry no session or `auth` middleware, so the user-id branch of the key was never used in practice.
 
-:::note Differences with v2
+<CalloutContainer type="info">
+
+<CalloutTitle>Differences with v2</CalloutTitle>
+
+<CalloutDescription>
 See [Authors (v2)](../v2/authors.md). On v2, `discord` is the snowflake string or `null`, the response is `application/json`, a 404 answers `{"message": "Not found."}`, a 429 answers `{"message": "Too many requests."}`, the limit is 120 requests per minute, and every response carries `X-GroupeZ-Api-Version: 1`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

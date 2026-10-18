@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Economies
 description: Configure economy systems in zAuctionHouse V4
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: Hologram Module
 description: Text, item, and block display holograms with damage indicators
 ---
@@ -60,9 +59,13 @@ The auto-update task periodically refreshes all holograms that contain Placehold
 | `auto-update-task.enable` | Boolean | `false` | Enable or disable automatic hologram placeholder updates |
 | `auto-update-task.milliseconds` | Integer | `1000` | Interval in milliseconds between each hologram refresh cycle |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Only enable the auto-update task if your holograms contain dynamic placeholders (e.g., player counts, baltop data). Static holograms do not need this feature and leaving it disabled saves server resources.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Damage Indicator
 
@@ -85,9 +88,13 @@ The damage indicator displays floating damage numbers above entities when they r
 | `damage-indicator.decimalFormat` | String | `#.#` | Java DecimalFormat pattern for the damage value. `#.#` shows one decimal place |
 | `damage-indicator.disabledEntities` | List of Strings | `[WITHER]` | List of entity types that will not display damage indicators |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Enabling damage indicators on a server with many entities and players can increase packet traffic. Consider disabling indicators for non-essential entity types (animals, water mobs) on high-population servers.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -168,6 +175,10 @@ damage-indicator:
   criticalAppearance: '<#ed2626><bold>CRIT</bold> <#bf0b0b>-%damage% \u2764'
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Holograms are persistent and survive server restarts. All hologram data is stored in the plugin's data files and loaded automatically when the server starts.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

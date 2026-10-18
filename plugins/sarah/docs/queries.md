@@ -196,12 +196,18 @@ requestHelper.upsert("players", schema -> {
 });
 ```
 
-:::warning SQLite Requirement
+<CalloutContainer type="warning">
+
+<CalloutTitle>SQLite Requirement</CalloutTitle>
+
+<CalloutDescription>
 For SQLite, you must mark the primary key column with `.primary()`:
 ```java
 schema.uuid("uuid", playerUuid).primary();  // Required for SQLite!
 ```
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Upsert from DTO
 

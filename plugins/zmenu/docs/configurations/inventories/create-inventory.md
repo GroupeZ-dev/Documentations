@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Creating an Inventory
 description: Step-by-step guide to creating your first zMenu inventory
 ---
@@ -16,9 +15,15 @@ Create a new file in the `plugins/zMenu/inventories/` folder. Name it something 
 plugins/zMenu/inventories/my_first_menu.yml
 ```
 
-:::tip Naming Convention
+<CalloutContainer type="info">
+
+<CalloutTitle>Naming Convention</CalloutTitle>
+
+<CalloutDescription>
 Use lowercase letters, numbers, and underscores for file names. Avoid spaces and special characters.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Step 2: Define Basic Properties
 

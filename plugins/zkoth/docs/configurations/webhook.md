@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Discord Webhook
 description: Send KOTH events to Discord
 ---

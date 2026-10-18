@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: MAIN_MENU Button
 description: Button that opens the configured main menu
 ---

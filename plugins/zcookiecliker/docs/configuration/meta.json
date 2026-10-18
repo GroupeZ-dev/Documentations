@@ -1,0 +1,8 @@
+{
+  "title": "Configuration",
+  "defaultOpen": true,
+  "pages": [
+    "config",
+    "upgrades"
+  ]
+}

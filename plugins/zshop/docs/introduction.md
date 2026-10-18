@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Introduction
 description: Overview of zShop - A powerful shop plugin for Minecraft
 ---

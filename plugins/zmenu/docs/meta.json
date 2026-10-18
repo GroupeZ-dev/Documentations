@@ -1,0 +1,16 @@
+{
+  "title": "zMenu",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "getting-started",
+    "installation",
+    "convert-deluxemenus",
+    "hot-reload",
+    "supported-plugins",
+    "zmenu-plus",
+    "configurations",
+    "development",
+    "..."
+  ]
+}

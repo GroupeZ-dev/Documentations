@@ -1,5 +1,4 @@
 ---
-sidebar_position: 22
 title: WorldEdit Module
 description: Built-in block manipulation tools with economy integration and permission-based limits
 ---
@@ -320,10 +319,16 @@ The `items` section defines the WorldEdit wands that can be given to players. Ea
 | `items.<wand>.item.name` | String | - | The display name of the wand item. Supports color codes |
 | `items.<wand>.item.lore` | List of Strings | - | Lore lines displayed on the wand item. Supports the `%uses%` placeholder for remaining uses |
 
-:::info Default Wand Definitions
+<CalloutContainer type="info">
+
+<CalloutTitle>Default Wand Definitions</CalloutTitle>
+
+<CalloutDescription>
 - **player-wand** -- A `WOODEN_AXE` with 50 uses and a 1.2x price multiplier. Intended for regular players who pay for their edits.
 - **admin-Wand** -- A `GOLDEN_AXE` with unlimited uses (`max-use: -1`) and a 0x price multiplier (free). Intended for staff members.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Block Blacklist
 
@@ -331,9 +336,13 @@ The `items` section defines the WorldEdit wands that can be given to players. Ea
 |--------|------|---------|-------------|
 | `blacklist-blocks` | List of Strings | *(170+ entries)* | Materials that cannot be placed or modified by the WorldEdit module. Includes command blocks, spawners, containers, beds, banners, signs, and other special blocks |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 The blacklist contains over 170 block types by default. This prevents players from duplicating container contents, placing dangerous blocks (like command blocks or TNT), or manipulating blocks that store complex data (such as signs and banners). **Removing entries from this list may create exploits on your server.** Review additions carefully.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Block Pricing
 
@@ -349,9 +358,13 @@ The blacklist contains over 170 block types by default. This prevents players fr
 | `AIR` | `1` |
 | `STONE` | `1` |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The final cost of a block operation is calculated as: `block_price x price_multiplier x block_count`. For example, placing 100 STONE blocks with the player-wand costs `1 x 1.2 x 100 = 120` economy units. Blocks not listed in `blocks-price` use the `default-block-price` of 5.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Permission-Based Limits
 
@@ -405,9 +418,13 @@ The WorldEdit module uses a **permission-based tier system** for controlling ope
 | `vip` | `2` | Maximum height for cylinder operations |
 | `admin` | `5` | Maximum height for cylinder operations |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Permission tier names (e.g., `player`, `vip`, `admin`) correspond to permission nodes. A player with the `essentials.worldedit.vip` permission will use the `vip` tier limits. You can add custom tiers by defining new entries in each permission section and assigning the corresponding permission to your players.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Boss Bar
 
@@ -422,9 +439,13 @@ Permission tier names (e.g., `player`, `vip`, `admin`) correspond to permission 
 |--------|------|---------|-------------|
 | `blacklist-worlds` | List of Strings | `world_the_end`, `world_nether` | Worlds where the WorldEdit module is completely disabled. Players cannot use WorldEdit commands in these worlds |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Ensure world names match your server's actual world folder names exactly. The comparison is case-sensitive.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -477,9 +498,13 @@ For the full command list, see [Commands & Permissions](../commands-permissions)
 | `essentials.worldedit.vip` | Grants the `vip` tier limits for WorldEdit operations |
 | `essentials.worldedit.admin` | Grants the `admin` tier limits for WorldEdit operations |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Assign only **one** tier permission per player. If a player has multiple tier permissions, the highest-priority match determines their limits. Define tiers from most restrictive to most permissive.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -504,9 +529,13 @@ The WorldEdit module is tightly integrated with the [Economy module](./economy).
 
 **Formula:** `total_cost = base_block_price x price_multiplier x block_count`
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If the player does not have enough balance to cover the operation cost, the operation is rejected and the player is notified. Partial operations are not charged -- the full cost must be available upfront.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

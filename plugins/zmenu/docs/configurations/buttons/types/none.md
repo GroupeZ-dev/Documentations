@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: NONE Button
 description: The default button type with no special behavior
 ---

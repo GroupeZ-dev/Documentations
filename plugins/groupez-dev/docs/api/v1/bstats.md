@@ -1,13 +1,18 @@
 ---
-sidebar_position: 7
 title: bStats
 ---
 
 # bStats
 
-:::warning Legacy platform
+<CalloutContainer type="warning">
+
+<CalloutTitle>Legacy platform</CalloutTitle>
+
+<CalloutDescription>
 This page documents the **legacy v1 platform** of groupez.dev (Laravel 8). It is kept for reference and for plugins built against it. The current platform keeps the same URIs but **changes the meaning of the path parameter**. See [bStats (v2)](../v2/bstats.md).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The legacy platform proxied [bStats](https://bstats.org) through two endpoints:
 
@@ -39,9 +44,15 @@ Returns the address of the bStats page of a plugin.
 | --- | --- | --- |
 | `api.v1.bstatsurl` | None | `throttle:api` (60/min per IP) |
 
-:::note Route name
+<CalloutContainer type="info">
+
+<CalloutTitle>Route name</CalloutTitle>
+
+<CalloutDescription>
 The group is declared with `->name('bstats')` (no trailing dot) and the route with `->name('url')`, so the full name is `api.v1.bstatsurl`, not `api.v1.bstats.url`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 #### Path parameters
 
@@ -144,9 +155,15 @@ None.
 2. bStats answers `[[timestamp, value]]`. The controller returns `$json[0][1]`.
 3. The method is declared `: int`, and the file has no `strict_types`, so an integer or an integer-like string is coerced to an integer.
 
-:::note Decimal values
+<CalloutContainer type="info">
+
+<CalloutTitle>Decimal values</CalloutTitle>
+
+<CalloutDescription>
 What happened to a decimal value such as `12.7` depends on the PHP version the legacy site ran on (its `composer.json` only requires `^8.0`). On PHP 8.1 and later, the implicit float-to-int conversion raises a deprecation, which Laravel 8 turns into an `ErrorException` when deprecations are reported. This was never observed. bStats chart values are normally integers.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 #### Responses
 
@@ -210,10 +227,22 @@ Route::prefix('/bstats')->name('bstats')->group(function () {
 - `GET /api/v1/bstats/1234/url` reaches `getStats` and asks bStats for a chart named `url`.
 - A bStats plugin id equal to the literal `url` could not be used with the chart endpoint. bStats ids are numeric, so this is theoretical.
 
-:::info Moving to v2
-On the current platform the same URIs take a **groupez.dev resource id**, answer `text/plain`, return `404` (URL) or `0` (chart) instead of `500` on upstream failures, and are cached. See [bStats (v2)](../v2/bstats.md).
-:::
+<CalloutContainer type="info">
 
-:::note Source files
+<CalloutTitle>Moving to v2</CalloutTitle>
+
+<CalloutDescription>
+On the current platform the same URIs take a **groupez.dev resource id**, answer `text/plain`, return `404` (URL) or `0` (chart) instead of `500` on upstream failures, and are cached. See [bStats (v2)](../v2/bstats.md).
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Source files</CalloutTitle>
+
+<CalloutDescription>
 `routes/api.php`, `app/Http/Controllers/Api/BStatsController.php`, `config/software.php`, `app/Providers/RouteServiceProvider.php`, `app/Http/Kernel.php` in the legacy codebase. The legacy codebase has no tests for these endpoints, so the behaviour above is read from the code.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Commands & Permissions
 description: Complete list of all commands and permissions for zCookieClicker
 ---
@@ -8,10 +7,16 @@ description: Complete list of all commands and permissions for zCookieClicker
 
 This page contains the complete list of all commands and permissions available in zCookieClicker.
 
-:::info Syntax Guide
+<CalloutContainer type="info">
+
+<CalloutTitle>Syntax Guide</CalloutTitle>
+
+<CalloutDescription>
 - `< >` indicates a **required** argument.
 - `[ ]` indicates an **optional** argument.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

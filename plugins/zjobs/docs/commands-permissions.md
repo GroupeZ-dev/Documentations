@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Commands & Permissions
 description: zJobs commands and permissions reference
 ---

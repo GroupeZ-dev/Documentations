@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: MCP server
 ---
 
@@ -18,9 +17,15 @@ https://groupez.dev/mcp
 | Access | Read-only |
 | Server name | `GroupeZ`, version `1.0.0` |
 
-:::info Public and read-only
+<CalloutContainer type="info">
+
+<CalloutTitle>Public and read-only</CalloutTitle>
+
+<CalloutDescription>
 The server answers exactly what a logged-out visitor of the website can read: published resources, unlisted resources whose id is known, their versions and the category tree. Drafts and private resources answer "not found", as an id that never existed would. No tool takes or exposes an account, and downloading a resource still requires a GroupeZ account on the website.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Connecting a client
 
@@ -43,9 +48,15 @@ Custom MCP servers are added as connectors, which requires **developer mode**:
 3. Name the connector `GroupeZ`, enter `https://groupez.dev/mcp` as the MCP server URL, and choose **No authentication**.
 4. In a conversation, enable the GroupeZ connector from the tools menu (**+**).
 
-:::note Plans and menus
+<CalloutContainer type="info">
+
+<CalloutTitle>Plans and menus</CalloutTitle>
+
+<CalloutDescription>
 Developer mode is not available on the free plan. On Business, Enterprise and Edu workspaces, an admin may have to allow custom connectors first. OpenAI moves these settings regularly: if the menu differs, look for "Developer mode" in the settings. Since every GroupeZ tool is read-only, plans that limit custom connectors to read actions are enough.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Cursor
 

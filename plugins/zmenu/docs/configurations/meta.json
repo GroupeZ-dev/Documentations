@@ -1,0 +1,21 @@
+{
+  "title": "Configurations",
+  "defaultOpen": true,
+  "pages": [
+    "informations",
+    "commands-permissions",
+    "placeholders",
+    "inventories",
+    "items",
+    "buttons",
+    "requirements",
+    "item-rules",
+    "global-placeholders",
+    "patterns",
+    "player-data",
+    "dialogues",
+    "bedrock",
+    "custom-commands",
+    "config-yml"
+  ]
+}

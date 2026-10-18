@@ -1,0 +1,19 @@
+{
+  "title": "zShop",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "[Introduction](/zshop/introduction)",
+    "!introduction",
+    "[Installation](/zshop/installation)",
+    "!installation",
+    "[Commands & Permissions](/zshop/commands-permissions)",
+    "!commands-permissions",
+    "configurations",
+    "[Price Modifiers](/zshop/price-modifiers)",
+    "!price-modifiers",
+    "[Placeholders](/zshop/placeholders)",
+    "!placeholders",
+    "..."
+  ]
+}

@@ -1,11 +1,8 @@
 ---
-sidebar_position: 1
 title: Button Configuration
 description: Complete reference for button configuration in zMenu
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 # Button Configuration
 
@@ -363,13 +360,19 @@ items:
 
 ### open-link
 
-:::warning Deprecated
+<CalloutContainer type="warning">
+
+<CalloutTitle>Deprecated</CalloutTitle>
+
+<CalloutDescription>
 This configuration is deprecated. Use MiniMessage format to open links instead:
 ```yaml
 item:
   name: "<click:open_url:'https://discord.gg/myserver'>&9&lClick to join Discord</click>"
 ```
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Open a URL or prompt the player to join a Discord server.
 
@@ -422,8 +425,8 @@ items:
 
 Require at least one of the listed permissions to see the button.
 
-<Tabs>
-    <TabItem value="or-permission" label="or-permission">
+<Tabs items={["or-permission","orPermissions (Aliase)","or-permissions (Aliase)"]}>
+    <Tab value="or-permission">
         ```yaml
         # YAML example for or-permission
         items:
@@ -437,8 +440,8 @@ Require at least one of the listed permissions to see the button.
               material: BOOK
               name: "&6&lStaff Menu"
         ```
-    </TabItem>
-    <TabItem value="orPermissions" label="orPermissions (Aliase)">
+    </Tab>
+    <Tab value="orPermissions (Aliase)">
         ```yaml
         # YAML example for orPermissions
         items:
@@ -452,8 +455,8 @@ Require at least one of the listed permissions to see the button.
               material: BOOK
               name: "&6&lStaff Menu"
         ```
-    </TabItem>
-    <TabItem value="or-permissions" label="or-permissions (Aliase)">
+    </Tab>
+    <Tab value="or-permissions (Aliase)">
         ```yaml
         # YAML example for or-permissions
         items:
@@ -467,7 +470,7 @@ Require at least one of the listed permissions to see the button.
               material: BOOK
               name: "&6&lStaff Menu"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ---
@@ -476,8 +479,8 @@ Require at least one of the listed permissions to see the button.
 
 Check a placeholder value to determine if the button should be displayed.
 
-<Tabs>
-    <TabItem value="placeholder" label="placeholder">
+<Tabs items={["placeholder","placeHolder (Aliase)"]}>
+    <Tab value="placeholder">
         ```yaml
         # YAML example for placeholder
         items:
@@ -490,8 +493,8 @@ Check a placeholder value to determine if the button should be displayed.
               material: EXPERIENCE_BOTTLE
               name: "&a&lLevel 10+ Reward"
         ```
-    </TabItem>
-    <TabItem value="placeHolder" label="placeHolder (Aliase)">
+    </Tab>
+    <Tab value="placeHolder (Aliase)">
         ```yaml
         # YAML example for placeHolder
         items:
@@ -504,7 +507,7 @@ Check a placeholder value to determine if the button should be displayed.
               material: EXPERIENCE_BOTTLE
               name: "&a&lLevel 10+ Reward"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Available Actions:**
@@ -544,22 +547,32 @@ items:
 
 Each list entry supports the same fields as the inline `placeholder` / `action` / `value` / `target` / `math` shorthand.
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Use `placeholders` when you need to gate a button on several independent placeholder conditions without writing a full `view-requirement` block.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
 ### commands
 
-:::tip Recommendation
+<CalloutContainer type="info">
+
+<CalloutTitle>Recommendation</CalloutTitle>
+
+<CalloutDescription>
 It is recommended to use [Actions](./actions) instead of `commands` for more flexibility and features.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Execute commands as the player when the button is clicked.
 
-<Tabs>
-    <TabItem value="commands" label="commands">
+<Tabs items={["commands","playerCommands (Aliase)","player-commands (Aliase)"]}>
+    <Tab value="commands">
         ```yaml
         # YAML example for commands
         items:
@@ -572,8 +585,8 @@ Execute commands as the player when the button is clicked.
               material: ENDER_PEARL
               name: "&a&lTeleport to Spawn"
         ```
-    </TabItem>
-    <TabItem value="playerCommands" label="playerCommands (Aliase)">
+    </Tab>
+    <Tab value="playerCommands (Aliase)">
         ```yaml
         # YAML example for playerCommands
         items:
@@ -586,8 +599,8 @@ Execute commands as the player when the button is clicked.
               material: ENDER_PEARL
               name: "&a&lTeleport to Spawn"
         ```
-    </TabItem>
-    <TabItem value="player-commands" label="player-commands (Aliase)">
+    </Tab>
+    <Tab value="player-commands (Aliase)">
         ```yaml
         # YAML example for player-commands
         items:
@@ -600,13 +613,13 @@ Execute commands as the player when the button is clicked.
               material: ENDER_PEARL
               name: "&a&lTeleport to Spawn"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 You can also specify commands for specific click types:
 
-<Tabs>
-    <TabItem value="rightCommands" label="rightCommands">
+<Tabs items={["rightCommands","right-commands (Aliase)","rightPlayerCommands (Aliase)","right-player-commands (Aliase)"]}>
+    <Tab value="rightCommands">
         ```yaml
         # YAML example for rightCommands
         items:
@@ -617,8 +630,8 @@ You can also specify commands for specific click types:
             item:
               material: COMPASS
         ```
-    </TabItem>
-    <TabItem value="right-commands" label="right-commands (Aliase)">
+    </Tab>
+    <Tab value="right-commands (Aliase)">
         ```yaml
         # YAML example for right-commands
         items:
@@ -629,8 +642,8 @@ You can also specify commands for specific click types:
             item:
               material: COMPASS
         ```
-    </TabItem>
-    <TabItem value="rightPlayerCommands" label="rightPlayerCommands (Aliase)">
+    </Tab>
+    <Tab value="rightPlayerCommands (Aliase)">
         ```yaml
         # YAML example for rightPlayerCommands
         items:
@@ -641,8 +654,8 @@ You can also specify commands for specific click types:
             item:
               material: COMPASS
         ```
-    </TabItem>
-    <TabItem value="right-player-commands" label="right-player-commands (Aliase)">
+    </Tab>
+    <Tab value="right-player-commands (Aliase)">
         ```yaml
         # YAML example for right-player-commands
         items:
@@ -653,11 +666,11 @@ You can also specify commands for specific click types:
             item:
               material: COMPASS
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
-<Tabs>
-    <TabItem value="leftCommands" label="leftCommands">
+<Tabs items={["leftCommands","left-commands (Aliase)","leftPlayerCommands (Aliase)","left-player-commands (Aliase)"]}>
+    <Tab value="leftCommands">
         ```yaml
         # YAML example for leftCommands
         items:
@@ -668,8 +681,8 @@ You can also specify commands for specific click types:
             item:
               material: COMPASS
         ```
-    </TabItem>
-    <TabItem value="left-commands" label="left-commands (Aliase)">
+    </Tab>
+    <Tab value="left-commands (Aliase)">
         ```yaml
         # YAML example for left-commands
         items:
@@ -680,8 +693,8 @@ You can also specify commands for specific click types:
             item:
               material: COMPASS
         ```
-    </TabItem>
-    <TabItem value="leftPlayerCommands" label="leftPlayerCommands (Aliase)">
+    </Tab>
+    <Tab value="leftPlayerCommands (Aliase)">
         ```yaml
         # YAML example for leftPlayerCommands
         items:
@@ -692,8 +705,8 @@ You can also specify commands for specific click types:
             item:
               material: COMPASS
         ```
-    </TabItem>
-    <TabItem value="left-player-commands" label="left-player-commands (Aliase)">
+    </Tab>
+    <Tab value="left-player-commands (Aliase)">
         ```yaml
         # YAML example for left-player-commands
         items:
@@ -704,21 +717,27 @@ You can also specify commands for specific click types:
             item:
               material: COMPASS
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ---
 
 ### console-commands
 
-:::tip Recommendation
+<CalloutContainer type="info">
+
+<CalloutTitle>Recommendation</CalloutTitle>
+
+<CalloutDescription>
 It is recommended to use [Actions](./actions) with `type: console-command` instead for more flexibility.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Execute commands as the console when the button is clicked.
 
-<Tabs>
-    <TabItem value="consolePermission" label="consolePermission">
+<Tabs items={["consolePermission","console-permission (Aliase)"]}>
+    <Tab value="consolePermission">
         ```yaml
         # YAML example for consolePermission
         items:
@@ -729,8 +748,8 @@ Execute commands as the console when the button is clicked.
               material: CHEST
               name: "&6&lClaim Reward"
         ```
-    </TabItem>
-    <TabItem value="console-permission" label="console-permission (Aliase)">
+    </Tab>
+    <Tab value="console-permission (Aliase)">
         ```yaml
         # YAML example for console-permission
         items:
@@ -741,7 +760,7 @@ Execute commands as the console when the button is clicked.
               material: CHEST
               name: "&6&lClaim Reward"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 You can also use permission-based console commands:
@@ -788,9 +807,15 @@ items:
 
 ### error-item
 
-:::warning zMenu+ Required
+<CalloutContainer type="warning">
+
+<CalloutTitle>zMenu+ Required</CalloutTitle>
+
+<CalloutDescription>
 This feature requires [zMenu+](../../zmenu-plus) to work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Display an alternative item when an error occurs (e.g., requirements not met).
 
@@ -838,9 +863,15 @@ items:
 
 Place the item in the player's inventory instead of displaying it in the menu.
 
-:::warning zMenu+ Required
+<CalloutContainer type="warning">
+
+<CalloutTitle>zMenu+ Required</CalloutTitle>
+
+<CalloutDescription>
 This feature requires [zMenu+](../../zmenu-plus) to work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 items:
@@ -972,8 +1003,8 @@ items:
 
 Control whether the button is visible.
 
-<Tabs>
-    <TabItem value="view-requirement" label="view-requirement">
+<Tabs items={["view-requirement","view_requirement (Alias)"]}>
+    <Tab value="view-requirement">
         ```yaml
         items:
           vip-only:
@@ -986,8 +1017,8 @@ Control whether the button is visible.
               material: DIAMOND
               name: "&b&lVIP Item"
         ```
-    </TabItem>
-    <TabItem value="view_requirement" label="view_requirement (Alias)">
+    </Tab>
+    <Tab value="view_requirement (Alias)">
         ```yaml
         items:
           vip-only:
@@ -1000,7 +1031,7 @@ Control whether the button is visible.
               material: DIAMOND
               name: "&b&lVIP Item"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 If requirements aren't met, the button won't be displayed.
@@ -1011,12 +1042,18 @@ If requirements aren't met, the button won't be displayed.
 
 Control whether the button can be clicked. The button is still visible, but clicking may be denied.
 
-:::caution Named groups required
-`click-requirement` uses **named groups**. Every entry directly under `click-requirement` is a group name (e.g. `default`, `purchase`). The keys `requirements`, `success`, and `clicks` must be nested **inside** that named group — placing them directly under `click-requirement` will not work.
-:::
+<CalloutContainer type="warning">
 
-<Tabs>
-    <TabItem value="click-requirement" label="click-requirement">
+<CalloutTitle>Named groups required</CalloutTitle>
+
+<CalloutDescription>
+`click-requirement` uses **named groups**. Every entry directly under `click-requirement` is a group name (e.g. `default`, `purchase`). The keys `requirements`, `success`, and `clicks` must be nested **inside** that named group — placing them directly under `click-requirement` will not work.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<Tabs items={["click-requirement","click_requirement (Alias)","click-requirements (Alias)"]}>
+    <Tab value="click-requirement">
         ```yaml
         items:
           purchase-button:
@@ -1044,8 +1081,8 @@ Control whether the button can be clicked. The button is still visible, but clic
                     commands:
                       - "eco take %player% 100"
         ```
-    </TabItem>
-    <TabItem value="click_requirement" label="click_requirement (Alias)">
+    </Tab>
+    <Tab value="click_requirement (Alias)">
         ```yaml
         items:
           purchase-button:
@@ -1073,8 +1110,8 @@ Control whether the button can be clicked. The button is still visible, but clic
                     commands:
                       - "eco take %player% 100"
         ```
-    </TabItem>
-    <TabItem value="click-requirements" label="click-requirements (Alias)">
+    </Tab>
+    <Tab value="click-requirements (Alias)">
         ```yaml
         items:
           purchase-button:
@@ -1102,7 +1139,7 @@ Control whether the button can be clicked. The button is still visible, but clic
                     commands:
                       - "eco take %player% 100"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ### Requirement Types

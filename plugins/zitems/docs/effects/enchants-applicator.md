@@ -1,5 +1,4 @@
 ---
-sidebar_position: 13
 title: Enchants Applicator
 description: Modify enchantments on items
 ---

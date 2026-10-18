@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Drawer Configuration
 description: Configure drawer types and properties
 ---
@@ -268,6 +267,10 @@ drawer:
             text: { x: -0.25, y: 0.1, z: 0.0 }
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Modifying size positions requires careful adjustment. Small changes can break the visual display. Only modify if you understand the coordinate system.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

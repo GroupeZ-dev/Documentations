@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installing zAuctionHouse
 description: How to download, install and configure zAuctionHouse on your Minecraft server
 ---
@@ -20,9 +19,15 @@ zAuctionHouse is available on multiple platforms:
 | **Modrinth** | [modrinth.com/plugin/zauctionhouse](https://modrinth.com/plugin/zauctionhouse) | Free trial version |
 | **GitHub** | [github.com/GroupeZ-dev/zAuctionHouse](https://github.com/GroupeZ-dev/zAuctionHouse) | Source code |
 
-:::info Support
+<CalloutContainer type="info">
+
+<CalloutTitle>Support</CalloutTitle>
+
+<CalloutDescription>
 Support is included with the premium version. Free trial users can access community support on our [Discord server](https://discord.groupez.dev).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Requirements
 
@@ -55,11 +60,17 @@ Paper and its forks are recommended for the best performance and compatibility.
 | **zMenu** | [modrinth.com/plugin/zmenu](https://modrinth.com/plugin/zmenu) |
 | **PlaceholderAPI** | [spigotmc.org/resources/6245](https://www.spigotmc.org/resources/placeholderapi.6245/) |
 
-:::tip Folia Users
+<CalloutContainer type="info">
+
+<CalloutTitle>Folia Users</CalloutTitle>
+
+<CalloutDescription>
 For Folia servers, use these forked versions:
 - **PlaceholderAPI**: [Folia Fork](https://github.com/Anon8281/PlaceholderAPI/releases/tag/1.1)
 - **Vault**: [Folia Fork](https://github.com/Geolykt/Vault/releases)
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Recommended Plugins
 

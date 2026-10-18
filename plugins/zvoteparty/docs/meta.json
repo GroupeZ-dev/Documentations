@@ -1,0 +1,9 @@
+{
+  "title": "zVoteParty",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "..."
+  ]
+}

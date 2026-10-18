@@ -1,0 +1,9 @@
+{
+  "title": "Development",
+  "defaultOpen": true,
+  "pages": [
+    "hooks",
+    "events",
+    "discord-bot"
+  ]
+}

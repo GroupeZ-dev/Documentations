@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Getting Started
 description: Introduction to zMenu - The most powerful inventory plugin for Minecraft
 ---
@@ -133,9 +132,15 @@ zMenu supports Minecraft versions **1.20.6 and newer** and works with:
 - Pufferfish
 - Folia
 
-:::warning Paper Required
+<CalloutContainer type="warning">
+
+<CalloutTitle>Paper Required</CalloutTitle>
+
+<CalloutDescription>
 As of version **1.1.1.6**, zMenu is **Paper-only** — you must use Paper or a Paper fork (Purpur, Pufferfish) or Folia. On Spigot the plugin still loads, but only to print a warning explaining that Paper is required: no zMenu feature works there.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Next Steps
 

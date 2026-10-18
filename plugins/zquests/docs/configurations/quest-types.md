@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Quest Types
 description: All available quest types in zQuests
 ---

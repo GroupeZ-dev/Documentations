@@ -1,14 +1,19 @@
 ---
-sidebar_position: 10
 title: PAGINATION Button
 description: Display paginated content in your menus
 ---
 
 # PAGINATION Button Type
 
-:::warning zMenu+ Required
+<CalloutContainer type="warning">
+
+<CalloutTitle>zMenu+ Required</CalloutTitle>
+
+<CalloutDescription>
 This button type requires [zMenu+](../../../zmenu-plus) to work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The `PAGINATION` button type allows you to display paginated content in your menus. It automatically handles pagination of items across multiple pages.
 
@@ -39,9 +44,13 @@ items:
 | `elements` | List of data for each entry | Yes |
 | `item` | Item template for each entry | Yes |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If a key in `elements` contains a list (e.g., for lore), the values will be joined with newlines. You can use these keys as placeholders in your `item` configuration.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Example
 

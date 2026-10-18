@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2.5
 title: Migrate from DeluxeMenus
 description: Convert your DeluxeMenus menus into zMenu inventories with a single command
 ---
@@ -14,12 +13,18 @@ description: Convert your DeluxeMenus menus into zMenu inventories with a single
 
 That's it. Every menu of `plugins/DeluxeMenus/gui_menus/` is converted, and you keep your whole configuration while gaining everything zMenu offers on top of it: [pagination](./configurations/buttons/types/pagination), [patterns](./configurations/patterns), [player data](./configurations/player-data), [dialogs](./configurations/dialogues), [Bedrock forms](./configurations/bedrock), [hot reload](./hot-reload) and much more.
 
-:::tip Why migrate?
+<CalloutContainer type="info">
+
+<CalloutTitle>Why migrate?</CalloutTitle>
+
+<CalloutDescription>
 - **Zero rewrite**: your menus are converted in seconds, not rewritten by hand over days.
 - **Nothing hidden**: everything that cannot be converted exactly is listed at the top of the converted file and in the console.
 - **Safe by design**: a feature zMenu cannot reproduce never grants more than DeluxeMenus did. An unsupported requirement always denies, and an unsupported action stops the actions after it.
 - **No DeluxeMenus needed**: the converter reads the YAML files directly. DeluxeMenus does not need to be installed, or even enabled.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Quick Start
 
@@ -30,9 +35,15 @@ That's it. Every menu of `plugins/DeluxeMenus/gui_menus/` is converted, and you 
 5. **Disable DeluxeMenus** (remove its jar), otherwise its open commands conflict with the converted ones.
 6. Run `/zm reload` to load the converted inventories and their commands.
 
-:::tip Combine it with the hot reload
+<CalloutContainer type="info">
+
+<CalloutTitle>Combine it with the hot reload</CalloutTitle>
+
+<CalloutDescription>
 Enable the [hot reload](./hot-reload) before converting: the converted menus are then loaded as soon as they are written, and every fix you make while reviewing them is applied instantly, without `/zm reload`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Command
 
@@ -223,9 +234,15 @@ Everything below is listed at the top of the converted file and logged in the co
 | Item options `rgb`, `banner_meta`, `base_color`, `potion_effects`, `trim_material`, `trim_pattern`, `model_data_component`, `light_level`, `lore_append_mode` | Not converted, use the zMenu [item options](./configurations/items/item) or [components](./configurations/items/components) |
 | Materials `stack-...` and `simpleitemgenerator-...` | Not converted |
 
-:::warning Always review the result
+<CalloutContainer type="warning">
+
+<CalloutTitle>Always review the result</CalloutTitle>
+
+<CalloutDescription>
 The converter does the heavy lifting, but your server is unique. Open each converted inventory once, test its buttons, and fix the lines listed under **Not converted exactly** before going live.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## FAQ
 

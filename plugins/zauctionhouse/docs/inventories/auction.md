@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Auction
 description: Main auction house inventory configuration
 ---

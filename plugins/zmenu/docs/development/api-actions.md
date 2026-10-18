@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Custom Actions
 description: Creating custom action types for zMenu
 ---

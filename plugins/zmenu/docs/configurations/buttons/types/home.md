@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: HOME Button
 description: Button that returns to the first inventory in history
 ---

@@ -1,0 +1,14 @@
+{
+  "title": "Development",
+  "defaultOpen": true,
+  "pages": [
+    "api-introduction",
+    "api-inventory",
+    "api-buttons",
+    "api-paginate-button",
+    "api-menu-item-stack",
+    "api-actions",
+    "api-player-data",
+    "api-events"
+  ]
+}

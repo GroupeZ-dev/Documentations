@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Chat Module
 description: Complete chat formatting, moderation, placeholders, and interactive features
 ---
@@ -10,9 +9,15 @@ description: Complete chat formatting, moderation, placeholders, and interactive
 
 The Chat module is one of the most feature-rich modules in zEssentials. It controls all aspects of server chat including formatting, moderation tools, anti-spam, mentions (pings), local chat, item display, clickable links and commands, custom rules, moderator action buttons, and chat history storage. The module uses a **priority-based permission system** for chat formats and MiniMessage for rich text formatting.
 
-:::info Paper only
+<CalloutContainer type="info">
+
+<CalloutTitle>Paper only</CalloutTitle>
+
+<CalloutDescription>
 The chat format is applied through Paper's `AsyncChatEvent`. Set `enable-chat-format: false` if you want another chat plugin to handle formatting.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -246,9 +251,15 @@ custom-rules:
     message: "&cNo, the server is great, you’re the bad one!"
 ```
 
-:::note Removed option
+<CalloutContainer type="info">
+
+<CalloutTitle>Removed option</CalloutTitle>
+
+<CalloutDescription>
 The `enable-itemadders-font-regex` / `itemadders-font-regex` options were removed in 1.0.3.8: the feature was never wired and the options had no effect. You can safely delete them from your existing file.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -286,14 +297,20 @@ The `enable-itemadders-font-regex` / `itemadders-font-regex` options were remove
 | `chat-cooldown-max` | Integer | `50` | Number of recent messages kept in memory for each player to evaluate the rules. Must be greater than or equal to the highest `messages` value |
 | `enable-same-message-cancel` | Boolean | `true` | Cancel a message identical (ignoring case) to the player's previous message. Bypass with `essentials.chat.bypass.same.message` |
 
-:::info Dynamic Cooldown
+<CalloutContainer type="info">
+
+<CalloutTitle>Dynamic Cooldown</CalloutTitle>
+
+<CalloutDescription>
 With the default rules, a player who sends:
 - **2** messages within **1.5 seconds**,
 - **4** messages within **12 seconds**,
 - or **10** messages within **60 seconds**
 
 must wait until the corresponding window has elapsed before sending another message. The waiting time is displayed to the player.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Local Chat
 
@@ -320,9 +337,13 @@ must wait until the corresponding window has elapsed before sending another mess
 | `enable-link-transform` | Boolean | `true` | Turn the `http://` and `https://` URLs of players with `essentials.chat.link` into clickable links. The player also needs `essentials.chat.click` |
 | `link-transform` | String | *(see above)* | MiniMessage format of a transformed link. `%url%` is replaced by the URL |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Since 1.0.3.6, URLs containing `~`, `+` or `#` are correctly detected, and special characters in a URL no longer break the replacement.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Ping (@Mention)
 
@@ -336,9 +357,13 @@ Since 1.0.3.6, URLs containing `~`, `+` or `#` are correctly detected, and speci
 | `player-ping-color` | String | `<red>%name%</red><red>` | How the pinged player sees the mention. `%name%` is replaced by `@<name>` |
 | `player-ping-color-other` | String | `<white>%name%</white>` | How the other players see the mention |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Before 1.0.3.8, the ping sound did not play on Paper 1.21.3+ (`org.bukkit.Sound` became an interface) and `enable-player-ping-sound` was ignored. Both are fixed.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Chat Placeholders
 
@@ -380,9 +405,13 @@ Regex rules checked before every other filter. When a rule matches, the message 
 | `custom-rules[].permission` | String | Optional. When set, the rule is **only applied to players who have this permission**; when omitted, the rule applies to everyone |
 | `custom-rules[].message` | String | Message sent to the player when the rule blocks a message |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Despite its name, the `essentials.chat.bypass.custom.rules` permission used in the default file does not exempt players from a rule: a rule with a `permission` only applies to players who **have** it. To apply a rule to every player, remove its `permission` line.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -399,9 +428,13 @@ Despite its name, the `essentials.chat.bypass.custom.rules` permission used in t
 | `/pub <message>` | - | `essentials.pub` | Send a highlighted advertisement message to all players. Messages matching `pub-regex` are refused |
 | `/showitem <code>` | - | `essentials.show.item` | Open the preview of an item shown in chat (used by the click of `[item]`) |
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The chat history command is `/chathistory` (alias `/ct`). `/sc` is the alias of `/sanction`, used by the default `moderator-action`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 For the full command list, see [Commands & Permissions](../commands-permissions).
 
@@ -435,9 +468,13 @@ default-chat-format: "<gray>%player% <dark_gray>» <white><message>"
 
 A player with both `essentials.chat.format.vip` and `essentials.chat.format.admin` uses the admin format (priority `2`).
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 The message is inserted with the `<message>` tag, not `%message%`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Local Chat
 

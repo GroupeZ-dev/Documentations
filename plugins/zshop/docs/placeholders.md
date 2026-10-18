@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: Placeholders
 description: Available placeholders in zShop
 ---

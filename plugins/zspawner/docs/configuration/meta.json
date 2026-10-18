@@ -1,0 +1,10 @@
+{
+  "title": "Configuration",
+  "defaultOpen": true,
+  "pages": [
+    "config",
+    "virtual-spawner",
+    "stackable-spawner",
+    "silk-spawner"
+  ]
+}

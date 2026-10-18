@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Getting Started
 description: Introduction to zQuests - A powerful quest plugin for Minecraft servers
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Commands & Permissions
 description: Complete list of all commands and permissions for zEssentials
 ---
@@ -8,19 +7,37 @@ description: Complete list of all commands and permissions for zEssentials
 
 This page contains the complete list of all commands and permissions available in zEssentials. Commands are organized by category for easy reference.
 
-:::info Syntax Guide
+<CalloutContainer type="info">
+
+<CalloutTitle>Syntax Guide</CalloutTitle>
+
+<CalloutDescription>
 - `< >` indicates a **required** argument.
 - `[ ]` indicates an **optional** argument.
 - `|` separates multiple aliases for the same command.
-:::
+</CalloutDescription>
 
-:::tip Permission format
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Permission format</CalloutTitle>
+
+<CalloutDescription>
 Every permission is generated from its internal name: the underscores become dots. For example `ESSENTIALS_TP_TOGGLE` becomes `essentials.tp.toggle` and `ESSENTIALS_UN_BAN` becomes `essentials.un.ban`. Always copy the permission exactly as written on this page.
-:::
+</CalloutDescription>
 
-:::note Custom commands
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Custom commands</CalloutTitle>
+
+<CalloutDescription>
 Commands created with the [Custom Commands](./modules/custom-commands) module (`modules/customcommands/config.yml`, for example `/discord` or `/map`) are not listed here. Each one uses the `permission` defined in its own configuration (an empty permission means everyone can use it).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -309,9 +326,13 @@ Commands for private messaging between players.
 
 Toggling private messages for another player requires `essentials.message.toggle.other`.
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 `/w` is registered both as an alias of `/message` and of `/warp`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

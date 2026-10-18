@@ -1,11 +1,8 @@
 ---
-sidebar_position: 1
 title: Inventory Configuration
 description: Complete reference for inventory configuration options
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 # Inventory Configuration
 
@@ -50,13 +47,13 @@ items:
 
 The title displayed at the top of the inventory.
 
-<Tabs>
-    <TabItem value="name" label="Name">
+<Tabs items={["Name","Name with List","Title"]}>
+    <Tab value="Name">
         ```yaml
         name: "&6&lMy Server Menu"
         ```
-    </TabItem>
-    <TabItem value="name-list" label="Name with List">
+    </Tab>
+    <Tab value="Name with List">
         Each line was joined together to create a single title.
 
         ```yaml
@@ -64,12 +61,12 @@ The title displayed at the top of the inventory.
           - "&6&lMy Server Menu"
           - "&7Welcome, &f%player%&7!"
         ```
-    </TabItem>
-    <TabItem value="title" label="Title">
+    </Tab>
+    <Tab value="Title">
         ```yaml
         title: "&6&lMy Server Menu"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Aliases:** `name` and `title` are interchangeable. You can use either one to define the inventory title.
@@ -153,9 +150,13 @@ type: CHEST
 | `STONECUTTER`   | 2    | Stonecutter layout                 |
 | `SMITHING`      | 4    | Smithing table layout              |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 When using a type other than `CHEST`, the `size` option is ignored as each type has a fixed size.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 **Example with hopper:**
 ```yaml
@@ -215,9 +216,13 @@ items:
 | `%new_text%` | The current text in the rename field                                     |
 | `%char%`     | The character that was added or removed (only for `ADDED` / `REMOVED`)   |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The result item placed in slot `2` is sent directly to the player and is updated on every keystroke, which lets you build a live preview of what the player is typing.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -241,9 +246,13 @@ Automatically refresh the inventory at a regular interval (in milliseconds).
 update-interval: 1000  # Refresh every second (1000ms)
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 1000ms = 1 second. Use this for inventories with dynamic placeholders that need frequent updates.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -251,9 +260,15 @@ update-interval: 1000  # Refresh every second (1000ms)
 
 Animate the inventory title with multiple frames. This creates a dynamic title that cycles through different text values.
 
-:::warning Requirements
+<CalloutContainer type="warning">
+
+<CalloutTitle>Requirements</CalloutTitle>
+
+<CalloutDescription>
 This feature **requires** [PacketEvents](https://github.com/retrooper/packetevents) to be installed on your server. Without PacketEvents, title animations will not work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 title-animation:
@@ -433,21 +448,21 @@ When applied, all buttons in the inventory will inherit these actions. Button-sp
 
 Define an item to fill all empty slots.
 
-<Tabs>
-    <TabItem value="fill-item" label="fill-item">
+<Tabs items={["fill-item","fillItem"]}>
+    <Tab value="fill-item">
         ```yaml
         fill-item:
           material: BLACK_STAINED_GLASS_PANE
           name: "&8"
         ```
-    </TabItem>
-    <TabItem value="fillItem" label="fillItem">
+    </Tab>
+    <Tab value="fillItem">
         ```yaml
         fillItem:
           material: BLACK_STAINED_GLASS_PANE
           name: "&8"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Aliases:** `fill-item` and `fillItem` are interchangeable.
@@ -547,23 +562,23 @@ If requirements aren't met, the inventory won't open and deny actions will execu
 
 Requirements that must be met to open this inventory. Similar to `view-requirement`, but checked before opening the inventory, allowing you to prevent the inventory from opening at all if conditions aren't met.
 
-<Tabs>
-    <TabItem value="open-requirement" label="open-requirement">
+<Tabs items={["open-requirement","open_requirement"]}>
+    <Tab value="open-requirement">
         ```yaml
         open-requirement:
           requirements:
             - type: permission
               permission: "myserver.premium"
         ```
-    </TabItem>
-    <TabItem value="open_requirement" label="open_requirement">
+    </Tab>
+    <Tab value="open_requirement">
         ```yaml
         open_requirement:
           requirements:
             - type: permission
               permission: "myserver.premium"
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Aliases:** `open_requirement` and `open-requirement` are interchangeable.
@@ -574,9 +589,15 @@ Requirements that must be met to open this inventory. Similar to `view-requireme
 
 Automatically redirect Bedrock players to a native Bedrock form (or to another inventory) when they try to open this inventory. Java players will see the regular inventory as usual.
 
-:::warning Requirements
+<CalloutContainer type="warning">
+
+<CalloutTitle>Requirements</CalloutTitle>
+
+<CalloutDescription>
 This feature requires **Geyser** or **Floodgate** installed on your server.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 inventory-replacement:
@@ -601,8 +622,8 @@ See [Bedrock Forms](../bedrock) for complete documentation on creating Bedrock f
 
 Define an item that opens this inventory when held and clicked.
 
-<Tabs>
-    <TabItem value="open-with-item" label="open-with-item">
+<Tabs items={["open-with-item","openWithItem"]}>
+    <Tab value="open-with-item">
         ```yaml
         open-with-item:
           item:
@@ -614,8 +635,8 @@ Define an item that opens this inventory when held and clicked.
             - RIGHT_CLICK
           type: full # full, contains, or starts_with
         ```
-    </TabItem>
-    <TabItem value="openWithItem" label="openWithItem">
+    </Tab>
+    <Tab value="openWithItem">
         ```yaml
         openWithItem:
           item:
@@ -627,7 +648,7 @@ Define an item that opens this inventory when held and clicked.
             - RIGHT_CLICK
           type: full # full, contains, or starts_with
         ```
-    </TabItem>
+    </Tab>
 </Tabs>
 
 

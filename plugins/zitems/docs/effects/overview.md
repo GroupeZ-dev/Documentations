@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Effects Overview
 description: Complete guide to all effects in zItems
 ---

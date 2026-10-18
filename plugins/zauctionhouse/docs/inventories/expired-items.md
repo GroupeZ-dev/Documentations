@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Expired Items
 description: Expired items inventory configuration
 ---

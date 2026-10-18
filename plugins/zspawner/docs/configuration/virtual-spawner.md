@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Virtual Spawners
 description: Configuration and usage of Virtual Spawners in zSpawner
 ---

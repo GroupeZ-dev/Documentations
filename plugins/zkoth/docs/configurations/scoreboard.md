@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Scoreboard
 description: Configure KOTH scoreboards
 ---

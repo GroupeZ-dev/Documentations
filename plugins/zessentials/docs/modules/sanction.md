@@ -1,5 +1,4 @@
 ---
-sidebar_position: 14
 title: Sanction Module
 description: Complete moderation system with bans, mutes, kicks, freezes, and sanction history
 ---
@@ -10,9 +9,15 @@ description: Complete moderation system with bans, mutes, kicks, freezes, and sa
 
 The Sanction module is a full-featured moderation system providing **bans**, **mutes**, **kicks**, **freezes**, a complete **sanction history** per player, and the `/seen` and `/seenip` lookup commands. It includes configurable default reasons, a protected player list, display options for `/seen`, and customizable material icons for the sanction history GUI.
 
-:::danger SQL Storage Required
+<CalloutContainer type="error">
+
+<CalloutTitle>SQL Storage Required</CalloutTitle>
+
+<CalloutDescription>
 The Sanction module **requires a SQL storage** (`MYSQL`, `MARIADB`, `HIKARICP` or `SQLITE`). Sanctions, `/seen` and `/seenip` are not implemented for the `JSON` storage. A MySQL/MariaDB database is recommended for production servers.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -97,9 +102,13 @@ current-mute-material: EMERALD_BLOCK
 current-ban-material: DIAMOND_BLOCK
 ```
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 In the default file, the comments above `ban-default-reason` and `mute-default-reason` are swapped. The keys themselves are correct: `ban-default-reason` is used by `/ban` and `mute-default-reason` by `/mute`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -125,9 +134,13 @@ The default reason is used when the moderator does not specify a reason in the c
 | `unmute-default-reason` | String | `You have the right to talk to us` | Default reason recorded for `/unmute` |
 | `unban-default-reason` | String | `The ban hammer gives you the right to return` | Default reason recorded for `/unban` |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Before version 1.0.3.8, `date-format` and the five `*-default-reason` options were silently ignored and the built-in values were always used. They are now read from the configuration file.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### `/seen` Display Options
 
@@ -141,9 +154,15 @@ Each line of `/seen` can be disabled globally. When an option is enabled, the re
 | `seen-show-created-at` | Boolean | `true` | `essentials.seen.show.created.at` | Show the date of the player's first connection |
 | `seen-show-playtime` | Boolean | `true` | - | Show the total playtime of the player |
 
-:::tip Hiding IP addresses from everyone
+<CalloutContainer type="info">
+
+<CalloutTitle>Hiding IP addresses from everyone</CalloutTitle>
+
+<CalloutDescription>
 Operators have every permission, including `essentials.seen.show.ip`, so the permission alone cannot hide IP addresses from them. Set `seen-show-ip: false` to never display IP addresses in `/seen`, even to operators.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Material Icons
 
@@ -161,9 +180,13 @@ These materials are used as item icons in the sanction history GUI to visually d
 | `current-mute-material` | Material | `EMERALD_BLOCK` | Icon of the active (current) mute |
 | `current-ban-material` | Material | `DIAMOND_BLOCK` | Icon of the active (current) ban |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The block variants (`EMERALD_BLOCK`, `DIAMOND_BLOCK`) are used for **active** sanctions, making it easy for moderators to distinguish past and current bans/mutes in the history GUI.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -229,9 +252,13 @@ For the full command list, see [Commands & Permissions](../commands-permissions)
 
 For the full placeholder list, see [Placeholders](../placeholders).
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 The `%zessentials_user_target_is_ban%` and `%zessentials_user_target_is_mute%` placeholders operate on a **target** player context, not the requesting player. They are typically used in sanction-related GUIs where a moderator is inspecting another player.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -245,9 +272,13 @@ protections:
   - "Notch"
 ```
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Protection is matched by **player name**, ignoring case.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

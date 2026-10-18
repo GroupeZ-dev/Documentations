@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Hammer
 description: Mine in a 3x3 (or larger) area
 ---

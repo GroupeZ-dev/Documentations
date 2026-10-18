@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: bStats
 ---
 
@@ -12,11 +11,17 @@ groupez.dev proxies [bStats](https://bstats.org) for the resources whose creator
 
 Both answer **plain text, not JSON**. Plugins call them at server start-up and use the body as it is: they print the URL, and they parse the chart value as an integer. A JSON string would arrive wrapped in quotation marks.
 
-:::warning `{resource}` is a groupez.dev resource id, not a bStats id
+<CalloutContainer type="warning">
+
+<CalloutTitle>`{resource}` is a groupez.dev resource id, not a bStats id</CalloutTitle>
+
+<CalloutDescription>
 On v2, the path parameter is the **groupez.dev resource id** (the number in `https://groupez.dev/resources/...`). The platform looks up the resource's `bstats_id` itself. On the legacy platform, the legacy site's own pages called these URIs with the **bStats plugin id** directly (see [v1 bStats](../v1/bstats.md)). A caller that still sends a bStats id gets the resource that happens to have that number, or a `404`.
 
 The v2 resource page itself calls both endpoints with the resource id (`resources/js/components/marketplace/resource-bstats.tsx`), and the tests are written against resource ids, so the new meaning is deliberate. Whether any external client relied on the old meaning is not known.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Common behaviour
 
@@ -33,9 +38,15 @@ These rules come from the `/api/v1` route group and apply to both endpoints:
 
 `{resource}` goes through the global `Route::bind('resource', ...)` declared in `app/Providers/AppServiceProvider.php`. For a guest, only resources whose status is `Published` or `Unlisted` resolve. Drafts, resources under review, soft-deleted resources and ids that never existed all answer the same `404`. The route group has no numeric pattern on `{resource}`. The global `Route::pattern('resource', '[0-9]+')` of `routes/web.php` does not reach the API routes. A non-numeric value is therefore matched by the route and handed to the binder, which looks it up with `whereKey()`. A value with no leading digit, such as `abc`, matches no resource and answers `404`.
 
-:::note Partially numeric ids
+<CalloutContainer type="info">
+
+<CalloutTitle>Partially numeric ids</CalloutTitle>
+
+<CalloutDescription>
 The production database is MySQL, which compares a string such as `42abc` with an integer column by converting it to a number (`42`). Such a value would probably resolve resource `42` rather than answer `404`. No test covers this case, so treat it as unspecified and always send a plain integer.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Where the bStats id comes from
 
@@ -248,6 +259,12 @@ Route::get('{resource}/{chart}', ShowStatsController::class)->name('stats');
 | Rate limit | 60/min | 120/min |
 | Version header | none | `X-GroupeZ-Api-Version: 1` |
 
-:::note Source files
+<CalloutContainer type="info">
+
+<CalloutTitle>Source files</CalloutTitle>
+
+<CalloutDescription>
 `routes/api.php`, `app/Http/Controllers/Api/V1/BStats/ShowUrlController.php`, `app/Http/Controllers/Api/V1/BStats/ShowStatsController.php`, `app/Providers/AppServiceProvider.php` (binding), `app/Providers/RateLimitServiceProvider.php`, `config/groupez.php` (`bstats`), `bootstrap/app.php`. Behaviour is pinned by `tests/Feature/Api/V1/BStatsTest.php`, `BStatsEndpointsTest.php`, `ApiRoutingTest.php`, `ApiRoutingOrderTest.php` and `ApiVersionHeaderTest.php`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

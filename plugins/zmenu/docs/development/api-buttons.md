@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Custom Buttons
 description: Creating custom button types for zMenu
 ---

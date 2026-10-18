@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Stackable Spawners
 description: Configuration of Stackable Spawners in zSpawner
 ---
@@ -112,12 +111,16 @@ stackableSpawner:
     # ... continue for higher stack amounts
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 A level applies from its `stackAmount` **up to** the next one, so you do not have to
 declare every value. With levels `1`, `5` and `10`, a stack of `3` uses the level `1`
 settings and a stack of `7` uses the level `5` settings. A stack larger than the last
 declared level keeps that last level.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Level Options
 

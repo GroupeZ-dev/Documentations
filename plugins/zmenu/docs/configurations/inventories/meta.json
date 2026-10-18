@@ -1,0 +1,8 @@
+{
+  "title": "Inventories",
+  "defaultOpen": false,
+  "pages": [
+    "inventory",
+    "create-inventory"
+  ]
+}

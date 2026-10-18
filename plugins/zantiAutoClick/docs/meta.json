@@ -1,0 +1,9 @@
+{
+  "title": "zAntiAutoClick",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "..."
+  ]
+}

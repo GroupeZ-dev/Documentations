@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: config.yml
 description: Main configuration file for zQuests
 ---
@@ -47,9 +46,15 @@ database-configuration:
   debug: false
 ```
 
-:::warning SQLite Limitations
+<CalloutContainer type="warning">
+
+<CalloutTitle>SQLite Limitations</CalloutTitle>
+
+<CalloutDescription>
 SQLite is recommended only for testing. Some features may have limited functionality. Use HIKARICP for production servers.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Command Configuration
 

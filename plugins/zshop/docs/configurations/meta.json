@@ -1,0 +1,11 @@
+{
+  "title": "Configuration",
+  "defaultOpen": false,
+  "pagesIndex": "config",
+  "pages": [
+    "economies",
+    "items",
+    "limits",
+    "buttons"
+  ]
+}

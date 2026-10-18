@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Loot Configuration
 description: Configure KOTH rewards and loot
 ---
@@ -107,9 +106,13 @@ loot:
     - "H4sIAAAAAA..."
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Always use the GUI command to configure items. The Base64 encoding is handled automatically.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Combining with Commands
 

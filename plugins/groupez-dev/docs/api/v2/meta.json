@@ -1,0 +1,13 @@
+{
+  "title": "v2 (current)",
+  "defaultOpen": true,
+  "pages": [
+    "overview",
+    "licence",
+    "resources",
+    "authors",
+    "gifts-payments",
+    "discord",
+    "bstats"
+  ]
+}

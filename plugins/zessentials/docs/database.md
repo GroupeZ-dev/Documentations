@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Database
 description: Database architecture, tables, and storage backends for zEssentials
 ---
@@ -28,11 +27,15 @@ SQLite is the default backend, storing data in a local file at `plugins/zEssenti
 storage-type: SQLITE
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 SQLite is intended for **installation and testing only**. Some features are limited (for example, sanction updates when the plugin starts), it uses a single-writer concurrency model, and it cannot be shared between several servers.
 
 **Do not use SQLite in production.** Switch to `MYSQL`, `MARIADB` or `HIKARICP` before going live.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### MYSQL, MARIADB and HIKARICP
 
@@ -51,13 +54,23 @@ database-configuration:
   debug: false
 ```
 
-:::info
-The MariaDB JDBC driver is not shaded into the JAR: it is downloaded from Maven Central by Paper when the server starts (see [Installation](./installation#3-install-the-plugin)).
-:::
+<CalloutContainer type="info">
 
-:::tip Recommended
+<CalloutDescription>
+The MariaDB JDBC driver is not shaded into the JAR: it is downloaded from Maven Central by Paper when the server starts (see [Installation](./installation#3-install-the-plugin)).
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Recommended</CalloutTitle>
+
+<CalloutDescription>
 For any server expecting real players, use **HIKARICP** (or `MARIADB` if your server runs MariaDB). It handles concurrent database access efficiently and is required to share data between several servers.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### JSON
 
@@ -79,9 +92,13 @@ Player data is stored in one file per player in `plugins/zEssentials/users/<uuid
 | `database` | `zessentials` | Database name (must already exist) |
 | `debug` | `false` | Logs the executed SQL queries |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Always change the default credentials before deploying to production. The values shown above are placeholders only.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Database Tables
 
@@ -374,9 +391,13 @@ Generic key-value storage for plugin-internal server data.
 | `name` | `VARCHAR` | PK | Storage key |
 | `content` | `TEXT` | | Serialized storage value |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Unless stated otherwise, most tables also contain `created_at` and `updated_at` timestamp columns.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Performance Optimizations
 
@@ -422,6 +443,10 @@ There are currently **37 registered migrations**:
 
 Migrations run automatically on server startup. No manual intervention is required. If you are upgrading from an older version, the plugin applies only the migrations that have not yet been executed.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Never manually modify the migration tracking table or skip migrations. Doing so can leave your database in an inconsistent state. If you encounter migration errors, check the server console for details and report the issue on [GitHub](https://github.com/Maxlego08/zEssentials) or [Discord](https://discord.groupez.dev).
-:::
+</CalloutDescription>
+
+</CalloutContainer>

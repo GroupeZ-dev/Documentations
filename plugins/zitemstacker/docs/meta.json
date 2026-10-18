@@ -1,0 +1,9 @@
+{
+  "title": "zItemStacker",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "..."
+  ]
+}

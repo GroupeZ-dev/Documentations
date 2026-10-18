@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Currencies Reference
 description: Complete reference of all supported currencies
 ---

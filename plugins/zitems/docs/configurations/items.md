@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Item Configuration
 description: Complete guide to creating custom items in zItems
 ---

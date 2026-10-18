@@ -1,5 +1,4 @@
 ---
-sidebar_position: 11
 title: Mailbox Module
 description: Offline item delivery and text mails for players, online or offline
 ---
@@ -58,9 +57,13 @@ message-date-format: "yyyy-MM-dd HH:mm"
 | `enable` | Boolean | `true` | Enable or disable the Mailbox module (item mailbox and text mails) |
 | `expiration` | Integer | `86400` | Time in seconds before an uncollected item expires and is permanently removed from the mailbox. `86400` seconds = 24 hours |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 When items expire, they are permanently deleted and cannot be recovered. The expiration date of an item is computed when the item is added (`now + expiration`), so a value of `0` makes items expire immediately: always use a positive value. For a very long retention, use a large value such as `2592000` (30 days).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Text Mails
 
@@ -83,9 +86,15 @@ When items expire, they are permanently deleted and cannot be recovered. The exp
 4. If an item is not collected before its expiration date, it is removed.
 5. Administrators can inspect another player's mailbox with `/mail open <player>` and empty it with `/mail clear <player>`.
 
-:::danger SQL storage required
+<CalloutContainer type="error">
+
+<CalloutTitle>SQL storage required</CalloutTitle>
+
+<CalloutDescription>
 The **item mailbox** requires a SQL storage (`SQLITE`, `MYSQL`, `MARIADB` or `HIKARICP`). It is not implemented for the `JSON` storage.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -118,9 +127,13 @@ Text mails work with **every storage type**:
 | `SQLITE`, `MYSQL`, `MARIADB`, `HIKARICP` | `user_mail_messages` table |
 | `JSON` | Stored inside the player's user file |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Unlike text mails, the item mailbox is only available with a SQL storage.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -159,9 +172,13 @@ For the full command list, see [Commands & Permissions](../commands-permissions)
 |-------------|-------------|
 | `%zessentials_user_mailbox_items%` | Returns the number of items currently in the player's item mailbox |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Use the `%zessentials_user_mailbox_items%` placeholder in scoreboards, holograms, or chat formats to show players how many uncollected items they have. For example, you could display a notification in the scoreboard when the value is greater than zero.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 For the full placeholder list, see [Placeholders](../placeholders).
 

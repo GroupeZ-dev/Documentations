@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Overview (v2)
 ---
 
@@ -7,11 +6,17 @@ title: Overview (v2)
 
 This section documents the public HTTP API served by the **current** groupez.dev platform (the "v2" rewrite, Laravel 13). Minecraft plugins and Discord bots call it.
 
-:::info Same URIs as v1
+<CalloutContainer type="info">
+
+<CalloutTitle>Same URIs as v1</CalloutTitle>
+
+<CalloutDescription>
 The v2 platform is a rewrite of the site, **not** a new API version. It keeps the URIs of the legacy platform (`/api/v1/...`), their HTTP verbs, their status codes and their JSON keys, so plugins already deployed on servers keep working without an update. Everything on this page is served under `/api/v1`.
 
 The legacy platform is documented in [API v1 overview](../v1/overview.md). For what changed between the two, see [Changes from v1](#changes-from-v1) below.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Base URL
 
@@ -50,9 +55,15 @@ One endpoint is guarded, by a shared secret in the request body:
 |----------|-------|
 | `POST /api/v1/discord/{user}/apply/{resource}` | Body field `custom_password`, compared with `hash_equals` against the config key `services.discord.purchase_secret`. A missing, empty or non-string value, or an unset secret, returns `403`. |
 
-:::note Unauthenticated by design
+<CalloutContainer type="info">
+
+<CalloutTitle>Unauthenticated by design</CalloutTitle>
+
+<CalloutDescription>
 `GET /api/v1/gift/{gift}` and `GET /api/v1/payment/{payment}` are public on purpose: deployed plugins call them without a token. They are hardened through their payloads instead (three and four keys, no personal data) and through non-enumerable keys (a gift code, a payment ULID).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Rate limiting
 
@@ -149,7 +160,11 @@ Every request matching `api/*` gets a JSON error (`shouldRenderJsonWhen`), whate
 | `422` | `{"message": "The name field is required.", "errors": {"name": ["The name field is required."]}}` | the framework's standard validation format. Only `GET /api/v1/resource/user` validates input. |
 | `500` | `{"message": "Server Error"}` | framework default with `APP_DEBUG` off |
 
-:::warning Not every endpoint answers JSON
+<CalloutContainer type="warning">
+
+<CalloutTitle>Not every endpoint answers JSON</CalloutTitle>
+
+<CalloutDescription>
 Three endpoints return a **bare `text/plain` body**, as v1 did. Clients read the raw bytes:
 
 - `GET /api/v1/resource/version/{resource}`: the version number (`1.4.2`), or `(soon)`;
@@ -157,7 +172,9 @@ Three endpoints return a **bare `text/plain` body**, as v1 did. Clients read the
 - `GET /api/v1/bstats/{resource}/{chart}`: an integer (`0` on any failure).
 
 `GET /api/v1/discord/authentication` returns a `302` redirect.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## All routes
 
@@ -261,9 +278,15 @@ The URIs are unchanged, but **every route name except `api.v1.discord.auth` chan
 - **Discord members:** in v1, `POST /discord` read `users.discord`, while `/discord/{user}` and `/discord/{user}/apply/{plugin}` bound `DiscordUser` by `discord_users.discord_id`. v2 resolves all three through `social_accounts` (`User::linkedToDiscord()`). The URI keeps the `{user}` segment, but the binding field `:discord_id` is gone.
 - **`POST /discord`:** v2 also returns `400` for a blank string or a non-string `discord` field. v1 only checked whether the key was present.
 
-:::warning bStats identifier
+<CalloutContainer type="warning">
+
+<CalloutTitle>bStats identifier</CalloutTitle>
+
+<CalloutDescription>
 In v1, the `{id}` of `/bstats/url/{id}` and `/bstats/{id}/{chart}` was passed **directly to bStats** as the bStats plugin id. In v2 the segment is `{resource}`, a **groupez.dev resource id**, and the bStats id is read from that resource's `resource_details.bstats_id`. A v1 caller that passed a raw bStats id now gets `404` on both endpoints (the `{resource}` binder rejects it), unless that number also happens to be the id of a published or unlisted groupez.dev resource, in which case the answer is about that resource's bStats project. `0` (stats) and `404` (url) are also returned for a visible resource with no `bstats_id`. This is what the v2 code does. The v2 code comments do not discuss the change, so whether it was intended is not documented.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Payload hardening
 

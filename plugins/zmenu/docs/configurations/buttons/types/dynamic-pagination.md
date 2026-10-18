@@ -1,14 +1,19 @@
 ---
-sidebar_position: 11
 title: DYNAMIC_PAGINATION Button
 description: Display dynamic paginated content from data sources
 ---
 
 # DYNAMIC_PAGINATION Button Type
 
-:::warning zMenu+ Required
+<CalloutContainer type="warning">
+
+<CalloutTitle>zMenu+ Required</CalloutTitle>
+
+<CalloutDescription>
 This button type requires [zMenu+](../../../zmenu-plus) to work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The `DYNAMIC_PAGINATION` button type allows you to display dynamically generated paginated content. Unlike regular `PAGINATION`, this type can pull content from external data sources, placeholders, or plugin integrations.
 

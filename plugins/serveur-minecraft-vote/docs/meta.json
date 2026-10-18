@@ -1,0 +1,9 @@
+{
+  "title": "serveur-minecraft-vote.fr",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "..."
+  ]
+}

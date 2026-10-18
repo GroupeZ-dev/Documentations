@@ -1,13 +1,18 @@
 ---
-sidebar_position: 6
 title: Discord
 ---
 
 # Discord
 
-:::warning Legacy platform
+<CalloutContainer type="warning">
+
+<CalloutTitle>Legacy platform</CalloutTitle>
+
+<CalloutDescription>
 This page documents the **legacy v1 platform** (Laravel 8). It is kept for reference and for plugins and bots built against it. For the current platform, see [Discord (v2)](../v2/discord.md).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 These endpoints were called by Discord bots and by the "link your Discord account" button of the dashboard: linking a Discord account, reading which resources a Discord member owns, granting a resource, and reading the public information of a Discord server.
 
@@ -39,19 +44,31 @@ The `api` limiter allows **60 requests per minute**, keyed by user id or, for an
 
 ### Content type and errors
 
-:::note Not always JSON
+<CalloutContainer type="info">
+
+<CalloutTitle>Not always JSON</CalloutTitle>
+
+<CalloutDescription>
 - `POST /discord`, `POST /discord/{user}` and `POST /discord/{user}/apply/{plugin}` return a string built with `json_encode()`. Laravel serves a returned string as `text/html; charset=UTF-8`, so the body is JSON but the `Content-Type` header is **not** `application/json`. Parse the body regardless of the header.
 - `GET /discord/{serverId}` returns an array and is served as `application/json`.
 - The legacy exception handler is the framework default: errors (`400`, `403`, `404`, `422`, `429`) are rendered as JSON **only** when the request sends `Accept: application/json`. Otherwise they are HTML error pages (and a validation error becomes a redirect). Always send `Accept: application/json`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 With `Accept: application/json` and `APP_DEBUG` off, an error raised by `abort($code, $message)` renders as `{"message": "<message>"}`; a `404` from a failed model binding renders as `{"message": "No query results for model [App\\Models\\<Model>] <value>"}`.
 
 ### Route declaration order
 
-:::warning Declaration order matters
+<CalloutContainer type="warning">
+
+<CalloutTitle>Declaration order matters</CalloutTitle>
+
+<CalloutDescription>
 `GET /discord/authentication` is declared **before** `GET /discord/{serverId}`; otherwise the word `authentication` would be read as a guild id. `POST /discord/{user}` and `GET /discord/{serverId}` share a URI shape and are told apart only by the verb.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Accesses payload
 
@@ -68,9 +85,15 @@ With `Accept: application/json` and `APP_DEBUG` off, an error raised by `abort($
 
 No explicit ordering is applied (database order).
 
-:::note Integer or string
+<CalloutContainer type="info">
+
+<CalloutTitle>Integer or string</CalloutTitle>
+
+<CalloutDescription>
 The rows come straight from PDO. Whether `id`, `user_id`, `plugin_id` and `payment_id` are serialized as JSON numbers or as numeric strings depends on the PHP version and PDO settings of the server (PHP 8.1+ with `pdo_mysql` returns native integers, earlier versions returned strings). This could not be checked against production; accept both.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -182,9 +205,15 @@ curl -X POST https://groupez.dev/api/v1/discord \
 
 #### Notes
 
-:::warning Probably broken on the legacy platform
+<CalloutContainer type="warning">
+
+<CalloutTitle>Probably broken on the legacy platform</CalloutTitle>
+
+<CalloutDescription>
 The controller looks the member up in the `users.discord` column, but the migration `2021_10_10_203050_remove_discord_in_user` dropped that column when Discord links moved to the `discord_users` table. Read from the code, any request that passes the `400` check runs a query on a column that no longer exists, which would answer `500 Server Error` rather than `200` or `404`. This could not be verified against the production database.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 - The check is `has('discord')`: an empty value is not rejected by the `400` (empty strings are converted to `null` by the global middleware).
 - Revoked accesses do not exist on the legacy platform: every row of `plugin_accesses` for the user is returned.

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: INVENTORY Button
 description: Button that opens another inventory
 ---

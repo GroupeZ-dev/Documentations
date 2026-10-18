@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Admin Purchased Items
 description: Admin purchased items inventory configuration
 ---

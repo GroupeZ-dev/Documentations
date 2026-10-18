@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Shop Items
 description: Configure shop items with ZSHOP_ITEM button type
 ---

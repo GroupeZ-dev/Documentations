@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Silk Touch Spawners
 description: Configuration of Silk Touch spawner mining in zSpawner
 ---

@@ -1,0 +1,9 @@
+{
+  "title": "zTextGenerator",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "..."
+  ]
+}

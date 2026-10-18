@@ -1,0 +1,9 @@
+{
+  "title": "zCrate",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "..."
+  ]
+}

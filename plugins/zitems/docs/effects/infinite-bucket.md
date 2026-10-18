@@ -1,5 +1,4 @@
 ---
-sidebar_position: 11
 title: Infinite Bucket
 description: Unlimited water and lava placement
 ---
@@ -39,9 +38,13 @@ effects:
 | Milk Bucket | No |
 | Powder Snow Bucket | No |
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Milk and Powder Snow buckets are excluded because they have special behaviors that don't work well with infinite use.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Events
 

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: zMenu+
 description: The premium addon for zMenu with advanced features
 ---
@@ -12,9 +11,15 @@ description: The premium addon for zMenu with advanced features
 
 zMenu+ extends the capabilities of the free zMenu plugin with additional features designed for server owners who want even more control and functionality in their menus.
 
-:::tip Support Free Development
+<CalloutContainer type="info">
+
+<CalloutTitle>Support Free Development</CalloutTitle>
+
+<CalloutDescription>
 By purchasing zMenu+, you help keep zMenu **free for everyone**. Your support enables continued development and improvements to the free version that thousands of servers rely on.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Features
 
@@ -46,9 +51,15 @@ You can purchase zMenu+ from:
 3. Place the zMenu+ JAR file in your `plugins/` folder
 4. Restart your server
 
-:::info Requires zMenu
+<CalloutContainer type="info">
+
+<CalloutTitle>Requires zMenu</CalloutTitle>
+
+<CalloutDescription>
 zMenu+ is an addon and requires the base zMenu plugin to function. Make sure you have zMenu installed first.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Support
 

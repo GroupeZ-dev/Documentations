@@ -1,14 +1,19 @@
 ---
-sidebar_position: 12
 title: INPUT Button
 description: Capture player text input through chat
 ---
 
 # INPUT Button Type
 
-:::warning zMenu+ Required
+<CalloutContainer type="warning">
+
+<CalloutTitle>zMenu+ Required</CalloutTitle>
+
+<CalloutDescription>
 This button type requires [zMenu+](../../../zmenu-plus) to work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The `INPUT` button type allows you to capture text input from players. When clicked, it closes the inventory and prompts the player to type in chat. The input can then be used in actions or stored for later use.
 

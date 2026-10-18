@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Licence
 ---
 
@@ -9,9 +8,15 @@ The licence endpoint is what premium GroupeZ plugins call at start-up to ask whe
 
 On the current platform (v2), IP-bound licences no longer exist. There is no licence table, no licence model and no licence management screen. The route is kept only because plugins already installed on servers call it when they start and refuse to boot without a positive answer.
 
-:::info Always valid
+<CalloutContainer type="info">
+
+<CalloutTitle>Always valid</CalloutTitle>
+
+<CalloutDescription>
 On v2 this endpoint **always** answers `200` with `{"status":"success","message":"The license is valid"}`, whatever key you send: unknown, issued by the legacy platform, expired on the legacy platform, or nonsense. The controller reads nothing from the request (only the rate limiters look at the key and the caller's IP). It runs no database query, writes no log and uses no cache.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 For the legacy behaviour, with key lookup, `unique_id` check and IP allow-list, see the [v1 licence page](../v1/licence.md).
 
@@ -61,9 +66,15 @@ None are read. On v1 the plugin sent a `unique_id` body field. You can still sen
 
 Headers include `Content-Type: application/json` and `X-GroupeZ-Api-Version: 1`.
 
-:::note Frozen strings
+<CalloutContainer type="info">
+
+<CalloutTitle>Frozen strings</CalloutTitle>
+
+<CalloutDescription>
 Deployed plugins compare both strings literally, so they are frozen to the character. The route says `licence` (British spelling) and the message says `license` (American spelling). This mismatch comes from v1 and is kept on purpose.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 **429 Too Many Requests**: one of the limiters was exceeded.
 

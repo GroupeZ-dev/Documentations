@@ -1,0 +1,13 @@
+{
+  "title": "v1 (legacy)",
+  "defaultOpen": false,
+  "pages": [
+    "overview",
+    "licence",
+    "resources",
+    "authors",
+    "gifts-payments",
+    "discord",
+    "bstats"
+  ]
+}

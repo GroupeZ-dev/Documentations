@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Item Mechanics
 description: Give custom items behaviour with mechanics such as itemjoin and on-click
 ---
@@ -46,21 +45,33 @@ server-guide:
 | `fixed-slot`                     | Integer | `-1`    | Force the item into this inventory slot when given, and lock it there. `-1` disables it; valid range is `0`–`36`. |
 | `prevent-inventory-modification` | Boolean | `true`  | Prevent the item from being dropped, moved, dragged, swapped to the off-hand or placed in an item frame.       |
 
-:::info
-`prevent-inventory-modification` only takes effect when a `fixed-slot` is set — the protection is tied to the locked slot. Without a `fixed-slot`, the item can be moved freely even if this option is `true`.
-:::
+<CalloutContainer type="info">
 
-:::tip
+<CalloutDescription>
+`prevent-inventory-modification` only takes effect when a `fixed-slot` is set — the protection is tied to the locked slot. Without a `fixed-slot`, the item can be moved freely even if this option is `true`.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Use `give-first-join` together with a `fixed-slot` to hand every new player a guide/menu item that stays pinned to their hotbar.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## on-click
 
 The `on-click` mechanic runs zMenu actions when the player left- or right-clicks while holding the item in their **main hand**.
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 `on-click` is **not registered by default** in the current build. It only works if an addon registers it through the API (`ItemManager#registerMechanicFactory`); otherwise an `on-click` block logs a "No MechanicFactory found" warning. The default built-in mechanic is [`itemjoin`](#itemjoin).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 magic-wand:
@@ -103,9 +114,13 @@ magic-wand:
 | `click-requirements` | Section | —        | Standard zMenu [requirements](../requirements) checked on click                                     |
 | `actions`            | List    | —        | Standard zMenu [actions](../buttons/actions) run on click                                            |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 `on-click` fires from a `PlayerInteractEvent` on the main-hand item. Because no inventory is open, inventory-specific placeholders are not available inside the requirements/actions.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Next Steps
 

@@ -1,0 +1,21 @@
+{
+  "homepage.badge": "Documentation",
+  "homepage.tagline": "Guides, configuration references and APIs for GroupeZ plugins, libraries and projects.",
+  "homepage.title": "Home",
+  "homepage.description": "Guides, configuration and APIs for GroupeZ Minecraft plugins, libraries and projects.",
+  "homepage.projectsLabel": "Libraries & projects",
+  "homepage.searchTitle": "Looking for a specific answer?",
+  "homepage.searchDescription": "Find guides, configuration keys and APIs across all projects.",
+  "homepage.searchExamples": "Configuration, commands, permissions, APIs…",
+  "homepage.resourcesTitle": "Go further",
+  "homepage.resourcesDescription": "Get help, connect your tools or improve the documentation.",
+  "homepage.supportTitle": "Ask the community",
+  "homepage.supportDescription": "Need help with a configuration? Share your question with the GroupeZ community.",
+  "homepage.mcpTitle": "Use the docs in your AI tool",
+  "homepage.mcpDescription": "Connect ChatGPT, Claude or your editor to this documentation with the read-only MCP server.",
+  "homepage.contributeTitle": "Improve a page",
+  "homepage.contributeDescription": "Found an error or a missing example? The documentation is open to contributions on GitHub.",
+  "homepage.sponsor.badge": "Partner",
+  "homepage.partnerDescription": "Minecraft hosting · Partner code",
+  "homepage.sponsor.cta": "Visit MineStrator"
+}

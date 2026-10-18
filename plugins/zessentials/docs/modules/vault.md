@@ -1,5 +1,4 @@
 ---
-sidebar_position: 19
 title: Vault Module
 description: Personal player storage vaults with permission-based slot limits
 ---
@@ -55,9 +54,13 @@ vault-slot-type: MAX  # MAX or ADDITION
 | `icon-close` | String | `CHEST_MINECART` | The material used as the icon for a closed (not currently viewed) vault in the vault selection menu |
 | `icon-close-model-id` | Integer | `0` | The custom model data ID for the closed vault icon. Set to `0` for the default model |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 You can use custom model data to display unique textures for your vault icons when using a resource pack. Set the `model-id` fields to match your resource pack's custom model data values.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Vault Permissions (Slot Limits)
 
@@ -68,18 +71,32 @@ You can use custom model data to display unique textures for your vault icons wh
 | `vault-permissions[].slots` | Integer | - | The number of inventory slots granted by this permission. Must be a multiple of 9 for proper inventory rendering (up to 54 per page) |
 | `vault-slot-type` | String | `MAX` | Determines how multiple permission slot values are combined. Accepts `MAX` or `ADDITION` |
 
-:::info Slot Type Modes
+<CalloutContainer type="info">
+
+<CalloutTitle>Slot Type Modes</CalloutTitle>
+
+<CalloutDescription>
 - **`MAX`** -- The player's vault size is determined by the **highest** matching permission value. For example, if a player has both `zessentials.vault.size.player` (45 slots) and `zessentials.vault.size.vip` (90 slots), their vault size will be **90 slots**.
 - **`ADDITION`** -- All matching permission slot values are **added together**. Using the same example, the player's vault size would be **135 slots** (45 + 90).
-:::
+</CalloutDescription>
 
-:::warning
+</CalloutContainer>
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 When using `ADDITION` mode, be careful about which permissions you assign to players. Granting multiple vault size permissions will stack, potentially giving players very large vaults. Ensure your permission groups are configured to avoid unintended combinations.
-:::
+</CalloutDescription>
 
-:::note
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Vault sizes larger than 54 slots (6 rows) will span multiple inventory pages. The plugin handles pagination automatically, so players can navigate between pages within a single vault.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -112,9 +129,13 @@ For the full command list, see [Commands & Permissions](../commands-permissions)
 | `zessentials.vault.size.vip` | Grants 90 vault slots (default config) |
 | `zessentials.vault.size.admin` | Grants 500 vault slots (default config) |
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The vault size permissions and their slot values are fully configurable. The permissions listed above are from the default configuration. You can add, remove, or modify entries to fit your server's rank structure.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
