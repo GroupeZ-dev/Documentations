@@ -1,5 +1,4 @@
 ---
-sidebar_position: 21
 title: Warp Module
 description: Server warp system with optional inventory display
 ---
@@ -30,18 +29,32 @@ enable-no-argument-message: true
 | `enable-inventory` | Boolean | `false` | When `true`, running `/warps` opens a zMenu inventory GUI (`warps.yml`) displaying all available warps. When `false`, warps are listed in chat instead |
 | `enable-no-argument-message` | Boolean | `true` | When `true` and `enable-inventory` is `false`, running `/warp` without arguments sends a chat message listing all available warps |
 
-:::info Display Modes
+<CalloutContainer type="info">
+
+<CalloutTitle>Display Modes</CalloutTitle>
+
+<CalloutDescription>
 - **Inventory mode** (`enable-inventory: true`) -- Running `/warps` opens an interactive zMenu inventory defined in `warps.yml`. Players can click warp items to teleport. This provides a rich, visual browsing experience.
 - **Chat mode** (`enable-inventory: false`, `enable-no-argument-message: true`) -- Running `/warp` without arguments lists all available warps directly in the player's chat. Players can then use `/warp <name>` to teleport.
-:::
+</CalloutDescription>
 
-:::tip
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If you enable inventory mode, make sure the `warps.yml` zMenu inventory file is properly configured. The plugin will attempt to open this inventory when players use the `/warps` command.
-:::
+</CalloutDescription>
 
-:::warning
+</CalloutContainer>
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 When both `enable-inventory` and `enable-no-argument-message` are set to `false`, running `/warp` without arguments will produce no output. Ensure at least one display option is enabled so players can discover available warps.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

@@ -1,0 +1,12 @@
+{
+  "title": "zQuests",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "getting-started",
+    "installation",
+    "configurations",
+    "development",
+    "..."
+  ]
+}

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: NEXT Button
 description: Button that navigates to the next page
 ---
@@ -39,9 +38,13 @@ items:
 
 The `NEXT` button only appears/works when there are more pages available.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 `NEXT` buttons are permanent by default. They will automatically be shown on all pages of a paginated inventory, even if `is-permanent: true` is not explicitly set in the configuration.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Properties
 

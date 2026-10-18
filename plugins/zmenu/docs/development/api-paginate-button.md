@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Paginate Button
 description: Creating paginated button lists in zMenu
 ---

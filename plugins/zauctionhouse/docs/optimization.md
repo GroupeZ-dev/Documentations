@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Optimization
 description: Discover how zAuctionHouse is optimized for large-scale servers
 ---
@@ -45,9 +44,13 @@ The plugin includes a powerful test data generator that allows you to create lar
 
 This command generates fake auction items, allowing you to test how your server handles large volumes of data before going live.
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Only use this command in a test environment! Generated items should be cleared before production use.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Performance Benchmarks
 
@@ -79,9 +82,13 @@ The benchmark was conducted on the following hardware:
 | **Java Version** | Java 21                  |
 | **Server Software** | Paper 1.21.11            |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 These benchmarks were performed with default plugin settings. Performance may vary based on your specific configuration and hardware.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Real-World Performance
 

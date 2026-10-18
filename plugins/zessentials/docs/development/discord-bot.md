@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Discord Bot
 description: Standalone Discord bot for account linking
 ---
@@ -19,9 +18,13 @@ The Discord bot provides:
 - **Audit Logging** -- All link actions are logged to a designated Discord channel for moderation purposes
 - **Shared Database** -- The bot connects to the same database as zEssentials, enabling real-time account association
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The Discord bot is a standalone Java application using [JDA (Java Discord API)](https://github.com/discord-jda/JDA). It runs as its own process, separate from the Minecraft server. Both the bot and the Minecraft server must connect to the same database.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -128,9 +131,13 @@ The database settings must match the zEssentials Minecraft plugin configuration 
 | `database` | String | `zessentials` | Database name |
 | `debug` | Boolean | `false` | Enable debug logging for database queries |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 The `database-configuration` must point to the **same database** used by the zEssentials Minecraft plugin. If the databases do not match, account linking will not work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 #### Link Configuration
 
@@ -251,9 +258,13 @@ Discord                                    Minecraft
   |                                            |
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If a player clicks the link button but their account is already linked, the bot will reply with the `messages.already` message instead of generating a new code.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

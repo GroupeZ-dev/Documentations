@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Placeholders
 description: Complete list of PlaceholderAPI placeholders for zEssentials
 ---
@@ -13,9 +12,13 @@ zEssentials provides **150+ placeholders** through [PlaceholderAPI](https://www.
 - [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) must be installed and enabled on your server.
 - The zEssentials expansion is registered automatically when the plugin loads. You can verify it with `/papi list`.
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Placeholders containing `{curly_braces}` are dynamic parameters that you must replace with actual values. For example, `%zessentials_user_balance_{economy}%` becomes `%zessentials_user_balance_default%` if your economy is named `default`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 13
 title: Purchase Inventory Confirm
 description: Bulk purchase confirmation inventory configuration
 ---

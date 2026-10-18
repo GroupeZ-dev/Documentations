@@ -1,5 +1,4 @@
 ---
-sidebar_position: 15
 title: Scoreboard Module
 description: Dynamic per-player scoreboards with animations and conditional display
 ---
@@ -156,9 +155,13 @@ Instead of updating every line on a fixed timer, you can bind individual lines t
   event: "fr.maxlego08.essentials.api.event.events.user.UserEconomyPostUpdateEvent"
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Event-driven lines are the recommended approach for data that changes infrequently (balances, ranks, stats). Only use timer-based updates for truly dynamic content.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### COLOR_WAVE Animation
 
@@ -187,9 +190,13 @@ The `COLOR_WAVE` animation creates a smooth gradient wave effect across text, tr
 
 Using `join-conditions` and `task-conditions`, you can display different scoreboards to different players based on permissions, worlds, or any placeholder value. This integrates with the **zMenu requirements system**.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The `task-conditions` system must be explicitly enabled with `enable-task-conditions: true`. When disabled, scoreboards are only assigned on join and do not change dynamically.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -221,6 +228,10 @@ This module uses the [FastBoard](https://github.com/MrMicky-FR/FastBoard) librar
 - No interference with other plugins that use the vanilla scoreboard API.
 - High performance even with many players online.
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Since FastBoard operates at the packet level, other plugins that also send scoreboard packets may conflict with this module. If you experience visual issues, check for conflicting scoreboard plugins.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

@@ -1,0 +1,13 @@
+{
+  "title": "zDrawer",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "installation",
+    "commands-permissions",
+    "configurations",
+    "placeholders",
+    "..."
+  ]
+}

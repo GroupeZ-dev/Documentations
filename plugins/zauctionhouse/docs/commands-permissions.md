@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Commands & Permissions
 description: Complete list of commands and permissions for zAuctionHouse V4
 ---
@@ -16,9 +15,13 @@ The main command is `/zauctionhouse` with the following default aliases:
 - `/auction` - Full English name
 - `/zauction` - Plugin-prefixed version
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 You can customize aliases in `config.yml` under `commands.main-command.aliases`. A server restart is required after changing command aliases.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Player Commands
 
@@ -192,9 +195,13 @@ Migrate data from other auction plugins:
 Supported sources:
 - `zauctionhousev3` (aliases: `zah`, `zahv3`, `v3`)
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Always backup your data before migrating! Migration cannot be undone.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Permissions
 

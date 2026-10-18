@@ -1,0 +1,12 @@
+{
+  "title": "Admin",
+  "defaultOpen": false,
+  "pages": [
+    "admin-history",
+    "admin-selling-items",
+    "admin-expired-items",
+    "admin-purchased-items",
+    "admin-logs",
+    "admin-transactions"
+  ]
+}

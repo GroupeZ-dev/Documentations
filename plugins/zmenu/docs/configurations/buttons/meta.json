@@ -1,0 +1,9 @@
+{
+  "title": "Buttons",
+  "defaultOpen": false,
+  "pages": [
+    "button",
+    "types",
+    "actions"
+  ]
+}

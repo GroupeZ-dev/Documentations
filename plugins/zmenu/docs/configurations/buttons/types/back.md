@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: BACK Button
 description: Button that returns to the previous inventory
 ---

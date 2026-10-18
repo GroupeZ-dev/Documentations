@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installation
 description: How to download, install, and configure zQuests on your Minecraft server
 ---
@@ -19,17 +18,35 @@ Before installing zQuests, make sure your server meets the following requirement
 | Server Software | Spigot, Paper, or Folia |
 | zMenu | **Required** |
 
-:::warning Required Dependency
+<CalloutContainer type="warning">
+
+<CalloutTitle>Required Dependency</CalloutTitle>
+
+<CalloutDescription>
 **zMenu is required** for zQuests to work. Make sure to install [zMenu](https://modrinth.com/plugin/zmenu) before installing zQuests.
-:::
+</CalloutDescription>
 
-:::tip Recommended Setup
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Recommended Setup</CalloutTitle>
+
+<CalloutDescription>
 For the best experience, we recommend using **Paper** or its forks. This enables MiniMessage formatting support and provides better performance.
-:::
+</CalloutDescription>
 
-:::caution Modded Servers
+</CalloutContainer>
+
+<CalloutContainer type="warning">
+
+<CalloutTitle>Modded Servers</CalloutTitle>
+
+<CalloutDescription>
 Modded server software (Forge, Fabric with Bukkit compatibility layers) is **not supported**.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Download
 
@@ -147,9 +164,15 @@ SQLite is the default storage option and requires no additional configuration. I
 storage-type: SQLITE
 ```
 
-:::warning SQLite Limitations
+<CalloutContainer type="warning">
+
+<CalloutTitle>SQLite Limitations</CalloutTitle>
+
+<CalloutDescription>
 SQLite is recommended only for testing and small servers. Some features may have limited functionality with SQLite. For production servers, use MySQL or HikariCP.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### MySQL
 
@@ -233,9 +256,15 @@ To update zQuests:
 5. Start your server
 6. Run `/zquests reload` if needed
 
-:::warning Backup First
+<CalloutContainer type="warning">
+
+<CalloutTitle>Backup First</CalloutTitle>
+
+<CalloutDescription>
 Always backup your configuration files before updating, especially the `quests/` folder containing your quest definitions.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Next Steps
 

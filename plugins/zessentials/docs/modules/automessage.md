@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: AutoMessage Module
 description: Automatic broadcast messages at configurable intervals
 ---
@@ -43,13 +42,21 @@ messages:
 | `messages` | List | *(see above)* | The list of message entries to broadcast. Each entry contains a `lines` list |
 | `messages[].lines` | List of Strings | - | The individual lines of text sent for a single broadcast. Each line is sent as a separate chat line to all players |
 
-:::info
-Each message entry is a multi-line block. Empty strings (`""`) produce blank lines in chat, which is useful for visual spacing around your announcements.
-:::
+<CalloutContainer type="info">
 
-:::tip
+<CalloutDescription>
+Each message entry is a multi-line block. Empty strings (`""`) produce blank lines in chat, which is useful for visual spacing around your announcements.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Messages support both legacy color codes (`&` prefix), hex colors (`#ffd353`), and MiniMessage formatting. You can also use PlaceholderAPI placeholders within messages for dynamic content such as player counts or server information.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -124,6 +131,10 @@ messages:
       - ""
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Setting the `interval` too low (e.g., under 60 seconds) may annoy players with frequent broadcasts. A value between 180 and 600 seconds is generally recommended.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

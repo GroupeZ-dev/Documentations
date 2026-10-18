@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Upgrades
 description: Configure drawer upgrades
 ---
@@ -194,9 +193,13 @@ Players apply upgrades by:
 1. Crafting the upgrade item
 2. Right-clicking on a placed drawer with the upgrade in hand
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Upgrades can only increase the limit. If a drawer already has a higher limit upgrade, applying a lower one will fail.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Giving Upgrades
 

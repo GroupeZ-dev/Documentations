@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Waypoints & Holograms
 description: Guide players with waypoints and holograms in zQuests
 ---

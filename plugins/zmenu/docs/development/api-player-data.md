@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Player Data API
 description: Working with player data storage in zMenu
 ---

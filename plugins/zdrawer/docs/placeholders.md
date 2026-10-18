@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Placeholders
 description: Available placeholders in zDrawer
 ---
@@ -140,6 +139,10 @@ Test PlaceholderAPI placeholders:
 /papi parse me %zdrawer_amount_formatted_0%
 ```
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 PlaceholderAPI placeholders only work when a player has recently interacted with a drawer.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

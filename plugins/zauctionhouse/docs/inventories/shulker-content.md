@@ -1,5 +1,4 @@
 ---
-sidebar_position: 11
 title: Container Content
 description: Container content preview inventory configuration
 ---

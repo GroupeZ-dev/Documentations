@@ -1,5 +1,4 @@
 ---
-sidebar_position: 15
 title: Combined Items
 description: Combined inventory showing selling, expired, and purchased items together
 ---

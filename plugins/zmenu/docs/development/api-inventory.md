@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Inventory API
 description: Opening and managing inventories programmatically
 ---

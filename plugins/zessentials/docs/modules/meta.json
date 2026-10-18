@@ -1,0 +1,30 @@
+{
+  "title": "Modules",
+  "defaultOpen": true,
+  "pages": [
+    "index",
+    "afk",
+    "automessage",
+    "chat",
+    "custom-commands",
+    "discord",
+    "economy",
+    "hologram",
+    "home",
+    "items",
+    "join-quit",
+    "kits",
+    "mailbox",
+    "messages",
+    "rules",
+    "sanction",
+    "scoreboard",
+    "spawn",
+    "steps",
+    "teleportation",
+    "vault",
+    "vote",
+    "warp",
+    "worldedit"
+  ]
+}

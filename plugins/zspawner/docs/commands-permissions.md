@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Commands & Permissions
 description: Complete list of all commands and permissions for zSpawner
 ---
@@ -8,11 +7,17 @@ description: Complete list of all commands and permissions for zSpawner
 
 This page contains the complete list of all commands and permissions available in zSpawner.
 
-:::info Syntax Guide
+<CalloutContainer type="info">
+
+<CalloutTitle>Syntax Guide</CalloutTitle>
+
+<CalloutDescription>
 - `< >` indicates a **required** argument.
 - `[ ]` indicates an **optional** argument.
 - `|` separates multiple aliases for the same command.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

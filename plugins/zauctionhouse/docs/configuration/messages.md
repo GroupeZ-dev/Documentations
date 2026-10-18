@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Messages
 description: Customize all messages in zAuctionHouse V4
 ---

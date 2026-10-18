@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: API Introduction
 description: Getting started with the zMenu API
 ---

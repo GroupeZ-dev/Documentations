@@ -1,5 +1,4 @@
 ---
-sidebar_position: 9
 title: SWITCH Button
 description: Button that displays different items based on conditions
 ---

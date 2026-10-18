@@ -1,14 +1,19 @@
 ---
-sidebar_position: 5
 title: Effects (Runes)
 description: Add powerful abilities to items with effects
 ---
 
 # Effects (Runes)
 
-:::info Terminology Update
+<CalloutContainer type="info">
+
+<CalloutTitle>Terminology Update</CalloutTitle>
+
+<CalloutDescription>
 In the current version of zItems, **"Runes"** are now called **"Effects"**. This documentation uses both terms interchangeably, but the configuration uses `effects`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Effects are special abilities that can be applied to items in zItems. They provide unique mechanics that enhance gameplay, from mining entire ore veins to auto-selling drops.
 
@@ -113,11 +118,17 @@ effects:
     multiplier: 1.5
 ```
 
-:::warning Incompatibilities
+<CalloutContainer type="warning">
+
+<CalloutTitle>Incompatibilities</CalloutTitle>
+
+<CalloutDescription>
 Some effects cannot be combined:
 - `VEIN_MINING` + `HAMMER` - Both modify block breaking
 - `AUTO_SELL` + `ABSORPTION` - Both process drops differently
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Effect Items (Runes)
 

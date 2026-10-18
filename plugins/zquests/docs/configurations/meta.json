@@ -1,0 +1,14 @@
+{
+  "title": "Configurations",
+  "defaultOpen": true,
+  "pages": [
+    "quests",
+    "quest-types",
+    "rewards",
+    "placeholders",
+    "commands-permissions",
+    "inventories",
+    "waypoints-holograms",
+    "config-yml"
+  ]
+}

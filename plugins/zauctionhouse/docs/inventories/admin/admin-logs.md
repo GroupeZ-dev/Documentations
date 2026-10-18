@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Admin Logs
 description: Admin action logs inventory configuration
 ---

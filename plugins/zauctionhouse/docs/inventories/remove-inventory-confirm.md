@@ -1,5 +1,4 @@
 ---
-sidebar_position: 14
 title: Remove Inventory Confirm
 description: Bulk remove confirmation inventory configuration
 ---

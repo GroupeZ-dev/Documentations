@@ -1,5 +1,4 @@
 ---
-sidebar_position: 10
 title: Kits Module
 description: Configurable kit system with cooldowns and first-join kits
 ---
@@ -43,9 +42,13 @@ The `display` option controls how kits are presented when a player runs the `/ki
 | `INVENTORY` | Opens a chest-style GUI inventory where each kit is represented by its configured material icon. Players click an icon to claim the kit |
 | `MULTI_LINE` | Each kit is displayed on its own line with additional details such as cooldown status and availability. Best for detailed overviews |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The `INVENTORY` display mode provides the most visually appealing experience for players. Each kit's icon material, display name, and lore are configured within the kit definition itself.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -61,9 +64,13 @@ Use the following workflow to create and manage kits:
 4. **Preview a kit:** Use `/showkit <name>` to preview the contents of a kit without claiming it.
 5. **Give a kit:** Use `/kitgive <player> <name>` to give a kit to another player, bypassing their cooldown.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Each kit is stored as a separate YAML file in the `kits/` directory (e.g., `kits/tools.yml`). These files are automatically managed by the kit commands and editor. Manual editing is possible but not recommended -- use the in-game editor instead.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -77,9 +84,13 @@ kits-on-first-join:
   - "starter"
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Ensure that the kits listed in `kits-on-first-join` actually exist. If a kit name does not match an existing kit definition, the first-join kit grant will silently fail for that entry.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

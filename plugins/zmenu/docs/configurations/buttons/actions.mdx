@@ -1,11 +1,8 @@
 ---
-sidebar_position: 3
 title: Actions
 description: Complete reference for all action types in zMenu
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 # Actions
 
@@ -82,8 +79,8 @@ actions:
 
 ## Message Actions
 
-<Tabs>
-    <TabItem value="message" label="message">
+<Tabs items={["message","messages (Alias)"]}>
+    <Tab value="message">
 
         ```yaml
         - type: message
@@ -93,8 +90,8 @@ actions:
           minimessage: true  # Optional: Use MiniMessage format default: true
         ```
 
-    </TabItem>
-    <TabItem value="messages" label="messages (Alias)">
+    </Tab>
+    <Tab value="messages (Alias)">
 
 ```yaml
         - type: messages
@@ -103,7 +100,7 @@ actions:
           - "&bOf text"
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ---
@@ -138,8 +135,8 @@ Send a message to all online players.
 
 Send a list of chat lines to every online player.
 
-<Tabs>
-    <TabItem value="broadcast_message" label="broadcast_message">
+<Tabs items={["broadcast_message","broadcast message (Alias)"]}>
+    <Tab value="broadcast_message">
 
         ```yaml
         - type: broadcast_message
@@ -148,8 +145,8 @@ Send a list of chat lines to every online player.
           minimessage: true # Optional, default: true
         ```
 
-    </TabItem>
-    <TabItem value="broadcast message" label="broadcast message (Alias)">
+    </Tab>
+    <Tab value="broadcast message (Alias)">
 
         ```yaml
         - type: "broadcast message"
@@ -157,7 +154,7 @@ Send a list of chat lines to every online player.
             - "&6[Shop] &f%sender% &7just bought a rank!"
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Options:**
@@ -169,15 +166,25 @@ Send a list of chat lines to every online player.
 
 **Placeholders:** `%sender%` is replaced by the name of the player who triggered the action, `%receiver%` by the name of each player receiving the line.
 
-:::info Difference with `broadcast`
+<CalloutContainer type="info">
+
+<CalloutTitle>Difference with `broadcast`</CalloutTitle>
+
+<CalloutDescription>
 `broadcast_message` resolves its placeholders **once**, for the player who triggered it, then sends that same result to everyone — only `%receiver%` varies. [`broadcast`](#broadcast) resolves them **again for each recipient** and supports a `requirements` list to filter who receives the message.
 
 Use `broadcast` when the text must differ per recipient or be filtered, `broadcast_message` for a plain announcement about the player who clicked.
-:::
+</CalloutDescription>
 
-:::warning
+</CalloutContainer>
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Unlike the `message` action, the singular `message` key and a single inline string are **not** accepted: `messages` must be a YAML list. `%player%` substitution and `\n` line splitting are not applied either.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -185,23 +192,23 @@ Unlike the `message` action, the singular `message` key and a single inline stri
 
 Display an action bar message.
 
-<Tabs>
-    <TabItem value="action" label="action">
+<Tabs items={["action","actionbar (Alias)"]}>
+    <Tab value="action">
 
         ```yaml
         - type: action
           message: "&aWelcome to the shop!"
         ```
 
-    </TabItem>
-    <TabItem value="actionbar" label="actionbar (Alias)">
+    </Tab>
+    <Tab value="actionbar (Alias)">
 
         ```yaml
         - type: actionbar
           message: "&aWelcome to the shop!"
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ---
@@ -225,8 +232,8 @@ Display a title and subtitle.
 
 Display a title and a subtitle to every online player at once. It takes the same options as [`title`](#title), which only targets the clicking player.
 
-<Tabs>
-    <TabItem value="broadcast_title" label="broadcast_title">
+<Tabs items={["broadcast_title","broadcast title (Alias)"]}>
+    <Tab value="broadcast_title">
 
         ```yaml
         - type: broadcast_title
@@ -237,8 +244,8 @@ Display a title and a subtitle to every online player at once. It takes the same
           end: 20        # Ticks
         ```
 
-    </TabItem>
-    <TabItem value="broadcast title" label="broadcast title (Alias)">
+    </Tab>
+    <Tab value="broadcast title (Alias)">
 
         ```yaml
         - type: "broadcast title"
@@ -249,7 +256,7 @@ Display a title and a subtitle to every online player at once. It takes the same
           end: 20
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Options:**
@@ -264,9 +271,15 @@ Display a title and a subtitle to every online player at once. It takes the same
 
 Placeholders are resolved **once, for the player who triggered the action**, so `%player_name%` refers to that player and not to each recipient — which is usually what an announcement wants.
 
-:::warning Always write both lines, and all three timings
+<CalloutContainer type="warning">
+
+<CalloutTitle>Always write both lines, and all three timings</CalloutTitle>
+
+<CalloutDescription>
 `title` and `subtitle` have no default value: omitting one sends the literal text `null` to every player. The three timings default to `0`, which makes the title appear and disappear immediately on most clients. Set them explicitly, as in the examples above.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -274,27 +287,33 @@ Placeholders are resolved **once, for the player who triggered the action**, so 
 
 Change the inventory title.
 
-:::warning Requires PacketEvents
-This action is only available when the [PacketEvents](https://github.com/retrooper/packetevents) plugin is installed on your server. Without it, the action is simply not registered and will silently do nothing.
-:::
+<CalloutContainer type="warning">
 
-<Tabs>
-    <TabItem value="change-title" label="change-title">
+<CalloutTitle>Requires PacketEvents</CalloutTitle>
+
+<CalloutDescription>
+This action is only available when the [PacketEvents](https://github.com/retrooper/packetevents) plugin is installed on your server. Without it, the action is simply not registered and will silently do nothing.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<Tabs items={["change-title","change-title-name (Alias)"]}>
+    <Tab value="change-title">
 
         ```yaml
         - type: change-title
           inventory-name: "My New Inventory Title"
         ```
 
-    </TabItem>
-    <TabItem value="change-title-name" label="change-title-name (Alias)">
+    </Tab>
+    <Tab value="change-title-name (Alias)">
 
         ```yaml
         - type: change-title-name
           inventory-name: "My New Inventory Title"
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Options:**
@@ -311,8 +330,8 @@ Available aliases: `change-title`, `change-title-name`.
 
 Display a toast notification (achievement popup).
 
-<Tabs>
-    <TabItem value="toast" label="toast">
+<Tabs items={["toast","send-toast (Alias)"]}>
+    <Tab value="toast">
 
         ```yaml
         - type: "toast"
@@ -323,8 +342,8 @@ Display a toast notification (achievement popup).
           glowing: false         # Optional: glowing effect (default: false)
         ```
 
-    </TabItem>
-    <TabItem value="send toast" label="send-toast (Alias)">
+    </Tab>
+    <Tab value="send-toast (Alias)">
 
         ```yaml
         - type: "send toast"
@@ -333,7 +352,7 @@ Display a toast notification (achievement popup).
           toast-type: CHALLENGE   # TASK, GOAL, or CHALLENGE (default: CHALLENGE)
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Options:**
@@ -370,9 +389,15 @@ Play a sound to the player.
 - `BLOCK_CHEST_OPEN`
 - `BLOCK_CHEST_CLOSE`
 
-:::tip Sound Reference
+<CalloutContainer type="info">
+
+<CalloutTitle>Sound Reference</CalloutTitle>
+
+<CalloutDescription>
 View the complete list of available sounds in the [Bukkit Sound JavaDocs](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -380,8 +405,8 @@ View the complete list of available sounds in the [Bukkit Sound JavaDocs](https:
 
 Play a sound to all online players.
 
-<Tabs>
-    <TabItem value="broadcast_sound" label="broadcast_sound">
+<Tabs items={["broadcast_sound","broadcast sound"]}>
+    <Tab value="broadcast_sound">
 
         ```yaml
         - type: broadcast_sound
@@ -391,8 +416,8 @@ Play a sound to all online players.
           sound-category: MASTER # Optional
         ```
 
-    </TabItem>
-    <TabItem value="broadcast sound" label="broadcast sound">
+    </Tab>
+    <Tab value="broadcast sound">
 
         ```yaml
         - type: "broadcast sound"
@@ -402,7 +427,7 @@ Play a sound to all online players.
           sound-category: MASTER # Optional
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ## Command Actions
@@ -411,8 +436,8 @@ Play a sound to all online players.
 
 Execute a command as the player.
 
-<Tabs>
-    <TabItem value="player-command" label="player-command">
+<Tabs items={["player-command","player command (Alias)"]}>
+    <Tab value="player-command">
 
         ```yaml
         - type: player-command
@@ -422,8 +447,8 @@ Execute a command as the player.
           command-in-chat: false  # Optional: execute via chat instead of dispatch (default: false)
         ```
 
-    </TabItem>
-    <TabItem value="player command" label="player command (Alias)">
+    </Tab>
+    <Tab value="player command (Alias)">
 
         ```yaml
         - type: "player command"
@@ -444,7 +469,7 @@ Execute a command as the player.
 
         Available aliases: `player-command`, `player_command`, `player_commands`, `player command`, `player commands`, `player-commands`.
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ---
@@ -453,8 +478,8 @@ Execute a command as the player.
 
 Execute a command as the player with OP permissions.
 
-<Tabs>
-    <TabItem value="player-commands-as-op" label="player-commands-as-op">
+<Tabs items={["player-commands-as-op","player command as op (Alias)"]}>
+    <Tab value="player-commands-as-op">
 
         ```yaml
         - type: player-command-as-op
@@ -462,8 +487,8 @@ Execute a command as the player with OP permissions.
             - "gamemode creative"
         ```
 
-    </TabItem>
-    <TabItem value="player command as op" label="player command as op (Alias)">
+    </Tab>
+    <Tab value="player command as op (Alias)">
 
         ```yaml
         - type: "player command as op"
@@ -481,12 +506,16 @@ Execute a command as the player with OP permissions.
 
         Available aliases: `player-command-as-op`, `player commands as op`, `player command as op`, `player_commands_as_op`, and `player_command_as_op`.
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Use with caution! This gives the player temporary OP-level access.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 You need to enable it in the configuration file:
 
@@ -500,8 +529,8 @@ enable-player-commands-as-op-action: true
 
 Execute a command from the console.
 
-<Tabs>
-    <TabItem value="console-command" label="console-command">
+<Tabs items={["console-command","console command (Alias)"]}>
+    <Tab value="console-command">
 
         ```yaml
         - type: console-command
@@ -510,8 +539,8 @@ Execute a command from the console.
             - "eco give %player% 1000"
         ```
 
-    </TabItem>
-    <TabItem value="console command" label="console command (Alias)">
+    </Tab>
+    <Tab value="console command (Alias)">
 
         ```yaml
         - type: "console command"
@@ -530,7 +559,7 @@ Execute a command from the console.
         **Note:** Supports flexible aliasing for varied command syntax.
 
         Available aliases: `console-command`, `console-commands`, `commands`, `command`, `console command`, `console commands`, `console_commands` and `console_command`.
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Stopping a chain that failed**
@@ -545,9 +574,15 @@ By default every command in the list runs, whatever the previous ones did. With 
     - "lp user %player% parent add vip"
 ```
 
-:::warning Why it is off by default
+<CalloutContainer type="warning">
+
+<CalloutTitle>Why it is off by default</CalloutTitle>
+
+<CalloutDescription>
 Bukkit returns a failure both for a command that does not exist **and** for a command whose executor returned `false` — which many plugins do simply to print their usage. Enabling this option blindly can therefore stop a chain that was working. Test each chain before turning it on.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -571,9 +606,15 @@ Force the player to send a chat message.
 
 ### random-player-command
 
-:::info zMenu+
+<CalloutContainer type="info">
+
+<CalloutTitle>zMenu+</CalloutTitle>
+
+<CalloutDescription>
 This action requires [zMenu+](https://minecraft-music-inventory.com/resources/zmenu.music.331).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Execute a random selection of commands as the player from a list. The commands are selected **without replacement** (no duplicates in a single execution).
 
@@ -602,9 +643,15 @@ Execute a random selection of commands as the player from a list. The commands a
 
 ### random-console-command
 
-:::info zMenu+
+<CalloutContainer type="info">
+
+<CalloutTitle>zMenu+</CalloutTitle>
+
+<CalloutDescription>
 This action requires [zMenu+](https://minecraft-music-inventory.com/resources/zmenu.music.331).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Execute a random selection of console commands from a list. The commands are selected **without replacement** (no duplicates in a single execution). Supports the `%player%` placeholder.
 
@@ -677,15 +724,15 @@ Refresh the current button.
 
 Refresh the entire inventory (redraw all buttons).
 
-<Tabs>
-    <TabItem value="refresh-inventory" label="refresh-inventory">
+<Tabs items={["refresh-inventory","refresh inventory (Alias)"]}>
+    <Tab value="refresh-inventory">
 
         ```yaml
         - type: refresh-inventory
         ```
 
-    </TabItem>
-    <TabItem value="refresh inventory" label="refresh inventory (Alias)">
+    </Tab>
+    <Tab value="refresh inventory (Alias)">
 
         ```yaml
         - type: "refresh inventory"
@@ -700,7 +747,7 @@ Refresh the entire inventory (redraw all buttons).
         **Note:** Used to redraw all inventory buttons.
 
         Available aliases: `refresh-inventory`, `refresh inventory` and `ri`.
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ## Player Actions
@@ -709,8 +756,8 @@ Refresh the entire inventory (redraw all buttons).
 
 Teleport the player to coordinates.
 
-<Tabs>
-    <TabItem value="teleport" label="teleport">
+<Tabs items={["teleport","tp (Alias)"]}>
+    <Tab value="teleport">
 
         ```yaml
         - type: teleport
@@ -722,8 +769,8 @@ Teleport the player to coordinates.
           pitch: 0     # Optional
         ```
 
-    </TabItem>
-    <TabItem value="tp" label="tp (Alias)">
+    </Tab>
+    <Tab value="tp (Alias)">
 
         ```yaml
         - type: tp
@@ -735,7 +782,7 @@ Teleport the player to coordinates.
           pitch: 0     # Optional
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ---
@@ -808,8 +855,8 @@ Modify player data values.
 
 Add money to player's balance.
 
-<Tabs>
-    <TabItem value="deposit" label="deposit">
+<Tabs items={["deposit","money add (Alias)"]}>
+    <Tab value="deposit">
 
         ```yaml
         - type: deposit
@@ -819,8 +866,8 @@ Add money to player's balance.
           reason: "Purchase"  # Optional
         ```
 
-    </TabItem>
-    <TabItem value="money add" label="money add (Alias)">
+    </Tab>
+    <Tab value="money add (Alias)">
 
         ```yaml
         - type: "money add"
@@ -830,7 +877,7 @@ Add money to player's balance.
           reason: "Purchase"  # Optional
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 [See the full list of supported currencies here.](../../../currenciesapi/currencies)
@@ -841,8 +888,8 @@ Add money to player's balance.
 
 Remove money from player's balance.
 
-<Tabs>
-    <TabItem value="withdraw" label="withdraw">
+<Tabs items={["withdraw","money remove (Alias)"]}>
+    <Tab value="withdraw">
 
         ```yaml
         - type: withdraw
@@ -852,8 +899,8 @@ Remove money from player's balance.
           reason: "Purchase"  # Optional
         ```
 
-    </TabItem>
-    <TabItem value="money remove" label="money remove (Alias)">
+    </Tab>
+    <Tab value="money remove (Alias)">
 
         ```yaml
         - type: "money remove"
@@ -863,7 +910,7 @@ Remove money from player's balance.
           reason: "Purchase"  # Optional
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 [See the full list of supported currencies here.](../../../currenciesapi/currencies)
@@ -893,9 +940,15 @@ Open a written book for the player.
 
 Open a dialog popup. Dialogs provide a modern UI experience with forms, confirmations, and interactive buttons.
 
-:::warning Requirements
+<CalloutContainer type="warning">
+
+<CalloutTitle>Requirements</CalloutTitle>
+
+<CalloutDescription>
 Dialogs require **Paper 1.21.7+** installed on your server.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 - type: dialog
@@ -934,9 +987,15 @@ See [Dialogues](../dialogues) for complete dialog configuration documentation.
 
 Open a native Bedrock form for players connected via Geyser/Floodgate.
 
-:::warning Requirements
+<CalloutContainer type="warning">
+
+<CalloutTitle>Requirements</CalloutTitle>
+
+<CalloutDescription>
 Bedrock forms require **Geyser** or **Floodgate** installed on your server.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 - type: bedrock
@@ -975,8 +1034,8 @@ See [Bedrock Forms](../bedrock) for complete Bedrock form configuration document
 
 Send a message to a Discord webhook.
 
-<Tabs>
-    <TabItem value="discord" label="discord">
+<Tabs items={["discord","send discord (Alias)"]}>
+    <Tab value="discord">
 
         ```yaml
         - type: discord
@@ -1009,8 +1068,8 @@ Send a message to a Discord webhook.
                 inline: true
         ```
 
-    </TabItem>
-    <TabItem value="send discord" label="send discord (Alias)">
+    </Tab>
+    <Tab value="send discord (Alias)">
 
         ```yaml
         - type: "send discord"
@@ -1032,7 +1091,7 @@ Send a message to a Discord webhook.
 
         Available aliases: `discord`, `send discord`, `discord webhook`, `discordwebhook`.
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ---
@@ -1041,8 +1100,8 @@ Send a message to a Discord webhook.
 
 Send a Discord message with buttons/components.
 
-<Tabs>
-    <TabItem value="discord_component" label="discord_component">
+<Tabs items={["discord_component","Discord Component V2 (Aliases)"]}>
+    <Tab value="discord_component">
 
         ```yaml
         - type: discord_component
@@ -1053,8 +1112,8 @@ Send a Discord message with buttons/components.
               color: "#00FF00"
         ```
 
-    </TabItem>
-    <TabItem value="discord component" label="Discord Component V2 (Aliases)">
+    </Tab>
+    <Tab value="Discord Component V2 (Aliases)">
 
         ```yaml
         - type: "discord component"
@@ -1067,7 +1126,7 @@ Send a Discord message with buttons/components.
 
         Available aliases: `discord_component`, `discord component`, `discord webhook component`, `discordwebhookcomponent`.
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 ## Integration Actions
@@ -1076,8 +1135,8 @@ Send a Discord message with buttons/components.
 
 Modify LuckPerms permissions.
 
-<Tabs>
-    <TabItem value="permission-set" label="permission-set">
+<Tabs items={["permission-set","permission set (Alias)","set permission (Alias)","set-permission (Alias)"]}>
+    <Tab value="permission-set">
 
         ```yaml
         - type: permission-set
@@ -1087,8 +1146,8 @@ Modify LuckPerms permissions.
           time-unit: SECONDS  # Optional: SECONDS, MINUTES, HOURS, DAYS
         ```
 
-    </TabItem>
-    <TabItem value="permission set" label="permission set (Alias)">
+    </Tab>
+    <Tab value="permission set (Alias)">
 
         ```yaml
         - type: "permission set"
@@ -1096,8 +1155,8 @@ Modify LuckPerms permissions.
           value: true
         ```
 
-    </TabItem>
-    <TabItem value="set permission" label="set permission (Alias)">
+    </Tab>
+    <Tab value="set permission (Alias)">
 
         ```yaml
         - type: "set permission"
@@ -1105,8 +1164,8 @@ Modify LuckPerms permissions.
           value: false  # Revoke the permission
         ```
 
-    </TabItem>
-    <TabItem value="set-permission" label="set-permission (Alias)">
+    </Tab>
+    <Tab value="set-permission (Alias)">
 
         ```yaml
         - type: set-permission
@@ -1115,7 +1174,7 @@ Modify LuckPerms permissions.
           expiration: 2592000  # 30 days in seconds
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Options:**
@@ -1148,8 +1207,8 @@ These actions give or take items directly from the menu or the player's inventor
 
 Place an item in one or several slots, either in the menu or in the player's inventory.
 
-<Tabs>
-    <TabItem value="set_item" label="set_item">
+<Tabs items={["set_item","set-item (Alias)"]}>
+    <Tab value="set_item">
 
         ```yaml
         - type: set_item
@@ -1161,8 +1220,8 @@ Place an item in one or several slots, either in the menu or in the player's inv
             name: "&bReward"
         ```
 
-    </TabItem>
-    <TabItem value="set-item" label="set-item (Alias)">
+    </Tab>
+    <Tab value="set-item (Alias)">
 
         ```yaml
         - type: set-item
@@ -1172,7 +1231,7 @@ Place an item in one or several slots, either in the menu or in the player's inv
             name: "&bReward"
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Options:**
@@ -1193,8 +1252,8 @@ Available aliases: `set_item`, `set-item`.
 
 Remove a number of matching items from the player's inventory.
 
-<Tabs>
-    <TabItem value="take_item" label="take_item">
+<Tabs items={["take_item","take-item (Alias)"]}>
+    <Tab value="take_item">
 
         ```yaml
         - type: take_item
@@ -1205,8 +1264,8 @@ Remove a number of matching items from the player's inventory.
             material: DIAMOND
         ```
 
-    </TabItem>
-    <TabItem value="take-item" label="take-item (Alias)">
+    </Tab>
+    <Tab value="take-item (Alias)">
 
         ```yaml
         - type: take-item
@@ -1215,7 +1274,7 @@ Remove a number of matching items from the player's inventory.
             material: DIAMOND
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Options:**
@@ -1308,8 +1367,8 @@ Available aliases: `reset-pagination`.
 
 Refresh only the given slot(s) without redrawing the whole inventory.
 
-<Tabs>
-    <TabItem value="refresh_slot" label="refresh_slot">
+<Tabs items={["refresh_slot","refresh-slot (Alias)"]}>
+    <Tab value="refresh_slot">
 
         ```yaml
         - type: refresh_slot
@@ -1317,15 +1376,15 @@ Refresh only the given slot(s) without redrawing the whole inventory.
           in-player-inventory: false  # default: false
         ```
 
-    </TabItem>
-    <TabItem value="refresh-slot" label="refresh-slot (Alias)">
+    </Tab>
+    <Tab value="refresh-slot (Alias)">
 
         ```yaml
         - type: refresh-slot
           slots: [13]
         ```
 
-    </TabItem>
+    </Tab>
 </Tabs>
 
 **Options:**

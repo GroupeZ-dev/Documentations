@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Components
 description: Complete reference for item components in zMenu (Minecraft 1.20.5+)
 ---
@@ -8,15 +7,29 @@ description: Complete reference for item components in zMenu (Minecraft 1.20.5+)
 
 Starting from Minecraft 1.20.5, items use a new component system. zMenu provides full support for this system through the `components` configuration section.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Components require Minecraft 1.20.5 or higher. Some components are only available in newer versions, indicated by a badge next to each component name.
-:::
+</CalloutDescription>
 
-:::tip Placeholders in components
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Placeholders in components</CalloutTitle>
+
+<CalloutDescription>
 Component field values may contain placeholders. Any value that contains a `%` is resolved per viewer when the item is built (local placeholders first, then PlaceholderAPI). This works for colors, enums, numbers and strings — for example `dyed-color: "%my_color_placeholder%"`.
-:::
+</CalloutDescription>
 
-:::tip Color formats
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Color formats</CalloutTitle>
+
+<CalloutDescription>
 Every color field (`dyed-color`, `map-color`, `firework-explosion` `colors`/`fade_colors`, `custom-model-data` `colors`, `potion-contents` `custom-color`, collar colors, ...) accepts all of these formats:
 
 - Hex string — `"#FFAA00"` (RRGGBB) or `"#80FFAA00"` (AARRGGBB)
@@ -24,7 +37,9 @@ Every color field (`dyed-color`, `map-color`, `firework-explosion` `colors`/`fad
 - Comma string — `"255,128,0"` or `"255,128,0,128"` (RGB[A], with or without spaces, values clamped 0–255)
 - List of floats — `[1.0, 0.5, 0.0]` (RGB[A], 0.0–1.0)
 - List of ints — `[255, 128, 0]` (RGB[A], 0–255)
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Basic Structure
 

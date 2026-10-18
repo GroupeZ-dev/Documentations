@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Main Configuration
 description: Main configuration file (config.yml) for zEssentials
 ---
@@ -22,9 +21,13 @@ enable-debug: false
 |--------|------|---------|-------------|
 | `enable-debug` | Boolean | `false` | Enables verbose debug logging in the server console |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If you request support, enable debug mode and send the logs. Only keep it enabled while troubleshooting: debug output can be very verbose.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -46,9 +49,13 @@ storage-type: SQLITE
 | `HIKARICP` | MySQL/MariaDB database through a HikariCP connection pool. Recommended for production. |
 | `JSON` | One JSON file per player in `plugins/zEssentials/users/`. Not every feature is supported. |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Use `MYSQL`, `MARIADB` or `HIKARICP` in production. SQLite is only there to install the plugin and run tests, and the JSON storage does not support every feature (vaults, item mailbox, chat history, baltop...).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Server Type
 
@@ -86,9 +93,13 @@ database-configuration:
 | `database` | String | `zessentials` | Name of the database to use. The database must already exist. |
 | `debug` | Boolean | `false` | Enables SQL query debug logging. |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Change the default database credentials before deploying to production. The default values (`homestead` / `secret`) are placeholders and must not be used in a live environment.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Batch Auto Save
 
@@ -572,9 +583,13 @@ enable-first-join-teleport: false
 |--------|------|---------|-------------|
 | `enable-first-join-teleport` | Boolean | `false` | Teleports players on their first join to the configured first spawn, or to the spawn if no first spawn is set, or to a random location if `enable-first-join-rtp` is enabled in `modules/teleportation/config.yml`. **Disabled by default since 1.0.3.9.** |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If you used the first spawn feature before 1.0.3.9, set this option to `true` to keep the previous behavior.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

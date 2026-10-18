@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Introduction
 description: Create custom items with powerful effects for Minecraft 1.21+
 ---

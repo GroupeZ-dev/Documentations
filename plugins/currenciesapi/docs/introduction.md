@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Introduction
 description: A unified API for multiple currency systems in Minecraft
 ---

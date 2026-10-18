@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Usage Guide
 description: How to use CurrenciesAPI in your plugin
 ---

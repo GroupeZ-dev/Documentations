@@ -1,5 +1,4 @@
 ---
-sidebar_position: 9
 title: Player Data
 description: Store and retrieve player-specific data
 ---

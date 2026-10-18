@@ -1,0 +1,12 @@
+{
+  "title": "Configuration",
+  "defaultOpen": true,
+  "pages": [
+    "config",
+    "messages",
+    "economies",
+    "categories",
+    "rules",
+    "discord"
+  ]
+}

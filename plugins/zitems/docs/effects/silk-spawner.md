@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: Silk Spawner
 description: Pick up spawners with silk touch
 ---

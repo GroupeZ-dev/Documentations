@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Requirements
 description: Complete guide to the requirements system in zMenu - conditions for buttons and inventories
 ---
@@ -128,9 +127,13 @@ requirements:
 |-----|------|-------------|
 | `permission` | String | The permission node to check |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 You can use any permission from any permission plugin (LuckPerms, etc.). This is the simplest and most common requirement type.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -239,9 +242,13 @@ requirements:
     economy: "gems"
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 This requirement only checks the balance. To actually withdraw money on success, use the `withdraw` action in the `success` block.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -405,9 +412,15 @@ items:
 
 Checks the player's name.
 
-:::caution Type key spelling
+<CalloutContainer type="warning">
+
+<CalloutTitle>Type key spelling</CalloutTitle>
+
+<CalloutDescription>
 The registered type key is `playername` (no hyphen). Using `type: player-name` will **not** work.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 requirements:
@@ -479,9 +492,15 @@ requirements:
 
 ### and
 
-:::warning zMenu+ only
+<CalloutContainer type="warning">
+
+<CalloutTitle>zMenu+ only</CalloutTitle>
+
+<CalloutDescription>
 This feature is only available with [zMenu+](../zmenu-plus).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Combines multiple requirements where **all** must be met. This allows you to group requirements together and nest them with `or` blocks for complex logic.
 
@@ -505,9 +524,15 @@ requirements:
 
 ### or
 
-:::warning zMenu+ only
+<CalloutContainer type="warning">
+
+<CalloutTitle>zMenu+ only</CalloutTitle>
+
+<CalloutDescription>
 This feature is only available with [zMenu+](../zmenu-plus).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 Combines multiple requirements where only a **minimum** number must be met.
 
@@ -834,9 +859,15 @@ click-requirement:
 
 **Available click types:** `ALL`, `LEFT`, `RIGHT`, `SHIFT_LEFT`, `SHIFT_RIGHT`, `MIDDLE`, `DROP`, `CONTROL_DROP`
 
-:::tip minimum-requirement
+<CalloutContainer type="info">
+
+<CalloutTitle>minimum-requirement</CalloutTitle>
+
+<CalloutDescription>
 Set `minimum-requirement: 1` if you want the success block to fire when **at least one** requirement passes rather than requiring all of them.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 **Example with different actions per click:**
 

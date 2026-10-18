@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: Dialogues
 description: Create interactive dialog popups with forms, confirmations, and multi-action buttons
 ---
@@ -8,9 +7,15 @@ description: Create interactive dialog popups with forms, confirmations, and mul
 
 Dialogues are interactive popup windows that appear on screen, allowing players to interact with forms, confirmations, and action buttons. They provide a modern UI experience beyond traditional inventory menus.
 
-:::warning Requirements
+<CalloutContainer type="warning">
+
+<CalloutTitle>Requirements</CalloutTitle>
+
+<CalloutDescription>
 Dialogues require **Paper 1.21.7+**.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## File Location
 
@@ -618,9 +623,15 @@ duration-limit:
 
 Enable placeholder parsing for the button. Accepts a boolean, or a section to toggle it per key.
 
-:::info Backward compatibility
+<CalloutContainer type="info">
+
+<CalloutTitle>Backward compatibility</CalloutTitle>
+
+<CalloutDescription>
 The nested form (`<key>.label`, `<key>.tooltip`, `<key>.width`, `<key>.actions`, `<key>.type`) is the new canonical layout, but the old flat keys (`yes-text`, `notice.text`, `multi-actions.<key>.text`, ...) still work, so existing dialog files do not need to be rewritten.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

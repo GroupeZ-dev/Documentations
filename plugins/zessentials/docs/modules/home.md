@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Home Module
 description: Player home system with permission-based limits
 ---
@@ -118,10 +117,16 @@ Each entry in the `permissions` list defines a home limit for players with a spe
 | `permission` | String | The permission node to check on the player |
 | `amount` | Integer | The number of homes granted by this permission |
 
-:::info Home Usage Types
+<CalloutContainer type="info">
+
+<CalloutTitle>Home Usage Types</CalloutTitle>
+
+<CalloutDescription>
 - **MAX**: The plugin checks all permissions and uses the **highest** matching amount. A player with both `essentials.home.default` (3) and `essentials.home.vip` (5) would have a maximum of **5** homes.
 - **STACK**: The plugin **adds** all matching permission amounts together. The same player would have **8** homes (3 + 5).
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -136,9 +141,13 @@ The `home-display` option controls how the home list is presented to the player:
 | `INVENTORY` | Opens a chest-style GUI inventory where each home is represented by an item |
 | `INVENTORY_DONUT` | Opens a GUI inventory with homes arranged in a donut (ring) pattern around the center |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The `INVENTORY` and `INVENTORY_DONUT` modes use [zMenu](https://modrinth.com/plugin/zmenu) for rendering (`modules/home/homes.yml` and `modules/home/homes_donut.yml`). The `default-home-material` option controls the item icon used for each home in these GUI modes.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Home Placeholders
 
@@ -171,9 +180,13 @@ A player can make one of their homes visitable by everyone with `/homepublic <ho
 /home Steve:base
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 `/home <player>:<home>` behaves differently for staff: a player with `essentials.home.other` teleports to any home of another player, public or not. Players without it can only visit public homes and homes shared with them.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -269,9 +282,13 @@ When `enable-home-preview` is `true`, `/home <name>` no longer teleports directl
 | `essentials.home.vip` | Grants 5 home slots (configurable) |
 | `essentials.home.staff` | Grants 10 home slots (configurable) |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Permission nodes for home limits (e.g., `essentials.home.default`, `essentials.home.vip`) are fully configurable in the `permissions` list. The values above are the defaults. Changing the permission name in the configuration changes which permission is checked.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

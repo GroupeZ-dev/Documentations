@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2.6
 title: Hot Reload
 description: Edit your inventories and see the result instantly in game, without any command
 ---
@@ -17,9 +16,15 @@ hot-reload:
 
 Then run `/zm reload config` once (or `/zm reload`) to start watching. From now on, you never need `/zm reload` for your inventories again.
 
-:::tip Perfect for creating menus
+<CalloutContainer type="info">
+
+<CalloutTitle>Perfect for creating menus</CalloutTitle>
+
+<CalloutDescription>
 Open the menu in game, put your editor next to it, and design live: move a button, change a lore line, fix a requirement, save, and the menu reopens with your change on the same page. Combined with the [DeluxeMenus converter](./convert-deluxemenus), it is the fastest way to polish converted menus.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## What it does
 
@@ -61,9 +66,15 @@ A file that cannot be loaded (YAML syntax error, unknown button type, invalid si
 
 Enabling or disabling the option takes effect after `/zm reload` or `/zm reload config`, or within two seconds when changed from the in-game configuration dialog.
 
-:::info What is watched
+<CalloutContainer type="info">
+
+<CalloutTitle>What is watched</CalloutTitle>
+
+<CalloutDescription>
 Only the `inventories/` folder is watched. Files listed in [`specify-path-menus`](./configurations/config-yml#specify-path-menus), patterns, commands and dialogs still require `/zm reload`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Console logs
 

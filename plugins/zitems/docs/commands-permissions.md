@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Commands & Permissions
 description: zItems commands and permissions reference
 ---
@@ -77,9 +76,15 @@ Gives the physical representation of an effect (if configured) to a player.
 /zitems giveeffect hammer_rune Steve
 ```
 
-:::note Effect Representation Required
+<CalloutContainer type="info">
+
+<CalloutTitle>Effect Representation Required</CalloutTitle>
+
+<CalloutDescription>
 This command only works for effects that have a `representation` configured in their settings.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -158,11 +163,17 @@ This reloads:
 - All files in `items/` - Item definitions
 - All files in `effects/` - Effect definitions
 
-:::warning Reload Limitations
+<CalloutContainer type="warning">
+
+<CalloutTitle>Reload Limitations</CalloutTitle>
+
+<CalloutDescription>
 Some changes may require a server restart:
 - Custom recipes may not update immediately
 - Custom block data may require restart
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

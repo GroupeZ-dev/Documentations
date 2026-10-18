@@ -1,5 +1,4 @@
 ---
-sidebar_position: 7
 title: Discord Webhooks
 description: Configure Discord webhook notifications in zAuctionHouse V4
 ---
@@ -22,9 +21,13 @@ zAuctionHouse V4 can send notifications to Discord when items are listed or purc
 3. Paste the URL in `discord.yml`
 4. Enable the webhook and customize the embed
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Keep your webhook URL private! Anyone with this URL can post to your channel.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Global Settings
 
@@ -90,13 +93,21 @@ Common rule types:
 | `itemsadder` | `items: [...]` | `items: ["mynamespace:ruby_sword"]` |
 | `mmoitems` | `items: [...]` | `items: ["SWORD:EXCALIBUR"]` |
 
-:::tip
-`%item_image_url%` is used by both the `thumbnail` (small, top-right) and `image` (large, bottom) embed fields. To show the custom image as the large bottom image, set `image.url: "%item_image_url%"`.
-:::
+<CalloutContainer type="info">
 
-:::note
+<CalloutDescription>
+`%item_image_url%` is used by both the `thumbnail` (small, top-right) and `image` (large, bottom) embed fields. To show the custom image as the large bottom image, set `image.url: "%item_image_url%"`.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 When `extract-dominant-color` is enabled, the extracted color is cached per **image URL** for custom images (instead of per material), so two custom items sharing the same material but different images no longer collide on the same color.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Webhook Configuration
 

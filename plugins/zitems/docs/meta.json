@@ -1,0 +1,19 @@
+{
+  "title": "zItems",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "[Introduction](/zitems/introduction)",
+    "!introduction",
+    "[Installation](/zitems/installation)",
+    "!installation",
+    "[Commands & Permissions](/zitems/commands-permissions)",
+    "!commands-permissions",
+    "configurations",
+    "effects",
+    "metadata",
+    "[Runes (Legacy)](/zitems/runes)",
+    "!runes",
+    "..."
+  ]
+}

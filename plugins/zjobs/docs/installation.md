@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installation
 description: How to install and configure zJobs
 ---
@@ -151,9 +150,15 @@ To update zJobs:
 5. Start your server
 6. Run `/jobs reload` if needed
 
-:::warning Backup First
+<CalloutContainer type="warning">
+
+<CalloutTitle>Backup First</CalloutTitle>
+
+<CalloutDescription>
 Always backup your `plugins/zJobs/` folder before updating.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Troubleshooting
 

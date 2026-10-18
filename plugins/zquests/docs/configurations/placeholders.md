@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Placeholders
 description: All available placeholders in zQuests
 ---

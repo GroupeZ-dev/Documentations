@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Main Configuration
 description: Configure zKoth settings in config.yml
 ---
@@ -102,9 +101,13 @@ enableCapturePermission: false
 capturePermission: "zkoth.capture"
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Spectators are always blocked from capturing, regardless of this setting.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Team Capture Transfer
 
@@ -121,9 +124,13 @@ teamCaptureTransfer:
     - "-2"
 ```
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The timer is not reset during a transfer: the teammate continues the capture where it stopped. Without a team plugin, every player is their own team, so no transfer happens.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Chest Settings
 

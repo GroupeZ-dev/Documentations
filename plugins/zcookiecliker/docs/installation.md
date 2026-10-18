@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installation
 description: How to install and configure zCookieClicker on your Minecraft server
 ---
@@ -123,9 +122,13 @@ sql:
 | `retry` | Connection retry attempts |
 | `debug` | Enable SQL debug logging |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Make sure to change the default database credentials before deploying to production.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## First Configuration
 

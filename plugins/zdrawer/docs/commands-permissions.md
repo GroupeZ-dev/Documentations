@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Commands & Permissions
 description: zDrawer commands and permissions
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 1
 title: Getting Started
 description: Discover zAuctionHouse - A powerful auction house plugin for your Minecraft server
 ---
@@ -33,9 +32,13 @@ Organize your auction house with a flexible category system. Define categories b
 
 ### Multi-Server Support
 Running a server network? zAuctionHouse supports MySQL/MariaDB databases and Redis for real-time synchronization across multiple servers.
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 You need to buy the addon [zAuctionHouseRedis](https://groupez.dev/resources/zauctionhouse-redis.210) for this feature
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Folia Compatible
 Full support for Folia servers, ensuring optimal performance on modern server software.
@@ -70,6 +73,12 @@ Need help? Here are your options:
 - **Documentation**: You're reading it!
 - **GitHub**: Report issues on [GitHub](https://github.com/GroupeZ-dev/zAuctionHouse)
 
-:::info Premium Support
+<CalloutContainer type="info">
+
+<CalloutTitle>Premium Support</CalloutTitle>
+
+<CalloutDescription>
 Support is provided to users who have purchased the plugin. Free trial users can access community support on Discord.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Resources
 ---
 
@@ -7,9 +6,15 @@ title: Resources
 
 The resource endpoints expose the groupez.dev catalogue to plugins and tools: a paginated listing, a single resource, its released versions and its current version number. A fifth endpoint, `GET /resource/user`, sits under the same prefix for historical reasons but lists **user names**, not resources.
 
-:::info Frozen contract
+<CalloutContainer type="info">
+
+<CalloutTitle>Frozen contract</CalloutTitle>
+
+<CalloutDescription>
 These payloads are a compatibility contract with plugins already deployed on Minecraft servers. The v2 platform renamed most of the underlying database columns, but **none of those renames reach the wire**: every key keeps its legacy (v1) spelling, even where it looks wrong (`tag` is a tagline, `download` is a counter, `logo` is an icon, `plugin_id` is a resource id). New fields are only ever **appended** after the frozen keys, never inserted among them.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 For the legacy behaviour of the same URIs, see the [v1 resources page](../v1/resources.md).
 
@@ -60,9 +65,15 @@ The search listing is stricter: it only lists **Published** resources. Unlisted 
 
 The literal sub-routes `search`, `user`, `versions/...` and `version/...` are declared **before** `/resource/{resource}`. The router does not know that a resource id is numeric on the API (the `[0-9]+` pattern of the website routes does not apply to `routes/api.php`), so this order is the only thing that stops `/resource/search` from being treated as a lookup of a resource whose id is the word `search`. An id that is not one of those four literals and matches no resource answers `404`.
 
-:::warning Loosely compared ids
+<CalloutContainer type="warning">
+
+<CalloutTitle>Loosely compared ids</CalloutTitle>
+
+<CalloutDescription>
 The binder passes the raw segment to `WHERE id = ?` as a string. On MySQL (the production database), a string is compared to the integer column numerically, so a segment such as `42abc` may resolve resource `42` instead of answering `404`. This comes from reading the code, not from a test: always send a plain integer.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Endpoints
 

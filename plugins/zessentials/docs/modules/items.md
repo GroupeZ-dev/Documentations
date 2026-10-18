@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: Items Module
 description: Custom item definitions for use across the plugin
 ---
@@ -10,9 +9,13 @@ description: Custom item definitions for use across the plugin
 
 The Items module allows you to define custom items that can be referenced and used throughout the plugin. Custom items are defined using the [zMenu item format](https://docs.zmenu.dev/) and support custom names, materials, enchantments, lore, and all other item properties. These items can then be given to players via the `/give` command or referenced in other modules.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Unlike most modules, the Items module does **not** have an `enable` toggle. Custom item definitions are always available when configured. The module serves as a shared item registry for the entire plugin.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -51,9 +54,13 @@ Each item in the `custom-items` map is identified by a unique key (e.g., `master
 | `unbreakable` | Boolean | `false` | If `true`, the item cannot lose durability |
 | `modelId` | Integer | `0` | Custom model data value for resource pack integration |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Custom items use the **zMenu item format**, which means any property supported by zMenu items can be used here. This includes NBT data, item flags, skull textures, leather armor colors, potion effects, and more. Refer to the [zMenu documentation](https://docs.zmenu.dev/) for the full list of supported item properties.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Enchantment Format
 
@@ -69,9 +76,13 @@ enchants:
 
 All standard Minecraft enchantment names are supported (e.g., `SHARPNESS`, `EFFICIENCY`, `PROTECTION`, `FIRE_ASPECT`, `SILK_TOUCH`, `FORTUNE`, `MENDING`, `UNBREAKING`).
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Enchantment levels above the vanilla maximum (e.g., `SHARPNESS,10`) are supported but may behave differently depending on your server software and version. Some anti-cheat plugins may flag items with non-standard enchantment levels.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

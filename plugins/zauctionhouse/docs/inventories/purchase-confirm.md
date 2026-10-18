@@ -1,5 +1,4 @@
 ---
-sidebar_position: 9
 title: Purchase Confirm
 description: Purchase confirmation inventory configuration
 ---

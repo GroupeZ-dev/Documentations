@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installation
 description: How to add CurrenciesAPI to your project
 ---
@@ -55,9 +54,15 @@ dependencies {
 
 ## Shading the Library
 
-:::warning Important
+<CalloutContainer type="warning">
+
+<CalloutTitle>Important</CalloutTitle>
+
+<CalloutDescription>
 You should **relocate** (shade) the library to prevent conflicts when multiple plugins use CurrenciesAPI.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Maven Shade Plugin
 

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 4
 title: Limits
 description: Configure purchase and sale limits in zShop
 ---
@@ -283,9 +282,13 @@ items:
 - **Server limits**: Stored in `plugins/zShop/limits.json`
 - **Player limits**: Stored in `plugins/zShop/players/<uuid>.json`
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Do not manually edit these files while the server is running. Use the plugin's reload command after any manual changes.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Best Practices
 

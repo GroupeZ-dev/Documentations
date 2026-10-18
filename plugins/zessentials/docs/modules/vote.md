@@ -1,5 +1,4 @@
 ---
-sidebar_position: 20
 title: Vote Module
 description: Vote tracking with vote party system and per-site cooldowns
 ---
@@ -10,9 +9,15 @@ description: Vote tracking with vote party system and per-site cooldowns
 
 The Vote module tracks player votes from external voting sites, provides configurable rewards based on cumulative vote counts, and includes a **Vote Party** system that triggers global rewards when the server reaches a collective vote goal. It supports per-site cooldowns, tiered reward brackets, offline vote notifications, and automatic monthly resets.
 
-:::warning Dependency
+<CalloutContainer type="warning">
+
+<CalloutTitle>Dependency</CalloutTitle>
+
+<CalloutDescription>
 This module requires [NuVotifier](https://github.com/NuVotifier/NuVotifier) to be installed and configured. NuVotifier receives incoming votes from voting sites and forwards them to zEssentials for processing.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -98,9 +103,13 @@ reset-configuration:
 | `vote-party-rewards.permission-actions[].commands` | List of Strings | - | The bonus commands to execute for players with the special permission |
 | `vote-party-rewards.global-commands` | List of Strings | - | Commands executed once globally (not per-player) when the Vote Party triggers. Useful for broadcasts or server-wide effects |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Players with the `zessentials.vote.double` permission (or whatever permission you configure) receive **both** the standard `actions` and the `permission-actions`, effectively doubling their rewards. This is great for incentivizing donation ranks.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Rewards on Vote
 
@@ -111,9 +120,13 @@ Players with the `zessentials.vote.double` permission (or whatever permission yo
 | `rewards-on-vote[].max` | Integer | *(optional)* | The maximum cumulative vote count for this reward bracket (inclusive). Omit for an open-ended bracket |
 | `rewards-on-vote[].commands` | List of Strings | - | Commands executed when a player votes and their total vote count falls within this bracket. Supports the `%player%` placeholder |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Reward brackets allow you to give different rewards as players accumulate more votes. For example, you could give basic crate keys for the first 150 votes, better keys from 151-400, and premium keys beyond 401. When `max` is omitted, the bracket applies to all vote counts at or above `min`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Voting Sites
 
@@ -123,9 +136,13 @@ Reward brackets allow you to give different rewards as players accumulate more v
 | `sites[].name` | String | - | The name identifier for the voting site. Must match the service name sent by NuVotifier |
 | `sites[].seconds` | Integer | - | The cooldown duration in seconds before a player can vote again on this site |
 
-:::note
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The `name` field must exactly match the service name configured in NuVotifier for each voting site. Common cooldown values are `5400` (1.5 hours), `7200` (2 hours), and `86400` (24 hours), depending on the voting site's own restrictions.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Placeholders
 
@@ -143,9 +160,13 @@ The `name` field must exactly match the service name configured in NuVotifier fo
 | `reset-configuration.minute` | Integer | `0` | The minute (0-59) when the monthly reset occurs |
 | `reset-configuration.second` | Integer | `0` | The second (0-59) when the monthly reset occurs |
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 The reset configuration controls when **all player vote counts** are reset to zero. By default, this happens on the 1st of every month at midnight. Make sure your players are aware of the reset schedule, especially if rewards are tied to cumulative vote counts.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -197,9 +218,13 @@ For the full placeholder list, see [Placeholders](../placeholders).
 | `VotePartyEvent` | Fired when the Vote Party objective is reached and rewards are distributed |
 | `VotePartyStartEvent` | Fired when the Vote Party begins processing. Can be cancelled or used to modify behavior before rewards are given |
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Listen to `VotePartyStartEvent` if you want to add custom pre-party logic such as firework effects, title announcements, or conditional checks before the party proceeds.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

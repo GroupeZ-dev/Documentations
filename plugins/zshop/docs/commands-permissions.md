@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Commands & Permissions
 description: Complete list of zShop commands and permissions
 ---
@@ -48,12 +47,16 @@ Main plugin management command.
 
 ## Sell Commands
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Sell commands are disabled by default. Enable them in `config.yml`:
 ```yaml
 enableSellCommand: true
 ```
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### /sell-all
 
@@ -107,12 +110,16 @@ Open the sell inventory GUI where you can place items to sell.
 
 **Permission:** `zshop.sell.inventory`
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 This command is disabled by default. Enable it in `config.yml`:
 ```yaml
 enableSellInventoryCommand: true
 ```
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

@@ -1,0 +1,21 @@
+{
+  "title": "Inventories",
+  "defaultOpen": true,
+  "pages": [
+    "buttons",
+    "auction",
+    "categories",
+    "sell",
+    "expired-items",
+    "purchased-items",
+    "selling-items",
+    "history",
+    "purchase-confirm",
+    "remove-confirm",
+    "purchase-inventory-confirm",
+    "remove-inventory-confirm",
+    "shulker-content",
+    "patterns",
+    "admin"
+  ]
+}

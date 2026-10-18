@@ -1,5 +1,4 @@
 ---
-sidebar_position: 8
 title: Migration
 description: How to migrate data from other auction plugins to zAuctionHouse V4
 ---
@@ -8,12 +7,18 @@ description: How to migrate data from other auction plugins to zAuctionHouse V4
 
 zAuctionHouse V4 includes a built-in migration system that allows you to import data from other auction plugins. This ensures a smooth transition without losing existing listings, expired items, or transaction history.
 
-:::warning Before You Start
+<CalloutContainer type="warning">
+
+<CalloutTitle>Before You Start</CalloutTitle>
+
+<CalloutDescription>
 1. **Back up your database** before running any migration.
 2. **Stop the server** or ensure no players are online during migration to avoid data conflicts.
 3. Verify the source plugin's data files or database are accessible.
 4. Run the migration command from the server console for best results.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Requirements
 
@@ -31,9 +36,15 @@ Before migrating, ensure your server meets the v4 requirements:
 | **zMenu** | [modrinth.com/plugin/zmenu](https://modrinth.com/plugin/zmenu) |
 | **PlaceholderAPI** | [spigotmc.org/resources/6245](https://www.spigotmc.org/resources/placeholderapi.6245/) |
 
-:::warning Important
+<CalloutContainer type="warning">
+
+<CalloutTitle>Important</CalloutTitle>
+
+<CalloutDescription>
 Both **zMenu** and **PlaceholderAPI** are mandatory for zAuctionHouse v4 to work. The plugin will not function without them.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Migration Command
 
@@ -132,9 +143,15 @@ migration:
 
 ### Configuration
 
-:::danger Configuration Cannot Be Migrated
+<CalloutContainer type="error">
+
+<CalloutTitle>Configuration Cannot Be Migrated</CalloutTitle>
+
+<CalloutDescription>
 The configuration system has been completely rewritten in v4. **You cannot migrate your v3 configuration** - you will need to reconfigure the plugin from scratch.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 The default configuration is available in multiple languages:
 
@@ -196,9 +213,15 @@ The migration system reads data directly from the ZelAuction database by using i
 - The ZelAuction database file (`.db` for SQLite) must be present in the ZelAuction folder
 - zAuctionHouse V4 must be properly configured with its own storage
 
-:::info No Configuration Needed
+<CalloutContainer type="info">
+
+<CalloutTitle>No Configuration Needed</CalloutTitle>
+
+<CalloutDescription>
 Unlike the V3 migration, ZelAuction migration does not require any configuration in `config.yml`. The migrator reads all connection settings directly from ZelAuction's own `database.yml` file.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 #### Migration Steps
 
@@ -243,13 +266,25 @@ DonutAuction stores everything in a single Bukkit YAML file at `plugins/DonutAuc
 5. Item data (DonutAuction's Base64 Bukkit ItemStacks) is converted to V4's format through a hardened class allowlist that guards against malicious data files
 6. All imported items use the `vault` economy (DonutAuction only supports Vault)
 
-:::info No Configuration Needed
-Like the ZelAuction migration, DonutAuction migration requires no `config.yml` setup. The migrator reads everything from `plugins/DonutAuction/ah.data`.
-:::
+<CalloutContainer type="info">
 
-:::note What Is Not Migrated
+<CalloutTitle>No Configuration Needed</CalloutTitle>
+
+<CalloutDescription>
+Like the ZelAuction migration, DonutAuction migration requires no `config.yml` setup. The migrator reads everything from `plugins/DonutAuction/ah.data`.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>What Is Not Migrated</CalloutTitle>
+
+<CalloutDescription>
 `pendingPayments` (unclaimed sale **money**, not items) and already-delivered purchases are intentionally skipped - DonutAuction delivers bought items straight to the buyer's inventory, so there is nothing to import for those.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 #### Prerequisites
 
@@ -330,6 +365,10 @@ The following plugins are being considered for future migration support:
 - AuctionMaster
 - PlayerAuctions
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Migration support depends on the source plugin's data format and structure. Some plugins may not be feasible to support.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

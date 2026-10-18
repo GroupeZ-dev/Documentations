@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Categories
 description: Category selection inventory configuration
 ---
@@ -218,6 +217,10 @@ my-custom-category:
       - "#8c8c8c• #2CCED2Click #92ffffto browse"
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The `category` value must exactly match the key defined in `categories.yml`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>

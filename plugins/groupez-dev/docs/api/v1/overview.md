@@ -1,15 +1,20 @@
 ---
-sidebar_position: 1
 title: Overview (v1, legacy)
 ---
 
 # Public API: overview (v1, legacy)
 
-:::warning Legacy platform
+<CalloutContainer type="warning">
+
+<CalloutTitle>Legacy platform</CalloutTitle>
+
+<CalloutDescription>
 This section documents the API of the **legacy v1 platform** of groupez.dev (Laravel 8). It no longer runs in production. It is kept as a reference for plugins and bots built against it, and for comparison with the current platform.
 
 The current platform serves the **same URIs** (`/api/v1/...`) with some behavioural changes. See [API v2 overview](../v2/overview.md), and in particular its "Changes from v1" section.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Base URL
 
@@ -36,9 +41,15 @@ Only two checks resemble authentication, and both are in controller code:
 | `POST /api/v1/discord/{user}/apply/{plugin}` | The body field `custom_password` is required (validated). It is compared with `!==` against `env('DISCORD_PURCHASE_CONFIRM')`, and a mismatch returns `403`. |
 | `POST /api/v1/licence/{licence}` | The licence key in the URL, plus the `unique_id` body field and the caller's IP (`CF-Connecting-IP` header), are checked against the licence tables. See [Licence](./licence.md). |
 
-:::note `env()` outside config
+<CalloutContainer type="info">
+
+<CalloutTitle>`env()` outside config</CalloutTitle>
+
+<CalloutDescription>
 The Discord secret was read with `env()` from a controller. With a cached configuration (`php artisan config:cache`), `env()` returns `null` for keys that are not referenced from config files. The code did not guard against that case. Whether production ran with a cached config is unknown.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### `GET /api/user`
 
@@ -48,9 +59,15 @@ Route::middleware('auth:api')->get('/user', fn (Request $request) => $request->u
 
 This is Laravel's default scaffold route. It is unnamed (no `->name()`), and it uses the `api` guard, which is configured with the `token` driver (`config/auth.php`). No migration creates an `api_token` column, so no token could ever match. The route is effectively unusable. Without a token it returns `401` (`{"message":"Unauthenticated."}` for JSON requests). With a token (`api_token` query or body field, or a bearer token), the guard queries the missing `api_token` column, which most likely ends in a `500`. That last case is deduced from the code and was not tested. The route is not listed with the public endpoints below.
 
-:::note Another URI under `/api`
+<CalloutContainer type="info">
+
+<CalloutTitle>Another URI under `/api`</CalloutTitle>
+
+<CalloutDescription>
 `routes/web.php` declares `GET /api/gift/valid/{id}/{plugin}` (name `gift.check`, `web` and `auth` middleware). It is a session-authenticated AJAX helper of the website's checkout, not part of the public API, so it is not documented in this section. The current platform answers `410 Gone` on that path.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Rate limiting
 
@@ -62,9 +79,15 @@ There is a single limiter, declared in `RouteServiceProvider::configureRateLimit
 
 No route declares a limiter of its own.
 
-:::info Which IP?
+<CalloutContainer type="info">
+
+<CalloutTitle>Which IP?</CalloutTitle>
+
+<CalloutDescription>
 The `api` middleware group is `throttle:api`, `SubstituteBindings`, `TrustCloudflare`, in that order, so `ThrottleRequests` runs before the other two. `TrustCloudflare`, which copies `CF-Connecting-IP` into `X-Forwarded-For` and trusts Cloudflare's ranges, therefore probably runs **after** the throttle. The global `TrustProxies` middleware declares no proxy (`$proxies` is unset). If the site sat behind Cloudflare, the limiter key was probably the Cloudflare edge IP rather than the real client IP. This is deduced from the code and was not verified in production.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 A refused request returns `429` with Laravel 8's default body: `{"message":"Too Many Attempts."}` when the request expects JSON, otherwise an HTML error page (there is no custom `429` view). The framework sets the `Retry-After`, `X-RateLimit-Limit` and `X-RateLimit-Remaining` headers.
 
@@ -126,9 +149,15 @@ Controller messages that reach the caller:
 | `404` | `User not found` | `POST /discord` when no `users.discord` matches |
 | `403` | (empty) | `POST /discord/{user}/apply/{plugin}`, wrong `custom_password` |
 
-:::warning Content-Type
+<CalloutContainer type="warning">
+
+<CalloutTitle>Content-Type</CalloutTitle>
+
+<CalloutDescription>
 Most v1 controllers return `json_encode(...)` as a **string**, which Laravel serves as `text/html; charset=UTF-8` even though the body is JSON. Only `payment/{id}` (`response()->json()`) and `discord/{serverId}` (an array, converted by Laravel) are labelled `application/json`. `resource/version/{resource}`, `bstats/url/{id}` and `bstats/{id}/{chart}` return bare strings or integers, also labelled `text/html`. Clients must parse the body regardless of the header.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## All routes
 
@@ -153,9 +182,15 @@ Most v1 controllers return `json_encode(...)` as a **string**, which Laravel ser
 | 17 | `GET` | `/api/v1/bstats/{id}/{chart}` | `api.v1.bstatsstats` | Latest value of a bStats chart (integer) | [bStats](./bstats.md) |
 | 18 | `POST` | `/api/v1/licence/{licence:key}` | `api.v1.licence` | Licence check (key + `unique_id` + IP) | [Licence](./licence.md) |
 
-:::note Route names
+<CalloutContainer type="info">
+
+<CalloutTitle>Route names</CalloutTitle>
+
+<CalloutDescription>
 The names inside the `resource`, `author` and `bstats` groups have **no dot** between the group name and the route name (`->name('resource')` followed by `->name('show')` gives `api.v1.resourceshow`). These are the real v1 names, not typos in this page.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Quick check
 

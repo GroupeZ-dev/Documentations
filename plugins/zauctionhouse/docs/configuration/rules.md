@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Rules (Blacklist/Whitelist)
 description: Configure item restrictions in zAuctionHouse V4
 ---
@@ -15,9 +14,13 @@ Control which items can be sold in the auction house using blacklist and whiteli
 - Blacklist is checked **before** whitelist
 - If an item matches a blacklist rule, it is blocked regardless of whitelist
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 When whitelist is enabled, ONLY items matching whitelist rules can be sold.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## File Structure
 
@@ -421,13 +424,25 @@ whitelist:
 
 ## Tips
 
-:::tip Saving Items
-You can save items in Base64 format using `/zmenu save <item name>` then reference them in your rules for exact item matching.
-:::
+<CalloutContainer type="info">
 
-:::info Reload
+<CalloutTitle>Saving Items</CalloutTitle>
+
+<CalloutDescription>
+You can save items in Base64 format using `/zmenu save <item name>` then reference them in your rules for exact item matching.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutTitle>Reload</CalloutTitle>
+
+<CalloutDescription>
 After modifying rules, reload with `/ah admin reload`. Existing listings are not affected - they remain until expired or purchased.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Bypass Permission
 

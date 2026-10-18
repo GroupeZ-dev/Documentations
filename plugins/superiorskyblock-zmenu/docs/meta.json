@@ -1,0 +1,9 @@
+{
+  "title": "SuperiorSkyBlock-zMenu",
+  "root": true,
+  "defaultOpen": true,
+  "pages": [
+    "introduction",
+    "..."
+  ]
+}

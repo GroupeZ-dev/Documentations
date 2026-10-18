@@ -1,0 +1,20 @@
+{
+  "title": "Effects",
+  "defaultOpen": false,
+  "pagesIndex": "overview",
+  "pages": [
+    "vein-mining",
+    "hammer",
+    "farming-hoe",
+    "auto-sell",
+    "melt-mining",
+    "sell-stick",
+    "silk-spawner",
+    "xp-boost",
+    "absorption",
+    "infinite-bucket",
+    "unbreakable",
+    "enchants-applicator",
+    "attributes-applicator"
+  ]
+}

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 5
 title: Auto Sell
 description: Automatically sell drops from mining and killing
 ---
@@ -45,9 +44,15 @@ The auto-sell effect requires one of these plugins:
 | **EconomyShopGUI** | Free shop plugin |
 | **ZShop** | GroupeZ shop plugin |
 
-:::warning Shop Required
+<CalloutContainer type="warning">
+
+<CalloutTitle>Shop Required</CalloutTitle>
+
+<CalloutDescription>
 If no supported shop plugin is installed, the auto-sell effect will not function and items will drop normally.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Events
 

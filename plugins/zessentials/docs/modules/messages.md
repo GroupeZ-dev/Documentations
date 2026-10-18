@@ -1,5 +1,4 @@
 ---
-sidebar_position: 12
 title: Messages Module
 description: Private messaging system with reply and social spy support
 ---
@@ -26,9 +25,13 @@ enable: true
 |--------|------|---------|-------------|
 | `enable` | Boolean | `true` | Enable or disable the Messages module |
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 This module has a minimal configuration file. The module's behavior is primarily controlled through the messages file (for message formats) and through in-game commands. Enabling or disabling this module controls whether private messaging, the ignore system and `/tptoggle` are available on the server.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -95,9 +98,13 @@ The `/reply` command (alias `r`) sends a message to the last player you exchange
 /r See you later!
 ```
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The `/reply` command targets the last player who messaged you **or** the last player you messaged, whichever is more recent. This makes it easy to maintain a back-and-forth conversation.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Message Toggle
 
@@ -125,9 +132,13 @@ A player can ignore another player (online or offline) with `/ignore <player>`. 
 
 The ignore list is persistent: it is stored in the `user_ignores` table (or in the user file with the JSON storage) and survives restarts.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 The vanish check takes precedence over the ignore check: sending a private message to a vanished player always returns "player not found", even if that player ignores the sender, so the vanished player's presence is never revealed.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Social Spy
 
@@ -137,9 +148,13 @@ Staff members can enable social spy mode with `/socialspy` to monitor all privat
 /socialspy
 ```
 
-:::warning
+<CalloutContainer type="warning">
+
+<CalloutDescription>
 Social spy should be restricted to trusted staff members only. The `essentials.socialspy` permission grants the ability to read all private conversations on the server. Ensure your permission setup limits this to appropriate roles.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 

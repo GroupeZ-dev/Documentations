@@ -1,5 +1,4 @@
 ---
-sidebar_position: 2
 title: Installation
 description: How to install and configure zItems
 ---
@@ -16,9 +15,15 @@ This guide walks you through installing zItems on your Minecraft server.
 | Java | Java 21 (required) |
 | Server Software | Paper, Purpur, or Folia |
 
-:::warning Paper Required
+<CalloutContainer type="warning">
+
+<CalloutTitle>Paper Required</CalloutTitle>
+
+<CalloutDescription>
 zItems uses Paper-specific APIs. Spigot is **not** supported.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Download
 
@@ -120,9 +125,15 @@ To update zItems:
 5. Start your server
 6. Run `/zitems reload` if needed
 
-:::warning Backup First
+<CalloutContainer type="warning">
+
+<CalloutTitle>Backup First</CalloutTitle>
+
+<CalloutDescription>
 Always backup your `plugins/zItems/` folder before updating. Item configurations may need adjustments for new versions.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Troubleshooting
 

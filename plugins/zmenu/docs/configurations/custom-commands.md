@@ -1,5 +1,4 @@
 ---
-sidebar_position: 10
 title: Custom Commands
 description: Create custom commands to open your inventories
 ---
@@ -397,9 +396,13 @@ If your command conflicts with another plugin:
 2. **Use aliases** as the main entry point
 3. **Check plugin load order** in server configuration
 
-:::tip
+<CalloutContainer type="info">
+
+<CalloutDescription>
 If a command like `/shop` is taken by another plugin, use a unique command like `/zmshop` and add `/shop` as an alias. zMenu will try to register the alias.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Permission Examples
 

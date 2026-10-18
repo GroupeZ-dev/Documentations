@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: Discord
 ---
 
@@ -9,9 +8,15 @@ These endpoints are called by Discord bots: to sign a member in with Discord, to
 
 All of them live under `https://groupez.dev/api/v1/discord`.
 
-:::info Same URIs as the legacy platform
+<CalloutContainer type="info">
+
+<CalloutTitle>Same URIs as the legacy platform</CalloutTitle>
+
+<CalloutDescription>
 The current platform keeps the `/api/v1/discord/...` URIs, verbs, body fields and JSON keys of the [legacy platform](../v1/discord.md) so that bots already deployed keep working. The differences are listed in the notes of each endpoint.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Overview
 
@@ -65,9 +70,15 @@ Every `404` under `/api/v1/` is rewritten to the same neutral body, whatever the
 
 ### Route declaration order
 
-:::warning Declaration order matters
+<CalloutContainer type="warning">
+
+<CalloutTitle>Declaration order matters</CalloutTitle>
+
+<CalloutDescription>
 `authentication` and `{serverId}` are both a single segment answered by `GET`. `GET /discord/authentication` is declared **before** `GET /discord/{serverId}`, otherwise every sign-in would be read as a lookup of a guild called `authentication`. In the same way, `POST /discord/{user}` and `GET /discord/{serverId}` share a URI shape and are told apart only by the verb.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Accesses payload
 
@@ -331,11 +342,17 @@ curl -X POST https://groupez.dev/api/v1/discord/123456789012345678/apply/12 \
 
 #### Notes
 
-:::warning Evaluation order
+<CalloutContainer type="warning">
+
+<CalloutTitle>Evaluation order</CalloutTitle>
+
+<CalloutDescription>
 1. The `{resource}` binding runs first: an unknown or non-public resource answers `404` **before** the secret is checked.
 2. The secret is checked next: a wrong secret answers `403`, even for an unknown member.
 3. The member is looked up last: an unknown snowflake answers `404`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 - The secret is compared in constant time (`hash_equals`). When `services.discord.purchase_secret` is not set or is empty, **every** call is refused with `403`.
 - `ko` is not an error: it means "already owned", and the status is still `200`. A bot can use it to decide whether to announce the grant.

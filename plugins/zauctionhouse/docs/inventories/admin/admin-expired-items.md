@@ -1,5 +1,4 @@
 ---
-sidebar_position: 3
 title: Admin Expired Items
 description: Admin expired items inventory configuration
 ---

@@ -1,5 +1,4 @@
 ---
-sidebar_position: 6
 title: Multi Server
 description: Connect multiple servers with zAuctionHouse Redis addon
 ---
@@ -43,9 +42,13 @@ Unlike traditional SQL databases, which are disk-based and can introduce signifi
 
 Using SQL to synchronize multiple servers is not efficient for an auction house. SQL databases are designed for persistent storage, meaning each read or write operation involves disk access. This becomes a bottleneck when dealing with frequent updates from multiple servers. Additionally, SQL doesn't provide the real-time synchronization that an auction house requires, leading to delays and potential data conflicts.
 
-:::info
+<CalloutContainer type="info">
+
+<CalloutDescription>
 zAuctionHouse still uses SQL (MySQL/MariaDB) for persistent data storage. Redis is used as a **cache layer** for real-time synchronization between servers.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Why not BungeeCord/Velocity messaging?
 
@@ -200,13 +203,21 @@ redis-config:
 | `sentinel.password` | Password for Sentinel authentication (leave empty if none) |
 | `sentinel.nodes` | List of Sentinel nodes in `host:port` format |
 
-:::info
-The `user` and `password` fields at the root of `redis-config` are for the **Redis master** connection. The `sentinel.user` and `sentinel.password` are specifically for authenticating with the **Sentinel instances** themselves.
-:::
+<CalloutContainer type="info">
 
-:::tip
+<CalloutDescription>
+The `user` and `password` fields at the root of `redis-config` are for the **Redis master** connection. The `sentinel.user` and `sentinel.password` are specifically for authenticating with the **Sentinel instances** themselves.
+</CalloutDescription>
+
+</CalloutContainer>
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
 Existing standalone configurations continue to work without any changes. If the `mode` field is absent, it defaults to `standalone`.
-:::
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Step 5: Restart Servers
 
