@@ -252,6 +252,7 @@ Ouvre l'inventaire des objets expirés. Affiche des objets différents selon que
 | `slot` | Nombre | Position du bouton |
 | `item` | Item | Affiché quand le joueur A des objets expirés |
 | `else.item` | Item | Affiché quand le joueur N'A PAS d'objets expirés |
+| `open-when-empty` | Booléen | Ouvre l'inventaire même quand la liste est vide (défaut : `false`). À mettre sur le bouton `else`, avec le même `type`, pour que le bouton « aucun objet » reste cliquable |
 
 **Placeholders :**
 - `%expired-items%` - Nombre d'objets expirés
@@ -271,6 +272,8 @@ expired-items:
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto open"
   else:
+    type: ZAUCTIONHOUSE_EXPIRED_INVENTORY
+    open-when-empty: true
     item:
       url: "eyJ0ZXh0dXJlcy..."
       name: "#2CCED2<bold>ᴇxᴘɪʀᴇᴅ ɪᴛᴇᴍs"
@@ -291,6 +294,7 @@ Ouvre l'inventaire des objets achetés.
 | `slot` | Nombre | Position du bouton |
 | `item` | Item | Affiché quand le joueur A des objets achetés |
 | `else.item` | Item | Affiché quand le joueur N'A PAS d'objets achetés |
+| `open-when-empty` | Booléen | Ouvre l'inventaire même quand la liste est vide (défaut : `false`). À mettre sur le bouton `else`, avec le même `type`, pour que le bouton « aucun objet » reste cliquable |
 
 **Placeholders :**
 - `%purchased-items%` - Nombre d'objets achetés
@@ -310,6 +314,8 @@ purchased-items:
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto open"
   else:
+    type: ZAUCTIONHOUSE_PURCHASED_INVENTORY
+    open-when-empty: true
     item:
       url: "eyJ0ZXh0dXJlcy..."
       name: "#2CCED2<bold>ᴘᴜʀᴄʜᴀsᴇᴅ ɪᴛᴇᴍs"
@@ -330,6 +336,7 @@ Ouvre l'inventaire affichant les objets que le joueur a actuellement en vente.
 | `slot` | Nombre | Position du bouton |
 | `item` | Item | Affiché quand le joueur A des objets en vente |
 | `else.item` | Item | Affiché quand le joueur N'A PAS d'objets en vente |
+| `open-when-empty` | Booléen | Ouvre l'inventaire même quand la liste est vide (défaut : `false`). À mettre sur le bouton `else`, avec le même `type`, pour que le bouton « aucun objet » reste cliquable |
 
 **Placeholders :**
 - `%selling-items%` - Nombre d'objets en vente
@@ -349,6 +356,8 @@ selling-items:
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto open"
   else:
+    type: ZAUCTIONHOUSE_SELLING_INVENTORY
+    open-when-empty: true
     item:
       url: "eyJ0ZXh0dXJlcy..."
       name: "#2CCED2<bold>ʏᴏᴜʀ ɪᴛᴇᴍs"
@@ -925,15 +934,21 @@ price-increase:
 
 Parcourt les économies disponibles.
 
+Avec l'option `economy`, le bouton ne fait plus défiler les économies : un clic sélectionne cette économie. Ajoutez un bouton par économie pour que le joueur choisisse directement.
+
 **Configuration :**
 
 | Propriété | Type | Description |
 |-----------|------|-------------|
 | `slot` | Nombre | Position du bouton |
 | `item` | Item | Apparence du bouton |
+| `economy` | Texte | Optionnel. Économie sélectionnée au clic au lieu de faire défiler (nom dans `economies.yml`) |
 
 **Placeholders :**
-- `%economy%` - Nom de l'économie actuelle
+- `%economy%` - Nom d'affichage de l'économie (celle du bouton avec `economy`, sinon celle sélectionnée)
+- `%economy_name%` - Nom interne de cette économie
+- `%price%` - Prix de mise en vente formaté dans cette économie
+- `%selected%` - `true` quand cette économie est celle sélectionnée
 
 **Exemple :**
 
@@ -952,11 +967,39 @@ select-economy:
       - "#8c8c8c• #92ffffRight click#8c8c8c: Previous economy"
 ```
 
+**Un bouton par économie :**
+
+```yaml
+select-money:
+  type: ZAUCTIONHOUSE_SELL_ECONOMY
+  economy: vault
+  slot: 48
+  item:
+    material: GOLD_INGOT
+    name: "#ffd700<bold>Argent"
+    lore:
+      - "<white>Prix#8c8c8c: #2CCED2%price%"
+      - "<white>Sélectionnée#8c8c8c: #2CCED2%selected%"
+
+select-levels:
+  type: ZAUCTIONHOUSE_SELL_ECONOMY
+  economy: level
+  slot: 50
+  item:
+    material: EXPERIENCE_BOTTLE
+    name: "#7cfc00<bold>Niveaux"
+    lore:
+      - "<white>Prix#8c8c8c: #2CCED2%price%"
+      - "<white>Sélectionnée#8c8c8c: #2CCED2%selected%"
+```
+
 ---
 
 ### ZAUCTIONHOUSE_SELL_CONFIRM
 
 Confirme la vente et met les objets en vente.
+
+Avec l'option `economy`, le bouton vend toujours avec cette économie, quelle que soit l'économie sélectionnée : un bouton de confirmation par économie met l'objet en vente en un clic. Les limites de prix de cette économie s'appliquent : un prix hors limites est refusé. Si l'économie n'existe pas, un avertissement est affiché au chargement de l'inventaire et le clic envoie `sell-error-economy`.
 
 **Configuration :**
 
@@ -964,9 +1007,11 @@ Confirme la vente et met les objets en vente.
 |-----------|------|-------------|
 | `slot` | Nombre | Position du bouton |
 | `item` | Item | Apparence du bouton |
+| `economy` | Texte | Optionnel. Vend toujours avec cette économie (nom dans `economies.yml`) |
 
 **Placeholders :**
-- `%economy%` - Économie sélectionnée
+- `%economy%` - Économie de la vente (celle du bouton avec `economy`, sinon celle sélectionnée)
+- `%economy_name%` - Nom interne de cette économie
 - `%price%` - Prix de mise en vente
 - `%item_count%` - Nombre d'objets
 
@@ -986,6 +1031,26 @@ confirm:
       - "<white>Items#8c8c8c: #2CCED2%item_count%"
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto confirm the sale"
+```
+
+**Un bouton de confirmation par économie :**
+
+```yaml
+sell-for-money:
+  type: ZAUCTIONHOUSE_SELL_CONFIRM
+  economy: vault
+  slot: 52
+  item:
+    material: GOLD_INGOT
+    name: "#00ff00<bold>Vendre pour %price%"
+
+sell-for-levels:
+  type: ZAUCTIONHOUSE_SELL_CONFIRM
+  economy: level
+  slot: 53
+  item:
+    material: EXPERIENCE_BOTTLE
+    name: "#00ff00<bold>Vendre pour %price%"
 ```
 
 ---

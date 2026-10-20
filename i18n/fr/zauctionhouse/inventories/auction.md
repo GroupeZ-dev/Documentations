@@ -78,6 +78,8 @@ items:
         - ""
         - "#8c8c8c• #2CCED2Click #92ffffto open"
     else:
+      type: ZAUCTIONHOUSE_EXPIRED_INVENTORY
+      open-when-empty: true
       item:
         url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjdhYWRmZjlkZGM1NDZmZGNlYzZlZDU5MTljYzM5ZGZhOGQwYzA3ZmY0YmM2MTNhMTlmMmU2ZDdmMjU5MyJ9fX0="
         name: "#2CCED2<bold>ᴇxᴘɪʀᴇᴅ ɪᴛᴇᴍs"
@@ -95,6 +97,8 @@ items:
         - ""
         - "#8c8c8c• #2CCED2Click #92ffffto open"
     else:
+      type: ZAUCTIONHOUSE_PURCHASED_INVENTORY
+      open-when-empty: true
       item:
         url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjM3Y2FlNWM1MWViMTU1OGVhODI4ZjU4ZTBkZmY4ZTZiN2IwYjFhMTgzZDczN2VlY2Y3MTQ2NjE3NjEifX19"
         name: "#2CCED2<bold>ᴘᴜʀᴄʜᴀsᴇᴅ ɪᴛᴇᴍs"
@@ -112,6 +116,8 @@ items:
         - ""
         - "#8c8c8c• #2CCED2Click #92ffffto open"
     else:
+      type: ZAUCTIONHOUSE_SELLING_INVENTORY
+      open-when-empty: true
       item:
         url: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU4MDdjYzRjM2I2OTU4YWVhNjE1NmU4NDUxOGQ5MWE0OWM1ZjMyOTcxZTZlYjI2OWEyM2EyNWEyNzE0NSJ9fX0="
         name: "#2CCED2<bold>ʏᴏᴜʀ ɪᴛᴇᴍs"

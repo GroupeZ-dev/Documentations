@@ -90,7 +90,21 @@ database-configuration:
   password: secret
   database: zauctionhouse
   debug: false
+  # Maximum lifetime of a pooled connection, in seconds (default: 1800)
+  max-lifetime: 1800
 ```
+
+### Connection Lifetime
+
+`max-lifetime` sets how long a MySQL/MariaDB connection stays in the pool before it is retired and replaced. Lower it when your database or a proxy in front of it (firewall, load balancer) closes idle connections sooner than 30 minutes, which shows up as broken-connection errors in the console.
+
+| Value | Effect |
+|-------|--------|
+| `1800` | 30 minutes, same as when the option is missing |
+| `0` | Connections are kept until the pool closes |
+| Less than `30` | Refused by HikariCP, which falls back to 30 minutes |
+
+Keep it a few minutes below the database `wait_timeout`. The option has no effect with `SQLITE`. It can also be set in the shared `database-configuration.yml` file at the server root.
 
 ### Storage Types
 
@@ -503,6 +517,10 @@ action:
   # Purchasing items
   purchased-item:
     give-item: false           # Give to inventory or purchased items
+    # Only used with give-item: true.
+    # true: the purchase is refused when the item does not fit in the inventory.
+    # false: the purchase goes through and the item is sent to purchased items
+    #        (message purchase-inventory-full) when it does not fit.
     player-inventory-must-have-free-space: true
     open-inventory: true
     money-item:

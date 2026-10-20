@@ -131,6 +131,28 @@ public class MyPlugin extends JavaPlugin {
 | `isDebug()` | `boolean` | Vérifier si le mode debug est activé |
 | `getDatabaseType()` | `DatabaseType` | Obtenir le type de base de données |
 | `replacePrefix(tableName)` | `String` | Remplacer le préfixe de table |
+| `getMaximumPoolSize()` | `Integer` | Obtenir la taille du pool, `null` pour le défaut |
+| `getMinimumIdle()` | `Integer` | Obtenir le minimum de connexions inactives, `null` pour le défaut |
+| `getMaxLifetime()` | `Long` | Obtenir la durée de vie des connexions en millisecondes, `null` pour le défaut (1.26+) |
+
+## Pool de Connexions (HikariCP)
+
+`HikariDatabaseConnection` ouvre un pool HikariCP pour MySQL et MariaDB. Ses réglages se font sur la `DatabaseConfiguration`, chaque méthode `with...` renvoie une nouvelle configuration :
+
+```java
+DatabaseConfiguration config = DatabaseConfiguration.create("username", "password", 3306, "localhost", "my_database", false, DatabaseType.MYSQL)
+        .withPoolSettings(10, 2)                         // taille max du pool, connexions inactives minimum
+        .withMaxLifetime(TimeUnit.MINUTES.toMillis(10)); // depuis la 1.26
+
+DatabaseConnection connection = new HikariDatabaseConnection(config, logger);
+```
+
+| Méthode | Description | Défaut (`null`) |
+|---------|-------------|-----------------|
+| `withPoolSettings(maximumPoolSize, minimumIdle)` | Taille du pool et nombre de connexions inactives gardées ouvertes | `cœurs * 2 + 1`, et `min(taille du pool, 10)` |
+| `withMaxLifetime(maxLifetime)` | Durée de vie d'une connexion en millisecondes avant son remplacement. `0` garde les connexions jusqu'à la fermeture du pool. HikariCP remplace les valeurs sous 30 secondes par sa valeur par défaut | 30 minutes |
+
+Réglez la durée de vie quelques minutes sous le `wait_timeout` de la base, ou sous le délai d'inactivité d'un proxy placé devant, pour que le pool ne fournisse jamais une connexion déjà fermée par le serveur.
 
 ## Cycle de Vie de la Connexion
 

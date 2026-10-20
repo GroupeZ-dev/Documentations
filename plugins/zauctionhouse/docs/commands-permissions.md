@@ -47,7 +47,7 @@ You can customize aliases in `config.yml` under `commands.main-command.aliases`.
 
 **Arguments:**
 - `<price>` - The price per item (required). Supports multipliers: `1K`, `2.5M`, `1B`, etc.
-- `[amount]` - Number of items to sell from your stack (optional, defaults to full stack)
+- `[amount]` - Number of items to sell from your stack (optional, defaults to full stack). With the sell inventory enabled, the amount is applied to the item held when the sale is confirmed, capped at the stack size
 - `[economy]` - Which economy to use (optional, defaults to configured default)
 
 **Examples:**

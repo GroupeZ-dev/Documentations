@@ -131,6 +131,28 @@ public class MyPlugin extends JavaPlugin {
 | `isDebug()` | `boolean` | Check if debug mode is enabled |
 | `getDatabaseType()` | `DatabaseType` | Get the database type enum |
 | `replacePrefix(tableName)` | `String` | Replace table prefix |
+| `getMaximumPoolSize()` | `Integer` | Get the pool size, `null` for the default |
+| `getMinimumIdle()` | `Integer` | Get the minimum idle connections, `null` for the default |
+| `getMaxLifetime()` | `Long` | Get the connection lifetime in milliseconds, `null` for the default (1.26+) |
+
+## Connection Pool (HikariCP)
+
+`HikariDatabaseConnection` opens a HikariCP pool for MySQL and MariaDB. Its settings are tuned on the `DatabaseConfiguration`, each `with...` method returns a new configuration:
+
+```java
+DatabaseConfiguration config = DatabaseConfiguration.create("username", "password", 3306, "localhost", "my_database", false, DatabaseType.MYSQL)
+        .withPoolSettings(10, 2)                         // maximum pool size, minimum idle
+        .withMaxLifetime(TimeUnit.MINUTES.toMillis(10)); // since 1.26
+
+DatabaseConnection connection = new HikariDatabaseConnection(config, logger);
+```
+
+| Method | Description | Default (`null`) |
+|--------|-------------|------------------|
+| `withPoolSettings(maximumPoolSize, minimumIdle)` | Pool size and idle connections kept open | `cores * 2 + 1`, and `min(pool size, 10)` |
+| `withMaxLifetime(maxLifetime)` | Lifetime of a connection in milliseconds before it is retired. `0` keeps connections until the pool closes. HikariCP replaces values below 30 seconds with its default | 30 minutes |
+
+Set the max lifetime a few minutes below the database `wait_timeout`, or below the idle timeout of a proxy in front of it, so the pool never hands out a connection the server already closed.
 
 ## Connection Lifecycle
 

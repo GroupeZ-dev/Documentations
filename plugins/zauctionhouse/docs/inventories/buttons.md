@@ -252,6 +252,7 @@ Opens the expired items inventory. Displays different items based on whether the
 | `slot` | Number | Button position |
 | `item` | Item | Shown when player HAS expired items |
 | `else.item` | Item | Shown when player has NO expired items |
+| `open-when-empty` | Boolean | Open the inventory even when the list is empty (default: `false`). Set it on the `else` button, with the same `type`, so the "no items" button can still be clicked |
 
 **Placeholders:**
 - `%expired-items%` - Number of expired items
@@ -271,6 +272,8 @@ expired-items:
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto open"
   else:
+    type: ZAUCTIONHOUSE_EXPIRED_INVENTORY
+    open-when-empty: true
     item:
       url: "eyJ0ZXh0dXJlcy..."
       name: "#2CCED2<bold>ᴇxᴘɪʀᴇᴅ ɪᴛᴇᴍs"
@@ -291,6 +294,7 @@ Opens the purchased items inventory.
 | `slot` | Number | Button position |
 | `item` | Item | Shown when player HAS purchased items |
 | `else.item` | Item | Shown when player has NO purchased items |
+| `open-when-empty` | Boolean | Open the inventory even when the list is empty (default: `false`). Set it on the `else` button, with the same `type`, so the "no items" button can still be clicked |
 
 **Placeholders:**
 - `%purchased-items%` - Number of purchased items
@@ -310,6 +314,8 @@ purchased-items:
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto open"
   else:
+    type: ZAUCTIONHOUSE_PURCHASED_INVENTORY
+    open-when-empty: true
     item:
       url: "eyJ0ZXh0dXJlcy..."
       name: "#2CCED2<bold>ᴘᴜʀᴄʜᴀsᴇᴅ ɪᴛᴇᴍs"
@@ -330,6 +336,7 @@ Opens the inventory showing items the player currently has on sale.
 | `slot` | Number | Button position |
 | `item` | Item | Shown when player HAS items on sale |
 | `else.item` | Item | Shown when player has NO items on sale |
+| `open-when-empty` | Boolean | Open the inventory even when the list is empty (default: `false`). Set it on the `else` button, with the same `type`, so the "no items" button can still be clicked |
 
 **Placeholders:**
 - `%selling-items%` - Number of items on sale
@@ -349,6 +356,8 @@ selling-items:
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto open"
   else:
+    type: ZAUCTIONHOUSE_SELLING_INVENTORY
+    open-when-empty: true
     item:
       url: "eyJ0ZXh0dXJlcy..."
       name: "#2CCED2<bold>ʏᴏᴜʀ ɪᴛᴇᴍs"
@@ -925,15 +934,21 @@ price-increase:
 
 Cycles through available economies.
 
+With the `economy` option the button no longer cycles: clicking it selects that economy. Add one button per economy to let the player pick directly.
+
 **Configuration:**
 
 | Property | Type | Description |
 |----------|------|-------------|
 | `slot` | Number | Button position |
 | `item` | Item | Button appearance |
+| `economy` | String | Optional. Economy selected on click instead of cycling (name from `economies.yml`) |
 
 **Placeholders:**
-- `%economy%` - Current economy name
+- `%economy%` - Display name of the economy (the button's economy with `economy`, otherwise the selected one)
+- `%economy_name%` - Internal name of that economy
+- `%price%` - Listing price formatted in that economy
+- `%selected%` - `true` when this economy is the selected one
 
 **Example:**
 
@@ -952,11 +967,39 @@ select-economy:
       - "#8c8c8c• #92ffffRight click#8c8c8c: Previous economy"
 ```
 
+**One button per economy:**
+
+```yaml
+select-money:
+  type: ZAUCTIONHOUSE_SELL_ECONOMY
+  economy: vault
+  slot: 48
+  item:
+    material: GOLD_INGOT
+    name: "#ffd700<bold>Money"
+    lore:
+      - "<white>Price#8c8c8c: #2CCED2%price%"
+      - "<white>Selected#8c8c8c: #2CCED2%selected%"
+
+select-levels:
+  type: ZAUCTIONHOUSE_SELL_ECONOMY
+  economy: level
+  slot: 50
+  item:
+    material: EXPERIENCE_BOTTLE
+    name: "#7cfc00<bold>Levels"
+    lore:
+      - "<white>Price#8c8c8c: #2CCED2%price%"
+      - "<white>Selected#8c8c8c: #2CCED2%selected%"
+```
+
 ---
 
 ### ZAUCTIONHOUSE_SELL_CONFIRM
 
 Confirms the sale and lists the items.
+
+With the `economy` option the button always sells with that economy, whatever economy is selected: one confirm button per economy lists the item in a single click. The price limits of that economy still apply: a price outside them is refused. If the economy does not exist, a warning is logged when the inventory loads and the click sends `sell-error-economy`.
 
 **Configuration:**
 
@@ -964,9 +1007,11 @@ Confirms the sale and lists the items.
 |----------|------|-------------|
 | `slot` | Number | Button position |
 | `item` | Item | Button appearance |
+| `economy` | String | Optional. Always sell with this economy (name from `economies.yml`) |
 
 **Placeholders:**
-- `%economy%` - Selected economy
+- `%economy%` - Economy of the sale (the button's economy with `economy`, otherwise the selected one)
+- `%economy_name%` - Internal name of that economy
 - `%price%` - Listing price
 - `%item_count%` - Number of items
 
@@ -986,6 +1031,26 @@ confirm:
       - "<white>Items#8c8c8c: #2CCED2%item_count%"
       - ""
       - "#8c8c8c• #2CCED2Click #92ffffto confirm the sale"
+```
+
+**One confirm button per economy:**
+
+```yaml
+sell-for-money:
+  type: ZAUCTIONHOUSE_SELL_CONFIRM
+  economy: vault
+  slot: 52
+  item:
+    material: GOLD_INGOT
+    name: "#00ff00<bold>Sell for %price%"
+
+sell-for-levels:
+  type: ZAUCTIONHOUSE_SELL_CONFIRM
+  economy: level
+  slot: 53
+  item:
+    material: EXPERIENCE_BOTTLE
+    name: "#00ff00<bold>Sell for %price%"
 ```
 
 ---

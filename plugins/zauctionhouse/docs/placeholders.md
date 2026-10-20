@@ -117,6 +117,7 @@ Used in sell inventory buttons:
 | `%economy%` | Display name of selected economy |
 | `%economy_name%` | Internal name of selected economy |
 | `%item_count%` | Number of items being sold |
+| `%selected%` | `ZAUCTIONHOUSE_SELL_ECONOMY` only: `true` when the button's economy is the selected one |
 | `%left_click_amount%` | Price adjustment on left click |
 | `%right_click_amount%` | Price adjustment on right click |
 | `%shift_left_click_amount%` | Price adjustment on shift+left click |
@@ -164,6 +165,11 @@ All PlaceholderAPI placeholders use the prefix `zauctionhouse_`:
 | `%zauctionhouse_pending_money_<economy>%` | Pending money for a specific economy (e.g., `%zauctionhouse_pending_money_coins%`) |
 | `%zauctionhouse_has_pending_money%` | `true` or `false` whether the player has pending money |
 | `%zauctionhouse_option_<option>%` | Player option value (`true`/`false`), e.g., `%zauctionhouse_option_broadcast_sell%` |
+| `%zauctionhouse_sell_price%` | Price of the sale in progress in the sell inventory (raw number) |
+| `%zauctionhouse_sell_price_formatted%` | Price of the sale in progress, formatted with the selected economy |
+| `%zauctionhouse_sell_economy%` | Display name of the economy selected for the sale in progress |
+| `%zauctionhouse_sell_economy_name%` | Internal name of the economy selected for the sale in progress |
+| `%zauctionhouse_sell_amount%` | Amount requested with `/ah sell` (`0` = the whole stack held in hand) |
 
 ## Discord Webhook Placeholders
 

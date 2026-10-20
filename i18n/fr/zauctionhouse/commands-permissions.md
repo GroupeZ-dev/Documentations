@@ -47,7 +47,7 @@ Vous pouvez personnaliser les alias dans `config.yml` sous `commands.main-comman
 
 **Arguments :**
 - `<prix>` - Le prix par objet (requis). Supporte les multiplicateurs : `1K`, `2.5M`, `1B`, etc.
-- `[quantité]` - Nombre d'objets à vendre de votre pile (optionnel, par défaut la pile complète)
+- `[quantité]` - Nombre d'objets à vendre de votre pile (optionnel, par défaut la pile complète). Avec l'inventaire de vente activé, la quantité s'applique à l'objet en main au moment de la confirmation, plafonnée à la taille de la pile
 - `[économie]` - Quelle économie utiliser (optionnel, par défaut l'économie configurée)
 
 **Exemples :**

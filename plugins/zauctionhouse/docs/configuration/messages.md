@@ -332,7 +332,7 @@ item-remove-selling: "#e6fff3You just removed %items% #e6fff3from your items."
 
 ```yaml
 # Item listed
-# Placeholders: %items%, %price%
+# Placeholders: %items%, %price%, %tax% (0 if none), %percentage% (0 if none)
 item-sold: "#e6fff3You just sold %items% #e6fff3for #92bed8%price%#e6fff3."
 
 # Item purchased (notification to seller)
@@ -352,6 +352,10 @@ not-enough-money: "<error>You don't have enough money to buy this."
 
 # Not enough inventory space
 not-enough-space: "<error>You don't have enough space in your inventory."
+
+# Purchase that does not fit in the inventory (give-item: true and
+# player-inventory-must-have-free-space: false): the item goes to purchased items
+purchase-inventory-full: "<primary>Your inventory is full, the item has been placed in your purchased items."
 
 # Price too high
 # Placeholder: %max-price%
@@ -500,6 +504,15 @@ Set a message to empty string to disable it:
 ```yaml
 # No message sent on successful sale
 item-sold: ""
+```
+
+Nothing is sent, not even the prefix. Empty lines inside a multi-line message are kept, they are used as spacing.
+
+For example, to show the sell tax in the `item-sold` message instead of a separate message:
+
+```yaml
+tax-sell-applied: ""
+item-sold: "#e6fff3You just sold %items% #e6fff3for #92bed8%price% #e6fff3(tax: %tax%)."
 ```
 
 ## Reloading Messages
