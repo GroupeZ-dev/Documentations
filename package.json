@@ -16,9 +16,6 @@
     "test:server": "node scripts/test-server.mjs",
     "test:discord": "node scripts/test-discord.mjs"
   },
-  "engines": {
-    "node": ">=24 <25"
-  },
   "dependencies": {
     "@modelcontextprotocol/server": "2.3.1",
     "fumadocs-core": "16.17.5",
