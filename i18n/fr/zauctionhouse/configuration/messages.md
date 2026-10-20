@@ -296,9 +296,17 @@ messages:
 Pour désactiver un message, définissez-le comme vide :
 
 ```yaml
-messages:
-  sell:
-    success: "" # Aucun message envoyé lors d'une vente réussie
+# Aucun message envoyé lors d'une mise en vente
+item-sold: ""
+```
+
+Rien n'est envoyé, pas même le préfixe. Les lignes vides d'un message sur plusieurs lignes sont conservées, elles servent d'espacement.
+
+Par exemple, pour afficher la taxe de vente dans le message `item-sold` plutôt que dans un message séparé (`item-sold` reçoit `%tax%` et `%percentage%`, à 0 sans taxe) :
+
+```yaml
+tax-sell-applied: ""
+item-sold: "#e6fff3Vous venez de mettre en vente %items% #e6fff3pour #92bed8%price% #e6fff3(taxe : %tax%)."
 ```
 
 ## Recharger les Messages

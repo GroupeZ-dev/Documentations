@@ -117,6 +117,7 @@ Utilisés dans les boutons de l'inventaire de vente :
 | `%economy%` | Nom d'affichage de l'économie sélectionnée |
 | `%economy_name%` | Nom interne de l'économie sélectionnée |
 | `%item_count%` | Nombre d'objets en vente |
+| `%selected%` | `ZAUCTIONHOUSE_SELL_ECONOMY` uniquement : `true` quand l'économie du bouton est celle sélectionnée |
 | `%left_click_amount%` | Ajustement du prix au clic gauche |
 | `%right_click_amount%` | Ajustement du prix au clic droit |
 | `%shift_left_click_amount%` | Ajustement du prix au shift+clic gauche |
@@ -164,6 +165,11 @@ Tous les placeholders PlaceholderAPI utilisent le préfixe `zauctionhouse_` :
 | `%zauctionhouse_pending_money_<économie>%` | Argent en attente pour une économie spécifique (ex : `%zauctionhouse_pending_money_coins%`) |
 | `%zauctionhouse_has_pending_money%` | `true` ou `false` selon si le joueur a de l'argent en attente |
 | `%zauctionhouse_option_<option>%` | Valeur d'une option joueur (`true`/`false`), ex : `%zauctionhouse_option_broadcast_sell%` |
+| `%zauctionhouse_sell_price%` | Prix de la vente en cours dans l'inventaire de vente (nombre brut) |
+| `%zauctionhouse_sell_price_formatted%` | Prix de la vente en cours, formaté avec l'économie sélectionnée |
+| `%zauctionhouse_sell_economy%` | Nom d'affichage de l'économie sélectionnée pour la vente en cours |
+| `%zauctionhouse_sell_economy_name%` | Nom interne de l'économie sélectionnée pour la vente en cours |
+| `%zauctionhouse_sell_amount%` | Quantité demandée avec `/ah sell` (`0` = toute la pile en main) |
 
 ## Placeholders Webhook Discord
 

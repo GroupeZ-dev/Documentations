@@ -503,6 +503,10 @@ action:
   # Purchasing items
   purchased-item:
     give-item: false           # Give to inventory or purchased items
+    # Only used with give-item: true.
+    # true: the purchase is refused when the item does not fit in the inventory.
+    # false: the purchase goes through and the item is sent to purchased items
+    #        (message purchase-inventory-full) when it does not fit.
     player-inventory-must-have-free-space: true
     open-inventory: true
     money-item:

@@ -503,6 +503,10 @@ action:
   # Achat d'objets
   purchased-item:
     give-item: false           # Donner à l'inventaire ou objets achetés
+    # Utilisé uniquement avec give-item: true.
+    # true : l'achat est refusé si l'objet ne rentre pas dans l'inventaire.
+    # false : l'achat passe et l'objet va dans les objets achetés
+    #         (message purchase-inventory-full) s'il ne rentre pas.
     player-inventory-must-have-free-space: true
     open-inventory: true
     money-item:
