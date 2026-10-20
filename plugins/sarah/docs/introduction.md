@@ -106,7 +106,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.maxlego08.sarah:sarah:1.21.2'
+    implementation 'fr.maxlego08.sarah:sarah:1.26'
 }
 ```
 
@@ -120,7 +120,7 @@ dependencies {
 <dependency>
     <groupId>fr.maxlego08.sarah</groupId>
     <artifactId>sarah</artifactId>
-    <version>1.21.2</version>
+    <version>1.26</version>
 </dependency>
 ```
 

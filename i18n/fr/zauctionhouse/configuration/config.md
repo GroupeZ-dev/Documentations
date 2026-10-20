@@ -90,7 +90,21 @@ database-configuration:
   password: secret
   database: zauctionhouse
   debug: false
+  # Durée de vie maximale d'une connexion du pool, en secondes (défaut : 1800)
+  max-lifetime: 1800
 ```
+
+### Durée de vie des connexions
+
+`max-lifetime` définit combien de temps une connexion MySQL/MariaDB reste dans le pool avant d'être retirée et remplacée. Baissez-la si votre base, ou un proxy devant elle (pare-feu, load balancer), ferme les connexions inactives avant 30 minutes, ce qui se traduit par des erreurs de connexion fermée dans la console.
+
+| Valeur | Effet |
+|--------|-------|
+| `1800` | 30 minutes, comme quand l'option est absente |
+| `0` | Les connexions sont gardées jusqu'à la fermeture du pool |
+| Moins de `30` | Refusé par HikariCP, qui revient à 30 minutes |
+
+Gardez-la quelques minutes sous le `wait_timeout` de la base. L'option n'a aucun effet en `SQLITE`. Elle peut aussi être définie dans le fichier partagé `database-configuration.yml` à la racine du serveur.
 
 ### Types de Stockage
 
