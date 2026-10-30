@@ -284,6 +284,75 @@ public class JoinListener implements Listener {
 }
 ```
 
+## Listeners d'Inventaire
+
+Un `InventoryListener` suit la vie de chaque inventaire zMenu : ouverture, fermeture, clics sur les boutons, changements d'inventaire et placement des items. Toutes ses methodes sont `default`, vous ne surchargez donc que celles dont vous avez besoin.
+
+```java
+menuPlugin.getInventoryManager().registerInventoryListener(myListener);
+
+// Dans onDisable
+menuPlugin.getInventoryManager().unregisterInventoryListener(myListener);
+```
+
+Deux methodes permettent a un listener d'afficher les items lui-meme, par exemple pour les envoyer par paquets au lieu de les placer dans l'inventaire Bukkit :
+
+| Methode | Appelee quand |
+|---------|---------------|
+| `addItem(BaseInventory, boolean inPlayerInventory, ItemButton, boolean enableAntiDupe)` | Un bouton est place dans un slot |
+| `updateItem(BaseInventory, boolean inPlayerInventory, ItemButton)` | L'item d'un bouton **deja place** est remplace apres l'ouverture de l'inventaire, par exemple une fois la texture d'une tete de joueur chargee |
+
+Les deux retournent `true` quand le listener a affiche l'item lui-meme : zMenu saute alors son placement par defaut. Quand `updateItem` est appelee, le nouvel item est deja stocke dans le bouton, lisez-le donc avec `itemButton.getDisplayItem()`. `inPlayerInventory` indique si le bouton est dans l'inventaire du joueur ou dans le menu.
+
+```java
+public class PacketItemListener implements InventoryListener {
+
+    @Override
+    public boolean updateItem(BaseInventory baseInventory, boolean inPlayerInventory, ItemButton itemButton) {
+        Player player = baseInventory.getPlayer();
+        if (!inPlayerInventory || player == null) return false;
+
+        sendSlotPacket(player, itemButton.getSlot(), itemButton.getDisplayItem());
+        return true; // zMenu ne placera pas l'item lui-meme
+    }
+}
+```
+
+Si vous implementez `addItem` pour afficher les items vous-meme, implementez aussi `updateItem`, sinon les mises a jour suivantes (comme les tetes de joueur) sont placees par zMenu dans l'inventaire Bukkit.
+
+Pour changer l'item stocke par un `ItemButton` sans l'afficher, utilisez `ItemButton#setDisplayItem(ItemStack)`. C'est alors a vous de l'afficher. `updateDisplayItem(ItemStack)`, a l'inverse, place aussi l'item.
+
+## Serialisation d'Items
+
+`InventoryManager` peut transformer un `ItemStack` en chaine Base64 et inversement, par exemple pour le sauvegarder dans une base de donnees :
+
+```java
+InventoryManager manager = menuPlugin.getInventoryManager();
+
+String serialized = manager.serializeItemStack(itemStack);
+ItemStack itemStack = manager.deserializeItemStack(serialized);
+```
+
+Un item `null` est serialise en chaine `"null"`, et `deserializeItemStack` retourne `null` pour `null` ou `"null"`. Le format depend de la version du serveur (serialisation d'objets Bukkit a partir de la 1.20.5, NBT via NMS avant), donc une chaine ecrite sur un serveur anterieur a la 1.20.5 ne peut pas etre lue en 1.20.5+, et inversement.
+
+## Creer des Options de Son
+
+`createSoundOption` construit une `SoundOption`, l'objet utilise par zMenu pour le `sound` des boutons et des actions :
+
+```java
+SoundOption sound = manager.createSoundOption("ENTITY_EXPERIENCE_ORB_PICKUP", "MASTER", 1.0f, 1.0f);
+if (sound != null) {
+    sound.play(player);
+}
+```
+
+| Signature | Description |
+|-----------|-------------|
+| `createSoundOption(String soundName, String categoryName, float pitch, float volume)` | Identique a la methode ci-dessous avec `isCustom` a `false` |
+| `createSoundOption(String soundName, String categoryName, float pitch, float volume, boolean isCustom)` | Quand `isCustom` vaut `true`, le son est joue par son nom brut, par exemple un son de resource pack |
+
+Le nom du son est resolu via XSound, et la methode retourne `null` quand XSound ne le connait pas. `categoryName` est une categorie de son (`MASTER`, `MUSIC`, `PLAYERS`, ...), insensible a la casse ; une categorie inconnue est remplacee par `MASTER`.
+
 ## Bonnes Pratiques
 
 1. **Toujours utiliser Optional** - `getInventory()` retourne Optional, gerez-le correctement

@@ -84,6 +84,36 @@ components:
 
 ---
 
+## attack-animation <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">26.3+</span>
+
+Configure l'animation jouee lors d'une attaque avec l'item. Depuis Minecraft 26.3, ce composant remplace [`swing-animation`](#swing-animation).
+
+**Minecraft Wiki:** [attack_animation](https://minecraft.wiki/w/Data_component_format#attack_animation)
+
+| Cle | Type | Defaut | Description |
+|-----|------|--------|-------------|
+| `duration` | Integer | `6` | Duree de l'animation en ticks |
+| `type` | String | `WHACK` | Type d'animation |
+
+```yaml
+components:
+  attack-animation:
+    duration: 6
+    type: STAB
+```
+
+**Types d'animation:** `NONE`, `WHACK`, `STAB`
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+Sur un serveur 26.3+, l'ancien nom `swing-animation` est toujours lu comme `attack-animation`, avec un avertissement dans la console vous demandant de le renommer.
+</CalloutDescription>
+
+</CalloutContainer>
+
+---
+
 ## attribute-modifiers
 
 Ajoute des modificateurs d'attributs a l'item.
@@ -747,6 +777,28 @@ components:
 
 ---
 
+## interact-animation <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">26.3+</span>
+
+Configure l'animation jouee lors de l'utilisation (clic droit) de l'item. Il accepte les memes cles que [`attack-animation`](#attack-animation).
+
+**Minecraft Wiki:** [interact_animation](https://minecraft.wiki/w/Data_component_format#interact_animation)
+
+| Cle | Type | Defaut | Description |
+|-----|------|--------|-------------|
+| `duration` | Integer | `6` | Duree de l'animation en ticks |
+| `type` | String | `WHACK` | Type d'animation |
+
+```yaml
+components:
+  interact-animation:
+    duration: 10
+    type: WHACK
+```
+
+**Types d'animation:** `NONE`, `WHACK`, `STAB`
+
+---
+
 ## item-model <span class="badge badge--danger">1.21.2+</span>
 
 Definit directement le modele de l'item.
@@ -942,6 +994,37 @@ components:
 
 ---
 
+## mob-visibility <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">26.3+</span>
+
+Modifie la visibilite du porteur de l'item pour les types d'entites indiques.
+
+**Minecraft Wiki:** [mob_visibility](https://minecraft.wiki/w/Data_component_format#mob_visibility)
+
+| Cle | Type | Description |
+|-----|------|-------------|
+| `targeting-entity-types` | Liste ou String | Types d'entites concernes : une liste de types d'entites, ou un tag de type d'entite commencant par `#` |
+| `visibility` | Float | Multiplicateur de visibilite, de `0` a `10` |
+
+```yaml
+components:
+  mob-visibility:
+    targeting-entity-types:
+      - minecraft:zombie
+      - minecraft:skeleton
+    visibility: 0.5
+```
+
+```yaml
+components:
+  mob-visibility:
+    targeting-entity-types: "#minecraft:skeletons"
+    visibility: 2
+```
+
+Les deux cles sont obligatoires : s'il en manque une, le composant est ignore avec un avertissement. Une `visibility` hors de l'intervalle `0`-`10` est ramenee dans cet intervalle.
+
+---
+
 ## ominous-bottle-amplifier
 
 Definit l'amplificateur de Mauvais Presage pour les bouteilles inquietantes.
@@ -1119,6 +1202,46 @@ components:
 
 ---
 
+## sign-text-front / sign-text-back <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">26.3+</span>
+
+Definit le texte ecrit sur la face avant ou arriere d'un item panneau.
+
+**Minecraft Wiki:** [sign_text](https://minecraft.wiki/w/Data_component_format)
+
+| Cle | Type | Description |
+|-----|------|-------------|
+| `messages` | Liste | Jusqu'a 4 lignes de texte (format MiniMessage) |
+| `color` | String | Couleur de teinture du texte (`BLACK`, `RED`, `LIGHT_BLUE`...) |
+| `has-glowing-text` | Boolean | Rend le texte lumineux |
+
+```yaml
+item:
+  material: OAK_SIGN
+  components:
+    sign-text-front:
+      messages:
+        - "<gold>Bienvenue"
+        - "<gray>dans la"
+        - "<green>Boutique"
+      color: BLACK
+      has-glowing-text: true
+    sign-text-back:
+      messages:
+        - "<red>Face arriere"
+```
+
+Les lignes manquantes sont completees par des lignes vides, et les lignes au-dela de la quatrieme sont ignorees avec un avertissement.
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
+Ces composants necessitent `enable-mini-message-format: true` dans `config.yml`. Sinon, ils sont ignores avec un avertissement.
+</CalloutDescription>
+
+</CalloutContainer>
+
+---
+
 ## stored-enchantments
 
 Enchantements stockes dans les livres enchantes.
@@ -1171,7 +1294,15 @@ components:
     type: WHACK
 ```
 
-**Types d'animation:** `WHACK`, `BRUSH`
+**Types d'animation:** `NONE`, `WHACK`, `STAB`
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+Minecraft 26.3 a renomme ce composant en [`attack-animation`](#attack-animation). Sur un serveur 26.3+, `swing-animation` fonctionne toujours mais affiche un avertissement vous demandant de le renommer.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -1340,6 +1471,24 @@ components:
 
 ---
 
+## villager-food <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">26.3+</span>
+
+Fait considerer l'item comme de la nourriture par les villageois, avec la valeur nutritive indiquee.
+
+**Minecraft Wiki:** [villager_food](https://minecraft.wiki/w/Data_component_format#villager_food)
+
+| Cle | Type | Description |
+|-----|------|-------------|
+| `nutrition` | Integer | Valeur nutritive de l'item pour les villageois |
+
+```yaml
+components:
+  villager-food:
+    nutrition: 4
+```
+
+---
+
 ## weapon <span class="badge badge--danger">1.21.5+</span>
 
 Configure les proprietes de degats de l'arme.
@@ -1356,6 +1505,32 @@ components:
   weapon:
     item-damage-per-attack: 1
     disable-blocking-for-seconds: 5.0
+```
+
+---
+
+### provides-pottery-pattern <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">26.3+</span>
+
+Definit le motif de pot decore fourni par l'item.
+
+**Minecraft Wiki:** [provides_pottery_pattern](https://minecraft.wiki/w/Data_component_format#provides_pottery_pattern)
+
+```yaml
+components:
+  provides-pottery-pattern: "minecraft:angler"
+```
+
+---
+
+## waxed <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">26.3+</span>
+
+Marque l'item comme cire. `false` retire le composant de l'item.
+
+**Minecraft Wiki:** [waxed](https://minecraft.wiki/w/Data_component_format#waxed)
+
+```yaml
+components:
+  waxed: true
 ```
 
 ---
@@ -1406,6 +1581,19 @@ components:
       - raw: "Chapitre 2\n\nLa silhouette mysterieuse apparut..."
       - raw: "Fin"
 ```
+
+---
+
+### cushion/color <span class="badge badge--danger">Paper uniquement</span> <span class="badge badge--danger">26.3+</span>
+
+Configure la couleur du coussin.
+
+```yaml
+components:
+  cushion/color: "RED"
+```
+
+**Couleurs disponibles:** voir [ici](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
 
 ---
 
@@ -1489,6 +1677,7 @@ item:
 | `blocks-attacks`, `break-sound`, `potion-duration-scale`, `tooltip-display`, `weapon` | 1.21.5 |
 | `profile` | 1.21.9 |
 | `attack-range`, `damage-type`, `kinetic-weapon`, `minimum-attack-charge`, `piercing-weapon`, `swing-animation`, `use-effects` | 1.21.11 |
+| `attack-animation`, `interact-animation`, `mob-visibility`, `provides-pottery-pattern`, `sign-text-front`, `sign-text-back`, `villager-food`, `waxed`, `cushion/color` (Paper uniquement) | 26.3 |
 
 ## Prochaines etapes
 

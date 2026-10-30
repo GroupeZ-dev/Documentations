@@ -96,3 +96,5 @@ items:
 ## Shulker Preview
 
 The shulker button only appears when the item being purchased is or contains shulker boxes. Clicking it opens the [Shulker Content](./shulker-content) inventory.
+
+Players do not need to open this confirmation to see the content: a right click on the listing in the auction house opens the same preview, even without enough money to buy it. See [Container Preview](../configuration/config#container-preview).

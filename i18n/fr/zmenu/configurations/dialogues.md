@@ -107,9 +107,9 @@ Ce qui se passe apres qu'une action est effectuee.
 
 | Valeur | Description |
 |-------|-------------|
-| `CLOSE` | Ferme le dialogue |
-| `PAUSE` | Garde le dialogue ouvert |
-| `NONE` | Ne fait rien |
+| `CLOSE` | Ferme le dialogue (par defaut) |
+| `NONE` | Ne fait rien, le dialogue reste ouvert |
+| `WAIT_FOR_RESPONSE` | Remplace le dialogue par un ecran "en attente de reponse" jusqu'a ce que le serveur ouvre ou ferme un autre ecran |
 
 ```yaml
 after-action: CLOSE
@@ -172,6 +172,7 @@ inputs:
     type: dialog_text
     label: "&6Share your thoughts:"
     width: 400
+    default-value: "This server is amazing because..."
     max-length: 200
     multiline:
       max-lines: 4
@@ -183,6 +184,7 @@ inputs:
 |--------|------|-------------|
 | `label` | String | Label affiche au-dessus de la saisie |
 | `width` | Integer | Largeur du champ de saisie |
+| `default-value` | String | Texte pre-rempli dans le champ (vide par defaut) |
 | `max-length` | Integer | Nombre maximum de caracteres |
 | `multiline.max-lines` | Integer | Nombre de lignes pour la saisie multiligne |
 

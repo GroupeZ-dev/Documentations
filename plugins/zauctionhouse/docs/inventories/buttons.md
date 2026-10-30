@@ -52,6 +52,16 @@ displayItems:
     name: '#ff0000&nNo items found'
 ```
 
+**Click actions:**
+
+| Click | Action |
+|-------|--------|
+| Right click (`action.container-preview.click`) on a listing that contains a container | Opens the [container preview](./shulker-content) without checking the balance |
+| Any click on another player's listing | Opens the purchase confirmation (if the player has enough money) |
+| Any click on your own listing | Removes the listing (through a confirmation with `remove-listed-item.open-confirm-inventory`) |
+
+See [Container Preview](../configuration/config#container-preview) to change or disable the preview click.
+
 ---
 
 ### ZAUCTIONHOUSE_EXPIRED_ITEMS
@@ -236,7 +246,7 @@ These buttons open other inventories.
 | [`ZAUCTIONHOUSE_HISTORY_INVENTORY`](#zauctionhouse_history_inventory) | Opens sales history inventory | [Auction](./auction) |
 | [`ZAUCTIONHOUSE_CATEGORY`](#zauctionhouse_category) | Opens auction filtered by category | [Categories](./categories) |
 | [`ZAUCTIONHOUSE_CATEGORY_SWITCHER`](#zauctionhouse_category_switcher) | Cycles through categories with left/right click | [Auction](./auction) |
-| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Opens chat-based search input | [Auction](./auction) |
+| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Opens search input (chat or dialog) | [Auction](./auction) |
 | [`ZAUCTIONHOUSE_CLEAR_SEARCH`](#zauctionhouse_clear_search) | Clears active search filter | [Auction](./auction) |
 
 ---
@@ -502,7 +512,7 @@ Use `"main"` as a category ID to represent "All Items" (no filtering).
 
 | Type | Description | Used In |
 |------|-------------|---------|
-| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Opens chat-based search input | [Auction](./auction) |
+| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Opens search input (chat or dialog) | [Auction](./auction) |
 | [`ZAUCTIONHOUSE_CLEAR_SEARCH`](#zauctionhouse_clear_search) | Clears active search filter | [Auction](./auction) |
 
 ---
@@ -519,6 +529,7 @@ Opens a chat-based search input. When clicked, the player's inventory closes and
 | `none-value` | String | Text shown in `%search_query%` when no search is active. Defaults to `None`; ships localized per language (FR `Aucune`, ES `Ninguna`, IT `Nessuna`, TH `ไม่มี`). |
 | `active-value` | String | Text shown in `%search_active%` when a search **is** active. Defaults to `true`. |
 | `inactive-value` | String | Text shown in `%search_active%` when no search is active. Defaults to `false`. |
+| `dialog.enabled` | Boolean | Open a search dialog instead of the chat input (default: `false`). See [Search dialog](#search-dialog) |
 | `item` | Item | Button appearance |
 
 **Placeholders:**
@@ -578,6 +589,45 @@ Without an operator, the search performs a case-insensitive substring match on i
 </CalloutDescription>
 
 </CalloutContainer>
+
+#### Search dialog
+
+With `dialog.enabled: true`, clicking the button opens a native Paper dialog (provided by zMenu) instead of asking in chat. The text field is pre-filled with the current search (256 characters max) and the dialog has three buttons: **Search**, **Clear** (removes the active search) and **Cancel** (returns to the auction house). If the dialog cannot be loaded, the chat input is used instead.
+
+```yaml
+search:
+  type: ZAUCTIONHOUSE_SEARCH
+  dialog:
+    enabled: true
+```
+
+The dialog is configured in `dialogs/search.yml`, shipped in every language:
+
+```yaml
+name: Auction Search
+type: multi_action
+can-close-with-escape: true
+pause: false
+after-action: CLOSE
+number-of-columns: 3
+body:
+  description:
+    type: plain_message
+    messages:
+    - <gray>Enter an item name or a filter, such as seller = Notch.
+    width: 350
+query-label: Search query
+search-label: <aqua>Search
+clear-label: <yellow>Clear
+cancel-label: <red>Cancel
+multi-actions:
+  search:
+    label: <aqua>Search
+  clear:
+    label: <yellow>Clear
+  cancel:
+    label: <red>Cancel
+```
 
 ---
 
@@ -1200,6 +1250,8 @@ api.getItemContentManager().registerProvider(new MyCustomContentProvider());
 ### ZAUCTIONHOUSE_SHULKER_OPEN
 
 Opens the container content preview. Only visible when the item contains recognized container items (shulker boxes, AxShulkers, etc.).
+
+The same preview can also be opened straight from the auction house by right-clicking the listing, without the purchase confirmation: see [Container Preview](../configuration/config#container-preview).
 
 **Configuration:**
 

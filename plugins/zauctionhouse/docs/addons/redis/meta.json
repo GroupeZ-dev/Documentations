@@ -1,0 +1,9 @@
+{
+  "title": "zAuctionHouseRedis",
+  "defaultOpen": false,
+  "pages": [
+    "introduction",
+    "installation",
+    "troubleshooting"
+  ]
+}

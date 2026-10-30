@@ -411,6 +411,75 @@ public class JoinListener implements Listener {
 }
 ```
 
+## Inventory Listeners
+
+An `InventoryListener` follows the life of every zMenu inventory: opening, closing, button clicks, inventory switches and item placement. All its methods are `default`, so you only override the ones you need.
+
+```java
+menuPlugin.getInventoryManager().registerInventoryListener(myListener);
+
+// In onDisable
+menuPlugin.getInventoryManager().unregisterInventoryListener(myListener);
+```
+
+Two methods let a listener display items itself, for example to send them with packets instead of placing them in the Bukkit inventory:
+
+| Method | Called when |
+|--------|-------------|
+| `addItem(BaseInventory, boolean inPlayerInventory, ItemButton, boolean enableAntiDupe)` | A button is placed in a slot |
+| `updateItem(BaseInventory, boolean inPlayerInventory, ItemButton)` | The item of a button **already placed** is replaced after the inventory has opened, for example once a player head texture has been loaded |
+
+Both return `true` when the listener displayed the item itself: zMenu then skips its default placement. When `updateItem` is called, the new item is already stored in the button, so read it with `itemButton.getDisplayItem()`. `inPlayerInventory` tells you whether the button is in the player's inventory or in the menu.
+
+```java
+public class PacketItemListener implements InventoryListener {
+
+    @Override
+    public boolean updateItem(BaseInventory baseInventory, boolean inPlayerInventory, ItemButton itemButton) {
+        Player player = baseInventory.getPlayer();
+        if (!inPlayerInventory || player == null) return false;
+
+        sendSlotPacket(player, itemButton.getSlot(), itemButton.getDisplayItem());
+        return true; // zMenu will not place the item itself
+    }
+}
+```
+
+If you implement `addItem` to display items yourself, implement `updateItem` too, otherwise later updates (such as player heads) are placed by zMenu in the Bukkit inventory.
+
+To change the item stored by an `ItemButton` without displaying it, use `ItemButton#setDisplayItem(ItemStack)`. You are then responsible for showing it. `updateDisplayItem(ItemStack)`, on the other hand, also places the item.
+
+## Item Serialization
+
+`InventoryManager` can turn an `ItemStack` into a Base64 string and back, for example to save it in a database:
+
+```java
+InventoryManager manager = menuPlugin.getInventoryManager();
+
+String serialized = manager.serializeItemStack(itemStack);
+ItemStack itemStack = manager.deserializeItemStack(serialized);
+```
+
+A `null` item is serialized as the string `"null"`, and `deserializeItemStack` returns `null` for `null` or `"null"`. The format depends on the server version (Bukkit object serialization from 1.20.5, NMS NBT before), so a string written on a server older than 1.20.5 cannot be read on 1.20.5+, and the other way around.
+
+## Creating Sound Options
+
+`createSoundOption` builds a `SoundOption`, the object zMenu uses for the `sound` of buttons and actions:
+
+```java
+SoundOption sound = manager.createSoundOption("ENTITY_EXPERIENCE_ORB_PICKUP", "MASTER", 1.0f, 1.0f);
+if (sound != null) {
+    sound.play(player);
+}
+```
+
+| Signature | Description |
+|-----------|-------------|
+| `createSoundOption(String soundName, String categoryName, float pitch, float volume)` | Same as the method below with `isCustom` set to `false` |
+| `createSoundOption(String soundName, String categoryName, float pitch, float volume, boolean isCustom)` | When `isCustom` is `true`, the sound is played by its raw name, for example a resource-pack sound |
+
+The sound name is resolved through XSound, and the method returns `null` when XSound does not know it. `categoryName` is a sound category (`MASTER`, `MUSIC`, `PLAYERS`, ...), case-insensitive; an unknown category falls back to `MASTER`.
+
 ## Best Practices
 
 1. **Always use Optional** - `getInventory()` returns Optional, handle it properly

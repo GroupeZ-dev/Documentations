@@ -59,6 +59,8 @@ database-configuration:
   password: "password"
   database: "zmenu"
   debug: false
+  # Maximum lifetime (seconds) of a pooled connection. 0 = never retired, Hikari minimum is 30
+  max-lifetime: 1800
 
 # Interval (seconds) for batching SQL saves instead of one query per update
 batch-task: 10
@@ -207,7 +209,7 @@ dialog-list-max-depth: 4
 #          Download / API             #
 #######################################
 
-# Allow use of /zm download command
+# Allow use of /zm website download command
 enable-download-command: false
 
 # API URL for Minecraft Inventory Builder (do not change this value)
@@ -316,6 +318,7 @@ database-configuration:
   password: "secure_password"
   database: "minecraft_db"
   debug: false
+  max-lifetime: 1800
 ```
 
 | Option | Description |
@@ -327,6 +330,23 @@ database-configuration:
 | `password` | Database password |
 | `database` | Database name |
 | `debug` | Enable SQL debug logging |
+| `max-lifetime` | Maximum lifetime of a pooled connection, in seconds (default: `1800`, i.e. 30 minutes) |
+
+The `max-lifetime` option controls how long a MySQL/MariaDB connection can stay in the HikariCP pool. A connection older than this value is retired and replaced by a new one.
+
+- `0` keeps connections until the pool closes.
+- A missing or negative value keeps the default of 30 minutes.
+- HikariCP requires at least `30` seconds.
+
+Lower this value if your database server or a proxy in front of it closes idle connections before 30 minutes (for example a low MySQL `wait_timeout`).
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+If a `database-configuration.yml` file exists in the server's root folder, zMenu reads the `database-configuration` section from it first (including `max-lifetime`) and falls back to `config.yml` for missing keys.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -519,6 +539,8 @@ Enabling this means placeholders won't update instantly. Use with caution.
 </CalloutDescription>
 
 </CalloutContainer>
+
+The cache is bounded to 10,000 entries (one per placeholder and player), and each entry expires once the `cache-placeholder-api` duration has passed, so it no longer grows over time.
 
 ---
 
@@ -760,11 +782,13 @@ seconds-save-player-inventories: 600  # 10 minutes
 
 #### enable-download-command
 
-Enables the `/zm download <url> [force]` command to download inventories from a URL.
+Enables the `/zm website download <url> [force]` command to download inventories from a URL.
 
 ```yaml
 enable-download-command: false
 ```
+
+The command only runs when this option is set to `true`. With the default value `false`, the command is refused, the sender is told to enable it in `config.yml`, and the attempt is logged in the console.
 
 ---
 

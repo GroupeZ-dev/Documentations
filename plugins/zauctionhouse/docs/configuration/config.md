@@ -503,6 +503,11 @@ action:
   # Reset search filter when reopening the auction house
   reset-search-on-open: true
 
+  # Preview the content of a listed shulker box (or other container) without buying it
+  container-preview:
+    enable: true
+    click: RIGHT               # RIGHT, LEFT, SHIFT_RIGHT, SHIFT_LEFT, MIDDLE...
+
   # Removing items from listings
   remove-listed-item:
     give-item: false           # Give to inventory or expired items
@@ -542,6 +547,35 @@ action:
     open-inventory: true
     player-inventory-must-have-free-space: true
 ```
+
+### Container Preview
+
+Players can see what is inside a listed shulker box (or any container supported by the [Container Content](../inventories/shulker-content) inventory) by right-clicking it in the auction house, as in V3.
+
+```yaml
+action:
+  container-preview:
+    enable: true
+    click: RIGHT
+```
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `enable` | `true` | Enables the preview from the auction house |
+| `click` | `RIGHT` | Click that opens the preview: `RIGHT`, `LEFT`, `SHIFT_RIGHT`, `SHIFT_LEFT`, `MIDDLE`... |
+
+- The preview opens `inventories/shulker-content.yml` directly, without the purchase confirmation.
+- The player's balance is not checked: a player without enough money can still see the content.
+- The listing is not reserved, other players can still buy it while the preview is open.
+- Any other click keeps its usual behaviour (purchase, or removal for the seller). Listings without a container are not affected.
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
+With `click: LEFT`, a left click on a listing that contains a container opens the preview instead of the purchase: players then have to use another click to buy it.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Auto-Claim Configuration
 

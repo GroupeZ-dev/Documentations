@@ -27,7 +27,7 @@ The main command is `/zm` (alias: `/zmenu`).
 | `/zm description`                                          | `zmenu.description`   | Display plugin description                 |
 | `/zm addons`                                               | `zmenu.addons`        | List official addons                       |
 | `/zm contributors`                                         | `zmenu.contributors`  | Show plugin contributors                   |
-| `/zm website`                                              | `zmenu.website`       | Open the plugin website link               |
+| `/zm website`                                              | `zmenu.website`       | List the website / live sync commands      |
 | `/zm create <file name> <inventory size> <inventory name>` | `zmenu.create`        | Create a new inventory file                |
 | `/zm editor`                                               | `zmenu.editor`        | Send a link to the online inventory editor |
 
@@ -119,29 +119,37 @@ The main command is `/zm` (alias: `/zmenu`).
 
 These commands connect your server to the [Minecraft Inventory Builder](https://minecraft-inventory-builder.com) website for instant hot-reload of inventories.
 
-| Command              | Permission           | Description                                                  |
-|----------------------|----------------------|--------------------------------------------------------------|
-| `/zm login`          | `zmenu.login`        | Start device-authorization flow to link server to the website |
-| `/zm login <token>`  | `zmenu.login`        | Link server using a token (legacy)                           |
-| `/zm connect`        | `zmenu.connect`      | Open the live sync WebSocket connection                      |
-| `/zm disconnect`     | `zmenu.disconnect`   | Close the live sync connection                               |
-| `/zm unlink`         | `zmenu.unlink`       | Force-detach server from the website and clear credentials   |
-| `/zm download <url> [force]` | `zmenu.download` | Download an inventory from a URL (requires `enable-download-command: true` in config) |
+| Command                                      | Permission         | Description                                                                 |
+|----------------------------------------------|--------------------|-----------------------------------------------------------------------------|
+| `/zm website login`                          | `zmenu.login`      | Start the device-authorization flow to link the server to the website       |
+| `/zm website connect` (alias `sync`)         | `zmenu.connect`    | Open the live sync WebSocket connection                                     |
+| `/zm website unlink` (alias `ul`)            | `zmenu.unlink`     | Force-detach the server from the website and clear its credentials          |
+| `/zm website download <url> [force]` (alias `dl`) | `zmenu.download` | Download an inventory from a URL (disabled by default, see below)          |
 
 **Live sync workflow:**
 ```
-/zm login          # Approve the code shown on the website
-/zm connect        # Open the WebSocket link
+/zm website login     # Approve the code shown on the website
+/zm website connect   # Open the WebSocket link
 # Now "Sync to Server" on the web builder reloads inventory live
-/zm disconnect     # Close the connection when done
+/zm website unlink    # Detach the server from the website when you no longer need it
 ```
+
+<CalloutContainer type="warning">
+
+<CalloutTitle>Download command disabled by default</CalloutTitle>
+
+<CalloutDescription>
+`/zm website download` only works when `enable-download-command: true` is set in `config.yml` (default: `false`). While it is disabled, the command is refused with a message telling you to enable it in `config.yml`, and the attempt is logged as a warning in the console. Set `force` to `true` to overwrite an inventory file that already exists.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ### Utility Commands
 
 | Command        | Permission      | Description                               |
 |----------------|-----------------|-------------------------------------------|
 | `/zm testdupe` | `zmenu.dupe`    | Test the anti-dupe system                 |
-| `/zm dumplog`  | `zmenu.dumplog` | Export debug logs                         |
+| `/zm dumplog`  | `zmenu.dumplog` | Upload `logs/latest.log` to mclo.gs and send the link as a clickable message |
 
 ### Conversion Commands
 
@@ -169,7 +177,7 @@ Migrating from DeluxeMenus? Convert all your menus into zMenu inventories in one
 | `zmenu.editor`          | Access inventory editor            | op      |
 | `zmenu.inventories`     | List all loaded inventories        | op      |
 | `zmenu.description`     | View plugin description            | op      |
-| `zmenu.website`         | Open the plugin website link       | op      |
+| `zmenu.website`         | List the website / live sync commands | op      |
 
 ### Item Permissions
 
@@ -216,7 +224,6 @@ Each player data sub-command has its own permission node (split in 1.1.1.6):
 |---------------------|----------------------------------------------|---------|
 | `zmenu.login`       | Link server to the Inventory Builder website | op      |
 | `zmenu.connect`     | Open live sync WebSocket connection          | op      |
-| `zmenu.disconnect`  | Close live sync connection                   | op      |
 | `zmenu.unlink`      | Force-detach server from website             | op      |
 | `zmenu.download`    | Download inventory from a URL                | op      |
 
@@ -227,7 +234,7 @@ Each player data sub-command has its own permission node (split in 1.1.1.6):
 | `zmenu.convert`       | Convert DeluxeMenus menus  | op      |
 | `zmenu.dupe`          | Test anti-dupe system      | op      |
 | `zmenu.documentation` | View documentation         | op      |
-| `zmenu.dumplog`       | Export debug logs          | op      |
+| `zmenu.dumplog`       | Upload the server log and get a link | op      |
 | `zmenu.paper.warning` | Receive the "zMenu requires Paper" warning on join, on a server that is not Paper | op      |
 
 ## Custom Command Permissions

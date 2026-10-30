@@ -18,7 +18,19 @@ export default withMDX({
       : {}),
   },
   async redirects() {
-    return [{ source: "/en/:path*", destination: "/:path*", permanent: true }];
+    return [
+      { source: "/en/:path*", destination: "/:path*", permanent: true },
+      {
+        source: "/zauctionhouse/multi-server",
+        destination: "/zauctionhouse/addons/redis/introduction",
+        permanent: true,
+      },
+      {
+        source: "/fr/zauctionhouse/multi-server",
+        destination: "/fr/zauctionhouse/addons/redis/introduction",
+        permanent: true,
+      },
+    ];
   },
   async rewrites() {
     const docs =

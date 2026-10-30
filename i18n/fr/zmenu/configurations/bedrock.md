@@ -171,7 +171,7 @@ buttons:
   text:
     type: bedrock_text
     text: "Partagez vos impressions sur notre serveur :"
-    initial-value: "Ce serveur est genial parce que..."
+    default-value: "Ce serveur est genial parce que..."
   # Toggle (on/off)
   toggle:
     type: bedrock_toggle
@@ -234,7 +234,7 @@ Un champ de saisie de texte libre. Accepte egalement l'alias `bedrock_text_input
 | Option | Type | Requis | Description |
 |--------|------|--------|-------------|
 | `text` | String | Oui | Le texte du label/placeholder |
-| `initial-value` | String | Non | Texte pre-rempli par defaut |
+| `default-value` | String | Non | Texte pre-rempli par defaut |
 
 ---
 

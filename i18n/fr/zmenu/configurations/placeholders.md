@@ -26,7 +26,7 @@ Ces placeholders sont disponibles sans plugins supplementaires :
 | `%max-page%` | Numero de page maximum (alias) | `5` |
 | `%zmenu_player_page%` | Page actuelle (format PAPI) | `1` |
 | `%zmenu_player_next_page%` | Numero de page suivante | `2` |
-| `%zmenu_player_previous_page%` | Numero de page precedente | `0` |
+| `%zmenu_player_previous_page%` | Numero de page precedente (jamais inferieur a `0`) | `0` |
 | `%zmenu_player_max_page%` | Page maximum (format PAPI) | `5` |
 
 ### Placeholders d'historique d'inventaire
@@ -162,7 +162,7 @@ click-requirement:
 
 | Placeholder | Description | Exemple de sortie |
 |-------------|-------------|-------------------|
-| `%zmenu_statistic_hours_played%` | Heures jouees (arrondi) | `42` |
+| `%zmenu_statistic_hours_played%` | Heures jouees (arrondi a l'inferieur) | `42` |
 | `%zmenu_statistic_time_played%` | Temps de jeu formate | `1j 18h 30m` |
 
 ## Integration PlaceholderAPI

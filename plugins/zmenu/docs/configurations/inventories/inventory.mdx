@@ -158,6 +158,18 @@ When using a type other than `CHEST`, the `size` option is ignored as each type 
 
 </CalloutContainer>
 
+<CalloutContainer type="warning">
+
+<CalloutTitle>Version requirements</CalloutTitle>
+
+<CalloutDescription>
+- `CHEST` (the default) works on every version supported by zMenu (Minecraft **1.20.6+**).
+- `ANVIL` requires Minecraft **1.21+**. On older versions, zMenu logs an error when the inventory is loaded, the menu opens as a chest and the [`rename-requirements`](#rename-requirements-anvil) do not run.
+- `CRAFTING` and `PLAYER` are not supported: an inventory using one of these types is not loaded.
+</CalloutDescription>
+
+</CalloutContainer>
+
 **Example with hopper:**
 ```yaml
 name: "&8Quick Select"
@@ -178,6 +190,14 @@ items:
 When you use `type: ANVIL`, the inventory becomes a **text input**: the player can type text in the anvil rename field. Each time the text changes, zMenu runs the requirements defined under `rename-requirements`, giving you live validation of what the player is typing.
 
 The anvil has 3 slots: the two input slots (`0` and `1`) and the output/result slot (`2`).
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
+The `ANVIL` type requires Minecraft **1.21+**. On older versions the menu opens as a chest and `rename-requirements` are never run (an error is logged when the inventory is loaded).
+</CalloutDescription>
+
+</CalloutContainer>
 
 ```yaml
 name: "&8Type something"
@@ -240,7 +260,7 @@ This is useful for temporarily disabling an inventory without deleting the file.
 
 ### update-interval
 
-Automatically refresh the inventory at a regular interval (in milliseconds).
+The interval, in milliseconds, at which the buttons of this inventory that have [`update: true`](../buttons/button#update) are refreshed. Default: `1000`.
 
 ```yaml
 update-interval: 1000  # Refresh every second (1000ms)
@@ -249,7 +269,9 @@ update-interval: 1000  # Refresh every second (1000ms)
 <CalloutContainer type="info">
 
 <CalloutDescription>
-1000ms = 1 second. Use this for inventories with dynamic placeholders that need frequent updates.
+1000ms = 1 second. Use this for inventories with dynamic placeholders that need frequent updates. Buttons using [`refresh-requirements`](../buttons/button#refresh-requirements) use their own `update-interval` instead.
+
+Refresh tasks run on the viewing player's scheduler (so they are safe on Folia), and every refresh task of the inventory is cancelled as soon as the player closes it.
 </CalloutDescription>
 
 </CalloutContainer>
@@ -272,6 +294,7 @@ This feature **requires** [PacketEvents](https://github.com/retrooper/packeteven
 
 ```yaml
 title-animation:
+  plugin: packet-events   # Optional: the title animation provider to use
   titles:
     - "&bWelcome to &aMenu!"
     - "&eEnjoy &four &9Features!"
@@ -288,6 +311,7 @@ title-animation:
 
 | Option                       | Type    | Default | Description                                         |
 |------------------------------|---------|---------|-----------------------------------------------------|
+| `plugin`                     | String  | -       | Title animation provider to use (case-insensitive). When omitted, the first registered provider is used |
 | `titles`                     | List    | -       | List of title frames to cycle through               |
 | `cycles`                     | Integer | -1      | Number of animation cycles (-1 for infinite)        |
 | `initial-delay`              | Integer | 0       | Delay before animation starts                       |
@@ -295,6 +319,14 @@ title-animation:
 | `time-unit`                  | String  | SECONDS | Time unit for delays (SECONDS, MILLISECONDS, TICKS) |
 | `show-items-after-animation` | Boolean | true    | Show items after animation completes                |
 | `item-update-interval`       | Integer | 1       | How often to update items during animation          |
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+zMenu registers the `packet-events` provider when PacketEvents is installed. If no provider matches (for example because PacketEvents is missing), the `title-animation` section is ignored and a warning is logged when the inventory is loaded.
+</CalloutDescription>
+
+</CalloutContainer>
 
 **Time units:**
 - `NANOSECONDS`

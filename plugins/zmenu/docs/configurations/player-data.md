@@ -346,7 +346,11 @@ database-configuration:
   user: "username"
   password: "password"
   database: "zmenu"
+  # Maximum lifetime (seconds) of a pooled MySQL/MariaDB connection
+  max-lifetime: 1800
 ```
+
+See [config.yml](./config-yml#database-configuration) for every database option.
 
 ### Converting JSON to SQL
 

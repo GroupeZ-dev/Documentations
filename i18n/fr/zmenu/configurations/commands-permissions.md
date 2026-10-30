@@ -25,6 +25,7 @@ La commande principale est `/zm` (alias : `/zmenu`).
 | `/zm documentation` | `zmenu.documentation` | Voir les liens de documentation |
 | `/zm addons` | `zmenu.use` | Lister les addons officiels |
 | `/zm contributors` | `zmenu.use` | Afficher les contributeurs du plugin |
+| `/zm website` | `zmenu.website` | Lister les commandes du site / de la synchronisation en direct |
 
 ### Commandes d'inventaire
 
@@ -103,12 +104,41 @@ La commande principale est `/zm` (alias : `/zmenu`).
 | `/zm bedrock open <nom> [joueur] [afficher message]` | `zmenu.open.bedrock` | Ouvrir un formulaire Bedrock |
 | `/zm bedrock reload` | `zmenu.reload.bedrock` | Recharger tous les fichiers de formulaires Bedrock |
 
+### Commandes de synchronisation en direct
+
+Ces commandes connectent votre serveur au site [Minecraft Inventory Builder](https://minecraft-inventory-builder.com) pour recharger instantanement vos inventaires.
+
+| Commande | Permission | Description |
+|----------|-----------|-------------|
+| `/zm website login` | `zmenu.login` | Demarrer l'autorisation par code pour lier le serveur au site |
+| `/zm website connect` (alias `sync`) | `zmenu.connect` | Ouvrir la connexion WebSocket de synchronisation en direct |
+| `/zm website unlink` (alias `ul`) | `zmenu.unlink` | Detacher de force le serveur du site et supprimer ses identifiants |
+| `/zm website download <url> [force]` (alias `dl`) | `zmenu.download` | Telecharger un inventaire depuis une URL (desactive par defaut, voir ci-dessous) |
+
+**Deroulement de la synchronisation en direct :**
+```
+/zm website login     # Validez le code affiche sur le site
+/zm website connect   # Ouvrez la connexion WebSocket
+# "Sync to Server" sur l'editeur web recharge maintenant l'inventaire en direct
+/zm website unlink    # Detachez le serveur du site quand vous n'en avez plus besoin
+```
+
+<CalloutContainer type="warning">
+
+<CalloutTitle>Commande de telechargement desactivee par defaut</CalloutTitle>
+
+<CalloutDescription>
+`/zm website download` ne fonctionne que si `enable-download-command: true` est defini dans `config.yml` (par defaut : `false`). Tant qu'elle est desactivee, la commande est refusee avec un message vous indiquant de l'activer dans `config.yml`, et la tentative est enregistree comme avertissement dans la console. Mettez `force` a `true` pour ecraser un fichier d'inventaire deja existant.
+</CalloutDescription>
+
+</CalloutContainer>
+
 ### Commandes utilitaires
 
 | Commande | Permission | Description |
 |----------|-----------|-------------|
 | `/zm testdupe` | `zmenu.dupe` | Tester le systeme anti-duplication |
-| `/zm dumplog` | `zmenu.dumplog` | Exporter les logs de debug |
+| `/zm dumplog` | `zmenu.dumplog` | Envoyer `logs/latest.log` sur mclo.gs et recevoir le lien sous forme de message cliquable |
 
 ### Commandes de conversion
 
@@ -147,6 +177,15 @@ Vous venez de DeluxeMenus ? Convertissez tous vos menus en inventaires zMenu en 
 |------------|-------------|------------|
 | `zmenu.players` | Gerer les donnees joueur | op |
 
+### Permissions de synchronisation en direct
+
+| Permission | Description | Par defaut |
+|------------|-------------|------------|
+| `zmenu.login` | Lier le serveur au site Inventory Builder | op |
+| `zmenu.connect` | Ouvrir la connexion WebSocket de synchronisation | op |
+| `zmenu.unlink` | Detacher de force le serveur du site | op |
+| `zmenu.download` | Telecharger un inventaire depuis une URL | op |
+
 ### Permissions utilitaires
 
 | Permission | Description | Par defaut |
@@ -157,7 +196,7 @@ Vous venez de DeluxeMenus ? Convertissez tous vos menus en inventaires zMenu en 
 | `zmenu.dialog` | Ouvrir les dialogues | op |
 | `zmenu.open.bedrock` | Ouvrir les formulaires Bedrock | op |
 | `zmenu.reload.bedrock` | Recharger les fichiers de formulaires Bedrock | op |
-| `zmenu.dumplog` | Exporter les logs de debug | op |
+| `zmenu.dumplog` | Envoyer le log du serveur et obtenir un lien | op |
 | `zmenu.paper.warning` | Recevoir l'avertissement "zMenu necessite Paper" a la connexion, sur un serveur qui n'est pas Paper | op |
 
 ## Permissions de commandes personnalisees

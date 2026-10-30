@@ -1,0 +1,8 @@
+{
+  "title": "Addons",
+  "defaultOpen": false,
+  "pages": [
+    "stats",
+    "redis"
+  ]
+}

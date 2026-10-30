@@ -26,7 +26,7 @@ Organize your auction house with a flexible category system. Define categories b
 ### Advanced Features
 - **Tax System** - Configure taxes on sales and purchases with permission-based exemptions
 - **Bulk Sales** - Sell multiple items in a single listing
-- **Shulker Preview** - Players can preview shulker box contents before buying
+- **Shulker Preview** - Players can preview shulker box contents before buying, with a right click in the auction house
 - **Auto-Claim** - Automatically claim sold items when players log in
 - **Discord Integration** - Send notifications to Discord when items are sold
 

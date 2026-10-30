@@ -237,7 +237,7 @@ items:
 | `%zmenu_player_page%` | Current page (PAPI) |
 | `%zmenu_player_max_page%` | Max pages (PAPI) |
 | `%zmenu_player_next_page%` | Next page number |
-| `%zmenu_player_previous_page%` | Previous page number |
+| `%zmenu_player_previous_page%` | Previous page number (`0` on the first page) |
 
 ## Best Practices
 
