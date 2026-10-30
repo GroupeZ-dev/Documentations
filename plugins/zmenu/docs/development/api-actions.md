@@ -80,6 +80,8 @@ public void onEnable() {
 }
 ```
 
+**Action keys are case-insensitive.** `registerAction` stores every key of the loader in lower case, and `getActionLoader(String)` lowercases the key it looks up. In YAML, `type: My-Custom-Action` and `type: my-custom-action` therefore resolve to the same loader. Two loaders whose keys differ only by case overwrite each other: the last one registered wins.
+
 ## Using Your Custom Action
 
 In your inventory YAML configuration:

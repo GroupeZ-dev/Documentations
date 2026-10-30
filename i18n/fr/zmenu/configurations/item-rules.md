@@ -69,6 +69,16 @@ items:
 
 </CalloutContainer>
 
+Le `type` de comparaison du `check-item` peut etre `full` (defaut), `material`, `name`, `modelId` ou `itemModel`. Un type inconnu affiche un avertissement au chargement de l'inventaire et `full` est utilise a la place.
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
+Si la section `rule` est invalide (type de regle inconnu, valeurs manquantes, etc.), zMenu affiche un avertissement au chargement de l'inventaire et le bouton **refuse tous les items**. Verifiez votre console apres un `/zm reload` si un slot n'accepte plus rien.
+</CalloutDescription>
+
+</CalloutContainer>
+
 ## Types de regles
 
 ### material

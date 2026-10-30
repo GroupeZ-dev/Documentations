@@ -84,6 +84,36 @@ components:
 
 ---
 
+## attack-animation <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">26.3+</span>
+
+Configures the animation played when attacking with the item. Since Minecraft 26.3, this component replaces [`swing-animation`](#swing-animation).
+
+**Minecraft Wiki:** [attack_animation](https://minecraft.wiki/w/Data_component_format#attack_animation)
+
+| Key        | Type    | Default | Description                 |
+|------------|---------|---------|-----------------------------|
+| `duration` | Integer | `6`     | Animation duration in ticks |
+| `type`     | String  | `WHACK` | Animation type              |
+
+```yaml
+components:
+  attack-animation:
+    duration: 6
+    type: STAB
+```
+
+**Animation Types:** `NONE`, `WHACK`, `STAB`
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+On a 26.3+ server, the old `swing-animation` name is still read as `attack-animation`, with a warning in the console asking you to rename it.
+</CalloutDescription>
+
+</CalloutContainer>
+
+---
+
 ## attribute-modifiers
 
 Adds attribute modifiers to the item.
@@ -856,6 +886,28 @@ components:
 
 ---
 
+## interact-animation <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">26.3+</span>
+
+Configures the animation played when using (right-clicking) the item. It takes the same keys as [`attack-animation`](#attack-animation).
+
+**Minecraft Wiki:** [interact_animation](https://minecraft.wiki/w/Data_component_format#interact_animation)
+
+| Key        | Type    | Default | Description                 |
+|------------|---------|---------|-----------------------------|
+| `duration` | Integer | `6`     | Animation duration in ticks |
+| `type`     | String  | `WHACK` | Animation type              |
+
+```yaml
+components:
+  interact-animation:
+    duration: 10
+    type: WHACK
+```
+
+**Animation Types:** `NONE`, `WHACK`, `STAB`
+
+---
+
 ## item-model <span class="badge badge--danger">1.21.2+</span>
 
 Sets the item model directly.
@@ -1054,6 +1106,37 @@ Sets the minimum attack charge required to deal damage.
 components:
   minimum-attack-charge: 0.5
 ```
+
+---
+
+## mob-visibility <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">26.3+</span>
+
+Changes how visible the holder of the item is to the listed entity types.
+
+**Minecraft Wiki:** [mob_visibility](https://minecraft.wiki/w/Data_component_format#mob_visibility)
+
+| Key                      | Type           | Description                                                                             |
+|--------------------------|----------------|-----------------------------------------------------------------------------------------|
+| `targeting-entity-types` | List or String | Entity types affected: a list of entity types, or an entity type tag starting with `#` |
+| `visibility`             | Float          | Visibility multiplier, from `0` to `10`                                                 |
+
+```yaml
+components:
+  mob-visibility:
+    targeting-entity-types:
+      - minecraft:zombie
+      - minecraft:skeleton
+    visibility: 0.5
+```
+
+```yaml
+components:
+  mob-visibility:
+    targeting-entity-types: "#minecraft:skeletons"
+    visibility: 2
+```
+
+Both keys are required: if one is missing, the component is ignored with a warning. A `visibility` outside `0`-`10` is clamped to that range.
 
 ---
 
@@ -1278,6 +1361,46 @@ components:
 
 ---
 
+## sign-text-front / sign-text-back <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">26.3+</span>
+
+Sets the text written on the front or back side of a sign item.
+
+**Minecraft Wiki:** [sign_text](https://minecraft.wiki/w/Data_component_format)
+
+| Key                | Type    | Description                                      |
+|--------------------|---------|--------------------------------------------------|
+| `messages`         | List    | Up to 4 lines of text (MiniMessage format)       |
+| `color`            | String  | Text dye color (`BLACK`, `RED`, `LIGHT_BLUE`...) |
+| `has-glowing-text` | Boolean | Whether the text glows                           |
+
+```yaml
+item:
+  material: OAK_SIGN
+  components:
+    sign-text-front:
+      messages:
+        - "<gold>Welcome"
+        - "<gray>to the"
+        - "<green>Shop"
+      color: BLACK
+      has-glowing-text: true
+    sign-text-back:
+      messages:
+        - "<red>Back side"
+```
+
+Missing lines are filled with empty lines, and lines beyond the fourth are ignored with a warning.
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
+These components need `enable-mini-message-format: true` in `config.yml`. Otherwise they are ignored with a warning.
+</CalloutDescription>
+
+</CalloutContainer>
+
+---
+
 ## stored-enchantments
 
 Enchantments stored in enchanted books. 
@@ -1340,7 +1463,15 @@ components:
     type: WHACK
 ```
 
-**Animation Types:** `WHACK`, `BRUSH`
+**Animation Types:** `NONE`, `WHACK`, `STAB`
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+Minecraft 26.3 renamed this component to [`attack-animation`](#attack-animation). On a 26.3+ server, `swing-animation` still works but logs a warning asking you to rename it.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -1571,6 +1702,24 @@ components:
 
 ---
 
+## villager-food <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">26.3+</span>
+
+Makes villagers treat the item as food, with the given nutrition value.
+
+**Minecraft Wiki:** [villager_food](https://minecraft.wiki/w/Data_component_format#villager_food)
+
+| Key         | Type    | Description                         |
+|-------------|---------|-------------------------------------|
+| `nutrition` | Integer | Nutrition of the item for villagers |
+
+```yaml
+components:
+  villager-food:
+    nutrition: 4
+```
+
+---
+
 ## weapon <span class="badge badge--danger">1.21.5+</span>
 
 Configures weapon damage properties.
@@ -1613,6 +1762,32 @@ Configures trim material providing behavior for items.
 ```yaml
 components:
   provides-trim-material: "minecraft:gold"
+```
+
+---
+
+### provides-pottery-pattern <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">26.3+</span>
+
+Sets the decorated pot pattern provided by the item.
+
+**Minecraft Wiki:** [provides_pottery_pattern](https://minecraft.wiki/w/Data_component_format#provides_pottery_pattern)
+
+```yaml
+components:
+  provides-pottery-pattern: "minecraft:angler"
+```
+
+---
+
+## waxed <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">26.3+</span>
+
+Marks the item as waxed. `false` removes the component from the item.
+
+**Minecraft Wiki:** [waxed](https://minecraft.wiki/w/Data_component_format#waxed)
+
+```yaml
+components:
+  waxed: true
 ```
 
 ---
@@ -1726,6 +1901,19 @@ components:
 ```
 
 **Available Variants:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/Cow.Variant.html)
+
+---
+
+### cushion/color <span class="badge badge--danger">Paper only</span> <span class="badge badge--danger">26.3+</span>
+
+Configures the cushion color.
+
+```yaml
+components:
+  cushion/color: "RED"
+```
+
+**Available Colors:** can be found [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/DyeColor.html)
 
 ---
 
@@ -2032,6 +2220,7 @@ item:
 | `blocks-attacks`, `break-sound`, `potion-duration-scale`, `tooltip-display`, `weapon`, `provides_banner_patterns`, `provides_trim_material`, `chicken/variant`, `cow/variant`, `pig/variant`, `salmon/size`                                                                                                                     | 1.21.5          |
 | `profile`                                                                                                                                                                                                                                                                                                                      | 1.21.9          |
 | `attack-range`, `damage-type`, `kinetic-weapon`, `minimum-attack-charge`, `piercing-weapon`, `swing-animation`, `use-effects`                                                                                                                                                                                                  | 1.21.11         |
+| `attack-animation`, `interact-animation`, `mob-visibility`, `provides-pottery-pattern`, `sign-text-front`, `sign-text-back`, `villager-food`, `waxed`, `cushion/color` (Paper only) | 26.3 |
 
 ## Next Steps
 

@@ -96,3 +96,5 @@ items:
 ## Previsualisation du Shulker
 
 Le bouton shulker n'apparait que lorsque l'objet achete est ou contient des boites shulker. Cliquer dessus ouvre l'inventaire [Contenu du Shulker](./shulker-content).
+
+Les joueurs n'ont pas besoin d'ouvrir cette confirmation pour voir le contenu : un clic droit sur l'annonce dans l'hôtel des ventes ouvre le même aperçu, même sans avoir assez d'argent pour l'acheter. Voir [Aperçu des conteneurs](../configuration/config#aperçu-des-conteneurs).

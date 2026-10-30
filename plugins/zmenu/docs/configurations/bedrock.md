@@ -171,7 +171,7 @@ buttons:
   text:
     type: bedrock_text
     text: "Share your thoughts about our server:"
-    initial-value: "This server is amazing because..."
+    default-value: "This server is amazing because..."
   # Toggle (on/off)
   toggle:
     type: bedrock_toggle
@@ -234,7 +234,7 @@ A text input field where the player can type freely. Also accepts the alias `bed
 | Option | Type | Required | Description |
 |--------|------|----------|-------------|
 | `text` | String | Yes | The label/placeholder text |
-| `initial-value` | String | No | Pre-filled default text |
+| `default-value` | String | No | Pre-filled default text |
 
 ---
 

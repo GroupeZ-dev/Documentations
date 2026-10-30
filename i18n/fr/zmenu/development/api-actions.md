@@ -80,6 +80,8 @@ public void onEnable() {
 }
 ```
 
+**Les cles d'action ne sont pas sensibles a la casse.** `registerAction` enregistre chaque cle du loader en minuscules, et `getActionLoader(String)` met en minuscules la cle recherchee. Dans le YAML, `type: My-Custom-Action` et `type: my-custom-action` correspondent donc au meme loader. Deux loaders dont les cles ne different que par la casse s'ecrasent : le dernier enregistre l'emporte.
+
 ## Utiliser Votre Action Personnalisee
 
 Dans votre configuration YAML d'inventaire :

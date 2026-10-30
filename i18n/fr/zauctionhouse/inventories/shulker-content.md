@@ -9,7 +9,9 @@ L'inventaire du contenu des conteneurs affiche le contenu des objets conteneurs 
 
 **Fichier :** `plugins/zAuctionHouse/inventories/shulker-content.yml`
 
-**Acces :** Cliquer sur le bouton "Voir le Contenu" dans la confirmation d'achat/retrait
+**Acces :**
+- Clic droit sur une annonce contenant un conteneur dans l'hotel des ventes. L'argent du joueur n'est pas verifie et l'annonce n'est pas reservee. Configurable avec [`action.container-preview`](../configuration/config#aperçu-des-conteneurs)
+- Clic sur le bouton "Voir le Contenu" ([`ZAUCTIONHOUSE_SHULKER_OPEN`](./buttons#zauctionhouse_shulker_open)) dans une confirmation d'achat ou de retrait
 
 <div style={{ display: 'flex', justifyContent: 'center' }}>
   <img src="https://img.groupez.dev/zauctionhouse/v4/shulker-preview.png" alt="Description" style={{ width: '600px', height: 'auto' }} />
@@ -32,6 +34,7 @@ Des types de conteneurs supplementaires peuvent etre ajoutes par des plugins ext
 - Previsualiser tous les objets a l'interieur des conteneurs (boites de shulker, AxShulkers, etc.)
 - Naviguer entre plusieurs conteneurs (ventes groupees)
 - Mode consultation uniquement - les objets ne peuvent pas etre pris
+- Le bouton retour ramene a l'inventaire depuis lequel l'apercu a ete ouvert (hotel des ventes ou confirmation)
 
 ## Configuration par defaut
 

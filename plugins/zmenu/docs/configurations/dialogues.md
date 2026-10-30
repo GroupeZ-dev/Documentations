@@ -107,9 +107,9 @@ What happens after an action is performed.
 
 | Value | Description |
 |-------|-------------|
-| `CLOSE` | Close the dialog |
-| `PAUSE` | Keep dialog open |
-| `NONE` | Do nothing |
+| `CLOSE` | Close the dialog (default) |
+| `NONE` | Do nothing, the dialog stays open |
+| `WAIT_FOR_RESPONSE` | Replace the dialog with a "waiting for response" screen until the server opens or closes another screen |
 
 ```yaml
 after-action: CLOSE
@@ -172,6 +172,7 @@ inputs:
     type: dialog_text
     label: "&6Share your thoughts:"
     width: 400
+    default-value: "This server is amazing because..."
     max-length: 200
     multiline:
       max-lines: 4
@@ -183,6 +184,7 @@ inputs:
 |--------|------|-------------|
 | `label` | String | Label displayed above the input |
 | `width` | Integer | Width of the input field |
+| `default-value` | String | Text pre-filled in the input (empty by default) |
 | `max-length` | Integer | Maximum character count |
 | `multiline.max-lines` | Integer | Number of lines for multiline input |
 

@@ -88,6 +88,14 @@ Lorsque vous utilisez `type: ANVIL`, l'inventaire devient une **saisie de texte*
 
 L'enclume possede 3 slots : les deux slots d'entree (`0` et `1`) et le slot de resultat (`2`).
 
+<CalloutContainer type="warning">
+
+<CalloutDescription>
+Le type `ANVIL` necessite Minecraft **1.21+**. Sur les versions plus anciennes, le menu s'ouvre comme un coffre et les `rename-requirements` ne sont jamais executes (une erreur est affichee au chargement de l'inventaire). Les types `CRAFTING` et `PLAYER` ne sont pas supportes : un inventaire qui les utilise n'est pas charge.
+</CalloutDescription>
+
+</CalloutContainer>
+
 ```yaml
 name: "&8Tapez quelque chose"
 type: ANVIL
@@ -147,18 +155,20 @@ C'est utile pour desactiver temporairement un inventaire sans supprimer le fichi
 
 ---
 
-### updateInterval
+### update-interval
 
-Rafraichir automatiquement l'inventaire a intervalle regulier (en ticks).
+L'intervalle, en millisecondes, auquel les boutons de cet inventaire ayant `update: true` sont rafraichis. Defaut : `1000`.
 
 ```yaml
-update-interval: 20  # Rafraichir chaque seconde (20 ticks)
+update-interval: 1000  # Rafraichir chaque seconde (1000ms)
 ```
 
 <CalloutContainer type="info">
 
 <CalloutDescription>
-20 ticks = 1 seconde. Utilisez ceci pour les inventaires avec des placeholders dynamiques necessitant des mises a jour frequentes.
+1000ms = 1 seconde. Utilisez ceci pour les inventaires avec des placeholders dynamiques necessitant des mises a jour frequentes. Les boutons qui utilisent des `refresh-requirements` utilisent leur propre `update-interval`.
+
+Les taches de rafraichissement s'executent sur le scheduler du joueur qui consulte le menu (compatible Folia), et toutes les taches de rafraichissement de l'inventaire sont annulees des que le joueur le ferme.
 </CalloutDescription>
 
 </CalloutContainer>

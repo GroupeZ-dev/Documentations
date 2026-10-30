@@ -160,6 +160,8 @@ item:
   material: MYTHICMOBS:item_id
 ```
 
+L'item est entierement genere a partir de sa configuration MythicMobs (nom, lore, enchantements, NBT...), exactement comme MythicMobs le donnerait.
+
 ---
 
 ### ExecutableItems

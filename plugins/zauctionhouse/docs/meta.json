@@ -5,10 +5,10 @@
   "pages": [
     "introduction",
     "installation",
+    "addons",
     "why-zmenu",
     "commands-permissions",
     "placeholders",
-    "multi-server",
     "optimization",
     "migration",
     "configuration",

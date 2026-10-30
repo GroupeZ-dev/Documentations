@@ -69,6 +69,16 @@ items:
 
 </CalloutContainer>
 
+The `check-item` comparison `type` can be `full` (default), `material`, `name`, `modelId` or `itemModel`. An unknown type logs a warning when the inventory is loaded and falls back to `full`.
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
+If the `rule` section is invalid (unknown rule type, missing values, etc.), zMenu logs a warning when the inventory is loaded and the button **refuses every item**. Check your console after a `/zm reload` if a slot no longer accepts anything.
+</CalloutDescription>
+
+</CalloutContainer>
+
 ## Rule types
 
 ### material

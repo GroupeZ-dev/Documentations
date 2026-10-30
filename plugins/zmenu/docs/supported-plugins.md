@@ -170,6 +170,8 @@ item:
   material: mythicmobs:item_id
 ```
 
+The item is fully generated from its MythicMobs configuration (display name, lore, enchantments, NBT...), exactly as MythicMobs would give it.
+
 ---
 
 ### MMOItems

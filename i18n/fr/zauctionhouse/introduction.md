@@ -26,7 +26,7 @@ Organisez votre hôtel des ventes avec un système de catégories flexible. Déf
 ### Fonctionnalités avancées
 - **Système de taxes** - Configurez des taxes sur les ventes et achats avec des exemptions basées sur les permissions
 - **Ventes en masse** - Vendez plusieurs objets en une seule annonce
-- **Aperçu des Shulkers** - Les joueurs peuvent prévisualiser le contenu des boîtes Shulker avant d'acheter
+- **Aperçu des Shulkers** - Les joueurs peuvent prévisualiser le contenu des boîtes Shulker avant d'acheter, avec un clic droit dans l'hôtel des ventes
 - **Réclamation automatique** - Réclamez automatiquement les objets vendus quand les joueurs se connectent
 - **Intégration Discord** - Envoyez des notifications sur Discord quand des objets sont vendus
 

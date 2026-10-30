@@ -9,7 +9,9 @@ The container content inventory displays the contents of container items being s
 
 **File:** `plugins/zAuctionHouse/inventories/shulker-content.yml`
 
-**Access:** Click "View Content" button in purchase/remove confirmation
+**Access:**
+- Right-click a listing that contains a container in the auction house. The player's balance is not checked and the listing is not reserved. Configurable with [`action.container-preview`](../configuration/config#container-preview)
+- Click the "View Content" button ([`ZAUCTIONHOUSE_SHULKER_OPEN`](./buttons#zauctionhouse_shulker_open)) in a purchase or removal confirmation
 
 <div style={{ display: 'flex', justifyContent: 'center' }}>
   <img src="https://img.groupez.dev/zauctionhouse/v4/shulker-preview.png" alt="Description" style={{ width: '600px', height: 'auto' }} />
@@ -32,6 +34,7 @@ Additional container types can be added by external plugins via the `ItemContent
 - Preview all items inside container items (shulker boxes, AxShulkers, etc.)
 - Navigate between multiple containers (bulk sales)
 - View-only mode - items cannot be taken
+- The back button returns to the inventory the preview was opened from (auction house or confirmation)
 
 ## Default Configuration
 

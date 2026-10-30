@@ -52,6 +52,16 @@ displayItems:
     name: '#ff0000&nNo items found'
 ```
 
+**Actions au clic :**
+
+| Clic | Action |
+|------|--------|
+| Clic droit (`action.container-preview.click`) sur une annonce contenant un conteneur | Ouvre l'[aperçu du contenu](./shulker-content) sans vérifier l'argent |
+| N'importe quel clic sur l'annonce d'un autre joueur | Ouvre la confirmation d'achat (si le joueur a assez d'argent) |
+| N'importe quel clic sur sa propre annonce | Retire l'annonce (via une confirmation avec `remove-listed-item.open-confirm-inventory`) |
+
+Voir [Aperçu des conteneurs](../configuration/config#aperçu-des-conteneurs) pour changer ou désactiver le clic d'aperçu.
+
 ---
 
 ### ZAUCTIONHOUSE_EXPIRED_ITEMS
@@ -236,7 +246,7 @@ Ces boutons ouvrent d'autres inventaires.
 | [`ZAUCTIONHOUSE_HISTORY_INVENTORY`](#zauctionhouse_history_inventory) | Ouvre l'inventaire de l'historique des ventes | [Enchères](./auction) |
 | [`ZAUCTIONHOUSE_CATEGORY`](#zauctionhouse_category) | Ouvre les enchères filtrées par catégorie | [Catégories](./categories) |
 | [`ZAUCTIONHOUSE_CATEGORY_SWITCHER`](#zauctionhouse_category_switcher) | Parcourt les catégories avec clic gauche/droit | [Enchères](./auction) |
-| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Ouvre la saisie de recherche par chat | [Enchères](./auction) |
+| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Ouvre la saisie de recherche (chat ou dialog) | [Enchères](./auction) |
 | [`ZAUCTIONHOUSE_CLEAR_SEARCH`](#zauctionhouse_clear_search) | Efface le filtre de recherche actif | [Enchères](./auction) |
 
 ---
@@ -502,7 +512,7 @@ Utilisez `"main"` comme identifiant de catégorie pour représenter "Tous les ob
 
 | Type | Description | Utilisé dans |
 |------|-------------|--------------|
-| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Ouvre la saisie de recherche par chat | [Enchères](./auction) |
+| [`ZAUCTIONHOUSE_SEARCH`](#zauctionhouse_search) | Ouvre la saisie de recherche (chat ou dialog) | [Enchères](./auction) |
 | [`ZAUCTIONHOUSE_CLEAR_SEARCH`](#zauctionhouse_clear_search) | Efface le filtre de recherche actif | [Enchères](./auction) |
 
 ---
@@ -519,6 +529,7 @@ Ouvre une saisie de recherche par chat. Lorsque le joueur clique, son inventaire
 | `none-value` | Texte | Texte affiché dans `%search_query%` quand aucune recherche n'est active. Par défaut `None` ; traduit selon la langue (FR `Aucune`, ES `Ninguna`, IT `Nessuna`, TH `ไม่มี`). |
 | `active-value` | Texte | Texte affiché dans `%search_active%` quand une recherche **est** active. Par défaut `true`. |
 | `inactive-value` | Texte | Texte affiché dans `%search_active%` quand aucune recherche n'est active. Par défaut `false`. |
+| `dialog.enabled` | Booléen | Ouvre un dialog de recherche au lieu de la saisie par chat (par défaut : `false`). Voir [Dialog de recherche](#dialog-de-recherche) |
 | `item` | Item | Apparence du bouton |
 
 **Placeholders :**
@@ -578,6 +589,45 @@ Sans opérateur, la recherche effectue une correspondance de sous-chaîne insens
 </CalloutDescription>
 
 </CalloutContainer>
+
+#### Dialog de recherche
+
+Avec `dialog.enabled: true`, un clic sur le bouton ouvre un dialog natif de Paper (fourni par zMenu) au lieu de demander la recherche dans le chat. Le champ texte est pré-rempli avec la recherche actuelle (256 caractères maximum) et le dialog propose trois boutons : **Rechercher**, **Effacer** (supprime la recherche active) et **Annuler** (retour à l'hôtel des ventes). Si le dialog ne peut pas être chargé, la saisie par chat est utilisée.
+
+```yaml
+search:
+  type: ZAUCTIONHOUSE_SEARCH
+  dialog:
+    enabled: true
+```
+
+Le dialog se configure dans `dialogs/search.yml`, fourni dans chaque langue :
+
+```yaml
+name: Recherche
+type: multi_action
+can-close-with-escape: true
+pause: false
+after-action: CLOSE
+number-of-columns: 3
+body:
+  description:
+    type: plain_message
+    messages:
+    - <gray>Saisissez un nom ou un filtre, par exemple seller = Notch.
+    width: 350
+query-label: Recherche
+search-label: <aqua>Rechercher
+clear-label: <yellow>Effacer
+cancel-label: <red>Annuler
+multi-actions:
+  search:
+    label: <aqua>Rechercher
+  clear:
+    label: <yellow>Effacer
+  cancel:
+    label: <red>Annuler
+```
 
 ---
 
@@ -1200,6 +1250,8 @@ api.getItemContentManager().registerProvider(new MyCustomContentProvider());
 ### ZAUCTIONHOUSE_SHULKER_OPEN
 
 Ouvre l'aperçu du contenu du conteneur. Visible uniquement quand l'objet contient des objets conteneurs reconnus (boîtes de shulker, AxShulkers, etc.).
+
+Le même aperçu peut aussi être ouvert directement depuis l'hôtel des ventes avec un clic droit sur l'annonce, sans passer par la confirmation d'achat : voir [Aperçu des conteneurs](../configuration/config#aperçu-des-conteneurs).
 
 **Configuration :**
 

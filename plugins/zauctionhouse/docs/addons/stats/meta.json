@@ -1,0 +1,14 @@
+{
+  "title": "zAuctionHouseStats",
+  "defaultOpen": false,
+  "pages": [
+    "introduction",
+    "installation",
+    "commands-permissions",
+    "placeholders",
+    "configuration",
+    "inventories",
+    "migration",
+    "api"
+  ]
+}

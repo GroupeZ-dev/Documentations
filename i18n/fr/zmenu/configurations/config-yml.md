@@ -40,6 +40,8 @@ database-configuration:
   user: "username"
   password: "password"
   database: "zmenu"
+  # Duree de vie maximale (secondes) d'une connexion du pool. 0 = jamais renouvelee, minimum Hikari : 30
+  max-lifetime: 1800
 
 #######################################
 #     Parametres de formatage         #
@@ -169,6 +171,7 @@ database-configuration:
   user: "minecraft"
   password: "mot_de_passe_securise"
   database: "minecraft_db"
+  max-lifetime: 1800
 ```
 
 | Option | Description |
@@ -179,6 +182,23 @@ database-configuration:
 | `user` | Nom d'utilisateur de la base de donnees |
 | `password` | Mot de passe de la base de donnees |
 | `database` | Nom de la base de donnees |
+| `max-lifetime` | Duree de vie maximale d'une connexion du pool, en secondes (defaut : `1800`, soit 30 minutes) |
+
+L'option `max-lifetime` definit combien de temps une connexion MySQL/MariaDB peut rester dans le pool HikariCP. Une connexion plus ancienne que cette valeur est retiree et remplacee par une nouvelle.
+
+- `0` conserve les connexions jusqu'a la fermeture du pool.
+- Une valeur absente ou negative conserve la valeur par defaut de 30 minutes.
+- HikariCP impose un minimum de `30` secondes.
+
+Reduisez cette valeur si votre serveur de base de donnees, ou un proxy place devant, ferme les connexions inactives avant 30 minutes (par exemple un `wait_timeout` MySQL bas).
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+Si un fichier `database-configuration.yml` existe a la racine du serveur, zMenu lit d'abord la section `database-configuration` de ce fichier (y compris `max-lifetime`) et utilise `config.yml` pour les cles manquantes.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ---
 
@@ -231,6 +251,8 @@ Activer ceci signifie que les placeholders ne se mettront pas a jour instantanem
 </CalloutDescription>
 
 </CalloutContainer>
+
+Le cache est limite a 10 000 entrees (une par placeholder et par joueur), et chaque entree expire une fois la duree `cache-placeholder-api` ecoulee : il ne grossit donc plus avec le temps.
 
 ---
 

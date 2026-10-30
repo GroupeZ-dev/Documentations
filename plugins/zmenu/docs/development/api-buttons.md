@@ -363,6 +363,146 @@ public ItemStack getCustomItemStack(Player player) {
 }
 ```
 
+## Button Options
+
+A `ButtonOption` adds extra behavior to **every** button, whatever its type. zMenu creates one instance of each registered option for each button it loads, then calls `loadButton(...)` with the button's configuration and `onClick(...)` when the button is clicked.
+
+```java
+import fr.maxlego08.menu.api.ButtonManager;
+import fr.maxlego08.menu.api.InventoryManager;
+import fr.maxlego08.menu.api.MenuItemStack;
+import fr.maxlego08.menu.api.button.Button;
+import fr.maxlego08.menu.api.button.ButtonOption;
+import fr.maxlego08.menu.api.engine.InventoryEngine;
+import fr.maxlego08.menu.api.utils.Loader;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.plugin.Plugin;
+
+import java.io.File;
+
+public class ClickLogOption implements ButtonOption {
+
+    private final Plugin plugin;
+    private boolean enabled;
+
+    // zMenu calls this constructor with the plugin that registered the option
+    public ClickLogOption(Plugin plugin) {
+        this.plugin = plugin;
+    }
+
+    @Override
+    public String getName() {
+        return "click-log";
+    }
+
+    @Override
+    public Plugin getPlugin() {
+        return this.plugin;
+    }
+
+    @Override
+    public void loadButton(Button button, YamlConfiguration configuration, String path,
+                           InventoryManager inventoryManager, ButtonManager buttonManager,
+                           Loader<MenuItemStack> itemStackLoader, File file) {
+        this.enabled = configuration.getBoolean(path + "click-log", false);
+    }
+
+    @Override
+    public void onClick(Button button, Player player, InventoryClickEvent event,
+                        InventoryEngine inventoryEngine, int slot, boolean isSuccess) {
+        if (this.enabled) {
+            this.plugin.getLogger().info(player.getName() + " clicked " + button.getName());
+        }
+    }
+}
+```
+
+Register the option class (not an instance) with the `InventoryManager`:
+
+```java
+menuPlugin.getInventoryManager().registerOption(this, ClickLogOption.class);
+
+// In onDisable, remove every option registered by your plugin
+menuPlugin.getInventoryManager().unregisterOptions(this);
+```
+
+To create the instances, zMenu looks for a **public constructor taking a `Plugin`** first (it receives the plugin passed to `registerOption`). If there is none, it falls back to a **public no-argument constructor**. If the class has neither, or if the constructor throws an exception, the option is skipped for that button and zMenu logs a warning once per option class. When no usable constructor exists, the warning reads (if the constructor throws, the exception replaces the reason):
+
+```
+The button option com.example.ClickLogOption was ignored: it needs a public constructor taking a Plugin, or a public no-argument constructor.
+```
+
+## Custom Item Rules
+
+[Item rules](../configurations/item-rules) decide which items are accepted, for example in the `rule` section of an `item_drag` button or in the `item-rule` requirement. zMenu's own rule types are discovered automatically, and other plugins add their own types with `ButtonManager#registerRuleLoader(RuleLoader)`.
+
+A `RuleLoader` gives a type name, optional aliases, and builds a `Rule` from the rule's configuration map:
+
+```java
+import fr.maxlego08.menu.api.rules.ItemRuleContext;
+import fr.maxlego08.menu.api.rules.Rule;
+import fr.maxlego08.menu.api.rules.RuleConfigHelper;
+import fr.maxlego08.menu.api.rules.loader.RuleLoader;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Map;
+
+public class MinAmountRuleLoader implements RuleLoader {
+
+    @Override
+    public @NotNull String getType() {
+        return "min-amount";
+    }
+
+    @Override
+    public @NotNull List<@NotNull String> getAliases() {
+        return List.of("minimum-amount");
+    }
+
+    @Override
+    public @Nullable Rule load(@NotNull Map<String, Object> configuration) {
+        int amount = RuleConfigHelper.getInt(configuration, "amount", 1);
+        return new MinAmountRule(amount);
+    }
+}
+
+class MinAmountRule implements Rule {
+
+    private final int amount;
+
+    MinAmountRule(int amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public boolean matches(@NotNull ItemRuleContext context) {
+        return context.getItemStack().getAmount() >= this.amount;
+    }
+}
+```
+
+```java
+menuPlugin.getButtonManager().registerRuleLoader(new MinAmountRuleLoader());
+```
+
+The type and its aliases are matched case-insensitively. A loader registered with the same type or alias as an existing one replaces it. `load` can return `null` when the configuration is invalid: the rule is then ignored.
+
+The rule is now usable in YAML like any built-in type:
+
+```yaml
+rule:
+  type: min-amount
+  amount: 16
+```
+
+For a rule that matches custom items by id, extend `AbstractPluginRuleLoader` instead: it reads the `items` list and the `ignore-case` option (default `true`) for you, and you only implement `createRule(List<String> items, boolean ignoreCase)`.
+
+Rules are resolved when an inventory is loaded. Register your loader in `onEnable`, before loading your own inventories. Inventories that were loaded before the registration (such as the files in zMenu's own `inventories/` folder) only know the new type after a `/zm reload`.
+
 ## Best Practices
 
 1. **Use meaningful type names** - Make them unique and descriptive

@@ -503,6 +503,11 @@ action:
   # Réinitialiser le filtre de recherche à la réouverture de l'hôtel des ventes
   reset-search-on-open: true
 
+  # Voir le contenu d'une shulker (ou d'un autre conteneur) en vente sans l'acheter
+  container-preview:
+    enable: true
+    click: RIGHT               # RIGHT, LEFT, SHIFT_RIGHT, SHIFT_LEFT, MIDDLE...
+
   # Retrait d'objets des annonces
   remove-listed-item:
     give-item: false           # Donner à l'inventaire ou objets expirés
@@ -542,6 +547,35 @@ action:
     open-inventory: true
     player-inventory-must-have-free-space: true
 ```
+
+### Aperçu des conteneurs
+
+Les joueurs peuvent voir le contenu d'une shulker en vente (ou de tout conteneur supporté par l'inventaire [Contenu des Conteneurs](../inventories/shulker-content)) en faisant un clic droit dessus dans l'hôtel des ventes, comme en V3.
+
+```yaml
+action:
+  container-preview:
+    enable: true
+    click: RIGHT
+```
+
+| Option | Défaut | Description |
+|--------|--------|-------------|
+| `enable` | `true` | Active l'aperçu depuis l'hôtel des ventes |
+| `click` | `RIGHT` | Clic qui ouvre l'aperçu : `RIGHT`, `LEFT`, `SHIFT_RIGHT`, `SHIFT_LEFT`, `MIDDLE`... |
+
+- L'aperçu ouvre directement `inventories/shulker-content.yml`, sans passer par la confirmation d'achat.
+- L'argent du joueur n'est pas vérifié : un joueur qui n'a pas assez d'argent peut quand même voir le contenu.
+- L'annonce n'est pas réservée, les autres joueurs peuvent toujours l'acheter pendant l'aperçu.
+- Les autres clics gardent leur comportement habituel (achat, ou retrait pour le vendeur). Les annonces sans conteneur ne sont pas concernées.
+
+<CalloutContainer type="warning">
+
+<CalloutDescription>
+Avec `click: LEFT`, un clic gauche sur une annonce contenant un conteneur ouvre l'aperçu au lieu de l'achat : les joueurs doivent alors utiliser un autre clic pour l'acheter.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Configuration Auto-Claim
 
