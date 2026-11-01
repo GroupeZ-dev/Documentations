@@ -1,5 +1,7 @@
 # Introduction
 
+La dernière version est **1.27**.
+
 Sarah est une puissante bibliothèque Java conçue pour simplifier la gestion des bases de données avec une API intuitive et élégante. Que vous développiez un plugin Minecraft ou toute autre application Java, Sarah fournit une abstraction propre du SQL brut tout en conservant un contrôle total sur vos opérations de base de données.
 
 - **GitHub** : [https://github.com/GroupeZ-dev/Sarah](https://github.com/GroupeZ-dev/Sarah)
@@ -9,7 +11,7 @@ Sarah est une puissante bibliothèque Java conçue pour simplifier la gestion de
 
 Sarah est une bibliothèque de gestion de base de données qui fournit :
 
-- **Connexions Simples** - Support pour MySQL, MariaDB et SQLite avec une configuration minimale
+- **Connexions Simples** - Support pour MySQL, MariaDB, PostgreSQL et SQLite avec une configuration minimale
 - **Système de Migrations** - Versioning automatique du schéma et suivi des migrations
 - **Constructeur de Requêtes** - API fluide pour construire des requêtes SQL typées
 - **Mapping d'Objets** - Mapping automatique entre les lignes de la base de données et les objets Java (DTOs)
@@ -55,6 +57,7 @@ Sarah supporte les systèmes de base de données les plus populaires :
 |-----------------|--------|-------------|
 | MySQL | `MySqlConnection` | Serveurs de production |
 | MariaDB | `MariaDbConnection` | Serveurs de production |
+| PostgreSQL | `PostgreSqlConnection` | Serveurs de production |
 | SQLite | `SqliteConnection` | Développement, petits projets |
 
 ### Système de Migrations
@@ -106,7 +109,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.maxlego08.sarah:sarah:1.26'
+    implementation 'fr.maxlego08.sarah:sarah:1.27'
 }
 ```
 
@@ -120,18 +123,26 @@ dependencies {
 <dependency>
     <groupId>fr.maxlego08.sarah</groupId>
     <artifactId>sarah</artifactId>
-    <version>1.26</version>
+    <version>1.27</version>
 </dependency>
 ```
 
 ### 2. Créer une Connexion
+
+Les exemples utilisent un logger Sarah, par exemple `Logger logger = JULogger.from(getLogger());` dans un plugin Bukkit.
 
 ```java
 // MySQL
 DatabaseConfiguration config = DatabaseConfiguration.create(
     "username", "password", 3306, "localhost", "my_database"
 );
-DatabaseConnection connection = new MySqlConnection(config);
+DatabaseConnection connection = new MySqlConnection(config, logger);
+
+// Ou PostgreSQL
+DatabaseConfiguration postgresConfig = DatabaseConfiguration.createPostgreSql(
+    "username", "password", 5432, "localhost", "my_database", false
+);
+DatabaseConnection postgresConnection = new PostgreSqlConnection(postgresConfig, logger);
 
 // Ou SQLite
 DatabaseConnection connection = new SqliteConnection(

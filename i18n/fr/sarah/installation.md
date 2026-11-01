@@ -1,5 +1,7 @@
 # Installation
 
+La dernière version est **1.27**.
+
 Ce guide vous accompagne dans l'ajout de Sarah à votre projet et sa configuration correcte.
 
 ## Dépendances
@@ -15,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.maxlego08.sarah:sarah:1.26'
+    implementation 'fr.maxlego08.sarah:sarah:1.27'
 }
 ```
 
@@ -35,9 +37,37 @@ Ajoutez le dépôt et la dépendance à votre `pom.xml` :
     <dependency>
         <groupId>fr.maxlego08.sarah</groupId>
         <artifactId>sarah</artifactId>
-        <version>1.26</version>
+        <version>1.27</version>
     </dependency>
 </dependencies>
+```
+
+### Pilotes JDBC
+
+Sarah ne fournit pas les pilotes JDBC. Ajoutez celui du moteur utilisé à votre application :
+
+| Base de Données | Dépendance Gradle |
+|-----------------|-------------------|
+| MySQL | `com.mysql:mysql-connector-j:8.2.0` |
+| MariaDB | `org.mariadb.jdbc:mariadb-java-client:3.1.4` |
+| PostgreSQL | `org.postgresql:postgresql:42.7.4` |
+| SQLite | `org.xerial:sqlite-jdbc:3.42.0.0` |
+
+Par exemple, pour PostgreSQL :
+
+```groovy
+dependencies {
+    implementation 'fr.maxlego08.sarah:sarah:1.27'
+    implementation 'org.postgresql:postgresql:42.7.4'
+}
+```
+
+```xml
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.7.4</version>
+</dependency>
 ```
 
 ## Relocation (Important !)
@@ -91,6 +121,7 @@ public class MyPlugin extends JavaPlugin {
 
     private DatabaseConnection databaseConnection;
     private RequestHelper requestHelper;
+    private fr.maxlego08.sarah.logger.Logger databaseLogger;
 
     @Override
     public void onEnable() {
@@ -98,43 +129,48 @@ public class MyPlugin extends JavaPlugin {
         saveDefaultConfig();
 
         // Configurer la base de données
-        setupDatabase();
+        if (!setupDatabase()) return;
 
         // Exécuter les migrations
         runMigrations();
     }
 
-    private void setupDatabase() {
-        String type = getConfig().getString("database.type", "sqlite");
-
-        if (type.equalsIgnoreCase("mysql")) {
-            DatabaseConfiguration config = DatabaseConfiguration.create(
-                getConfig().getString("database.user"),
-                getConfig().getString("database.password"),
-                getConfig().getInt("database.port", 3306),
-                getConfig().getString("database.host"),
-                getConfig().getString("database.database")
-            );
-            this.databaseConnection = new MySqlConnection(config);
-        } else {
-            DatabaseConfiguration config = DatabaseConfiguration.sqlite(
-                getConfig().getBoolean("database.debug", false)
-            );
-            this.databaseConnection = new SqliteConnection(config, getDataFolder());
-        }
-
-        // Se connecter à la base de données
+    private boolean setupDatabase() {
+        this.databaseLogger = JULogger.from(getLogger());
         try {
-            this.databaseConnection.connect();
-        } catch (SQLException e) {
-            getLogger().severe("Échec de la connexion à la base de données !");
-            e.printStackTrace();
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
+            String type = getConfig().getString("database.type", "sqlite")
+                    .toLowerCase(java.util.Locale.ROOT);
+            boolean debug = getConfig().getBoolean("database.debug", false);
 
-        // Créer le request helper
-        this.requestHelper = new RequestHelper(databaseConnection, getLogger());
+            if (type.equals("sqlite")) {
+                this.databaseConnection = new SqliteConnection(
+                        DatabaseConfiguration.sqlite(debug), getDataFolder(), databaseLogger);
+            } else {
+                DatabaseType databaseType;
+                switch (type) {
+                    case "mysql": databaseType = DatabaseType.MYSQL; break;
+                    case "mariadb": databaseType = DatabaseType.MARIADB; break;
+                    case "postgresql": databaseType = DatabaseType.POSTGRESQL; break;
+                    default: throw new IllegalArgumentException("Unknown database type: " + type);
+                }
+                int defaultPort = databaseType == DatabaseType.POSTGRESQL ? 5432 : 3306;
+                DatabaseConfiguration config = new DatabaseConfiguration(
+                        "", getConfig().getString("database.user"),
+                        getConfig().getString("database.password"),
+                        getConfig().getInt("database.port", defaultPort),
+                        getConfig().getString("database.host", "localhost"),
+                        getConfig().getString("database.database"), debug, databaseType);
+                this.databaseConnection = new HikariDatabaseConnection(config, databaseLogger);
+            }
+
+            this.databaseConnection.connect();
+        } catch (RuntimeException e) {
+            getLogger().severe("Échec de la connexion à la base de données: " + e.getMessage());
+            getServer().getPluginManager().disablePlugin(this);
+            return false;
+        }
+        this.requestHelper = new RequestHelper(databaseConnection, databaseLogger);
+        return true;
     }
 
     private void runMigrations() {
@@ -143,8 +179,8 @@ public class MyPlugin extends JavaPlugin {
         MigrationManager.registerMigration(new CreateStatsTable());
 
         try {
-            MigrationManager.execute(databaseConnection, getLogger());
-        } catch (SQLException e) {
+            MigrationManager.execute(databaseConnection, databaseLogger);
+        } catch (DatabaseException e) {
             getLogger().severe("Échec de l'exécution des migrations !");
             e.printStackTrace();
         }
@@ -169,12 +205,12 @@ Voici un exemple de `config.yml` pour votre plugin :
 
 ```yaml
 database:
-  # Type : mysql, mariadb ou sqlite
+  # Type : mysql, mariadb, postgresql ou sqlite
   type: sqlite
 
-  # Paramètres MySQL/MariaDB (ignorés pour SQLite)
+  # Paramètres serveur (ignorés pour SQLite)
   host: localhost
-  port: 3306
+  port: 3306 # PostgreSQL : 5432
   database: my_plugin
   user: root
   password: secret
@@ -182,6 +218,7 @@ database:
   # Activer la journalisation des requêtes SQL
   debug: false
 ```
+
 
 ## Prochaines Étapes
 

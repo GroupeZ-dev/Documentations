@@ -10,6 +10,17 @@ The `RequestHelper` is your main interface for database operations:
 RequestHelper requestHelper = new RequestHelper(databaseConnection, logger);
 ```
 
+### Read Error Handling
+
+By default, failed `select`/`selectAll` queries log the error and return an empty list, `count` returns `0`, aggregates return `null`, and `exists` returns `false`. Enable strict reads to distinguish a failed query from an empty result:
+
+```java
+requestHelper.setStrictReads(true);
+boolean strictReads = requestHelper.isStrictReads();
+```
+
+With strict reads enabled, these failures throw `DatabaseException`. The transaction helper inherits this setting. Writes and raw SQL queries throw on SQL errors regardless of this setting.
+
 ## SELECT Queries
 
 ### Select All Records
@@ -81,6 +92,58 @@ long activePlayers = requestHelper.count("players", table -> {
 });
 ```
 
+### Select with Pagination
+
+Use `limit` and `offset` to page results in the database. Add a stable sort so page boundaries remain predictable:
+
+```java
+List<PlayerDTO> page = requestHelper.select("players", PlayerDTO.class, table -> {
+    table.orderBy("uuid");
+    table.limit(20);
+    table.offset(40);
+});
+```
+
+An offset without a limit is supported on all four engines.
+
+### Check Whether a Record Exists
+
+```java
+boolean exists = requestHelper.exists("players", table -> {
+    table.where("uuid", playerUuid);
+});
+```
+
+`exists` checks for a match without loading the matching records.
+
+### Aggregate Values
+
+```java
+Number total = requestHelper.sum("players", "balance", table -> {
+    table.where("is_banned", false);
+});
+Number highest = requestHelper.max("players", "level", table -> {});
+Number lowest = requestHelper.min("players", "level", table -> {});
+Number average = requestHelper.avg("players", "play_time", table -> {});
+```
+
+These methods return a `Number` using the numeric type supplied by the driver, or `null` when no value is available. `count` returns a `long`. All accept the same WHERE conditions as a select.
+
+### Group Results with HAVING
+
+Use `groupBy` to group a select and `having` to filter the resulting groups:
+
+```java
+List<Map<String, Object>> groups = requestHelper.select("sales", table -> {
+    table.addSelect("seller");
+    table.groupBy("seller");
+    table.having("SUM(`amount`)", ">=", 1000);
+    table.having("COUNT(*)", ">", 1);
+});
+```
+
+The HAVING value is bound as a parameter. Its expression is developer-provided SQL. Multiple HAVING clauses are joined with `AND`; use `where` to filter individual rows before grouping.
+
 ## INSERT Queries
 
 ### Basic Insert
@@ -130,11 +193,13 @@ requestHelper.insert("players", schema -> {
 }, generatedId -> {
     logger.info("Player created with ID: " + generatedId);
 }, () -> {
-    logger.warning("Failed to create player!");
+    logger.warn("Failed to create player!");
 });
 ```
 
 ### Batch Insert
+
+All rows in a batch must use the same table and column order.
 
 ```java
 List<PlayerDTO> players = Arrays.asList(
@@ -145,6 +210,27 @@ List<PlayerDTO> players = Arrays.asList(
 
 requestHelper.insertMultiple("players", PlayerDTO.class, players);
 ```
+
+### Get the Generated Key
+
+Use `insertAndGetKey` when the caller needs the generated ID directly:
+
+```java
+int generatedId = requestHelper.insertAndGetKey("homes", schema -> {
+    schema.uuid("player_uuid", playerUuid);
+    schema.string("name", "MyHome");
+});
+```
+
+The DTO overload is `insertAndGetKey(tableName, DTO.class, data)`. The result is `0` when a key is unavailable. The existing `insert` methods keep their `void` return type.
+
+### Get a Batch Insert Result
+
+```java
+int result = requestHelper.insertMultipleAndGetKey("players", PlayerDTO.class, players);
+```
+
+This returns the first generated key when available, otherwise the inserted row count. It does not return one key per row. The overload `insertMultipleAndGetKey(List<Schema>)` accepts schemas built with `SchemaBuilder.insert`.
 
 ## UPDATE Queries
 
@@ -170,6 +256,8 @@ requestHelper.update("players", schema -> {
 
 ### Batch Update
 
+All schemas in a batch must use the same table, columns and condition structure; only parameter values should differ.
+
 ```java
 List<Schema> updates = new ArrayList<>();
 for (PlayerDTO player : playersToUpdate) {
@@ -181,6 +269,51 @@ for (PlayerDTO player : playersToUpdate) {
 }
 requestHelper.updateMultiple(updates);
 ```
+
+### Count Updated Rows
+
+```java
+int changed = requestHelper.updateAndCount("players", schema -> {
+    schema.bigInt("play_time", newPlayTime);
+    schema.where("uuid", playerUuid);
+});
+```
+
+Use the returned count to check whether a conditional update matched a row. `update` itself still returns `void`.
+
+### Increment a Column
+
+`increment` adds to the stored value atomically, without reading and replacing it in separate requests. Use a negative amount to subtract:
+
+```java
+requestHelper.update("players", schema -> {
+    schema.increment("coins", 10);
+    schema.increment("lives", -1);
+    schema.where("uuid", playerUuid);
+});
+```
+
+### Assign an SQL Expression
+
+Use `expression` for a calculated value. Bind dynamic values through placeholders:
+
+```java
+requestHelper.update("players", schema -> {
+    schema.expression("version", "`version` + ?", 1);
+    schema.expression("updated_at", "CURRENT_TIMESTAMP");
+    schema.where("uuid", playerUuid);
+});
+```
+
+Only use SQL expressions controlled by your application. This also lets PostgreSQL applications update `updated_at` explicitly.
+
+### Count Batch Updates
+
+```java
+int changed = requestHelper.updateMultipleAndCount(updates);
+```
+
+`updates` is the `List<Schema>` from the batch example above. A DTO overload is available: `updateMultipleAndCount(tableName, DTO.class, dataList)`. SQLite executes the updates sequentially. On MariaDB, a driver success-without-count result contributes one row per statement.
 
 ## UPSERT Queries (Insert or Update)
 
@@ -198,12 +331,12 @@ requestHelper.upsert("players", schema -> {
 
 <CalloutContainer type="warning">
 
-<CalloutTitle>SQLite Requirement</CalloutTitle>
+<CalloutTitle>SQLite and PostgreSQL Requirement</CalloutTitle>
 
 <CalloutDescription>
-For SQLite, you must mark the primary key column with `.primary()`:
+For SQLite and PostgreSQL, declare the conflict target with `.primary()` on non-auto-increment key columns, or `.unique()` when there is no such primary key. The target must match a constraint in the database:
 ```java
-schema.uuid("uuid", playerUuid).primary();  // Required for SQLite!
+schema.uuid("uuid", playerUuid).primary();  // Required conflict target for SQLite/PostgreSQL
 ```
 </CalloutDescription>
 
@@ -218,10 +351,59 @@ requestHelper.upsert("players", PlayerDTO.class, player);
 
 ### Batch Upsert
 
+Use the same table, column order and conflict-key structure for every row in a batch.
+
 ```java
 List<PlayerDTO> players = getPlayersToSave();
 requestHelper.upsertMultiple("players", PlayerDTO.class, players);
 ```
+
+### Increment on Conflict
+
+```java
+requestHelper.upsert("player_stats", schema -> {
+    schema.uuid("uuid", playerUuid).primary();
+    schema.increment("kills", 1);
+});
+```
+
+A new row receives `kills = 1`; an existing row adds `1` to its stored value in the same SQL statement.
+
+### Preserve Insert-Only Values
+
+```java
+requestHelper.upsert("players", schema -> {
+    schema.uuid("uuid", playerUuid).primary();
+    schema.date("created_at", new java.util.Date()).insertOnly();
+    schema.string("name", playerName);
+});
+```
+
+`insertOnly()` applies to the last declared column. It writes that value on insertion and preserves it on conflict. If every column is insert-only, a conflict does nothing.
+
+### Apply an Expression on Conflict
+
+```java
+requestHelper.upsert("players", schema -> {
+    schema.uuid("uuid", playerUuid).primary();
+    schema.string("name", playerName);
+    schema.expression("updated_at", "CURRENT_TIMESTAMP");
+});
+```
+
+In an upsert, an `expression` applies only to an existing row. A new row uses the database default for this column, so define a suitable default or allow `NULL` in its table schema.
+
+### Count Upsert Results
+
+```java
+int changed = requestHelper.upsertAndCount("players", schema -> {
+    schema.uuid("uuid", playerUuid).primary();
+    schema.string("name", playerName);
+});
+int batchChanged = requestHelper.upsertMultipleAndCount("players", PlayerDTO.class, players);
+```
+
+The single-row method also accepts a DTO. The batch method also accepts `List<Schema>`. Counts follow the driver: MySQL reports `1` for an inserted row and can report `2` for an updated row.
 
 ## DELETE Queries
 
@@ -249,6 +431,16 @@ requestHelper.delete("logs", schema -> {
     schema.where("created_at", "<", thirtyDaysAgo);
 });
 ```
+
+### Count Deleted Rows
+
+```java
+int deleted = requestHelper.deleteAndCount("sessions", schema -> {
+    schema.where("is_expired", true);
+});
+```
+
+`deleteAndCount` returns the affected row count; `delete` keeps its `void` return type.
 
 ## WHERE Conditions
 
@@ -283,9 +475,11 @@ schema.whereIn("status", "active", "pending", "review");
 schema.whereIn("name", Arrays.asList("Steve", "Alex"));
 ```
 
+An empty IN list matches no rows. Numeric varargs preserve their type on PostgreSQL; string lists are interpreted according to the compared column type.
+
 ### Combining Conditions
 
-All conditions are combined with AND:
+Consecutive `where` conditions are combined with `AND`:
 
 ```java
 requestHelper.select("players", PlayerDTO.class, table -> {
@@ -296,6 +490,81 @@ requestHelper.select("players", PlayerDTO.class, table -> {
 });
 // WHERE is_banned = 0 AND play_time > 100 AND last_login IS NOT NULL AND rank IN ('vip', 'mvp', 'admin')
 ```
+
+### NOT IN Clause
+
+```java
+schema.whereNotIn("status", "blocked", "deleted");
+schema.whereNotIn("p", "name", Arrays.asList("Steve", "Alex"));
+```
+
+The second form prefixes the column with the table name or alias (`p.name`). An empty NOT IN list matches every row.
+
+### BETWEEN and NOT BETWEEN
+
+```java
+schema.whereBetween("level", 10, 20);
+schema.whereNotBetween("score", 0, 100);
+```
+
+Both bounds are inclusive. Values are bound with their types, including dates and numbers.
+
+### LIKE and NOT LIKE
+
+```java
+schema.whereLike("name", "Alex%");
+schema.whereNotLike("email", "%@example.com");
+```
+
+Use `%` for any sequence of characters and `_` for one character. Case sensitivity follows the engine and column collation.
+
+### OR Conditions with orWhere
+
+Use `orWhere` to join a condition to the previous one with `OR`:
+
+```java
+requestHelper.select("players", PlayerDTO.class, table -> {
+    table.where("rank", "admin");
+    table.orWhere("rank", "moderator");
+    table.orWhere("level", ">=", 50);
+});
+```
+
+For a joined table, use `schema.orWhere("p", "level", ">=", 50)`. The operator overload accepts the same comparison operators as `where`.
+
+### OR with NULL, IN and BETWEEN
+
+```java
+schema.where("rank", "admin");
+schema.orWhereNull("rank");
+schema.orWhereNotNull("verified_at");
+schema.orWhereIn("status", "active", "pending");
+schema.orWhereBetween("level", 10, 20);
+```
+
+Each method joins its condition with `OR`. `orWhereIn` with an empty list adds a false condition.
+
+### Grouped Conditions
+
+SQL evaluates `AND` before `OR`. Use `where(group -> ...)` and `orWhere(group -> ...)` to make the grouping explicit:
+
+```java
+requestHelper.select("players", PlayerDTO.class, table -> {
+    table.where("is_banned", false);
+    table.where(group -> {
+        group.where("rank", "vip");
+        group.orWhere("rank", "admin");
+    });
+    table.orWhere(group -> {
+        group.where("level", ">=", 50);
+        group.whereNotNull("verified_at");
+    });
+});
+// (is_banned = false AND (rank = 'vip' OR rank = 'admin'))
+// OR (level >= 50 AND verified_at IS NOT NULL)
+```
+
+A group without conditions adds nothing. These conditions are also available for counts, aggregates, updates and deletes. Use parameters for values and application-controlled column names/operators; invalid fragments are rejected with `IllegalArgumentException`.
 
 ## Data Transfer Objects (DTOs)
 
@@ -356,6 +625,129 @@ Sarah converts between Java camelCase and SQL snake_case:
 | `lastLoginAt` | `last_login_at` |
 | `uuid` | `uuid` |
 
+### Mapped and Transient Fields
+
+Static, synthetic and `@TransientField` fields are excluded when reading and writing DTOs. Define a constructor with one parameter per mapped field, in declaration order:
+
+```java
+public class PlayerNameDTO {
+    private final UUID uuid;
+    private final String name;
+
+    @TransientField
+    private String displayName;
+
+    public PlayerNameDTO(UUID uuid, String name) {
+        this.uuid = uuid;
+        this.name = name;
+    }
+}
+```
+
+For map results, selected aliases are available as keys as well as the original column names.
+
+## Raw SQL Queries
+
+### Execute a Statement
+
+```java
+int deleted = requestHelper.execute(
+    "DELETE FROM %prefix%logs WHERE created_at < ?", cutoff
+);
+```
+
+`execute` returns the affected row count.
+
+### Map Query Results
+
+```java
+List<String> names = requestHelper.query(
+    "SELECT `name` FROM %prefix%players WHERE `level` >= ?",
+    resultSet -> resultSet.getString("name"),
+    10
+);
+```
+
+The `RowMapper` receives the current row and must return its mapped value. Both methods replace `%prefix%`, adapt backtick quoting to the engine, and bind `?` parameters. SQL failures throw `DatabaseException`. `java.util.Date` is bound as a `Timestamp`, while UUID and enum parameters are converted to strings. Do not concatenate user input into SQL.
+
+## Transactions
+
+### Commit or Roll Back Several Operations
+
+```java
+int changed = requestHelper.inTransaction(tx -> {
+    int debited = tx.updateAndCount("accounts", table -> {
+        table.increment("balance", -10);
+        table.where("id", fromAccount);
+    });
+    if (debited != 1) {
+        throw new IllegalStateException("Source account not found");
+    }
+    int credited = tx.updateAndCount("accounts", table -> {
+        table.increment("balance", 10);
+        table.where("id", toAccount);
+    });
+    if (credited != 1) {
+        throw new IllegalStateException("Destination account not found");
+    }
+    return debited + credited;
+});
+```
+
+The callback commits when it returns and rolls back when it throws. Its return value becomes the result of `inTransaction`. Make every participating call through `tx`: calls through the original helper use a separate connection. The connection is released after the transaction.
+
+## Asynchronous Queries
+
+### Create an Async Helper
+
+Wrap your existing helper to run operations off the calling thread:
+
+```java
+AsyncRequestHelper async = new AsyncRequestHelper(requestHelper);
+// Or choose the thread count:
+AsyncRequestHelper customPool = new AsyncRequestHelper(requestHelper, 2);
+// Or use an executor owned by your application:
+AsyncRequestHelper external = new AsyncRequestHelper(requestHelper, executor);
+```
+
+The default helper owns a pool of four daemon threads. Choose one of these constructors for your application.
+
+### Read and Write with Futures
+
+```java
+CompletableFuture<List<PlayerDTO>> players = async.select(
+    "players", PlayerDTO.class, table -> table.where("is_banned", false)
+);
+CompletableFuture<Integer> changed = async.update("players", table -> {
+    table.increment("coins", 10);
+    table.where("uuid", playerUuid);
+});
+changed.thenAccept(count -> logger.info("Updated rows: " + count));
+```
+
+Every operation returns a `CompletableFuture`, including counts, aggregates, existence checks, batches, raw SQL and transactions. Async `insert` completes with the generated key; `update`, `upsert` and `delete` complete with the row count. Batch methods follow their synchronous result variants. An operation that throws completes the future exceptionally; reads follow the wrapped helper’s strict-read setting.
+
+### Run an Async Transaction
+
+```java
+CompletableFuture<Integer> result = async.inTransaction(tx ->
+    tx.updateAndCount("players", table -> {
+        table.increment("coins", 10);
+        table.where("uuid", playerUuid);
+    })
+);
+```
+
+Use the synchronous `tx` inside the callback so all operations remain on the transaction connection.
+
+### Stop the Async Helper
+
+```java
+async.shutdown();
+```
+
+`shutdown()` stops only the pool owned by that helper. It leaves an external executor running. Future callbacks normally run on executor threads; use your server scheduler to return to its main thread before accessing thread-bound APIs.
+
 ## Complete Examples
 
 ### Player Statistics System
@@ -388,8 +780,8 @@ public class PlayerStatsManager {
     public List<PlayerStats> getTopPlayers(int limit) {
         return requestHelper.select("player_stats", PlayerStats.class, table -> {
             table.orderByDesc("kills");
-            // Note: LIMIT is applied after query for now
-        }).stream().limit(limit).toList();
+            table.limit(limit);
+        });
     }
 }
 ```
@@ -399,6 +791,10 @@ public class PlayerStatsManager {
 ```java
 public class HomeManager {
     private final RequestHelper requestHelper;
+
+    public HomeManager(RequestHelper requestHelper) {
+        this.requestHelper = requestHelper;
+    }
 
     public void createHome(UUID playerUuid, String name, Location location) {
         requestHelper.insert("homes", schema -> {

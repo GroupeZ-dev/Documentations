@@ -1,5 +1,7 @@
 # Introduction
 
+The latest release is **1.27**.
+
 Sarah is a powerful Java library designed to simplify database management with an intuitive and elegant API. Whether you're building a Minecraft plugin or any Java application, Sarah provides a clean abstraction over raw SQL while maintaining full control over your database operations.
 
 - **GitHub**: [https://github.com/GroupeZ-dev/Sarah](https://github.com/GroupeZ-dev/Sarah)
@@ -9,7 +11,7 @@ Sarah is a powerful Java library designed to simplify database management with a
 
 Sarah is a database management library that provides:
 
-- **Simple Database Connections** - Support for MySQL, MariaDB, and SQLite with minimal configuration
+- **Simple Database Connections** - Support for MySQL, MariaDB, PostgreSQL, and SQLite with minimal configuration
 - **Migration System** - Automatic schema versioning and migration tracking
 - **Query Builder** - Fluent API for building type-safe SQL queries
 - **Object Mapping** - Automatic mapping between database rows and Java objects (DTOs)
@@ -55,6 +57,7 @@ Sarah supports the most popular database systems:
 |----------|-------|----------|
 | MySQL | `MySqlConnection` | Production servers |
 | MariaDB | `MariaDbConnection` | Production servers |
+| PostgreSQL | `PostgreSqlConnection` | Production servers |
 | SQLite | `SqliteConnection` | Development, small projects |
 
 ### Migration System
@@ -106,7 +109,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'fr.maxlego08.sarah:sarah:1.26'
+    implementation 'fr.maxlego08.sarah:sarah:1.27'
 }
 ```
 
@@ -120,18 +123,26 @@ dependencies {
 <dependency>
     <groupId>fr.maxlego08.sarah</groupId>
     <artifactId>sarah</artifactId>
-    <version>1.26</version>
+    <version>1.27</version>
 </dependency>
 ```
 
 ### 2. Create a Connection
+
+The examples use a Sarah logger, such as `Logger logger = JULogger.from(getLogger());` in a Bukkit plugin.
 
 ```java
 // MySQL
 DatabaseConfiguration config = DatabaseConfiguration.create(
     "username", "password", 3306, "localhost", "my_database"
 );
-DatabaseConnection connection = new MySqlConnection(config);
+DatabaseConnection connection = new MySqlConnection(config, logger);
+
+// Or PostgreSQL
+DatabaseConfiguration postgresConfig = DatabaseConfiguration.createPostgreSql(
+    "username", "password", 5432, "localhost", "my_database", false
+);
+DatabaseConnection postgresConnection = new PostgreSqlConnection(postgresConfig, logger);
 
 // Or SQLite
 DatabaseConnection connection = new SqliteConnection(
