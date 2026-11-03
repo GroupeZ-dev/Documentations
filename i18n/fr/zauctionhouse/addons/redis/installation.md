@@ -9,7 +9,7 @@ description: Installer et configurer l'addon zAuctionHouse Redis
 
 - zAuctionHouse V4 sur tous les serveurs
 - Serveur Redis (6.0+ recommandé)
-- Base de données MySQL/MariaDB (partagée entre tous les serveurs)
+- Base de données MySQL/MariaDB/PostgreSQL (partagée entre tous les serveurs). `SQLITE` n'est pas supporté
 
 ## Étape 1 : Installer Redis
 
@@ -32,7 +32,7 @@ De nombreux hébergeurs proposent également des instances Redis gérées.
 
 ## Étape 2 : Configurer zAuctionHouse
 
-Assurez-vous que tous les serveurs utilisent la **même base de données MySQL** :
+Assurez-vous que tous les serveurs utilisent la **même base de données MySQL, MariaDB ou PostgreSQL** (`SQLITE` est refusé par l'addon). Exemple avec MySQL ; pour PostgreSQL, utilisez `storage-type: 'POSTGRESQL'` et le port `5432` :
 
 ```yaml
 storage-type: 'MYSQL'

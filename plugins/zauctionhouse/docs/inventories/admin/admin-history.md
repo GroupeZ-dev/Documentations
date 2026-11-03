@@ -9,9 +9,17 @@ The admin history main inventory is the hub for viewing a player's auction histo
 
 **File:** `plugins/zAuctionHouse/inventories/admin/admin-history-main.yml`
 
-**Access:** `/ah admin history <player>`
+**Access:** `/ah admin history <player>`, or by clicking a player in the [admin player directory](./admin-main)
 
-**Permission:** Requires admin permission
+**Permission:** `zauctionhouse.admin.items`
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+`/ah admin` and `/ah admin history` without a player open the [admin player directory](./admin-main), where you can pick the player.
+</CalloutDescription>
+
+</CalloutContainer>
 
 <div style={{ display: 'flex', justifyContent: 'center' }}>
   <img src="https://img.groupez.dev/zauctionhouse/v4/admin-history.png" alt="Description" style={{ width: '600px', height: 'auto' }} />
@@ -25,6 +33,7 @@ The admin history main inventory is the hub for viewing a player's auction histo
 - Access selling items
 - Access action logs
 - Access transaction history
+- Go back to the [admin player directory](./admin-main) (**All players** button)
 
 ## Default Configuration
 
@@ -93,6 +102,13 @@ items:
       lore:
         - ''
         - '#8c8c8c• #2CCED2Click #92ffffto open'
+
+  players:
+    type: ZAUCTIONHOUSE_ADMIN_MAIN
+    slot: 49
+    item:
+      material: BOOK
+      name: "#2CCED2All players"
 ```
 
 ## Buttons Used
@@ -105,6 +121,7 @@ items:
 | `selling` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_SELLING`](../buttons#admin-buttons) | Opens selling items |
 | `logs` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_LOGS`](../buttons#admin-buttons) | Opens action logs |
 | `transactions` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_TRANSACTIONS`](../buttons#admin-buttons) | Opens transactions |
+| `players` | [`ZAUCTIONHOUSE_ADMIN_MAIN`](../buttons#zauctionhouse_admin_main) | Opens the [admin player directory](./admin-main) (slot 49) |
 
 ## Placeholders
 

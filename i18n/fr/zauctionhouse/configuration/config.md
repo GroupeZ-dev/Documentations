@@ -75,17 +75,17 @@ Vous pouvez utiliser n'importe quel [identifiant Java TimeZone](https://docs.ora
 ## Configuration de la Base de Données
 
 ```yaml
-# Type de stockage : SQLITE, MYSQL, MARIADB
+# Type de stockage : SQLITE, MYSQL, MARIADB, POSTGRESQL (POSTGRES est aussi accepté)
 storage-type: SQLITE
 
 # Nom du serveur pour les configurations multi-serveur
 server-name: skyblock
 
-# Paramètres de connexion à la base de données (MySQL/MariaDB uniquement)
+# Paramètres de connexion à la base de données (MySQL/MariaDB/PostgreSQL uniquement)
 database-configuration:
   table-prefix: zauctionhouse_
   host: 192.168.10.10
-  port: 3306
+  port: 3306 # Port par défaut : 3306 pour MySQL/MariaDB, 5432 pour PostgreSQL
   user: homestead
   password: secret
   database: zauctionhouse
@@ -96,7 +96,7 @@ database-configuration:
 
 ### Durée de vie des connexions
 
-`max-lifetime` définit combien de temps une connexion MySQL/MariaDB reste dans le pool avant d'être retirée et remplacée. Baissez-la si votre base, ou un proxy devant elle (pare-feu, load balancer), ferme les connexions inactives avant 30 minutes, ce qui se traduit par des erreurs de connexion fermée dans la console.
+`max-lifetime` définit combien de temps une connexion MySQL, MariaDB ou PostgreSQL reste dans le pool avant d'être retirée et remplacée. Baissez-la si votre base, ou un proxy devant elle (pare-feu, load balancer), ferme les connexions inactives avant 30 minutes, ce qui se traduit par des erreurs de connexion fermée dans la console.
 
 | Valeur | Effet |
 |--------|-------|
@@ -104,7 +104,7 @@ database-configuration:
 | `0` | Les connexions sont gardées jusqu'à la fermeture du pool |
 | Moins de `30` | Refusé par HikariCP, qui revient à 30 minutes |
 
-Gardez-la quelques minutes sous le `wait_timeout` de la base. L'option n'a aucun effet en `SQLITE`. Elle peut aussi être définie dans le fichier partagé `database-configuration.yml` à la racine du serveur.
+Gardez-la quelques minutes sous le `wait_timeout` de la base (ou le délai d'inactivité équivalent sous PostgreSQL). L'option n'a aucun effet en `SQLITE`. Elle peut aussi être définie dans le fichier partagé `database-configuration.yml` à la racine du serveur.
 
 ### Types de Stockage
 
@@ -113,11 +113,12 @@ Gardez-la quelques minutes sous le `wait_timeout` de la base. L'option n'a aucun
 | `SQLITE` | Base de données locale basée sur fichier | Serveur unique, aucune configuration requise |
 | `MYSQL` | Serveur de base de données MySQL | Multi-serveur, grands hôtels des ventes |
 | `MARIADB` | Serveur de base de données MariaDB | Multi-serveur, grands hôtels des ventes |
+| `POSTGRESQL` | Serveur de base de données PostgreSQL (`POSTGRES` est aussi accepté) | Multi-serveur, grands hôtels des ventes |
 
 <CalloutContainer type="info">
 
 <CalloutDescription>
-Pour la synchronisation multi-serveur, utilisez MySQL/MariaDB avec l'addon Redis.
+Pour la synchronisation multi-serveur, utilisez MySQL/MariaDB/PostgreSQL avec l'addon Redis. `SQLITE` est refusé par l'addon Redis. Le pilote PostgreSQL est téléchargé automatiquement par le serveur, aucun jar supplémentaire n'est nécessaire. Pensez à utiliser le port `5432` (port par défaut de PostgreSQL).
 </CalloutDescription>
 
 </CalloutContainer>

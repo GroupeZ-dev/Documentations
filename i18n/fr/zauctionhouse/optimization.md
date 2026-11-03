@@ -115,7 +115,7 @@ Surveillez le TPS de votre serveur lorsque l'hôtel des ventes est fortement uti
 
 ### Performance de la Base de Données
 
-Pour MySQL/MariaDB, surveillez :
+Pour MySQL/MariaDB/PostgreSQL, surveillez :
 - L'utilisation du pool de connexions
 - Le temps d'exécution des requêtes
 - La taille des tables

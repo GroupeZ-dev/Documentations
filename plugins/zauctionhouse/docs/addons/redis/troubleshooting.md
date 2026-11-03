@@ -14,7 +14,7 @@ description: Fix common zAuctionHouse Redis addon issues
 
 ## Items not synchronizing
 
-- Ensure all servers use the same MySQL database
+- Ensure all servers use the same MySQL/MariaDB/PostgreSQL database
 - Verify Redis addon is installed on **all** servers
 - Check console for any error messages
 - Ensure all servers can connect to Redis
@@ -25,7 +25,7 @@ If a sold item reappears in the seller's items, a purchased item is missing afte
 
 - Make sure **every** server runs the **same up-to-date version** of both zAuctionHouse and the zAuctionHouse Redis addon. Older versions had cross-server synchronization bugs (ghost listings, missing purchased items, stale purchase locks) that are fixed in newer releases
 - The main plugin **and** the Redis addon must be updated together on all servers
-- Ensure all servers share the same MySQL/MariaDB database
+- Ensure all servers share the same MySQL/MariaDB/PostgreSQL database
 
 ## High latency
 

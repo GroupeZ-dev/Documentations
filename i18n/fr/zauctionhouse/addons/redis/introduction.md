@@ -45,7 +45,7 @@ Utiliser SQL pour synchroniser plusieurs serveurs n'est pas efficace pour un hô
 <CalloutContainer type="info">
 
 <CalloutDescription>
-zAuctionHouse utilise toujours SQL (MySQL/MariaDB) pour le stockage persistant des données. Redis est utilisé comme **couche de cache** pour la synchronisation en temps réel entre les serveurs.
+zAuctionHouse utilise toujours SQL (MySQL/MariaDB/PostgreSQL) pour le stockage persistant des données. Redis est utilisé comme **couche de cache** pour la synchronisation en temps réel entre les serveurs.
 </CalloutDescription>
 
 </CalloutContainer>
@@ -81,14 +81,14 @@ Redis, en revanche, est conçu exactement pour cet objectif : fournir un cache p
                     └──────┬──────┘
                            │
                     ┌──────▼──────┐
-                    │   MySQL /   │
-                    │   MariaDB   │
+                    │MySQL/MariaDB│
+                    │ /PostgreSQL │
                     └─────────────┘
 ```
 
 **Comment ça fonctionne :**
 1. Un joueur met un objet en vente sur le Serveur 1
-2. L'objet est sauvegardé dans la base de données MySQL
+2. L'objet est sauvegardé dans la base de données partagée (MySQL/MariaDB/PostgreSQL)
 3. Redis publie un événement à tous les serveurs
 4. Les Serveurs 2 et 3 reçoivent l'événement et mettent à jour leur cache
 5. Les joueurs sur tous les serveurs voient l'objet instantanément

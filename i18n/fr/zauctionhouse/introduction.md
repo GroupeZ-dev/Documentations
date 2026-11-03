@@ -31,7 +31,7 @@ Organisez votre hôtel des ventes avec un système de catégories flexible. Déf
 - **Intégration Discord** - Envoyez des notifications sur Discord quand des objets sont vendus
 
 ### Support multi-serveur
-Vous gérez un réseau de serveurs ? zAuctionHouse supporte les bases de données MySQL/MariaDB et Redis pour une synchronisation en temps réel sur plusieurs serveurs.
+Vous gérez un réseau de serveurs ? zAuctionHouse supporte les bases de données MySQL/MariaDB/PostgreSQL et Redis pour une synchronisation en temps réel sur plusieurs serveurs.
 <CalloutContainer type="info">
 
 <CalloutDescription>

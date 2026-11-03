@@ -244,6 +244,25 @@ messages:
     days: "<days>j <hours>h"
 ```
 
+## Messages de Retrait Administrateur
+
+Messages utilisés par l'inventaire de confirmation de retrait administrateur (`admin-remove-confirm.yml`). Valeurs par défaut du fichier `messages.yml` français :
+
+```yaml
+# Envoyé à l'admin après le retrait
+# Placeholders : %items%, %target%
+admin-item-removed: "<success>Vous avez retiré <white>%items%<success> de <white>%target%<success>."
+
+# Action admin refusée : l'objet a été vendu, récupéré ou supprimé sur un autre serveur
+# Placeholder : %items%
+admin-item-not-available: "<error>L'item <white>%items%<error> n'est plus disponible : il a été vendu, récupéré ou supprimé sur un autre serveur."
+
+# Envoyé au vendeur quand un admin retire son annonce avec l'option « Avertir » (notify)
+# (délivré à sa prochaine connexion s'il est hors ligne)
+# Placeholder : %items%
+admin-listing-removed: "<error>Votre annonce <white>%items%<error> a été retirée par un administrateur."
+```
+
 ## Exemples MiniMessage
 
 Utilisation du formatage MiniMessage (Paper uniquement) :

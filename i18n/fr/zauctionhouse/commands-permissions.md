@@ -115,9 +115,10 @@ Si `enable-sell-inventory` est défini sur `true` dans la config, exécuter `/ah
 | Commande | Description | Permission |
 |----------|-------------|------------|
 | `/ah reload` | Recharger tous les fichiers de configuration | `zauctionhouse.reload` |
-| `/ah admin` | Accéder aux outils admin | `zauctionhouse.admin` |
+| `/ah admin` | Ouvrir l'[annuaire admin des joueurs](/zauctionhouse/inventories/admin/admin-main) | `zauctionhouse.admin` + `zauctionhouse.admin.items` |
+| `/ah admin history [joueur]` | Ouvrir l'annuaire admin des joueurs, ou l'historique admin d'un joueur | `zauctionhouse.admin.items` |
 | `/ah admin generate <quantité>` | Générer des objets factices pour les tests | `zauctionhouse.admin` |
-| `/ah admin open <type> <joueur>` | Voir les objets/historique d'un joueur | `zauctionhouse.admin` |
+| `/ah admin open <joueur> <type>` | Voir les objets en vente, expirés ou achetés d'un joueur | `zauctionhouse.admin.items` |
 | `/ah admin forceopen <joueur> <inventaire> [page]` | Ouvrir n'importe quel inventaire pour un joueur | `zauctionhouse.admin` |
 | `/ah admin add <joueur> <type>` | Ajouter des objets au compte d'un joueur | `zauctionhouse.admin.items` |
 | `/ah admin cache show <joueur>` | Afficher les données de cache d'un joueur | `zauctionhouse.admin` |
@@ -131,14 +132,36 @@ Si `enable-sell-inventory` est défini sur `true` dans la config, exécuter `/ah
 ### Types d'ouverture admin
 
 Le paramètre `<type>` pour `/ah admin open` accepte :
-- `selling` - Voir les annonces actives du joueur
+- `listed` - Voir les annonces actives du joueur (valeur par défaut si le type n'est pas reconnu)
 - `expired` - Voir les objets expirés du joueur
 - `purchased` - Voir les objets achetés du joueur
-- `history` - Voir l'historique des ventes du joueur
 
 **Exemple :**
 ```bash
-/ah admin open selling Steve
+/ah admin open Steve listed
+```
+
+Pour voir l'historique d'un joueur, utilisez `/ah admin history <joueur>` (voir ci-dessous).
+
+### Annuaire admin des joueurs et historique
+
+```bash
+/ah admin
+/ah admin history [joueur]
+```
+
+- `/ah admin` (sans argument) et `/ah admin history` (sans joueur) ouvrent l'[annuaire admin des joueurs](/zauctionhouse/inventories/admin/admin-main) (`admin-main`) : une tête par joueur ayant une activité sur l'hôtel des ventes, avec ses annonces en cours, ses ventes et ses achats. Cliquez sur une tête pour ouvrir l'historique admin de ce joueur. Les données sont rechargées à chaque ouverture de l'inventaire.
+- `/ah admin history <joueur>` ouvre directement le menu d'historique admin (`admin-history-main`) de ce joueur. Si le joueur n'a jamais été vu par le plugin, un message d'erreur est envoyé.
+
+Les deux nécessitent la permission `zauctionhouse.admin.items`. Sans elle, `/ah admin` affiche seulement la syntaxe de la commande.
+
+**Exemples :**
+```bash
+# Parcourir tous les joueurs ayant une activité
+/ah admin
+
+# Ouvrir l'historique admin de Steve
+/ah admin history Steve
 ```
 
 ### Commande Admin Force Open
@@ -162,9 +185,11 @@ Ouvre n'importe quel inventaire pour un joueur à une page spécifique. Utile po
 | `admin-selling-items` | Vue admin des annonces actives du joueur |
 | `admin-expired-items` | Vue admin des objets expirés du joueur |
 | `admin-purchased-items` | Vue admin des objets achetés du joueur |
+| `admin-main` | Annuaire admin des joueurs |
 | `admin-history-main` | Menu principal de l'historique admin |
 | `admin-logs` | Visualiseur des logs admin |
 | `admin-transactions` | Visualiseur des transactions admin |
+| `admin-remove-confirm` | Confirmation de retrait admin d'une annonce (s'ouvre normalement avec `Q` / clic molette sur une annonce, ce qui sélectionne l'objet à retirer) |
 | `selling-items` | Objets en vente du joueur |
 | `expired-items` | Objets expirés du joueur |
 | `purchased-items` | Objets achetés du joueur |
@@ -218,8 +243,8 @@ Sauvegardez toujours vos données avant de migrer ! La migration ne peut pas êt
 | `zauctionhouse.option` | Accéder à l'interface des options | true |
 | `zauctionhouse.reload` | Recharger les configurations | op |
 | `zauctionhouse.admin` | Accéder aux fonctionnalités admin | op |
-| `zauctionhouse.admin.items` | Ajouter/retirer des objets en tant qu'admin | op |
-| `zauctionhouse.admin.remove-inventory` | Retirer des objets de la vente via l'interface | op |
+| `zauctionhouse.admin.items` | Ajouter/retirer des objets en tant qu'admin, ouvrir l'annuaire admin des joueurs et l'historique admin | op |
+| `zauctionhouse.admin.remove.inventory` | Appuyer sur `Q` (jeter) ou faire un clic molette sur une annonce en vente dans l'hôtel des ventes pour ouvrir la [confirmation de retrait admin](/zauctionhouse/inventories/admin/admin-remove-confirm) | op |
 
 ### Permissions de limite d'objets
 

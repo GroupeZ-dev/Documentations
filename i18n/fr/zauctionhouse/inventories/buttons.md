@@ -56,6 +56,7 @@ displayItems:
 
 | Clic | Action |
 |------|--------|
+| `Q` (jeter) ou clic molette sur une annonce, avec la permission `zauctionhouse.admin.remove.inventory` | Ouvre la [confirmation de retrait admin](./admin/admin-remove-confirm). Vérifié avant l'aperçu du conteneur et avant les actions d'achat / de retrait |
 | Clic droit (`action.container-preview.click`) sur une annonce contenant un conteneur | Ouvre l'[aperçu du contenu](./shulker-content) sans vérifier l'argent |
 | N'importe quel clic sur l'annonce d'un autre joueur | Ouvre la confirmation d'achat (si le joueur a assez d'argent) |
 | N'importe quel clic sur sa propre annonce | Retire l'annonce (via une confirmation avec `remove-listed-item.open-confirm-inventory`) |
@@ -1486,6 +1487,23 @@ remove-all:
 | [`ZAUCTIONHOUSE_ADMIN_HISTORY_SELLING`](#zauctionhouse_admin_history_selling) | Ouvre les objets en vente de la cible | [Historique Admin](./admin/admin-history) |
 | [`ZAUCTIONHOUSE_ADMIN_HISTORY_LOGS`](#zauctionhouse_admin_history_logs) | Ouvre les journaux d'actions de la cible | [Historique Admin](./admin/admin-history) |
 | [`ZAUCTIONHOUSE_ADMIN_HISTORY_TRANSACTIONS`](#zauctionhouse_admin_history_transactions) | Ouvre les transactions de la cible | [Historique Admin](./admin/admin-history) |
+| [`ZAUCTIONHOUSE_ADMIN_MAIN`](#zauctionhouse_admin_main) | Ouvre (et actualise) l'annuaire admin des joueurs | [Annuaire Admin des Joueurs](./admin/admin-main), [Historique Admin](./admin/admin-history) |
+
+### Boutons de l'Annuaire des Joueurs
+
+| Type | Description | Utilisé dans |
+|------|-------------|--------------|
+| [`ZAUCTIONHOUSE_ADMIN_PLAYERS`](#zauctionhouse_admin_players) | Liste paginée des joueurs ayant une activité | [Annuaire Admin des Joueurs](./admin/admin-main) |
+| [`ZAUCTIONHOUSE_ADMIN_PLAYERS_SORT`](#zauctionhouse_admin_players_sort) | Change le tri de la liste des joueurs | [Annuaire Admin des Joueurs](./admin/admin-main) |
+
+### Boutons de Retrait Admin
+
+| Type | Description | Utilisé dans |
+|------|-------------|--------------|
+| [`ZAUCTIONHOUSE_ADMIN_REMOVE_CONFIRM`](#zauctionhouse_admin_remove_confirm) | Confirme le retrait d'une annonce | [Confirmation de Retrait Admin](./admin/admin-remove-confirm) |
+| [`ZAUCTIONHOUSE_ADMIN_REMOVE_NOTIFY`](#zauctionhouse_admin_remove_notify) | Active/désactive la notification du vendeur | [Confirmation de Retrait Admin](./admin/admin-remove-confirm) |
+| [`ZAUCTIONHOUSE_ADMIN_REMOVE_EXPIRE`](#zauctionhouse_admin_remove_expire) | Active/désactive l'envoi de l'objet dans les expirés du vendeur | [Confirmation de Retrait Admin](./admin/admin-remove-confirm) |
+| [`ZAUCTIONHOUSE_ADMIN_REMOVE_COPY`](#zauctionhouse_admin_remove_copy) | Active/désactive la remise de l'objet à l'administrateur | [Confirmation de Retrait Admin](./admin/admin-remove-confirm) |
 
 ### Boutons d'Affichage des Objets
 
@@ -1599,6 +1617,9 @@ Parcourt les filtres de type de journal.
 - `REMOVE_SELLING` - L'objet a été récupéré de l'inventaire de vente
 - `REMOVE_EXPIRED` - L'objet a été récupéré de l'inventaire des expirés
 - `REMOVE_PURCHASED` - L'objet a été récupéré de l'inventaire des achats
+- `ADMIN_REMOVE` - Annonce retirée par un administrateur depuis la [confirmation de retrait admin](./admin/admin-remove-confirm)
+
+Si `types` est vide ou absent, tous les types de logs sont disponibles. Le fichier `admin-logs.yml` par défaut ne liste pas `ADMIN_REMOVE` : ajoutez-le à `types` (et `%ADMIN_REMOVE%` au lore) pour pouvoir filtrer dessus.
 
 ---
 
@@ -1653,6 +1674,179 @@ Parcourt les filtres de période pour les transactions.
 **Configuration :**
 
 Identique à [`ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_DATE`](#zauctionhouse_admin_logs_filter_date).
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_MAIN
+
+Ouvre l'[annuaire admin des joueurs](./admin/admin-main) (`admin-main.yml`). Les données des joueurs sont toujours rechargées au clic : le même bouton sert donc de bouton **Actualiser** dans l'annuaire et de bouton **Tous les joueurs** dans l'[Historique Admin](./admin/admin-history).
+
+Nécessite la permission `zauctionhouse.admin.items`.
+
+**Configuration :**
+
+| Propriété | Type | Description |
+|-----------|------|-------------|
+| `slot` | Nombre | Position du bouton |
+| `item` | Item | Apparence du bouton |
+
+**Exemple :**
+
+```yaml
+refresh:
+  type: ZAUCTIONHOUSE_ADMIN_MAIN
+  slot: 45
+  item:
+    material: SUNFLOWER
+    name: "#2CCED2Actualiser"
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_PLAYERS
+
+Liste paginée de tous les joueurs ayant une activité dans l'hôtel des ventes (annonces, achats, logs ou transactions). Chaque entrée est construite à partir de l'`item` du bouton, avec les placeholders ci-dessous. Un clic sur une entrée ouvre l'[Historique Admin](./admin/admin-history) de ce joueur.
+
+Les données sont chargées de manière asynchrone par une seule requête SQL (le contenu des objets n'est pas chargé), puis l'inventaire se rafraîchit tout seul.
+
+Nécessite la permission `zauctionhouse.admin.items`.
+
+**Configuration :**
+
+| Propriété | Type | Description |
+|-----------|------|-------------|
+| `slots` | Liste | Emplacements où les joueurs sont affichés |
+| `item` | Item | Apparence de chaque entrée joueur |
+| `else` | Bouton | Bouton affiché quand aucun joueur n'a d'activité |
+
+**Placeholders :**
+- `%target%` - Nom du joueur
+- `%listed%` - Nombre d'annonces du joueur actuellement en vente (non expirées)
+- `%sold%` - Nombre de logs `PURCHASE` où le joueur est le vendeur
+- `%purchased%` - Nombre de logs `PURCHASE` où le joueur est l'acheteur (inclut les achats historiques)
+
+**Exemple :**
+
+```yaml
+players:
+  type: ZAUCTIONHOUSE_ADMIN_PLAYERS
+  slots:
+    - 0-44
+  item:
+    material: PLAYER_HEAD
+    player-head: "%target%"
+    name: "#2CCED2%target%"
+    lore:
+      - "#92ffffEn vente: #2CCED2%listed%"
+      - "#92ffffVendus: #2CCED2%sold%"
+      - "#92ffffAchetés: #2CCED2%purchased%"
+      - ""
+      - "#92ffffCliquez pour consulter son historique"
+  else:
+    item:
+      material: BARRIER
+      name: "#ff5555Aucun historique"
+    slot: 22
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_PLAYERS_SORT
+
+Change l'ordre de tri de [`ZAUCTIONHOUSE_ADMIN_PLAYERS`](#zauctionhouse_admin_players). **Clic gauche** pour le tri suivant, **clic droit** pour le tri précédent.
+
+| Ordre | Tri |
+|-------|-----|
+| 1 | Nom (A-Z) |
+| 2 | En vente (décroissant) |
+| 3 | Vendus (décroissant) |
+| 4 | Achetés (décroissant) |
+
+**Placeholders :**
+- `%name-color%`, `%listed-color%`, `%sold-color%`, `%purchased-color%` - `#2CCED2` pour le tri actif, `#8c8c8c` sinon
+
+**Exemple :**
+
+```yaml
+sort:
+  type: ZAUCTIONHOUSE_ADMIN_PLAYERS_SORT
+  slot: 49
+  item:
+    material: HOPPER
+    name: "#2CCED2Trier les joueurs"
+    lore:
+      - "%name-color%• Nom"
+      - "%listed-color%• En vente (décroissant)"
+      - "%sold-color%• Vendus (décroissant)"
+      - "%purchased-color%• Achetés (décroissant)"
+      - "#8c8c8cClic gauche / droit pour changer"
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_REMOVE_CONFIRM
+
+Confirme le retrait de l'annonce dans l'inventaire de [confirmation de retrait admin](./admin/admin-remove-confirm), avec les options choisies grâce aux trois boutons bascule ci-dessous.
+
+Le retrait est compatible cluster (vérification de disponibilité, verrou, puis revalidation). Si l'objet a été vendu ou retiré entre-temps, l'administrateur reçoit le message `admin-item-not-available`. Sinon, il reçoit `admin-item-removed`, un log `ADMIN_REMOVE` est enregistré (visible dans les [Journaux Admin](./admin/admin-logs)) et l'hôtel des ventes principal se rouvre.
+
+Nécessite la permission `zauctionhouse.admin.remove.inventory`.
+
+**Exemple :**
+
+```yaml
+confirm:
+  type: ZAUCTIONHOUSE_ADMIN_REMOVE_CONFIRM
+  slot: 21
+  item:
+    material: LIME_CONCRETE
+    name: "#2CCED2Confirmer le retrait"
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_REMOVE_NOTIFY
+
+### ZAUCTIONHOUSE_ADMIN_REMOVE_EXPIRE
+
+### ZAUCTIONHOUSE_ADMIN_REMOVE_COPY
+
+Boutons bascule de l'inventaire de [confirmation de retrait admin](./admin/admin-remove-confirm). Chaque clic active ou désactive l'option. Les options sont réinitialisées à chaque ouverture de l'inventaire.
+
+| Type | Par défaut | Quand l'option est activée |
+|------|------------|----------------------------|
+| `ZAUCTIONHOUSE_ADMIN_REMOVE_NOTIFY` | Activé | Le vendeur reçoit le message `admin-listing-removed`. S'il est hors ligne, le message lui est envoyé à sa prochaine connexion |
+| `ZAUCTIONHOUSE_ADMIN_REMOVE_EXPIRE` | Activé | L'objet est déplacé dans les objets expirés du vendeur (avec la durée normale `expire-expiration`) pour qu'il puisse le récupérer. Désactivée, l'annonce est supprimée |
+| `ZAUCTIONHOUSE_ADMIN_REMOVE_COPY` | Désactivé | L'administrateur reçoit l'objet : une copie si l'expiration est activée (le vendeur garde le sien), l'objet lui-même sinon. Si l'objet ne peut pas être remis, il retourne dans les objets récupérables du vendeur au lieu d'être perdu |
+
+**Configuration :**
+
+| Propriété | Type | Description |
+|-----------|------|-------------|
+| `slot` | Nombre | Position du bouton |
+| `enable-material` | Matériau | Matériau utilisé quand l'option est activée (par défaut : `PAPER`) |
+| `disable-material` | Matériau | Matériau utilisé quand l'option est désactivée (par défaut : `BARRIER`) |
+| `item` | Item | Apparence du bouton |
+
+**Placeholders :**
+- `%material%` - `enable-material` ou `disable-material` selon l'état (à utiliser avec `material: '%material%'`)
+- `%state-color%` - `#55ff55` si activé, `#ff5555` si désactivé
+- `%enabled%` - `true` ou `false`
+
+**Exemple :**
+
+```yaml
+notify:
+  type: ZAUCTIONHOUSE_ADMIN_REMOVE_NOTIFY
+  enable-material: BELL
+  disable-material: BARRIER
+  slot: 11
+  item:
+    material: '%material%'
+    name: "%state-color%Avertir le joueur"
+    lore:
+      - "#8c8c8cCliquez pour changer"
+```
 
 ---
 

@@ -14,7 +14,7 @@ description: Résoudre les problèmes de l'addon zAuctionHouse Redis
 
 ## Les objets ne se synchronisent pas
 
-- Assurez-vous que tous les serveurs utilisent la même base de données MySQL
+- Assurez-vous que tous les serveurs utilisent la même base de données MySQL/MariaDB/PostgreSQL
 - Vérifiez que l'addon Redis est installé sur **tous** les serveurs
 - Consultez la console pour les messages d'erreur
 - Assurez-vous que tous les serveurs peuvent se connecter à Redis
@@ -25,7 +25,7 @@ Si un objet vendu réapparaît dans les objets du vendeur, si un objet acheté e
 
 - Assurez-vous que **chaque** serveur utilise la **même version à jour** de zAuctionHouse et de l'addon zAuctionHouse Redis. Les anciennes versions présentaient des bugs de synchronisation inter-serveurs (annonces fantômes, objets achetés manquants, verrous d'achat bloqués) corrigés dans les versions récentes
 - Le plugin principal **et** l'addon Redis doivent être mis à jour ensemble sur tous les serveurs
-- Assurez-vous que tous les serveurs partagent la même base de données MySQL/MariaDB
+- Assurez-vous que tous les serveurs partagent la même base de données MySQL/MariaDB/PostgreSQL
 
 ## Haute latence
 

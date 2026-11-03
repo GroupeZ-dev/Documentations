@@ -115,7 +115,7 @@ Monitor your server TPS when the auction house is heavily used. zAuctionHouse sh
 
 ### Database Performance
 
-For MySQL/MariaDB, monitor:
+For MySQL/MariaDB/PostgreSQL, monitor:
 - Connection pool usage
 - Query execution time
 - Table sizes

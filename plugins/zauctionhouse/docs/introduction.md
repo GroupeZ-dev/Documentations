@@ -31,7 +31,7 @@ Organize your auction house with a flexible category system. Define categories b
 - **Discord Integration** - Send notifications to Discord when items are sold
 
 ### Multi-Server Support
-Running a server network? zAuctionHouse supports MySQL/MariaDB databases and Redis for real-time synchronization across multiple servers.
+Running a server network? zAuctionHouse supports MySQL/MariaDB/PostgreSQL databases and Redis for real-time synchronization across multiple servers.
 <CalloutContainer type="info">
 
 <CalloutDescription>

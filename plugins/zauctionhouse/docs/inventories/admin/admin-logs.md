@@ -27,6 +27,17 @@ The admin logs inventory displays all action logs for a player. Logs record ever
 | `REMOVE_SELLING` | Item was retrieved from selling inventory |
 | `REMOVE_EXPIRED` | Item was retrieved from expired inventory |
 | `REMOVE_PURCHASED` | Item was retrieved from purchased inventory |
+| `ADMIN_REMOVE` | Listing was removed by an administrator from the [admin removal confirmation](./admin-remove-confirm) |
+
+An `ADMIN_REMOVE` log records the administrator as the player and the seller as the target, so it appears in the logs of both. Its default name in the type filter is `Admin Remove`.
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+The default `admin-logs.yml` does not list `ADMIN_REMOVE` in the `filter-type` button: these logs are shown with the **All** filter only. To filter on them, add `ADMIN_REMOVE` to `types` (and optionally to `type-names`) and `%ADMIN_REMOVE%` to the lore. If `types` is empty or missing, every log type is available.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Features
 

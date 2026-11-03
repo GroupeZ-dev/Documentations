@@ -214,6 +214,15 @@ admin-open-history: "<success>Opening history for <white>%target%<success>."
 # Placeholders: %items%, %target%
 admin-item-removed: "<success>You removed <white>%items%<success> from <white>%target%<success>."
 
+# Admin action refused: the item was sold, claimed or removed on another server
+# Placeholder: %items%
+admin-item-not-available: "<error>The item <white>%items%<error> is no longer available: it was sold, claimed or removed on another server."
+
+# Sent to the seller when an admin removes their listing with the "Notify" option
+# (delivered on their next join if they are offline)
+# Placeholder: %items%
+admin-listing-removed: "<error>Your listing <white>%items%<error> was removed by an administrator."
+
 # Admin added items
 # Placeholders: %items%, %target%, %type%
 admin-item-added: "<success>You added <white>%items%<success> to <white>%target%<success> in <white>%type%<success>."
