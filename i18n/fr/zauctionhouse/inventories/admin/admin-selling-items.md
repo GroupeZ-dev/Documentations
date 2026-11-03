@@ -57,7 +57,7 @@ items:
 
 | Bouton | Type | Description |
 |--------|------|-------------|
-| `items` | [`ZAUCTIONHOUSE_ADMIN_SELLING_ITEMS`](../buttons#admin-buttons) | Affiche les objets en vente avec retrait admin |
+| `items` | [`ZAUCTIONHOUSE_ADMIN_SELLING_ITEMS`](../buttons#boutons-administrateur) | Affiche les objets en vente avec retrait admin |
 
 ## Patterns Utilisés
 

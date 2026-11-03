@@ -56,6 +56,7 @@ displayItems:
 
 | Click | Action |
 |-------|--------|
+| `Q` (drop) or middle click on a listing, with the `zauctionhouse.admin.remove.inventory` permission | Opens the [admin removal confirmation](./admin/admin-remove-confirm). Checked before the container preview and before the purchase / removal actions |
 | Right click (`action.container-preview.click`) on a listing that contains a container | Opens the [container preview](./shulker-content) without checking the balance |
 | Any click on another player's listing | Opens the purchase confirmation (if the player has enough money) |
 | Any click on your own listing | Removes the listing (through a confirmation with `remove-listed-item.open-confirm-inventory`) |
@@ -1486,6 +1487,23 @@ remove-all:
 | [`ZAUCTIONHOUSE_ADMIN_HISTORY_SELLING`](#zauctionhouse_admin_history_selling) | Opens target's selling items | [Admin History](./admin/admin-history) |
 | [`ZAUCTIONHOUSE_ADMIN_HISTORY_LOGS`](#zauctionhouse_admin_history_logs) | Opens target's action logs | [Admin History](./admin/admin-history) |
 | [`ZAUCTIONHOUSE_ADMIN_HISTORY_TRANSACTIONS`](#zauctionhouse_admin_history_transactions) | Opens target's transactions | [Admin History](./admin/admin-history) |
+| [`ZAUCTIONHOUSE_ADMIN_MAIN`](#zauctionhouse_admin_main) | Opens (and refreshes) the admin player directory | [Admin Player Directory](./admin/admin-main), [Admin History](./admin/admin-history) |
+
+### Player Directory Buttons
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| [`ZAUCTIONHOUSE_ADMIN_PLAYERS`](#zauctionhouse_admin_players) | Paginated list of players with auction activity | [Admin Player Directory](./admin/admin-main) |
+| [`ZAUCTIONHOUSE_ADMIN_PLAYERS_SORT`](#zauctionhouse_admin_players_sort) | Changes the player list sort | [Admin Player Directory](./admin/admin-main) |
+
+### Admin Removal Buttons
+
+| Type | Description | Used In |
+|------|-------------|---------|
+| [`ZAUCTIONHOUSE_ADMIN_REMOVE_CONFIRM`](#zauctionhouse_admin_remove_confirm) | Confirms the removal of a listing | [Admin Remove Confirm](./admin/admin-remove-confirm) |
+| [`ZAUCTIONHOUSE_ADMIN_REMOVE_NOTIFY`](#zauctionhouse_admin_remove_notify) | Toggles the seller notification | [Admin Remove Confirm](./admin/admin-remove-confirm) |
+| [`ZAUCTIONHOUSE_ADMIN_REMOVE_EXPIRE`](#zauctionhouse_admin_remove_expire) | Toggles sending the item to the seller's expired items | [Admin Remove Confirm](./admin/admin-remove-confirm) |
+| [`ZAUCTIONHOUSE_ADMIN_REMOVE_COPY`](#zauctionhouse_admin_remove_copy) | Toggles giving the item to the admin | [Admin Remove Confirm](./admin/admin-remove-confirm) |
 
 ### Item Display Buttons
 
@@ -1599,6 +1617,9 @@ Cycles through log type filters.
 - `REMOVE_SELLING` - Item retrieved from selling inventory
 - `REMOVE_EXPIRED` - Item retrieved from expired inventory
 - `REMOVE_PURCHASED` - Item retrieved from purchased inventory
+- `ADMIN_REMOVE` - Listing removed by an administrator from the [admin removal confirmation](./admin/admin-remove-confirm)
+
+If `types` is empty or missing, every log type is available. The default `admin-logs.yml` does not list `ADMIN_REMOVE`: add it to `types` (and `%ADMIN_REMOVE%` to the lore) to filter on it.
 
 ---
 
@@ -1653,6 +1674,179 @@ Cycles through date range filters for transactions.
 **Configuration:**
 
 Same as [`ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_DATE`](#zauctionhouse_admin_logs_filter_date).
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_MAIN
+
+Opens the [admin player directory](./admin/admin-main) (`admin-main.yml`). The player data is always reloaded when the button is clicked, so the same button is used as the **Refresh** button inside the directory and as the **All players** button in [Admin History](./admin/admin-history).
+
+Requires the `zauctionhouse.admin.items` permission.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `item` | Item | Button appearance |
+
+**Example:**
+
+```yaml
+refresh:
+  type: ZAUCTIONHOUSE_ADMIN_MAIN
+  slot: 45
+  item:
+    material: SUNFLOWER
+    name: "#2CCED2Refresh"
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_PLAYERS
+
+Paginated list of every player who has auction activity (listings, purchases, logs or transactions). Each entry is built from the button `item`, with the placeholders below. Clicking an entry opens [Admin History](./admin/admin-history) for that player.
+
+The data is loaded asynchronously with a single SQL query (no item content is loaded), then the inventory refreshes by itself.
+
+Requires the `zauctionhouse.admin.items` permission.
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slots` | List | Slots where player entries are displayed |
+| `item` | Item | Appearance of each player entry |
+| `else` | Button | Button shown when no player has auction activity |
+
+**Placeholders:**
+- `%target%` - Player name
+- `%listed%` - Number of the player's listings currently on sale (not expired)
+- `%sold%` - Number of `PURCHASE` logs where the player is the seller
+- `%purchased%` - Number of `PURCHASE` logs where the player is the buyer (includes historical purchases)
+
+**Example:**
+
+```yaml
+players:
+  type: ZAUCTIONHOUSE_ADMIN_PLAYERS
+  slots:
+    - 0-44
+  item:
+    material: PLAYER_HEAD
+    player-head: "%target%"
+    name: "#2CCED2%target%"
+    lore:
+      - "#92ffffListed: #2CCED2%listed%"
+      - "#92ffffSold: #2CCED2%sold%"
+      - "#92ffffPurchased: #2CCED2%purchased%"
+      - ""
+      - "#92ffffClick to view player history"
+  else:
+    item:
+      material: BARRIER
+      name: "#ff5555No player history"
+    slot: 22
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_PLAYERS_SORT
+
+Changes the sort order of [`ZAUCTIONHOUSE_ADMIN_PLAYERS`](#zauctionhouse_admin_players). **Left click** selects the next sort, **right click** the previous one.
+
+| Order | Sort |
+|-------|------|
+| 1 | Name (A-Z) |
+| 2 | Listed (descending) |
+| 3 | Sold (descending) |
+| 4 | Purchased (descending) |
+
+**Placeholders:**
+- `%name-color%`, `%listed-color%`, `%sold-color%`, `%purchased-color%` - `#2CCED2` for the active sort, `#8c8c8c` otherwise
+
+**Example:**
+
+```yaml
+sort:
+  type: ZAUCTIONHOUSE_ADMIN_PLAYERS_SORT
+  slot: 49
+  item:
+    material: HOPPER
+    name: "#2CCED2Sort players"
+    lore:
+      - "%name-color%• Name"
+      - "%listed-color%• Listed (descending)"
+      - "%sold-color%• Sold (descending)"
+      - "%purchased-color%• Purchased (descending)"
+      - "#8c8c8cLeft / right click to cycle"
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_REMOVE_CONFIRM
+
+Confirms the removal of the listing in the [admin removal confirmation](./admin/admin-remove-confirm) inventory, using the options chosen with the three toggle buttons below.
+
+The removal is cluster-safe (availability check, lock, then revalidation). If the item was sold or removed in the meantime, the admin receives the `admin-item-not-available` message. Otherwise the admin receives `admin-item-removed`, an `ADMIN_REMOVE` log is written (visible in [Admin Logs](./admin/admin-logs)) and the main auction inventory reopens.
+
+Requires the `zauctionhouse.admin.remove.inventory` permission.
+
+**Example:**
+
+```yaml
+confirm:
+  type: ZAUCTIONHOUSE_ADMIN_REMOVE_CONFIRM
+  slot: 21
+  item:
+    material: LIME_CONCRETE
+    name: "#2CCED2Confirm removal"
+```
+
+---
+
+### ZAUCTIONHOUSE_ADMIN_REMOVE_NOTIFY
+
+### ZAUCTIONHOUSE_ADMIN_REMOVE_EXPIRE
+
+### ZAUCTIONHOUSE_ADMIN_REMOVE_COPY
+
+Toggle buttons of the [admin removal confirmation](./admin/admin-remove-confirm) inventory. Each click switches the option on or off. The options are reset every time the inventory opens.
+
+| Type | Default | When enabled |
+|------|---------|--------------|
+| `ZAUCTIONHOUSE_ADMIN_REMOVE_NOTIFY` | On | The seller receives the `admin-listing-removed` message. If the seller is offline, the message is delivered on their next join |
+| `ZAUCTIONHOUSE_ADMIN_REMOVE_EXPIRE` | On | The item is moved to the seller's expired items (with the normal `expire-expiration` duration) so they can claim it. When disabled, the listing is deleted |
+| `ZAUCTIONHOUSE_ADMIN_REMOVE_COPY` | Off | The admin receives the item: a copy when expire is on (the seller keeps theirs), the item itself when expire is off. If the item cannot be delivered, it goes back to the seller's claimable items instead of being lost |
+
+**Configuration:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `slot` | Number | Button position |
+| `enable-material` | Material | Material used when the option is enabled (default: `PAPER`) |
+| `disable-material` | Material | Material used when the option is disabled (default: `BARRIER`) |
+| `item` | Item | Button appearance |
+
+**Placeholders:**
+- `%material%` - `enable-material` or `disable-material` depending on the state (use it as `material: '%material%'`)
+- `%state-color%` - `#55ff55` when enabled, `#ff5555` when disabled
+- `%enabled%` - `true` or `false`
+
+**Example:**
+
+```yaml
+notify:
+  type: ZAUCTIONHOUSE_ADMIN_REMOVE_NOTIFY
+  enable-material: BELL
+  disable-material: BARRIER
+  slot: 11
+  item:
+    material: '%material%'
+    name: "%state-color%Notify player"
+    lore:
+      - "#8c8c8cClick to toggle"
+```
 
 ---
 

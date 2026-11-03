@@ -43,7 +43,9 @@ export function Home({ locale }: { locale: Locale }) {
         (fr
           ? "Guides et références du projet."
           : "Project guides and references."),
-      image: info?.resource
+      image: info?.image
+        ? info.image
+        : info?.resource
         ? `https://groupez.dev/storage/images/resources/icons/${info.resource}.webp`
         : undefined,
     };

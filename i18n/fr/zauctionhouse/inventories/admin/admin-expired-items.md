@@ -57,7 +57,7 @@ items:
 
 | Bouton | Type | Description |
 |--------|------|-------------|
-| `items` | [`ZAUCTIONHOUSE_ADMIN_EXPIRED_ITEMS`](../buttons#admin-buttons) | Affiche les objets expirés avec récupération admin |
+| `items` | [`ZAUCTIONHOUSE_ADMIN_EXPIRED_ITEMS`](../buttons#boutons-administrateur) | Affiche les objets expirés avec récupération admin |
 
 ## Patterns Utilisés
 

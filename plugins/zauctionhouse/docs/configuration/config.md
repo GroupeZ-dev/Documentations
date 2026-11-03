@@ -75,17 +75,17 @@ You can use any valid [Java TimeZone ID](https://docs.oracle.com/javase/8/docs/a
 ## Database Configuration
 
 ```yaml
-# Storage type: SQLITE, MYSQL, MARIADB
+# Storage type: SQLITE, MYSQL, MARIADB, POSTGRESQL (POSTGRES is also accepted)
 storage-type: SQLITE
 
 # Server name for multi-server setups
 server-name: skyblock
 
-# Database connection settings (MySQL/MariaDB only)
+# Database connection settings (MySQL/MariaDB/PostgreSQL only)
 database-configuration:
   table-prefix: zauctionhouse_
   host: 192.168.10.10
-  port: 3306
+  port: 3306 # Default port: 3306 for MySQL/MariaDB, 5432 for PostgreSQL
   user: homestead
   password: secret
   database: zauctionhouse
@@ -96,7 +96,7 @@ database-configuration:
 
 ### Connection Lifetime
 
-`max-lifetime` sets how long a MySQL/MariaDB connection stays in the pool before it is retired and replaced. Lower it when your database or a proxy in front of it (firewall, load balancer) closes idle connections sooner than 30 minutes, which shows up as broken-connection errors in the console.
+`max-lifetime` sets how long a MySQL, MariaDB or PostgreSQL connection stays in the pool before it is retired and replaced. Lower it when your database or a proxy in front of it (firewall, load balancer) closes idle connections sooner than 30 minutes, which shows up as broken-connection errors in the console.
 
 | Value | Effect |
 |-------|--------|
@@ -104,7 +104,7 @@ database-configuration:
 | `0` | Connections are kept until the pool closes |
 | Less than `30` | Refused by HikariCP, which falls back to 30 minutes |
 
-Keep it a few minutes below the database `wait_timeout`. The option has no effect with `SQLITE`. It can also be set in the shared `database-configuration.yml` file at the server root.
+Keep it a few minutes below the database `wait_timeout` (or the equivalent idle timeout on PostgreSQL). The option has no effect with `SQLITE`. It can also be set in the shared `database-configuration.yml` file at the server root.
 
 ### Storage Types
 
@@ -113,11 +113,12 @@ Keep it a few minutes below the database `wait_timeout`. The option has no effec
 | `SQLITE` | Local file-based database | Single server, no setup required |
 | `MYSQL` | MySQL database server | Multi-server, large auction houses |
 | `MARIADB` | MariaDB database server | Multi-server, large auction houses |
+| `POSTGRESQL` | PostgreSQL database server (`POSTGRES` is also accepted) | Multi-server, large auction houses |
 
 <CalloutContainer type="info">
 
 <CalloutDescription>
-For multi-server synchronization, use MySQL/MariaDB with the Redis addon.
+For multi-server synchronization, use MySQL/MariaDB/PostgreSQL with the Redis addon. `SQLITE` is refused by the Redis addon. The PostgreSQL driver is downloaded automatically by the server, no extra jar is needed. Remember to use port `5432` (the PostgreSQL default).
 </CalloutDescription>
 
 </CalloutContainer>

@@ -123,9 +123,9 @@ items:
 
 | Bouton | Type | Description |
 |--------|------|-------------|
-| `items` | [`ZAUCTIONHOUSE_ADMIN_TRANSACTIONS`](../buttons#admin-buttons) | Affiche les entrées de transaction |
-| `filter-status` | [`ZAUCTIONHOUSE_ADMIN_TRANSACTIONS_FILTER_STATUS`](../buttons#admin-buttons) | Filtre par statut |
-| `filter-date` | [`ZAUCTIONHOUSE_ADMIN_TRANSACTIONS_FILTER_DATE`](../buttons#admin-buttons) | Filtre par période |
+| `items` | [`ZAUCTIONHOUSE_ADMIN_TRANSACTIONS`](../buttons#boutons-administrateur) | Affiche les entrées de transaction |
+| `filter-status` | [`ZAUCTIONHOUSE_ADMIN_TRANSACTIONS_FILTER_STATUS`](../buttons#boutons-administrateur) | Filtre par statut |
+| `filter-date` | [`ZAUCTIONHOUSE_ADMIN_TRANSACTIONS_FILTER_DATE`](../buttons#boutons-administrateur) | Filtre par période |
 
 ## Filtres de Date
 

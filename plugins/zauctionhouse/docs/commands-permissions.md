@@ -115,9 +115,10 @@ If `enable-sell-inventory` is set to `true` in config, running `/ah sell` withou
 | Command | Description | Permission |
 |---------|-------------|------------|
 | `/ah reload` | Reload all configuration files | `zauctionhouse.reload` |
-| `/ah admin` | Access admin tools | `zauctionhouse.admin` |
+| `/ah admin` | Open the [admin player directory](/zauctionhouse/inventories/admin/admin-main) | `zauctionhouse.admin` + `zauctionhouse.admin.items` |
+| `/ah admin history [player]` | Open the admin player directory, or a player's admin history | `zauctionhouse.admin.items` |
 | `/ah admin generate <amount>` | Generate fake items for testing | `zauctionhouse.admin` |
-| `/ah admin open <type> <player>` | View player's items/history | `zauctionhouse.admin` |
+| `/ah admin open <player> <type>` | View a player's listed, expired or purchased items | `zauctionhouse.admin.items` |
 | `/ah admin forceopen <player> <inventory> [page]` | Open any inventory for a player | `zauctionhouse.admin` |
 | `/ah admin add <player> <type>` | Add items to player's account | `zauctionhouse.admin.items` |
 | `/ah admin cache show <player>` | Show player's cache data | `zauctionhouse.admin` |
@@ -131,14 +132,36 @@ If `enable-sell-inventory` is set to `true` in config, running `/ah sell` withou
 ### Admin Open Types
 
 The `<type>` parameter for `/ah admin open` accepts:
-- `selling` - View player's active listings
+- `listed` - View player's active listings (default when the type is not recognized)
 - `expired` - View player's expired items
 - `purchased` - View player's purchased items
-- `history` - View player's sales history
 
 **Example:**
 ```bash
-/ah admin open selling Steve
+/ah admin open Steve listed
+```
+
+To view a player's history, use `/ah admin history <player>` (see below).
+
+### Admin Player Directory & History
+
+```bash
+/ah admin
+/ah admin history [player]
+```
+
+- `/ah admin` (no argument) and `/ah admin history` (no player) open the [admin player directory](/zauctionhouse/inventories/admin/admin-main) (`admin-main`): one head per player with auction activity, showing their current listings, sales and purchases. Click a head to open that player's admin history. The data is reloaded every time the inventory is opened.
+- `/ah admin history <player>` opens the admin history menu (`admin-history-main`) of that player directly. If the player has never been seen by the plugin, an error message is sent.
+
+Both require the `zauctionhouse.admin.items` permission. Without it, `/ah admin` only shows the command syntax.
+
+**Examples:**
+```bash
+# Browse every player with auction activity
+/ah admin
+
+# Open Steve's admin history
+/ah admin history Steve
 ```
 
 ### Admin Force Open Command
@@ -162,9 +185,11 @@ Opens any inventory for a player at a specific page. Useful for debugging or nav
 | `admin-selling-items` | Admin view of player's active listings |
 | `admin-expired-items` | Admin view of player's expired items |
 | `admin-purchased-items` | Admin view of player's purchased items |
+| `admin-main` | Admin player directory |
 | `admin-history-main` | Admin history main menu |
 | `admin-logs` | Admin logs viewer |
 | `admin-transactions` | Admin transactions viewer |
+| `admin-remove-confirm` | Admin removal confirmation for a listing (normally opened with `Q` / middle click on a listing, which selects the item to remove) |
 | `selling-items` | Player's currently selling items |
 | `expired-items` | Player's expired items |
 | `purchased-items` | Player's purchased items |
@@ -218,8 +243,8 @@ Always backup your data before migrating! Migration cannot be undone.
 | `zauctionhouse.option` | Access the options GUI |
 | `zauctionhouse.reload` | Reload configurations | 
 | `zauctionhouse.admin` | Access admin features | 
-| `zauctionhouse.admin.items` | Add/remove items as admin | 
-| `zauctionhouse.admin.remove-inventory` | Remove items from sale via GUI | 
+| `zauctionhouse.admin.items` | Add/remove items as admin, open the admin player directory and admin history | 
+| `zauctionhouse.admin.remove.inventory` | Press `Q` (drop) or middle click on a listing currently on sale in the auction house to open the [admin removal confirmation](/zauctionhouse/inventories/admin/admin-remove-confirm) | 
 
 ### Item Limit Permissions
 

@@ -262,6 +262,20 @@ items:
 | `informations` | (static) | Information display |
 | `change-sort` | [`ZAUCTIONHOUSE_CHANGE_SORT`](./buttons#zauctionhouse_change_sort) | Sort selector |
 
+## Admin Removal
+
+Players with the `zauctionhouse.admin.remove.inventory` permission can press `Q` (drop) or middle click on a listing to open the [admin removal confirmation](./admin/admin-remove-confirm). From there, they choose whether the seller is notified, whether the item goes to the seller's expired items and whether they receive a copy, then confirm the removal.
+
+This only works on listings currently on sale. While the confirmation is open, the listing is reserved: it disappears from the other players' auction house (on every server of the cluster) and can no longer be bought or removed by its seller. Closing the inventory or clicking **Cancel** makes it available again.
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+For these players, the `Q` / middle click is checked **before** the [container preview](./shulker-content): if `action.container-preview.click` is set to `DROP` or `MIDDLE`, admins open the removal confirmation instead of the preview. It also takes precedence over the purchase and removal of their own listings.
+</CalloutDescription>
+
+</CalloutContainer>
+
 ## Placeholders
 
 | Placeholder | Description |

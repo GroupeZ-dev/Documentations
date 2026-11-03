@@ -9,9 +9,17 @@ L'inventaire principal de l'historique admin est le hub pour consulter l'histori
 
 **Fichier :** `plugins/zAuctionHouse/inventories/admin/admin-history-main.yml`
 
-**Accès :** `/ah admin history <joueur>`
+**Accès :** `/ah admin history <joueur>`, ou en cliquant sur un joueur dans l'[annuaire admin des joueurs](./admin-main)
 
-**Permission :** Nécessite la permission administrateur
+**Permission :** `zauctionhouse.admin.items`
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+`/ah admin` et `/ah admin history` sans joueur ouvrent l'[annuaire admin des joueurs](./admin-main), où vous pouvez choisir le joueur.
+</CalloutDescription>
+
+</CalloutContainer>
 
 <div style={{ display: 'flex', justifyContent: 'center' }}>
   <img src="https://img.groupez.dev/zauctionhouse/v4/admin-history.png" alt="Description" style={{ width: '600px', height: 'auto' }} />
@@ -25,6 +33,7 @@ L'inventaire principal de l'historique admin est le hub pour consulter l'histori
 - Accéder aux objets en vente
 - Accéder aux logs d'actions
 - Accéder à l'historique des transactions
+- Revenir à l'[annuaire admin des joueurs](./admin-main) (bouton **Tous les joueurs**)
 
 ## Configuration par Défaut
 
@@ -93,18 +102,26 @@ items:
       lore:
         - ''
         - '#8c8c8c• #2CCED2Click #92ffffto open'
+
+  players:
+    type: ZAUCTIONHOUSE_ADMIN_MAIN
+    slot: 49
+    item:
+      material: BOOK
+      name: "#2CCED2All players"
 ```
 
 ## Boutons Utilisés
 
 | Bouton | Type | Description |
 |--------|------|-------------|
-| `target` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_MAIN`](../buttons#admin-buttons) | Affiche les infos du joueur ciblé |
-| `expired` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_EXPIRED`](../buttons#admin-buttons) | Ouvre les objets expirés |
-| `purchased` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_PURCHASED`](../buttons#admin-buttons) | Ouvre les objets achetés |
-| `selling` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_SELLING`](../buttons#admin-buttons) | Ouvre les objets en vente |
-| `logs` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_LOGS`](../buttons#admin-buttons) | Ouvre les logs d'actions |
-| `transactions` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_TRANSACTIONS`](../buttons#admin-buttons) | Ouvre les transactions |
+| `target` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_MAIN`](../buttons#boutons-administrateur) | Affiche les infos du joueur ciblé |
+| `expired` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_EXPIRED`](../buttons#boutons-administrateur) | Ouvre les objets expirés |
+| `purchased` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_PURCHASED`](../buttons#boutons-administrateur) | Ouvre les objets achetés |
+| `selling` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_SELLING`](../buttons#boutons-administrateur) | Ouvre les objets en vente |
+| `logs` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_LOGS`](../buttons#boutons-administrateur) | Ouvre les logs d'actions |
+| `transactions` | [`ZAUCTIONHOUSE_ADMIN_HISTORY_TRANSACTIONS`](../buttons#boutons-administrateur) | Ouvre les transactions |
+| `players` | [`ZAUCTIONHOUSE_ADMIN_MAIN`](../buttons#zauctionhouse_admin_main) | Ouvre l'[annuaire admin des joueurs](./admin-main) (slot 49) |
 
 ## Placeholders
 

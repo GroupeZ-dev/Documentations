@@ -262,6 +262,20 @@ items:
 | `informations` | (statique) | Affichage des informations |
 | `change-sort` | [`ZAUCTIONHOUSE_CHANGE_SORT`](./buttons#zauctionhouse_change_sort) | Sélecteur de tri |
 
+## Retrait Admin
+
+Les joueurs ayant la permission `zauctionhouse.admin.remove.inventory` peuvent appuyer sur `Q` (jeter) ou faire un clic molette sur une annonce pour ouvrir la [confirmation de retrait admin](./admin/admin-remove-confirm). Ils y choisissent si le vendeur est notifié, si l'objet part dans les objets expirés du vendeur et s'ils en reçoivent une copie, puis confirment le retrait.
+
+Cela ne fonctionne que sur les annonces actuellement en vente. Tant que la confirmation est ouverte, l'annonce est réservée : elle disparaît de l'hôtel des ventes des autres joueurs (sur tous les serveurs du cluster) et ne peut plus être achetée ni retirée par son vendeur. Fermer l'inventaire ou cliquer sur **Annuler** la rend de nouveau disponible.
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+Pour ces joueurs, le `Q` / clic molette est vérifié **avant** l'[aperçu du contenu](./shulker-content) : si `action.container-preview.click` vaut `DROP` ou `MIDDLE`, les administrateurs ouvrent la confirmation de retrait au lieu de l'aperçu. Il est aussi prioritaire sur l'achat et sur le retrait de leurs propres annonces.
+</CalloutDescription>
+
+</CalloutContainer>
+
 ## Placeholders
 
 | Placeholder | Description |

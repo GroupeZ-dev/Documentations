@@ -27,6 +27,17 @@ L'inventaire des logs admin affiche tous les logs d'actions d'un joueur. Les log
 | `REMOVE_SELLING` | L'objet a été récupéré de l'inventaire de vente |
 | `REMOVE_EXPIRED` | L'objet a été récupéré de l'inventaire des expirés |
 | `REMOVE_PURCHASED` | L'objet a été récupéré de l'inventaire des achats |
+| `ADMIN_REMOVE` | L'annonce a été retirée par un administrateur depuis la [confirmation de retrait admin](./admin-remove-confirm) |
+
+Un log `ADMIN_REMOVE` enregistre l'administrateur comme joueur et le vendeur comme cible : il apparaît donc dans les logs des deux. Son nom par défaut dans le filtre de type est `Admin Remove`.
+
+<CalloutContainer type="info">
+
+<CalloutDescription>
+Le fichier `admin-logs.yml` par défaut ne liste pas `ADMIN_REMOVE` dans le bouton `filter-type` : ces logs ne sont visibles qu'avec le filtre **All**. Pour filtrer dessus, ajoutez `ADMIN_REMOVE` à `types` (et éventuellement à `type-names`) et `%ADMIN_REMOVE%` au lore. Si `types` est vide ou absent, tous les types de logs sont disponibles.
+</CalloutDescription>
+
+</CalloutContainer>
 
 ## Fonctionnalités
 
@@ -138,9 +149,9 @@ items:
 
 | Bouton | Type | Description |
 |--------|------|-------------|
-| `items` | [`ZAUCTIONHOUSE_ADMIN_LOGS`](../buttons#admin-buttons) | Affiche les entrées de log |
-| `filter-type` | [`ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_TYPE`](../buttons#admin-buttons) | Filtre par type de log |
-| `filter-date` | [`ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_DATE`](../buttons#admin-buttons) | Filtre par période |
+| `items` | [`ZAUCTIONHOUSE_ADMIN_LOGS`](../buttons#boutons-administrateur) | Affiche les entrées de log |
+| `filter-type` | [`ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_TYPE`](../buttons#boutons-administrateur) | Filtre par type de log |
+| `filter-date` | [`ZAUCTIONHOUSE_ADMIN_LOGS_FILTER_DATE`](../buttons#boutons-administrateur) | Filtre par période |
 
 ## Filtres de Date
 

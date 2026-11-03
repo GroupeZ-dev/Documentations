@@ -1,9 +1,11 @@
 // Resource IDs are the icons published on groupez.dev, not local image copies.
+// `image` overrides the icon with a direct URL when the resource is not on groupez.dev.
 // Descriptions summarize the documentation rather than marketplace pricing/features.
 export const projectCatalogue: Record<
   string,
   {
     resource?: number;
+    image?: string;
     en: string;
     fr: string;
   }
@@ -89,6 +91,12 @@ export const projectCatalogue: Record<
   zvault: {
     en: "Documentation is being prepared.",
     fr: "Documentation en cours de préparation.",
+  },
+  zveinminer: {
+    image:
+      "https://cdn.modrinth.com/data/3XcCHXh2/a322f017e8b61c73da1a55a37f34bb62e68e08fe.png",
+    en: "Mine a whole ore vein by breaking a single block.",
+    fr: "Minez un filon entier en cassant un seul bloc.",
   },
   zvoteparty: {
     resource: 124,

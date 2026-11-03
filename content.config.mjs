@@ -17,6 +17,7 @@ export const projects = [
   ["zspawner", "zSpawner"],
   ["ztextgenerator", "zTextGenerator"],
   ["zvault", "zVault"],
+  ["zveinminer", "zVeinMiner"],
   ["zvoteparty", "zVoteParty"],
   ["superiorskyblock-zmenu", "SuperiorSkyBlock-zMenu"],
   ["currenciesapi", "CurrenciesAPI"],

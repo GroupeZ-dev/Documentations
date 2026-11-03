@@ -57,7 +57,7 @@ items:
 
 | Bouton | Type | Description |
 |--------|------|-------------|
-| `items` | [`ZAUCTIONHOUSE_ADMIN_PURCHASED_ITEMS`](../buttons#admin-buttons) | Affiche les objets achetés avec récupération admin |
+| `items` | [`ZAUCTIONHOUSE_ADMIN_PURCHASED_ITEMS`](../buttons#boutons-administrateur) | Affiche les objets achetés avec récupération admin |
 
 ## Patterns Utilisés
 

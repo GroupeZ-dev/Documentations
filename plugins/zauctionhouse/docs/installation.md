@@ -78,6 +78,17 @@ For Folia servers, use these forked versions:
 |--------|------|-------------|
 | **Vault** | [spigotmc.org/resources/34315](https://www.spigotmc.org/resources/vault.34315/) | Economy integration |
 
+### Database
+
+| Database | Notes |
+|----------|-------|
+| **SQLite** | Default, no setup required. Single server only |
+| **MySQL** | Shared database for multi-server setups |
+| **MariaDB** | Shared database for multi-server setups |
+| **PostgreSQL** | Shared database for multi-server setups (default port `5432`) |
+
+No extra jar is needed: the MariaDB and PostgreSQL JDBC drivers are declared in `plugin.yml` and downloaded automatically by the server on first start. See [Database Configuration](./configuration/config#database-configuration) to choose the `storage-type`.
+
 ## Installation Steps
 
 ### 1. Download the Plugins
